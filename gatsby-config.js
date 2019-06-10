@@ -8,7 +8,6 @@ module.exports = {
     subtitle:
       'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
     copyright: '© All rights reserved.',
-    disqusShortname: '',
     utterances: 'eyalroth/blog-gatsby-comments',
     menu: [
       {
