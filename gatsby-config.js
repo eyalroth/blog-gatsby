@@ -123,5 +123,18 @@ module.exports = {
         precision: 8,
       },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Eyal Roth`,
+        short_name: `EyalRoth`,
+        start_url: `/`,
+        background_color: `#f7f0eb`,
+        theme_color: `#a2466c`,
+        display: `standalone`,
+        icon: `src/images/icon.png`
+      },
+    },
+    `gatsby-plugin-offline`
   ],
 }
