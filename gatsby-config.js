@@ -75,7 +75,7 @@ module.exports = {
     'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-google-analytics',
-      options: { trackingId: 'UA-73379983-2' },
+      options: { trackingId: process.env.GOOGLE_ANALYTICS },
     },
     {
       resolve: 'gatsby-plugin-google-fonts',
