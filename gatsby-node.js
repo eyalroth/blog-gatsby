@@ -2,6 +2,7 @@ const _ = require('lodash')
 const Promise = require('bluebird')
 const path = require('path')
 const slash = require('slash')
+const moment = require('moment')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -105,7 +106,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const fileNode = getNode(node.parent)
     let slug = fileNode.fields.slug
     if (typeof node.frontmatter.path !== 'undefined') {
-      slug = node.frontmatter.path
+      if (node.frontmatter.layout == 'post') {
+        const postDate = moment(node.frontmatter.date) 
+        const postYear = postDate.format('YYYY')
+        const postMonth = postDate.format('MM')
+        slug = `/blog/${postYear}/${postMonth}/${node.frontmatter.path}/`
+      } else {
+        slug = node.frontmatter.path
+      }
     }
     createNodeField({
       node,
