@@ -49,6 +49,16 @@
             margin-left: auto;
             margin-right: auto;
         }
+        & .gatsby-highlight-code-line {
+            background: hsla(24, 20%, 50%,.08);
+            background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+            display: block;
+            margin-right: -1em;
+            margin-left: -1em;
+            padding-right: 1em;
+            padding-left: 0.75em;
+            border-left: 0.25em solid #f99;
+        }
     }
     &__footer {
         max-width: $layout-post-single-width;
