@@ -1,0 +1,28 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-wrap {
+    lost-center: $layout-width;
+    padding-bottom: 2.5rem;
+}
+
+#footer {
+    background-color: #F8F8F8;
+    border-top: 1px solid #E7E7E7;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    left: 0;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    position: absolute;
+    #footer-links {
+        font-size: 0.8rem;
+    }
+}
