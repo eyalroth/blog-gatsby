@@ -34,12 +34,9 @@ module.exports = {
     ],
     author: {
       name: 'John Doe',
-      email: '#',
-      telegram: '#',
-      twitter: '#',
+      linkedin: "#",
       github: '#',
-      rss: '#',
-      vk: '#',
+      email: '#',
     },
   },
   plugins: [
