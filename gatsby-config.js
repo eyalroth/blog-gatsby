@@ -139,6 +139,12 @@ module.exports = {
     },
     `gatsby-plugin-offline`,
     `gatsby-plugin-netlify`,
-    `gatsby-plugin-robots-txt`
+    `gatsby-plugin-robots-txt`,
+    {
+      resolve: 'gatsby-plugin-page-progress-fork',
+      options: {
+        includePaths: ['/', { regex: '^/blog' }],
+      }
+    },
   ],
 }

@@ -3,6 +3,7 @@ require("prismjs/plugins/line-numbers/prism-line-numbers.css")
 
 import littlefoot from 'littlefoot'
 import 'littlefoot/dist/littlefoot.css'
+import './src/assets/scss/_progress.scss'
 
 export const onServiceWorkerUpdateReady = () => {
     const answer = window.confirm(
