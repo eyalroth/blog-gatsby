@@ -11,34 +11,55 @@ class Post extends React.Component {
       category,
       description,
     } = this.props.data.node.frontmatter
-    const { slug, categorySlug } = this.props.data.node.fields
+    const { slug, tagSlugs } = this.props.data.node.fields
+    
+    const readingTime = <span key="readingTime">
+      {this.props.data.node.fields.readingTime.text}
+    </span>
+
+    var tags =  this.props.data.node.frontmatter.tags
+    if (tags != null) {
+      let tagToSlug = tags.map(function(e, i) {
+        return {
+          label: e,
+          slug: tagSlugs[i]
+        }
+      });
+
+      tags = tagToSlug.map (tag => (
+        [<span key={tag.label}>
+          <Link to={tag.slug}>
+            {tag.label}
+          </Link>
+        </span>,
+        <span key={`${tag.label}-div`} className="tagDivider">&#183;</span>]
+      ))
+      
+      tags = [].concat(...tags).slice(0, -1)
+
+      tags = [
+        <span key="tagsDivider" className="divider"/>,
+        tags
+      ]
+    }
 
     return (
-      <div className="post">
-        <div className="post__meta">
-          <time
-            className="post__meta-time"
-            dateTime={moment(date).format('MMMM D, YYYY')}
-          >
-            {moment(date).format('MMMM YYYY')}
-          </time>
-          <span className="post__meta-divider" />
-          <span className="post__meta-category" key={categorySlug}>
-            <Link to={categorySlug} className="post__meta-category-link">
-              {category}
-            </Link>
-          </span>
-        </div>
-        <h2 className="post__title">
-          <Link className="post__title-link" to={slug}>
+      <article className="post">
+        <time dateTime={moment(date).format('MM DD, YYYY')}>
+          {moment(date).format('DD MMM YYYY')}
+        </time>
+
+        <header>
+          <Link to={slug}>
             {title}
           </Link>
-        </h2>
-        <p className="post__description">{description}</p>
-        <Link className="post__readmore" to={slug}>
-          Read
-        </Link>
-      </div>
+        </header>
+        
+        <footer>
+          {readingTime}
+          {tags}
+        </footer>
+      </article>
     )
   }
 }

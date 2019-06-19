@@ -34,12 +34,9 @@ module.exports = {
     ],
     author: {
       name: 'John Doe',
-      email: '#',
-      telegram: '#',
-      twitter: '#',
+      linkedin: "#",
       github: '#',
-      rss: '#',
-      vk: '#',
+      email: '#',
     },
   },
   plugins: [
@@ -73,6 +70,7 @@ module.exports = {
           },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
+          `gatsby-remark-reading-time`,
         ],
       },
     },
@@ -141,6 +139,12 @@ module.exports = {
     },
     `gatsby-plugin-offline`,
     `gatsby-plugin-netlify`,
-    `gatsby-plugin-robots-txt`
+    `gatsby-plugin-robots-txt`,
+    {
+      resolve: 'gatsby-plugin-page-progress-fork',
+      options: {
+        includePaths: ['/', { regex: '^/blog' }],
+      }
+    },
   ],
 }

@@ -13,14 +13,10 @@
             margin: 0 3px;
             height: 24px;
             width: 24px;
-            line-height: 24px;
-            border-radius: 3px;
             text-align: center;
-            background: $color-gray-bg;
             & a {
                 border: 0;
                 & i {
-                    font-size: 14px;
                     color: lighten($color-base, 20%);
                 }
                 &:hover,

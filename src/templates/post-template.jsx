@@ -36,7 +36,6 @@ export const pageQuery = graphql`
         copyright
         author {
           name
-          twitter
         }
         url
         utterances

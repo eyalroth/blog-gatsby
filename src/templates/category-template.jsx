@@ -38,11 +38,8 @@ export const pageQuery = graphql`
         author {
           name
           email
-          telegram
-          twitter
           github
-          rss
-          vk
+          linkedin
         }
       }
     }
@@ -61,12 +58,15 @@ export const pageQuery = graphql`
         node {
           fields {
             slug
-            categorySlug
+            tagSlugs
+            readingTime {
+              text
+            }
           }
           frontmatter {
             title
             date
-            category
+            tags
             description
           }
         }
