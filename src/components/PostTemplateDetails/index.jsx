@@ -9,6 +9,7 @@ class PostTemplateDetails extends React.Component {
     const { subtitle, author, utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
     const tags = post.fields.tagSlugs
+    const readingTime = post.fields.readingTime.text
 
     const homeBlock = (
       <div>
@@ -18,6 +19,22 @@ class PostTemplateDetails extends React.Component {
       </div>
     )
 
+    const titleBlock = (
+      <h2 className="post-single__title">{post.frontmatter.title}</h2>
+    )
+
+    const dateBlock = (
+      <span className="post-single__date">
+          {moment(post.frontmatter.date).format('MMMM D, YYYY')}
+      </span>
+    )
+    
+    const readTimeBlock = (
+      <span className="post-single__reading-time">
+        {readingTime}
+      </span>
+    )
+    
     const tagsBlock = (
       <div className="post-single__tags">
         <ul className="post-single__tags-list">
@@ -33,9 +50,35 @@ class PostTemplateDetails extends React.Component {
       </div>
     )
 
+    const header = (
+      <div className="post-single__header">
+        {titleBlock}
+        <div className="post-single__subtitle">
+          {dateBlock}
+          <span id="subtitle-div">&#183;</span>
+          {readTimeBlock}
+          {/* {tagsBlock} */}
+        </div>
+      </div>
+    )
+
+    const body = (
+      <div
+        className="post-single__body"
+        /* eslint-disable-next-line react/no-danger */
+        dangerouslySetInnerHTML={{ __html: post.html }}
+      />
+    )
+
     const commentsBlock = (
       <div>
         {!!utterances && <Utterences repo={utterances} />}
+      </div>
+    )
+
+    const footer = (
+      <div className="post-single__footer">
+        {commentsBlock}
       </div>
     )
 
@@ -43,24 +86,10 @@ class PostTemplateDetails extends React.Component {
       <div>
         {homeBlock}
         <div className="post-single">
-          <div className="post-single__inner">
-            <h1 className="post-single__title">{post.frontmatter.title}</h1>
-            <div
-              className="post-single__body"
-              /* eslint-disable-next-line react/no-danger */
-              dangerouslySetInnerHTML={{ __html: post.html }}
-            />
-            <div className="post-single__date">
-              <em>
-                Published {moment(post.frontmatter.date).format('D MMM YYYY')}
-              </em>
-            </div>
-          </div>
-          <div className="post-single__footer">
-            {tagsBlock}
-            <hr />
-            {commentsBlock}
-          </div>
+          {header}
+          {body}
+          <hr />
+          {footer}
         </div>
       </div>
     )
