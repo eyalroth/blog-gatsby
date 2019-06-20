@@ -57,7 +57,7 @@ class PostTemplateDetails extends React.Component {
           {dateBlock}
           <span id="subtitle-div">&#183;</span>
           {readTimeBlock}
-          {/* {tagsBlock} */}
+          {tagsBlock}
         </div>
       </div>
     )
