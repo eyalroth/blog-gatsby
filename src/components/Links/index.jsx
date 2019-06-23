@@ -12,32 +12,24 @@ class Links extends React.Component {
     }
 
     return (
-      <div className="links">
-        <ul className="links__list">
-          <li className="links__list-item">
-            <a
-              href={links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="icon-github-circled" />
-            </a>
-          </li>
-          <li className="links__list-item">
-            <a
-              href={links.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="icon-linkedin" />
-            </a>
-          </li>
-          <li className="links__list-item">
-            <a href={`mailto:${links.email}`}>
-              <i className="icon-mail" />
-            </a>
-          </li>
-        </ul>
+      <div className="author-links">
+          <a
+            href={links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="icon-github-circled" />
+          </a>
+          <a
+            href={links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="icon-linkedin" />
+          </a>
+          <a href={`mailto:${links.email}`}>
+            <i className="icon-mail" />
+          </a>
       </div>
     )
   }

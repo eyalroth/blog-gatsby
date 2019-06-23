@@ -9,7 +9,7 @@ class Layout extends React.Component {
     return (
       <div id="page-container">
         <div id="content-wrap">
-          <Helmet defaultTitle="Blog by John Doe" />
+          <Helmet defaultTitle="Eyal Roth" />
           {children}
         </div>
         <footer id="footer">

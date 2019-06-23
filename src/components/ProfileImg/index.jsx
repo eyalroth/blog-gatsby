@@ -4,27 +4,28 @@ import Img from "gatsby-image"
 
 class ProfileImg extends React.Component {
     render() {
-        const { author } = this.props
+        const { className, author } = this.props
         return (
         <StaticQuery
             query={graphql`
                 query ProfileImgQuery {
                     file(relativePath: { eq: "icon.png" }) {
                         childImageSharp {
-                            fixed(width: 75, height: 75) {
-                            ...GatsbyImageSharpFixed
+                            fluid(maxWidth: 125, maxHeight: 125) {
+                            ...GatsbyImageSharpFluid_noBase64
                             }
                         }
                     }
                 }
             `}
             render={data => (
-                <Img 
-                    fixed={data.file.childImageSharp.fixed}
-                    title={author}
-                    alt={author}
-                    className="profile-img"
-                />
+                <div className={className}>
+                    <Img 
+                        fluid={data.file.childImageSharp.fluid}
+                        title={author}
+                        alt={author}
+                    />
+                </div>
             )}
         />)
     }

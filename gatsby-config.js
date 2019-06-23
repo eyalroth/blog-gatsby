@@ -14,8 +14,8 @@ module.exports = {
   siteMetadata: {
     url: process.env.URL,
     siteUrl: process.env.URL,
-    title: 'Blog by John Doe',
-    subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    title: 'Eyal Roth',
+    subtitle: 'Software Developer, Tel Aviv',
     description: '',
     copyright: '© All rights reserved.',
     utterances: 'eyalroth/blog-gatsby-comments',
@@ -34,7 +34,7 @@ module.exports = {
       },
     ],
     author: {
-      name: 'John Doe',
+      name: 'Eyal Roth',
       linkedin: "#",
       github: '#',
       email: '#',

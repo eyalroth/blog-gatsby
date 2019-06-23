@@ -21,22 +21,27 @@ class Sidebar extends React.Component {
     const authorBlock = (
       <div>
         <Link to="/">
-          <ProfileImg author={author.name}/>
+          <ProfileImg className="sidebar__author-img" author={author.name}/>
         </Link> 
         {isHomePage ? (
           <h1 className="sidebar__author-title">
-            <Link className="sidebar__author-title-link" to="/">
+            <Link className="sidebar__author-link" to="/">
               {author.name}
             </Link>
           </h1>
         ) : (
           <h2 className="sidebar__author-title">
-            <Link className="sidebar__author-title-link" to="/">
+            <Link className="sidebar__author-link" to="/">
               {author.name}
             </Link>
           </h2>
         )}
-        <p className="sidebar__author-subtitle">{subtitle}</p>
+        <p className="sidebar__author-subtitle">
+          {subtitle}
+        </p>
+        <div className="sidebar__author-icons">
+            <Links data={author} />
+        </div>
       </div>
     )
     /* eslint-enable jsx-a11y/img-redundant-alt */
@@ -44,12 +49,7 @@ class Sidebar extends React.Component {
     return (
       <div className="sidebar">
         <div className="sidebar__inner">
-          <div className="sidebar__author">{authorBlock}</div>
-          <div>
-            <Menu data={menu} />
-            <Links data={author} />
-            <p className="sidebar__copyright">{copyright}</p>
-          </div>
+          {authorBlock}
         </div>
       </div>
     )

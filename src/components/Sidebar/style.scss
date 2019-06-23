@@ -3,41 +3,59 @@
 
 .sidebar {
     width: 100%;
-    &__inner {
-        position: relative;
-        padding: 25px 20px 0;
-    }
+    text-align: center;
+    padding-top: 35px;
+    padding-bottom: 10px;
+    position: relative;
+    border-bottom: 1px solid #E7E7E7;
+
     &__author {
+        &-img {
+            height: 90px;
+            width: 90px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            @include margin-bottom(.5);
+        }
         &-title {
             font-size: $typographic-base-font-size * 1.125;
             font-weight: 500;
             @include line-height(1.125);
-            @include margin(.5, 0, .5, 0);
-            &-link {
-                color: $color-base;
-                &:hover,
-                &:focus {
-                    color: $color-base;
-                }
-            }
+            @include margin(0, 0, 0, 0);
         }
         &-subtitle {
+            font-size: $typographic-base-font-size * 0.8;
             color: $color-gray;
+            @include margin(0, 0, 0, 0);
             @include line-height(1);
-            @include margin-bottom(1);
         }
-    }
-    &__copyright {
-        color: lighten($color-gray, 18%);
-        font-size: $typographic-small-font-size;
+        &-icons {
+            font-size: $typographic-base-font-size * 0.9;
+        }
+        &-about {
+            font-size: $typographic-base-font-size * 0.7;
+            font-weight: 300;
+            @include margin(0, 0, 0, 0);
+            @include line-height(1);
+        }
+        &-link {
+            color: $color-base;
+            &:hover,
+            &:focus {
+                color: $color-base;
+            }
+        }
     }
 }
 
 @include breakpoint-sm {
     .sidebar {
+        border-bottom: unset;
+        padding-bottom: unset;
         lost-column: 5/12;
         &__inner {
-            padding: 30px 20px 0;
+            padding-top: 45%;
             &:after {
                 background: $color-gray-border;
                 background: linear-gradient(to bottom, $color-gray-border 0%, $color-gray-border 48%, $color-white 100%);
@@ -50,14 +68,17 @@
                 bottom: 0;
             }
         }
+        &__author {
+            &-img {
+                height: 105px;
+                width: 105px;
+            }
+        }
     }
 }
 
 @include breakpoint-md {
     .sidebar {
         lost-column: 1/3;
-        &__inner {
-            padding: 40px;
-        }
     }
 }
