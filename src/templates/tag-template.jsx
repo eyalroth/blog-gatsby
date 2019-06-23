@@ -10,7 +10,7 @@ class TagTemplate extends React.Component {
     return (
       <PostList 
         pageTitle={`${tag} - ${title}`}
-        listTitle={`All Posts tagged as "${tag}"`}
+        listTitle={`Articles tagged as "${tag}"`}
         {...this.props}
       />
     )

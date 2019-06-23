@@ -23,7 +23,7 @@ class PostList extends React.Component {
           <Sidebar {...this.props} />
           <div className="content">
             <div className="content__inner">
-                <h1 className="page__title">{listTitle}</h1>
+                <h1 className="posts__title">{listTitle}</h1>
                 {items}
             </div>
           </div>

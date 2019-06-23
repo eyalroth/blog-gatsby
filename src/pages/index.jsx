@@ -9,6 +9,7 @@ class Blog extends React.Component {
     return (
       <PostList 
         pageTitle={`Blog - ${title}`}
+        listTitle="Articles"
         {...this.props} 
       />
     )

@@ -1,8 +1,18 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
-.content{
+.content {
     padding-bottom: $footer-padding;
+}
+
+.posts {
+    &__title {
+        font-size: $typographic-base-font-size * 2.5;
+        font-weight: 500;
+        @include margin-top(0);
+        @include margin-bottom(0);
+        text-align: center;
+    }
 }
 
 @include breakpoint-sm {
@@ -10,5 +20,21 @@
         max-height: 100vh;
         overflow: auto;
         padding-bottom: unset;
+
+        &__inner {
+            padding-right: 10%;
+        }
+        &::-webkit-scrollbar {
+            width: 5px;
+            &-track {
+                background: #f1f1f1; 
+            }
+            &-thumb {
+                background: #888; 
+                &:hover {
+                    background: #555; 
+                }
+            }
+        }
     }
 }
