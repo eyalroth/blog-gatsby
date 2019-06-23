@@ -1,9 +1,6 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import Sidebar from '../components/Sidebar'
-import CategoryTemplateDetails from '../components/CategoryTemplateDetails'
+import PostList from '../components/PostList';
 
 class CategoryTemplate extends React.Component {
   render() {
@@ -11,13 +8,11 @@ class CategoryTemplate extends React.Component {
     const { category } = this.props.pageContext
 
     return (
-      <Layout>
-        <div>
-          <Helmet title={`${category} - ${title}`} />
-          <Sidebar {...this.props} />
-          <CategoryTemplateDetails {...this.props} />
-        </div>
-      </Layout>
+      <PostList 
+        pageTitle={`${category} - ${title}`}
+        listTitle={category}
+        {...this.props} 
+      />
     )
   }
 }

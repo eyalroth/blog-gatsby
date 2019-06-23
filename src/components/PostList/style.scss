@@ -1,0 +1,14 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.content{
+    padding-bottom: $footer-padding;
+}
+
+@include breakpoint-sm {
+    .content {
+        max-height: 100vh;
+        overflow: auto;
+        padding-bottom: unset;
+    }
+}

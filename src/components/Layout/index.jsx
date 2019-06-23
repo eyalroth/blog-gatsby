@@ -7,15 +7,15 @@ class Layout extends React.Component {
   render() {
     const { children } = this.props
     return (
-      <div id="page-container">
-        <div id="content-wrap">
+      <div className="page-container">
+        <div className="content-wrap">
           <Helmet defaultTitle="Eyal Roth" />
           {children}
         </div>
-        <footer id="footer">
+        <footer className="footer">
           {`Made with ❤️`}
           <br/>
-          <div id="footer-links">
+          <div className="footer-links">
             <a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener noreferrer">Gatsby</a>
             {` + `}
             <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>

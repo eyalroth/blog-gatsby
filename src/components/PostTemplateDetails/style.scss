@@ -8,6 +8,7 @@ $base-font-size: 17px;
     max-width: $max-text-width;
     padding: 0 15px;
     margin: auto;
+    padding-bottom: $footer-padding;
     
     &__header {
         max-width: $max-text-width;

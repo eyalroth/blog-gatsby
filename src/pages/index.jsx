@@ -1,40 +1,24 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import Post from '../components/Post'
-import Sidebar from '../components/Sidebar'
+import PostList from '../components/PostList';
 
-class IndexRoute extends React.Component {
+class Blog extends React.Component {
   render() {
-    const items = []
-    const { title, subtitle } = this.props.data.site.siteMetadata
-    const posts = this.props.data.allMarkdownRemark.edges
-    posts.forEach(post => {
-      items.push(<Post data={post} key={post.node.fields.slug} />)
-    })
+    const { title } = this.props.data.site.siteMetadata
 
     return (
-      <Layout>
-        <div>
-          <Helmet>
-            <title>{title}</title>
-            <meta name="description" content={subtitle} />
-          </Helmet>
-          <Sidebar {...this.props} />
-          <div className="content">
-            <div className="content__inner">{items}</div>
-          </div>
-        </div>
-      </Layout>
+      <PostList 
+        pageTitle={`Blog - ${title}`}
+        {...this.props} 
+      />
     )
   }
 }
 
-export default IndexRoute
+export default Blog
 
 export const pageQuery = graphql`
-  query IndexQuery {
+  query BlogQuery {
     site {
       siteMetadata {
         title
