@@ -2,14 +2,12 @@
 @import "../../assets/scss/mixins";
 
 .posts {
-    margin: auto;
-    max-width: $layout-width;
-    margin-left: auto;
     padding-right: 15px;
     padding-left: 15px;
     padding-bottom: $footer-padding;
 
     &__title {
+        padding-top: 10px;
         @include margin-top(1);
         font-size: $typographic-base-font-size * 2.5;
         font-weight: 500;
@@ -20,24 +18,8 @@
 
 @include breakpoint-sm {
     .posts {
-        max-height: 100vh;
-        overflow: auto;
         padding-left: 25%;
         padding-right: 5%;
-        padding-bottom: unset;
-
-        &::-webkit-scrollbar {
-            width: 5px;
-            &-track {
-                background: #f1f1f1; 
-            }
-            &-thumb {
-                background: #888; 
-                &:hover {
-                    background: #555; 
-                }
-            }
-        }
     }
 }
 

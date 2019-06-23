@@ -119,7 +119,8 @@ $base-font-size: 17px;
         padding-left: 35%;
 
         &__title {
-            @include margin-top(2.25);
+            padding-top: 30px;
+            @include margin-top(1);
         }
         &__tags {
             font-weight: 500;

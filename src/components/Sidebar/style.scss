@@ -55,8 +55,8 @@
         padding-bottom: unset;
         position: fixed;
         lost-column: 2/9;
+        padding-top: 30vh;
         &__inner {
-            padding-top: 15%;
             &:after {
                 background: $color-gray-border;
                 background: linear-gradient(to bottom, $color-white 0%, $color-gray-border 48%, $color-white 100%);
@@ -75,9 +75,7 @@
 @include breakpoint-md {
     .sidebar {
         lost-column: 1/4;
-        &__inner {
-            padding-top: 50%;
-        }
+        padding-top: 25vh;
         &__author {
             &-img {
                 height: 115px;
