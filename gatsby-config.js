@@ -8,6 +8,7 @@ require("dotenv").config({
 
 const lost = require('lost')
 const pxtorem = require('postcss-pxtorem')
+const path = require(`path`)
 
 module.exports = {
   siteMetadata: {
@@ -43,8 +44,15 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/pages`,
         name: 'pages',
+        path: path.join(__dirname, `src`, `pages`),
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `images`,
+        path: path.join(__dirname, `src`, `images`),
       },
     },
     'gatsby-plugin-feed',
