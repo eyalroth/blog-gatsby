@@ -21,11 +21,9 @@ class PostList extends React.Component {
             <title>{pageTitle}</title>
           </Helmet>
           <Sidebar {...this.props} />
-          <div className="content">
-            <div className="content__inner">
-                <h1 className="posts__title">{listTitle}</h1>
-                {items}
-            </div>
+          <div className="posts">
+            <h1 className="posts__title">{listTitle}</h1>
+            {items}
           </div>
         </div>
       </Layout>

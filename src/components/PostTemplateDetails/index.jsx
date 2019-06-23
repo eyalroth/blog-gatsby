@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import moment from 'moment'
-import './style.scss'
 import { Utterences } from '../Utterances'
+import Sidebar from '../Sidebar'
+import './style.scss'
 
 class PostTemplateDetails extends React.Component {
   render() {
@@ -10,14 +11,6 @@ class PostTemplateDetails extends React.Component {
     const post = this.props.data.markdownRemark
     const tags = post.fields.tagSlugs
     const readingTime = post.fields.readingTime.text
-
-    const homeBlock = (
-      <div>
-        <Link className="post-single__home-button" to="/blog">
-          All Articles
-        </Link>
-      </div>
-    )
 
     const titleBlock = (
       <h2 className="post-single__title">{post.frontmatter.title}</h2>
@@ -84,7 +77,7 @@ class PostTemplateDetails extends React.Component {
 
     return (
       <div>
-        {homeBlock}
+        <Sidebar {...this.props} />
         <div className="post-single">
           {header}
           {body}

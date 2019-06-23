@@ -3,7 +3,7 @@
 
 .post {
     &:last-child {
-        @include margin-bottom(1.5);
+        @include margin-bottom(2.5);
     }
     & time {
         @include line-height(1.5);
@@ -27,6 +27,14 @@
         & .tagDivider {
             margin-right: 0.3125rem;
             margin-left: 0.3125rem;
+        }
+    }
+}
+
+@include breakpoint-sm {
+    .post {
+        &:last-child {
+            @include margin-bottom(3.5);
         }
     }
 }

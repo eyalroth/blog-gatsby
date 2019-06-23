@@ -53,12 +53,13 @@
     .sidebar {
         border-bottom: unset;
         padding-bottom: unset;
-        lost-column: 5/12;
+        position: fixed;
+        lost-column: 2/9;
         &__inner {
-            padding-top: 50%;
+            padding-top: 15%;
             &:after {
                 background: $color-gray-border;
-                background: linear-gradient(to bottom, $color-gray-border 0%, $color-gray-border 48%, $color-white 100%);
+                background: linear-gradient(to bottom, $color-white 0%, $color-gray-border 48%, $color-white 100%);
                 position: absolute;
                 content: "";
                 width: 1px;
@@ -68,17 +69,20 @@
                 bottom: 0;
             }
         }
-        &__author {
-            &-img {
-                height: 115px;
-                width: 115px;
-            }
-        }
     }
 }
 
 @include breakpoint-md {
     .sidebar {
         lost-column: 1/4;
+        &__inner {
+            padding-top: 50%;
+        }
+        &__author {
+            &-img {
+                height: 115px;
+                width: 115px;
+            }
+        }
     }
 }

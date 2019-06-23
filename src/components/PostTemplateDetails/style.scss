@@ -6,10 +6,10 @@ $base-font-size: 17px;
 
 .post-single {
     max-width: $max-text-width;
-    padding: 0 15px;
-    margin: auto;
+    padding-left: 15px;
+    padding-right: 15px;
     padding-bottom: $footer-padding;
-    
+
     &__header {
         max-width: $max-text-width;
         @include margin-top(1);
@@ -97,32 +97,11 @@ $base-font-size: 17px;
             }
         }
     }
-    &__home-button {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 90px;
-        font-size: $base-font-size;
-        padding: 0 16px;
-        height: 35px;
-        line-height: 35px;
-        text-align: center;
-        color: lighten($color-base, 20%);
-        background: $color-gray-bg;
-        font-weight: 400;
-        border-radius: 3px;
-        @include margin-top(1);
-        &:hover,
-        &:focus {
-            color: $color-base;
-            background: darken($color-gray-bg, 5%);
-            border: 0;
-        }
-    }
 }
 
 @include breakpoint-sm {
     .post-single {
+        padding-left: 25%;
         &__title {
             font-size: $base-font-size * 1.4;
         }
@@ -137,6 +116,8 @@ $base-font-size: 17px;
 
 @include breakpoint-md {
     .post-single {
+        padding-left: 35%;
+
         &__title {
             @include margin-top(2.25);
         }
@@ -149,13 +130,6 @@ $base-font-size: 17px;
             & p {
                 @include line-height(1.2);
             }
-        }
-        &__home-button {
-            position: fixed;
-            max-width: auto;
-            margin: 0;
-            top: 30px;
-            left: 30px;
         }
     }
 }
