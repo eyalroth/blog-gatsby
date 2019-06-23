@@ -151,7 +151,12 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-page-progress-fork',
       options: {
-        includePaths: [{ regex: '^/blog' }],
+        includePaths: [
+          '/',
+          { regex: '^/blog' },
+          { regex: '^/categories' },
+          { regex: '^/tags' },
+        ],
       }
     },
   ],
