@@ -1,45 +1,34 @@
 import kebabCase from 'lodash/kebabCase'
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import Layout from '../components/Layout'
+import Page from '../components/Page'
 
 class CategoriesRoute extends React.Component {
   render() {
     const categories = this.props.data.allMarkdownRemark.group
 
     return (
-      <Layout subtitle="All Categories">
-        <div>
-          <div className="content">
-            <div className="content__inner">
-              <div className="page">
-                <h1 className="page__title">Categories</h1>
-                <div className="page__body">
-                  <div className="categories">
-                    <ul className="categories__list">
-                      {categories.map(category => (
-                        <li
-                          key={category.fieldValue}
-                          className="categories__list-item"
-                        >
-                          <Link
-                            to={`/categories/${kebabCase(
-                              category.fieldValue
-                            )}/`}
-                            className="categories__list-item-link"
-                          >
-                            {category.fieldValue} ({category.totalCount})
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <Page title="Categories">
+        <div className="categories">
+          <ul className="categories__list">
+            {categories.map(category => (
+              <li
+                key={category.fieldValue}
+                className="categories__list-item"
+              >
+                <Link
+                  to={`/categories/${kebabCase(
+                    category.fieldValue
+                  )}/`}
+                  className="categories__list-item-link"
+                >
+                  {category.fieldValue} ({category.totalCount})
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-      </Layout>
+      </Page>
     )
   }
 }
