@@ -9,13 +9,13 @@ class Page extends React.Component {
         return (
             <Layout subtitle={title}>
                 <div className="page">
-                <h1 className="page__title">{title}</h1>
-                <div className="page__body">
-                    {children}
-                </div>
+                    <h1 className="page__title">{title}</h1>
+                    <div className="page__body">
+                        {children}
+                    </div>
                 </div>
             </Layout>
-            )
+        )
     }
 }
 

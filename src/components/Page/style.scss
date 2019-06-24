@@ -22,7 +22,7 @@ $base-font-size: 17px;
         font-size: $typographic-base-font-size;
         @include line-height(1);
         @include margin(0, 0, 1);
-        padding-bottom: $footer-padding;
+        padding-bottom: 1rem;
     }
 }
 

@@ -17,11 +17,11 @@ class Layout extends React.Component {
 
     return (
       <div className="page-container">
+        <Helmet>
+          <title>{subtitle}Eyal Roth</title>
+        </Helmet>
+        <Sidebar />
         <div className="content-wrap">
-          <Helmet>
-            <title>{subtitle}Eyal Roth</title>
-          </Helmet>
-          <Sidebar />
           {children}
         </div>
         <footer className="footer">
