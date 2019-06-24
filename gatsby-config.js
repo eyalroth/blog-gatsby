@@ -8,32 +8,19 @@ require("dotenv").config({
 
 const lost = require('lost')
 const pxtorem = require('postcss-pxtorem')
+const path = require(`path`)
 
 module.exports = {
   siteMetadata: {
     url: process.env.URL,
     siteUrl: process.env.URL,
-    title: 'Blog by John Doe',
-    subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    title: 'Eyal Roth',
+    subtitle: 'Software Developer, Tel Aviv',
     description: '',
     copyright: '© All rights reserved.',
     utterances: 'eyalroth/blog-gatsby-comments',
-    menu: [
-      {
-        label: 'Articles',
-        path: '/',
-      },
-      {
-        label: 'About me',
-        path: '/about/',
-      },
-      {
-        label: 'Contact me',
-        path: '/contact/',
-      },
-    ],
     author: {
-      name: 'John Doe',
+      name: 'Eyal Roth',
       linkedin: "#",
       github: '#',
       email: '#',
@@ -43,8 +30,15 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/pages`,
         name: 'pages',
+        path: path.join(__dirname, `src`, `pages`),
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `images`,
+        path: path.join(__dirname, `src`, `images`),
       },
     },
     'gatsby-plugin-feed',
@@ -143,7 +137,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-page-progress-fork',
       options: {
-        includePaths: ['/', { regex: '^/blog' }],
+        includePaths: [
+          { regex: '^/' },
+        ],
       }
     },
   ],

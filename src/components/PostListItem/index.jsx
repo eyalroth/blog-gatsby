@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import moment from 'moment'
 import './style.scss'
 
-class Post extends React.Component {
+class PostListItem extends React.Component {
   render() {
     const {
       title,
@@ -44,7 +44,7 @@ class Post extends React.Component {
     }
 
     return (
-      <article className="post">
+      <article className="post-item">
         <time dateTime={moment(date).format('MM DD, YYYY')}>
           {moment(date).format('DD MMM YYYY')}
         </time>
@@ -64,4 +64,4 @@ class Post extends React.Component {
   }
 }
 
-export default Post
+export default PostListItem

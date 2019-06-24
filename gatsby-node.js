@@ -8,11 +8,11 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
   return new Promise((resolve, reject) => {
-    const postTemplate = path.resolve('./src/templates/post-template.jsx')
-    const pageTemplate = path.resolve('./src/templates/page-template.jsx')
-    const tagTemplate = path.resolve('./src/templates/tag-template.jsx')
+    const postTemplate = path.resolve('./src/templates/PostTemplate/index.jsx')
+    const pageTemplate = path.resolve('./src/templates/PageTemplate/index.jsx')
+    const tagTemplate = path.resolve('./src/templates/TagTemplate/index.jsx')
     const categoryTemplate = path.resolve(
-      './src/templates/category-template.jsx'
+      './src/templates/CategoryTemplate/index.jsx'
     )
 
     graphql(`

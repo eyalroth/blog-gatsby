@@ -1,23 +1,17 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import Sidebar from '../components/Sidebar'
-import CategoryTemplateDetails from '../components/CategoryTemplateDetails'
+import PostList from '../../components/PostList';
 
 class CategoryTemplate extends React.Component {
   render() {
-    const { title } = this.props.data.site.siteMetadata
     const { category } = this.props.pageContext
 
     return (
-      <Layout>
-        <div>
-          <Helmet title={`${category} - ${title}`} />
-          <Sidebar {...this.props} />
-          <CategoryTemplateDetails {...this.props} />
-        </div>
-      </Layout>
+      <PostList 
+        pageTitle={category}
+        listTitle={category}
+        {...this.props} 
+      />
     )
   }
 }
@@ -26,23 +20,6 @@ export default CategoryTemplate
 
 export const pageQuery = graphql`
   query CategoryPage($category: String) {
-    site {
-      siteMetadata {
-        title
-        subtitle
-        copyright
-        menu {
-          label
-          path
-        }
-        author {
-          name
-          email
-          github
-          linkedin
-        }
-      }
-    }
     allMarkdownRemark(
       limit: 1000
       filter: {

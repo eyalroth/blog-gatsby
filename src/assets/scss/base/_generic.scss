@@ -142,12 +142,6 @@ figcaption {
     text-align: center;
 }
 
-.content {
-    &__inner {
-        padding: 25px 20px;
-    }
-}
-
 @include breakpoint-sm {
     figure.float-left,
     figure.float-right {
@@ -160,19 +154,17 @@ figcaption {
     .float-left {
         float: left;
     }
-    .content {
-        lost-column: 7/12;
-        &__inner {
-            padding: 30px 20px;
-        }
-    }
-}
 
-@include breakpoint-md {
-    .content {
-        lost-column: 2/3;
-        &__inner {
-            padding: 40px 35px;
+    &::-webkit-scrollbar {
+        width: 5px;
+        &-track {
+            background: #f1f1f1; 
+        }
+        &-thumb {
+            background: #888; 
+            &:hover {
+                background: #555; 
+            }
         }
     }
 }

@@ -2,9 +2,23 @@ import React from 'react'
 import { Link } from 'gatsby'
 import './style.scss'
 
+const menu = [
+  {
+    label: "Home",
+    path: "/"
+  },
+  {
+    label: "Blog",
+    path: "/blog"
+  },
+  {
+    label: "About",
+    path: "/about"
+  },
+]
+
 class Menu extends React.Component {
   render() {
-    const menu = this.props.data
 
     const menuBlock = (
       <ul className="menu__list">
