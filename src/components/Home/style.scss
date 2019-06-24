@@ -1,0 +1,99 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.home {
+    padding-top: 20vh;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    padding-bottom: $footer-padding;
+
+    &__author {
+        &-img {
+            height: 90px;
+            width: 90px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            @include margin-bottom(.5);
+        }
+        &-title {
+            font-size: $typographic-base-font-size * 1.125;
+            font-weight: 500;
+            @include line-height(1.125);
+            @include margin(0, 0, 0, 0);
+        }
+        &-subtitle {
+            font-size: $typographic-base-font-size * 0.8;
+            color: $color-gray;
+            @include margin(0, 0, 0, 0);
+            @include line-height(1.5);
+        }
+        &-icons {
+            font-size: $typographic-base-font-size * 0.9;
+            padding: 0 55px;
+        }
+        &-link {
+            color: $color-base;
+            &:hover,
+            &:focus {
+                color: $color-base;
+            }
+        }
+    }
+
+    &__site-links {
+        &-list {
+            list-style: none;
+            padding: 0;
+        }
+        &-item {
+            &-link {
+                font-size: $typographic-base-font-size * 0.9;
+                color: $typographic-base-font-color;
+                font-weight: 500;
+                border: 0;
+                &:hover,
+                &:focus {
+                    color: $color-primary;
+                    border-bottom: 1px solid $color-primary;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint-sm {
+    .home {
+        padding-top: 35vh;
+
+        &__author {
+            &-img {
+                height: 115px;
+                width: 115px;
+            }
+            &-title {
+                font-size: $typographic-base-font-size * 1.4;
+            }
+            &-subtitle {
+                font-size: $typographic-base-font-size * 1;
+                @include line-height(2);
+            }
+            &-icons {
+                font-size: $typographic-base-font-size * 1;
+            }
+        }
+    }
+}
+
+@include breakpoint-md {
+    .home {
+        padding-top: 25vh;
+        &__author {
+            &-img {
+                height: 145px;
+                width: 145px;
+            }
+        }
+    }
+}

@@ -28,16 +28,10 @@
             font-size: $typographic-base-font-size * 0.8;
             color: $color-gray;
             @include margin(0, 0, 0, 0);
-            @include line-height(1);
+            @include line-height(1.5);
         }
         &-icons {
             font-size: $typographic-base-font-size * 0.9;
-        }
-        &-about {
-            font-size: $typographic-base-font-size * 0.7;
-            font-weight: 300;
-            @include margin(0, 0, 0, 0);
-            @include line-height(1);
         }
         &-link {
             color: $color-base;

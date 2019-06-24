@@ -1,5 +1,4 @@
 import React from 'react'
-import get from 'lodash/get'
 import { Link, StaticQuery, graphql } from "gatsby"
 import Menu from '../Menu'
 import Links from '../Links'

@@ -8,7 +8,7 @@ const menu = [
     path: "/"
   },
   {
-    label: "Articles",
+    label: "Blog",
     path: "/blog"
   },
   {
