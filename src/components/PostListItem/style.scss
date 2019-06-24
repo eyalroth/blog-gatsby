@@ -1,7 +1,7 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
-.post {
+.post-item {
     &:last-child {
         @include margin-bottom(2.5);
     }
@@ -32,7 +32,7 @@
 }
 
 @include breakpoint-sm {
-    .post {
+    .post-item {
         &:last-child {
             @include margin-bottom(3.5);
         }

@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../Layout'
-import Post from '../Post'
+import PostListItem from '../PostListItem'
 import './style.scss'
 
 class PostList extends React.Component {
@@ -9,7 +9,7 @@ class PostList extends React.Component {
     const { pageTitle, listTitle } = this.props
     const posts = this.props.data.allMarkdownRemark.edges
     posts.forEach(post => {
-      items.push(<Post data={post} key={post.node.fields.slug} />)
+      items.push(<PostListItem data={post} key={post.node.fields.slug} />)
     })
 
     return (
