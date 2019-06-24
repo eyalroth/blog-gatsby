@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import PostList from '../components/PostList';
+import PostList from '../../components/PostList';
 
 class TagTemplate extends React.Component {
   render() {

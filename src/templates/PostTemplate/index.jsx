@@ -1,30 +1,15 @@
 import React from 'react'
-import { Link, StaticQuery, graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import moment from 'moment'
-import { Utterences } from '../Utterances'
+import { Utterences } from '../../components/Utterances'
+import Layout from '../../components/Layout'
 import './style.scss'
 
-class PostTemplateDetails extends React.Component {
+class PostTemplate extends React.Component {
   render() {
-    return (
-      <StaticQuery
-          query={graphql`
-              query PostQuery {
-                site {
-                  siteMetadata {
-                    utterances
-                  }
-                }
-              }
-          `}
-          render={data => this.renderPost(data)}
-      />)
-  }
-
-  renderPost(queryData) {
-
-    const { utterances } = queryData.site.siteMetadata
+    const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
+    const { title } = post.frontmatter
     const tags = post.fields.tagSlugs
     const readingTime = post.fields.readingTime.text
 
@@ -92,16 +77,43 @@ class PostTemplateDetails extends React.Component {
     )
 
     return (
-      <div>
+      <Layout subtitle={title}>
         <div className="post-single">
           {header}
           {body}
           <hr />
           {footer}
         </div>
-      </div>
+      </Layout>
     )
   }
 }
 
-export default PostTemplateDetails
+export default PostTemplate
+
+export const pageQuery = graphql`
+  query PostBySlug($slug: String!) {
+    site {
+      siteMetadata {
+        utterances
+      }
+    }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      id
+      html
+      fields {
+        slug
+        tagSlugs
+        readingTime {
+          text
+        }
+      }
+      frontmatter {
+        title
+        tags
+        date
+        description
+      }
+    }
+  }
+`
