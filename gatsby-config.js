@@ -19,20 +19,6 @@ module.exports = {
     description: '',
     copyright: '© All rights reserved.',
     utterances: 'eyalroth/blog-gatsby-comments',
-    menu: [
-      {
-        label: 'Articles',
-        path: '/',
-      },
-      {
-        label: 'About me',
-        path: '/about/',
-      },
-      {
-        label: 'Contact me',
-        path: '/contact/',
-      },
-    ],
     author: {
       name: 'Eyal Roth',
       linkedin: "#",

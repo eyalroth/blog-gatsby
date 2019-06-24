@@ -50,6 +50,7 @@ class Sidebar extends React.Component {
       <div className="sidebar">
         <div className="sidebar__inner">
           {authorBlock}
+          <Menu/>
         </div>
       </div>
     )
