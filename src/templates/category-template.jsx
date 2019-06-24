@@ -4,12 +4,11 @@ import PostList from '../components/PostList';
 
 class CategoryTemplate extends React.Component {
   render() {
-    const { title } = this.props.data.site.siteMetadata
     const { category } = this.props.pageContext
 
     return (
       <PostList 
-        pageTitle={`${category} - ${title}`}
+        pageTitle={category}
         listTitle={category}
         {...this.props} 
       />
@@ -21,19 +20,6 @@ export default CategoryTemplate
 
 export const pageQuery = graphql`
   query CategoryPage($category: String) {
-    site {
-      siteMetadata {
-        title
-        subtitle
-        copyright
-        author {
-          name
-          email
-          github
-          linkedin
-        }
-      }
-    }
     allMarkdownRemark(
       limit: 1000
       filter: {

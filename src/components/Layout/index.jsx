@@ -1,15 +1,27 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import '../../assets/scss/init.scss'
+import Sidebar from '../Sidebar'
 import './style.scss'
 
 class Layout extends React.Component {
   render() {
     const { children } = this.props
+
+    let { subtitle } = this.props
+    if (subtitle) {
+      subtitle = `${subtitle} | `
+    } else {
+      subtitle = ""
+    }
+
     return (
       <div className="page-container">
         <div className="content-wrap">
-          <Helmet defaultTitle="Eyal Roth" />
+          <Helmet>
+            <title>{subtitle}Eyal Roth</title>
+          </Helmet>
+          <Sidebar />
           {children}
         </div>
         <footer className="footer">

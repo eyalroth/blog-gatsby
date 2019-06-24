@@ -1,20 +1,15 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import Helmet from 'react-helmet'
 import kebabCase from 'lodash/kebabCase'
 import Layout from '../components/Layout'
-import Sidebar from '../components/Sidebar'
 
 class TagsRoute extends React.Component {
   render() {
-    const { title } = this.props.data.site.siteMetadata
     const tags = this.props.data.allMarkdownRemark.group
 
     return (
-      <Layout>
+      <Layout subtitle="All Tags">
         <div>
-          <Helmet title={`All Tags - ${title}`} />
-          <Sidebar {...this.props} />
           <div className="content">
             <div className="content__inner">
               <div className="page">
@@ -48,19 +43,6 @@ export default TagsRoute
 
 export const pageQuery = graphql`
   query TagsQuery {
-    site {
-      siteMetadata {
-        title
-        subtitle
-        copyright
-        author {
-          name
-          email
-          github
-          linkedin
-        }
-      }
-    }
     allMarkdownRemark(
       limit: 2000
       filter: { frontmatter: { layout: { eq: "post" }, draft: { ne: true } } }

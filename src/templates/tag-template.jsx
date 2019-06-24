@@ -4,12 +4,11 @@ import PostList from '../components/PostList';
 
 class TagTemplate extends React.Component {
   render() {
-    const { title } = this.props.data.site.siteMetadata
     const { tag } = this.props.pageContext
 
     return (
       <PostList 
-        pageTitle={`${tag} - ${title}`}
+        pageTitle={tag}
         listTitle={`Articles tagged as "${tag}"`}
         {...this.props}
       />
@@ -21,19 +20,6 @@ export default TagTemplate
 
 export const pageQuery = graphql`
   query TagPage($tag: String) {
-    site {
-      siteMetadata {
-        title
-        subtitle
-        copyright
-        author {
-          name
-          email
-          github
-          linkedin
-        }
-      }
-    }
     allMarkdownRemark(
       limit: 1000
       filter: {

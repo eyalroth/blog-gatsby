@@ -1,8 +1,6 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import Layout from '../Layout'
 import Post from '../Post'
-import Sidebar from '../Sidebar'
 import './style.scss'
 
 class PostList extends React.Component {
@@ -15,12 +13,8 @@ class PostList extends React.Component {
     })
 
     return (
-      <Layout>
+      <Layout subtitle={pageTitle}>
         <div>
-          <Helmet>
-            <title>{pageTitle}</title>
-          </Helmet>
-          <Sidebar {...this.props} />
           <div className="posts">
             <h1 className="posts__title">{listTitle}</h1>
             {items}

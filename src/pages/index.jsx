@@ -4,11 +4,9 @@ import PostList from '../components/PostList';
 
 class Blog extends React.Component {
   render() {
-    const { title } = this.props.data.site.siteMetadata
-
     return (
       <PostList 
-        pageTitle={`Blog - ${title}`}
+        pageTitle="Blog"
         listTitle="Articles"
         {...this.props} 
       />
@@ -20,19 +18,6 @@ export default Blog
 
 export const pageQuery = graphql`
   query BlogQuery {
-    site {
-      siteMetadata {
-        title
-        subtitle
-        copyright
-        author {
-          name
-          email
-          github
-          linkedin
-        }
-      }
-    }
     allMarkdownRemark(
       limit: 1000
       filter: { frontmatter: { layout: { eq: "post" }, draft: { ne: true } } }

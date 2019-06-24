@@ -1,13 +1,29 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, StaticQuery, graphql } from 'gatsby'
 import moment from 'moment'
 import { Utterences } from '../Utterances'
-import Sidebar from '../Sidebar'
 import './style.scss'
 
 class PostTemplateDetails extends React.Component {
   render() {
-    const { subtitle, author, utterances } = this.props.data.site.siteMetadata
+    return (
+      <StaticQuery
+          query={graphql`
+              query PostQuery {
+                site {
+                  siteMetadata {
+                    utterances
+                  }
+                }
+              }
+          `}
+          render={data => this.renderPost(data)}
+      />)
+  }
+
+  renderPost(queryData) {
+
+    const { utterances } = queryData.site.siteMetadata
     const post = this.props.data.markdownRemark
     const tags = post.fields.tagSlugs
     const readingTime = post.fields.readingTime.text
@@ -77,7 +93,6 @@ class PostTemplateDetails extends React.Component {
 
     return (
       <div>
-        <Sidebar {...this.props} />
         <div className="post-single">
           {header}
           {body}
