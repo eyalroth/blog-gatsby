@@ -1,7 +1,7 @@
 import kebabCase from 'lodash/kebabCase'
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import Page from '../components/Page'
+import Page from '../../components/Page'
 
 class CategoriesRoute extends React.Component {
   render() {
@@ -17,7 +17,7 @@ class CategoriesRoute extends React.Component {
                 className="categories__list-item"
               >
                 <Link
-                  to={`/categories/${kebabCase(
+                  to={`/blog/categories/${kebabCase(
                     category.fieldValue
                   )}/`}
                   className="categories__list-item-link"

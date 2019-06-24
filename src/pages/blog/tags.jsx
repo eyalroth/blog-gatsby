@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import kebabCase from 'lodash/kebabCase'
-import Page from '../components/Page'
+import Page from '../../components/Page'
 
 class TagsRoute extends React.Component {
   render() {
@@ -14,7 +14,7 @@ class TagsRoute extends React.Component {
             {tags.map(tag => (
               <li key={tag.fieldValue} className="tags__list-item">
                 <Link
-                  to={`/tags/${kebabCase(tag.fieldValue)}/`}
+                  to={`/blog/tags/${kebabCase(tag.fieldValue)}/`}
                   className="tags__list-item-link"
                 >
                   {tag.fieldValue} ({tag.totalCount})
