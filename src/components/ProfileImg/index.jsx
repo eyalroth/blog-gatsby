@@ -11,7 +11,7 @@ class ProfileImg extends React.Component {
                 query ProfileImgQuery {
                     file(relativePath: { eq: "icon.png" }) {
                         childImageSharp {
-                            fluid(maxWidth: 125, maxHeight: 125) {
+                            fluid(maxWidth: 145, maxHeight: 145) {
                             ...GatsbyImageSharpFluid_noBase64
                             }
                         }
