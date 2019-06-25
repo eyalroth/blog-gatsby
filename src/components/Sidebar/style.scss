@@ -67,9 +67,17 @@ $transition-timing: 0.2s;
         padding-bottom: $bottom-padding;
 
         &-enabled {
+            transition: 
+                width $transition-timing ease-out,
+                opacity $transition-timing cubic-bezier(0,0,1,0);
+            opacity: 1;
             width: 100vw;
         }
         &-disabled {
+            transition: 
+                width $transition-timing ease-out,
+                opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
+            opacity: 0;
             width: 0;
         }
         
@@ -100,7 +108,6 @@ $transition-timing: 0.2s;
             padding: 0;
             margin: 0;
             &-item {
-                // margin: 10px 0;
                 &-link {
                     font-size: $typographic-base-font-size;
                     color: $typographic-base-font-color;
@@ -124,7 +131,6 @@ $transition-timing: 0.2s;
         overflow: hidden;
         position: absolute;
         z-index: 10;
-        transition: width $transition-timing ease-out;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
 
@@ -133,9 +139,17 @@ $transition-timing: 0.2s;
         transform: translate(0, 1px);
 
         &-enabled {
+            transition: 
+                width $transition-timing ease-out,
+                opacity $transition-timing cubic-bezier(0,0,1,0);
+            opacity: 1;
             width: 80vw;
         }
         &-disabled {
+            transition: 
+                width $transition-timing ease-out,
+                opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
+            opacity: 0;
             width: 0;
         }
     
