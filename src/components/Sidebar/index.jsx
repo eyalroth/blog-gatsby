@@ -71,9 +71,9 @@ class Sidebar extends React.Component {
             </nav>
         )
 
-        const main = (
-            <div className="sidebar__main">
-              <button id="sidebar__menu-button" className="sidebar__menu-button">
+        return (
+          <div id="sidebar" className="sidebar">
+            <button id="sidebar__menu-button" className="sidebar__menu-button">
                 <i className="icon-menu" />
               </button>
               <ProfileImg id="sidebar__author-img" className="sidebar__author-img" author={author.name}/>
@@ -83,17 +83,11 @@ class Sidebar extends React.Component {
               <p className="sidebar__author-subtitle">
                 {subtitle}
               </p>
+              {contact}
+              {menu}
               <button id="sidebar__contact-button" className="sidebar__contact-button">
                 @
               </button>
-            </div>
-        )
-
-        return (
-          <div id="sidebar" className="sidebar">
-            {menu}
-            {contact}
-            {main}
           </div>
         )
   }

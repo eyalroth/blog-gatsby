@@ -8,12 +8,10 @@ $button-side-padding: 10px;
 $transition-timing: 0.2s;
 
 .sidebar {
-    &__main {
-        width: 100%;
-        position: relative;
-        border-bottom: 1px solid #E7E7E7;
-        display: inline-block;
-    }
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #E7E7E7;
+    display: inline-block;
 
     &__author {
         &-img {
@@ -171,27 +169,13 @@ $transition-timing: 0.2s;
 
 @include breakpoint-sm {
     .sidebar {
-        &__main {
-            border-bottom: unset;
-            padding-bottom: unset;
-            position: fixed;
-            lost-column: 2/9;
-            padding-top: 30vh;
-            display: unset;
-            text-align: center;
-
-            &:after {
-                background: $color-gray-border;
-                background: linear-gradient(to bottom, $color-white 0%, $color-gray-border 48%, $color-white 100%);
-                position: absolute;
-                content: "";
-                width: 1px;
-                height: 540px;
-                top: 30px;
-                right: -10px;
-                bottom: 0;
-            }
-        }
+        border-bottom: unset;
+        padding-bottom: unset;
+        position: fixed;
+        lost-column: 2/9;
+        padding-top: 30vh;
+        display: unset;
+        text-align: center;
 
         &__author {
             &-img {
@@ -227,25 +211,61 @@ $transition-timing: 0.2s;
         }
         
         &__menu {
+            overflow: unset;
+            position: unset;
+            z-index: unset;
+            padding-top: unset;
+            padding-bottom: unset;
+            
+            &-list {
+                display: unset;
+            }
             &-button {
                 display: none;
+            }
+            &-disabled {
+                opacity: unset;
+                width: unset;
             }
         }
 
         &__contact {
+            overflow: unset;
+            position: unset;
+            z-index: unset;
+            padding-top: unset;
+            padding-bottom: unset;
+            right: unset;
+            transform: unset;
+
             &-button {
                 display: none;
             }
+            &-disabled {
+                opacity: unset;
+                width: unset;
+            }
+        }
+
+        &:after {
+            background: $color-gray-border;
+            background: linear-gradient(to bottom, $color-white 0%, $color-gray-border 48%, $color-white 100%);
+            position: absolute;
+            content: "";
+            width: 1px;
+            height: 540px;
+            top: 30px;
+            right: -10px;
+            bottom: 0;
         }
     }
 }
 
 @include breakpoint-md {
     .sidebar {
-        &__main {
-            lost-column: 1/4;
-            padding-top: 25vh;
-        }
+        lost-column: 1/4;
+        padding-top: 25vh;
+
         &__author {
             &-img {
                 height: 115px;
