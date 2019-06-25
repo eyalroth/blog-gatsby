@@ -4,7 +4,7 @@ import Img from "gatsby-image"
 
 class ProfileImg extends React.Component {
     render() {
-        const { className, author } = this.props
+        const { id, className, author } = this.props
         return (
         <StaticQuery
             query={graphql`
@@ -19,7 +19,7 @@ class ProfileImg extends React.Component {
                 }
             `}
             render={data => (
-                <div className={className}>
+                <div id={id} className={className}>
                     <Img 
                         fluid={data.file.childImageSharp.fluid}
                         title={author}
