@@ -85,6 +85,7 @@ $transition-timing: 0.2s;
             height: $img-size * 1.5;
             width: $img-size * 1.5;
             border-right: 1px solid #E7E7E7;
+            outline: none;
 
             &-enabled {
                 color: $color-primary;
@@ -150,6 +151,7 @@ $transition-timing: 0.2s;
             height: $img-size * 1.5;
             width: $img-size * 1.5;
             border-left: 1px solid #E7E7E7;
+            outline: none;
 
             &-enabled {
                 color: $color-primary;
