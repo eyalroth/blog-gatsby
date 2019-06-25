@@ -8,7 +8,6 @@ $button-side-padding: 10px;
 $transition-timing: 0.2s;
 
 .sidebar {
-
     &__main {
         width: 100%;
         position: relative;
@@ -51,10 +50,6 @@ $transition-timing: 0.2s;
         }
         &-subtitle {
             display: none;
-            font-size: $typographic-base-font-size * 0.8;
-            color: $color-gray;
-            @include margin(0, 0, 0, 0);
-            @include line-height(1.5);
         }
     }
     
@@ -182,6 +177,9 @@ $transition-timing: 0.2s;
             position: fixed;
             lost-column: 2/9;
             padding-top: 30vh;
+            display: unset;
+            text-align: center;
+
             &:after {
                 background: $color-gray-border;
                 background: linear-gradient(to bottom, $color-white 0%, $color-gray-border 48%, $color-white 100%);
@@ -192,6 +190,51 @@ $transition-timing: 0.2s;
                 top: 30px;
                 right: -10px;
                 bottom: 0;
+            }
+        }
+
+        &__author {
+            &-img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                @include margin-bottom(.5);
+
+                height: 85px;
+                width: 85px;
+
+                position: unset;
+                left: unset;
+                transform: unset;
+                &-disabled {
+                    opacity: unset;
+                }
+            }
+            &-title {
+                display: inherit;
+                position: unset;
+                left: unset;
+                transform: unset;
+                &-disabled {
+                    opacity: unset;
+                }
+            }
+            &-subtitle {
+                display: unset;
+                font-size: $typographic-base-font-size * 0.7;
+                color: $color-gray;
+            }
+        }
+        
+        &__menu {
+            &-button {
+                display: none;
+            }
+        }
+
+        &__contact {
+            &-button {
+                display: none;
             }
         }
     }
@@ -207,6 +250,13 @@ $transition-timing: 0.2s;
             &-img {
                 height: 115px;
                 width: 115px;
+            }
+            &-title {
+                font-size: $typographic-base-font-size * 1.125;
+            }
+            &-subtitle {
+                font-size: $typographic-base-font-size * 0.8;
+                @include line-height(1.5);
             }
         }
     }
