@@ -2,12 +2,11 @@
 @import "../../assets/scss/mixins";
 
 .posts {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: $page-base-padding-left;
+    padding-left: $page-base-padding-right;
 
     &__title {
-        padding-top: 10px;
-        @include margin-top(1);
+        @include margin-top(0.5);
         font-size: $typographic-base-font-size * 2.5;
         font-weight: 500;
         @include margin-bottom(0);
@@ -17,14 +16,15 @@
 
 @include breakpoint-sm {
     .posts {
-        padding-left: 25%;
+        padding-left: $page-sm-padding-left;
         padding-right: 5%;
     }
 }
 
 @include breakpoint-md {
     .posts {
-        padding-left: 30%;
+        padding-left: $page-md-padding-left;
+        padding-top: $page-md-padding-top;
         padding-right: 10%;
     }
 }
