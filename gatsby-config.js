@@ -123,7 +123,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Eyal Roth`,
-        short_name: `EyalRoth`,
+        short_name: `Eyal Roth`,
         start_url: `/`,
         background_color: `#f7f0eb`,
         theme_color: `#a2466c`,
