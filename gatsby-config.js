@@ -21,9 +21,9 @@ module.exports = {
     utterances: 'eyalroth/blog-gatsby-comments',
     author: {
       name: 'Eyal Roth',
-      linkedin: "#",
-      github: '#',
-      email: '#',
+      linkedin: "https://linkedin.com/in/eyal-roth",
+      github: 'https://github.com/eyalroth',
+      email: 'eyalroth1@gmail.com',
     },
   },
   plugins: [
