@@ -1,16 +1,15 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
-$max-text-width: 660px;
 $base-font-size: 17px;
 
 .post-single {
-    max-width: $max-text-width;
+    max-width: $max-page-width;
     padding-left: 15px;
     padding-right: 15px;
 
     &__header {
-        max-width: $max-text-width;
+        max-width: $max-page-width;
         @include margin-top(1);
         @include line-height(1);
         @include margin-bottom(1);
@@ -38,7 +37,7 @@ $base-font-size: 17px;
                 margin-top: 0;
                 @include padding(1, 0);
                 & p {
-                    max-width: $max-text-width;
+                    max-width: $max-page-width;
                     font-size: $base-font-size * 1.6817;
                     margin-top: 0;
                     @include margin-bottom(1);
@@ -50,13 +49,13 @@ $base-font-size: 17px;
             text-decoration: underline;
         }
         & .gatsby-highlight {
-            max-width: $max-text-width;
+            max-width: $max-page-width;
             margin-left: 15px;
             margin-right: 15px;
             @include margin-bottom(1);
         }
         & :not(div) {
-            max-width: $max-text-width;
+            max-width: $max-page-width;
             margin-left: auto;
             margin-right: auto;
         }
@@ -72,7 +71,7 @@ $base-font-size: 17px;
         }
     }
     &__footer {
-        max-width: $max-text-width;
+        max-width: $max-page-width;
         margin-left: 15px;
         margin-right: 15px;
         @include line-height(1);

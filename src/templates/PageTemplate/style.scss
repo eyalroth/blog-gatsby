@@ -1,11 +1,10 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
-$max-text-width: 660px;
 $base-font-size: 17px;
 
 .page {
-    max-width: $max-text-width;
+    max-width: $max-page-width;
     padding-left: 15px;
     padding-right: 15px;
     

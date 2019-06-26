@@ -1,15 +1,17 @@
 import kebabCase from 'lodash/kebabCase'
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import Page from '../../components/Page'
+import Layout from '../../../components/Layout'
+import './style.scss'
 
 class CategoriesRoute extends React.Component {
   render() {
     const categories = this.props.data.allMarkdownRemark.group
 
     return (
-      <Page title="Categories">
+      <Layout subtitle="Categories">
         <div className="categories">
+          <h1 className="categories__title">Categories</h1>
           <ul className="categories__list">
             {categories.map(category => (
               <li
@@ -28,7 +30,7 @@ class CategoriesRoute extends React.Component {
             ))}
           </ul>
         </div>
-      </Page>
+      </Layout>
     )
   }
 }

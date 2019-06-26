@@ -1,15 +1,17 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import kebabCase from 'lodash/kebabCase'
-import Page from '../../components/Page'
+import Layout from '../../../components/Layout'
+import './style.scss'
 
 class TagsRoute extends React.Component {
   render() {
     const tags = this.props.data.allMarkdownRemark.group
 
     return (
-      <Page title="Tags">
+      <Layout subtitle="Tags">
         <div className="tags">
+          <h1 className="tags__title">Tags</h1>
           <ul className="tags__list">
             {tags.map(tag => (
               <li key={tag.fieldValue} className="tags__list-item">
@@ -23,7 +25,7 @@ class TagsRoute extends React.Component {
             ))}
           </ul>
         </div>
-      </Page>
+      </Layout>
     )
   }
 }
