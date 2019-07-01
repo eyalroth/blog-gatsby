@@ -4,7 +4,6 @@
 .footer {
     background-color: #F8F8F8;
     border-top: 1px solid #E7E7E7;
-    text-align: center;
     padding-top: 10px;
     padding-bottom: 30px;
     left: 0;
@@ -12,7 +11,48 @@
     height: 30px;
     width: 100%;
     position: absolute;
-    .footer-links {
+    display: flex;
+    justify-content: center;
+
+    &__center {
+        text-align: center;
+        width: 80vw;
+    }
+
+    &__right {
+        position: relative;
+        padding-top: 13px;
+    }
+
+    &__links {
         font-size: 0.8rem;
+    }
+
+    &__feed {
+        & i {
+            color: lighten($color-base, 30%);
+        }
+        &:hover,
+        &:focus {
+            & i {
+                color: $color-base;
+            }
+        }
+    }
+}
+
+@include breakpoint-sm {
+    .footer {
+        &__center {
+            width: 90vw;
+        }
+    }
+}
+
+@include breakpoint-md {
+    .footer {
+        &__center {
+            width: 95vw;
+        }
     }
 }
