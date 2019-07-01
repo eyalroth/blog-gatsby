@@ -120,7 +120,7 @@ function addSidebarCollapse(location) {
           setUnderline(lastLink)
           shiftUnderline({from: lastLink, to: currentLink})
         } else {
-          if (isEnabled(menu)) {
+          if (menu.getBoundingClientRect().width > 0) {
             setUnderline(currentLink)
           } else {
             menuButton.addEventListener('click', () => {
@@ -159,10 +159,6 @@ function addSidebarCollapse(location) {
       item.classList.remove(`${item.id}-enabled`)
     }
     
-    function isEnabled(item) {
-      return item.classList.contains(`${item.id}-enabled`)
-    }
-
     function findMatchingLink(location) {
       
       if (location == null) {

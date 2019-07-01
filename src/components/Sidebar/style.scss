@@ -107,11 +107,6 @@ $transition-timing: 0.2s;
                     color: $typographic-base-font-color;
                     font-weight: 400;
                     border: 0;
-                    &:hover,
-                    &:focus {
-                        color: $color-primary;
-                        border-bottom: 1px solid $color-primary;
-                    }
                 }
             }
         }
@@ -225,17 +220,6 @@ $transition-timing: 0.2s;
             padding-top: unset;
             padding-bottom: unset;
             
-            &-list {
-                display: unset;
-                &-item {
-                    &-link {
-                        &--active {
-                            color: $color-base;
-                            border-bottom: 1px solid $color-base;
-                        }
-                    }
-                }
-            }
             &-button {
                 display: none;
             }
@@ -244,8 +228,20 @@ $transition-timing: 0.2s;
                 width: unset;
             }
 
+            &-list {
+                &-item {
+                    &-link {
+                        &:hover,
+                        &:focus {
+                            color: $typographic-base-font-color;
+                        }
+                    }
+                }
+            }
+
             &-underline {
-                display: none;
+                margin-bottom: -4px;
+                height: 2px;
             }
         }
 
