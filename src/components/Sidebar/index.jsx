@@ -76,19 +76,19 @@ class Sidebar extends React.Component {
           <div id="sidebar" className="sidebar">
             <button id="sidebar__menu-button" className="sidebar__menu-button">
                 <i className="icon-menu" />
-              </button>
-              <ProfileImg id="sidebar__author-img" className="sidebar__author-img" author={author.name}/>
-              <span id="sidebar__author-title" className="sidebar__author-title">
-                {author.name}
-              </span>
-              <p className="sidebar__author-subtitle">
-                {subtitle}
-              </p>
-              {contact}
-              {menu}
-              <button id="sidebar__contact-button" className="sidebar__contact-button">
-                @
-              </button>
+            </button>
+            <ProfileImg id="sidebar__author-img" className="sidebar__author-img" author={author.name}/>
+            <span id="sidebar__author-title" className="sidebar__author-title">
+              {author.name}
+            </span>
+            <p className="sidebar__author-subtitle">
+              {subtitle}
+            </p>
+            {contact}
+            {menu}
+            <button id="sidebar__contact-button" className="sidebar__contact-button">
+              @
+            </button>
           </div>
         )
   }
