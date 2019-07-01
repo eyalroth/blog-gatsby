@@ -9,9 +9,9 @@ class ProfileImg extends React.Component {
         <StaticQuery
             query={graphql`
                 query ProfileImgQuery {
-                    file(relativePath: { eq: "icon.png" }) {
+                    file(relativePath: { eq: "icon2.png" }) {
                         childImageSharp {
-                            fluid(maxWidth: 145, maxHeight: 145) {
+                            fluid(maxWidth: 145, maxHeight: 145, quality: 100) {
                             ...GatsbyImageSharpFluid_noBase64
                             }
                         }
