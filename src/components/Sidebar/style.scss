@@ -101,6 +101,7 @@ $transition-timing: 0.2s;
             padding: 0;
             margin: 0;
             &-item {
+                margin-bottom: 0;
                 &-link {
                     font-size: $typographic-base-font-size;
                     color: $typographic-base-font-color;
@@ -111,12 +112,19 @@ $transition-timing: 0.2s;
                         color: $color-primary;
                         border-bottom: 1px solid $color-primary;
                     }
-                    &--active {
-                        color: $color-base;
-                        border-bottom: 1px solid $color-base;
-                    }
                 }
             }
+        }
+
+        &-underline {
+            background: $color-base;
+            display: block;
+            position: absolute;
+            width: 0;
+            bottom: 0;
+            height: 2px;
+            z-index: 0;
+            transition: transform $transition-timing ease-out;
         }
     }
 
@@ -219,6 +227,14 @@ $transition-timing: 0.2s;
             
             &-list {
                 display: unset;
+                &-item {
+                    &-link {
+                        &--active {
+                            color: $color-base;
+                            border-bottom: 1px solid $color-base;
+                        }
+                    }
+                }
             }
             &-button {
                 display: none;
@@ -226,6 +242,10 @@ $transition-timing: 0.2s;
             &-disabled {
                 opacity: unset;
                 width: unset;
+            }
+
+            &-underline {
+                display: none;
             }
         }
 

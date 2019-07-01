@@ -6,6 +6,7 @@ import 'littlefoot/dist/littlefoot.css'
 import './src/assets/scss/_progress.scss'
 
 var sidebarState = "main"
+var lastUnderlineLink = null
 
 export const onServiceWorkerUpdateReady = () => {
     const answer = window.confirm(
@@ -44,11 +45,14 @@ function addSidebarCollapse(location) {
 
   if (location.pathname == "/") {
     sidebarState = "main"
+    lastUnderlineLink = null
   }
 
   if (document.getElementById("sidebar")) {
     const menu = document.getElementById("sidebar__menu")
     const menuButton = document.getElementById("sidebar__menu-button")
+    const menuLinks = document.getElementsByClassName("sidebar__menu-list-item-link")
+    const menuUnderline = document.getElementById("sidebar__menu-underline")
 
     const contact = document.getElementById("sidebar__contact")
     const contactButton = document.getElementById("sidebar__contact-button")
@@ -57,6 +61,7 @@ function addSidebarCollapse(location) {
     const authorTitle = document.getElementById("sidebar__author-title")
 
     setSidebarState(sidebarState)
+    setupUnderline(location)
 
     menuButton.addEventListener("click", () => toggle("menu-button"))
     contactButton.addEventListener("click", () => toggle("contact-button"))
@@ -105,6 +110,45 @@ function addSidebarCollapse(location) {
       }
     }
 
+    function setupUnderline(location) {
+
+      const lastLink = findMatchingLink(lastUnderlineLink)
+      const currentLink = findMatchingLink(location)
+
+      if (currentLink) {
+        if (lastLink) {
+          setUnderline(lastLink)
+          shiftUnderline({from: lastLink, to: currentLink})
+        } else {
+          if (isEnabled(menu)) {
+            setUnderline(currentLink)
+          } else {
+            menuButton.addEventListener('click', () => {
+              menu.addEventListener('transitionend', () => {
+                setUnderline(currentLink)
+              }, {once: true})
+            }, {once: true})
+          }
+        }
+        lastUnderlineLink = currentLink
+      } else {
+        lastUnderlineLink = null
+      }
+
+      function setUnderline(link) {
+        const { left, width } = link.getBoundingClientRect()
+        menuUnderline.style.left = `${left}px`
+        menuUnderline.style.width = `${width}px`
+      }
+      
+      function shiftUnderline({from, to}) {
+        const { left: fromX  } = from.getBoundingClientRect()
+        const { left: toX, width } = to.getBoundingClientRect()
+        menuUnderline.style.transform = `translateX(${toX - fromX}px)`
+        menuUnderline.style.width = `${width}px`
+      }
+    }
+    
     function enable(item) {
       item.classList.add(`${item.id}-enabled`)
       item.classList.remove(`${item.id}-disabled`)
@@ -113,6 +157,30 @@ function addSidebarCollapse(location) {
     function disable(item) {
       item.classList.add(`${item.id}-disabled`)
       item.classList.remove(`${item.id}-enabled`)
+    }
+    
+    function isEnabled(item) {
+      return item.classList.contains(`${item.id}-enabled`)
+    }
+
+    function findMatchingLink(location) {
+      
+      if (location == null) {
+        return null
+      }
+
+      for (let i = 0; i < menuLinks.length; i++) {
+        let link = menuLinks[i]
+        if (noTrailingSlash(link.pathname) == noTrailingSlash(location.pathname)) {
+          return link    
+        }
+      }
+
+      return null
+
+      function noTrailingSlash(pathname) {     
+        return pathname.replace(/\/$/, "")
+      }
     }
   }
 }

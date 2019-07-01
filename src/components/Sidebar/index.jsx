@@ -62,6 +62,7 @@ class Sidebar extends React.Component {
                 </li>
               ))}
             </ul>
+            <div id="sidebar__menu-underline" className="sidebar__menu-underline" />
           </nav>
         )
 
