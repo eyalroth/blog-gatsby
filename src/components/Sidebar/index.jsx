@@ -87,7 +87,7 @@ class Sidebar extends React.Component {
             {contact}
             {menu}
             <button id="sidebar__contact-button" className="sidebar__contact-button">
-              @
+            <i className="icon-phone" />
             </button>
           </div>
         )

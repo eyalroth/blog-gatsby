@@ -1,6 +1,6 @@
 import React from 'react'
 import './style.scss'
-import '../../assets/fonts/fontello-e13a4bdd/css/fontello.css'
+import '../../assets/fonts/fontello-41f8de9d/css/fontello.css'
 
 class Links extends React.Component {
   render() {
