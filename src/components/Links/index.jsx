@@ -1,6 +1,6 @@
 import React from 'react'
 import './style.scss'
-import '../../assets/fonts/fontello-1c73886c/css/fontello.css'
+import '../../assets/fonts/fontello-41f8de9d/css/fontello.css'
 
 class Links extends React.Component {
   render() {
@@ -12,25 +12,31 @@ class Links extends React.Component {
     }
 
     return (
-      <div className="author-links">
+      <ul className="author-links">
+        <li>
           <a
             href={links.github}
             target="_blank"
             rel="noopener noreferrer"
-          >
+            >
             <i className="icon-github-circled" />
           </a>
+        </li>
+        <li>
           <a
             href={links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-          >
+            >
             <i className="icon-linkedin" />
           </a>
+        </li>
+        <li>
           <a href={`mailto:${links.email}`}>
             <i className="icon-mail" />
           </a>
-      </div>
+        </li>
+      </ul>
     )
   }
 }

@@ -62,7 +62,7 @@ exports.createPages = ({ graphql, actions }) => {
 
           tags = _.uniq(tags)
           _.each(tags, tag => {
-            const tagPath = `/tags/${_.kebabCase(tag)}/`
+            const tagPath = `/blog/tags/${_.kebabCase(tag)}/`
             createPage({
               path: tagPath,
               component: tagTemplate,
@@ -77,7 +77,7 @@ exports.createPages = ({ graphql, actions }) => {
 
           categories = _.uniq(categories)
           _.each(categories, category => {
-            const categoryPath = `/categories/${_.kebabCase(category)}/`
+            const categoryPath = `/blog/categories/${_.kebabCase(category)}/`
             createPage({
               path: categoryPath,
               component: categoryTemplate,
@@ -123,13 +123,13 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
     if (node.frontmatter.tags) {
       const tagSlugs = node.frontmatter.tags.map(
-        tag => `/tags/${_.kebabCase(tag)}/`
+        tag => `/blog/tags/${_.kebabCase(tag)}/`
       )
       createNodeField({ node, name: 'tagSlugs', value: tagSlugs })
     }
 
     if (typeof node.frontmatter.category !== 'undefined') {
-      const categorySlug = `/categories/${_.kebabCase(
+      const categorySlug = `/blog/categories/${_.kebabCase(
         node.frontmatter.category
       )}/`
       createNodeField({ node, name: 'categorySlug', value: categorySlug })

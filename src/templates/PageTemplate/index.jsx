@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Page from '../../components/Page'
+import Layout from '../../components/Layout'
+import './style.scss'
 
 class PageTemplate extends React.Component {
   render() {
@@ -8,12 +9,15 @@ class PageTemplate extends React.Component {
     const { title } = page.frontmatter
 
     return (
-      <Page title={title}>
-        <div
-          /* eslint-disable-next-line react/no-danger */
-          dangerouslySetInnerHTML={{ __html: page.html }}
-        />
-      </Page>
+      <Layout subtitle={title}>
+        <div className="page">
+            <h1 className="page__title">{title}</h1>
+            <div
+              className="page__body"
+              dangerouslySetInnerHTML={{ __html: page.html }}
+            />
+        </div>
+      </Layout>
     )
   }
 }

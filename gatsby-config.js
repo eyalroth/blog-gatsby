@@ -21,9 +21,9 @@ module.exports = {
     utterances: 'eyalroth/blog-gatsby-comments',
     author: {
       name: 'Eyal Roth',
-      linkedin: "#",
-      github: '#',
-      email: '#',
+      linkedin: "https://linkedin.com/in/eyal-roth",
+      github: 'https://github.com/eyalroth',
+      email: 'eyalroth1@gmail.com',
     },
   },
   plugins: [
@@ -32,6 +32,13 @@ module.exports = {
       options: {
         name: 'pages',
         path: path.join(__dirname, `src`, `pages`),
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'pages',
+        path: path.join(__dirname, `src`, `posts`),
       },
     },
     {
@@ -123,12 +130,12 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Eyal Roth`,
-        short_name: `EyalRoth`,
+        short_name: `Eyal Roth`,
         start_url: `/`,
         background_color: `#f7f0eb`,
         theme_color: `#a2466c`,
         display: `standalone`,
-        icon: `src/images/icon.png`
+        icon: `src/images/icon2.png`
       },
     },
     `gatsby-plugin-offline`,

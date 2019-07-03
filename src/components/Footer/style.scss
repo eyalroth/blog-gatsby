@@ -4,15 +4,52 @@
 .footer {
     background-color: #F8F8F8;
     border-top: 1px solid #E7E7E7;
-    text-align: center;
     padding-top: 10px;
-    padding-bottom: 30px;
-    left: 0;
+    padding-bottom: 25px;
     bottom: 0;
     height: 30px;
     width: 100%;
     position: absolute;
-    .footer-links {
+    
+    &__center {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    &__right {
+        position: absolute;
+        bottom: 20px;
+        right: 5vw;
+    }
+
+    &__links {
         font-size: 0.8rem;
+    }
+    
+    &__feed {
+        font-size: 0.9rem;
+        & i {
+            color: lighten($color-base, 30%);
+        }
+        &:hover,
+        &:focus {
+            & i {
+                color: $color-base;
+            }
+        }
+    }
+}
+
+@include breakpoint-md {
+    .footer {
+        padding-bottom: 30px;
+
+        &__center {
+            font-size: 1rem;
+        }
+
+        &__right {
+            right: 2vw;
+        }
     }
 }

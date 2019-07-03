@@ -1,9 +1,23 @@
 import React from 'react'
 import { Link, StaticQuery, graphql } from "gatsby"
-import Menu from '../Menu'
 import Links from '../Links'
 import ProfileImg from '../ProfileImg'
 import './style.scss'
+
+const menuList = [
+  {
+    label: "Home",
+    path: "/"
+  },
+  {
+    label: "Blog",
+    path: "/blog"
+  },
+  {
+    label: "About",
+    path: "/about"
+  },
+]
 
 class Sidebar extends React.Component {
 
@@ -26,40 +40,57 @@ class Sidebar extends React.Component {
                   }
                 }
             `}
-            render={data => (
-                <div className="sidebar">
-                  <div className="sidebar__inner">
-                    {this.renderAuthorBlock(data)}
-                    <Menu/>
-                  </div>
-                </div>
-            )}
+            render={data => this.renderFromQueryData(data)}
         />)
   }
 
-  renderAuthorBlock(queryData) {
+  renderFromQueryData(queryData) {
         const { author, subtitle, copyright } = queryData.site.siteMetadata
 
-        /* eslint-disable jsx-a11y/img-redundant-alt */
+        const menu = (
+          <nav id="sidebar__menu" className="sidebar__menu">
+            <ul className="sidebar__menu-list">
+              {menuList.map(item => (
+                <li className="sidebar__menu-list-item" key={item.path}>
+                  <Link
+                    to={item.path}
+                    className="sidebar__menu-list-item-link"
+                    activeClassName="sidebar__menu-list-item-link sidebar__menu-list-item-link--active"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div id="sidebar__menu-underline" className="sidebar__menu-underline" />
+          </nav>
+        )
+
+        const contact = (
+          <nav id="sidebar__contact" className="sidebar__contact">
+                <Links data={author} />
+            </nav>
+        )
+
         return (
-          <div>
-            <Link to="/">
-              <ProfileImg className="sidebar__author-img" author={author.name}/>
-            </Link> 
-            <h1 className="sidebar__author-title">
-              <Link className="sidebar__author-link" to="/">
-                {author.name}
-              </Link>
-            </h1>
+          <div id="sidebar" className="sidebar">
+            <button id="sidebar__menu-button" className="sidebar__menu-button">
+                <i className="icon-menu" />
+            </button>
+            <ProfileImg id="sidebar__author-img" className="sidebar__author-img" author={author.name}/>
+            <span id="sidebar__author-title" className="sidebar__author-title">
+              {author.name}
+            </span>
             <p className="sidebar__author-subtitle">
               {subtitle}
             </p>
-            <div className="sidebar__author-icons">
-                <Links data={author} />
-            </div>
+            {contact}
+            {menu}
+            <button id="sidebar__contact-button" className="sidebar__contact-button">
+            <i className="icon-phone" />
+            </button>
           </div>
         )
-        /* eslint-enable jsx-a11y/img-redundant-alt */
   }
 }
 

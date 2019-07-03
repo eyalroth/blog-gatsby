@@ -1,6 +1,10 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
+html {
+    overflow-y: scroll;
+}
+
 .page-container {
     position: relative;
     min-height: 100vh;
