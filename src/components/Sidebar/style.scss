@@ -21,12 +21,12 @@ $transition-timing: 0.2s;
             position: absolute;
             left: 32%;
             transform: translate(0, $top-padding - 2px);
-            
-            &-enabled {
+           
+            @include enabled {
                 transition: opacity $transition-timing ease-in;
                 opacity: 1;
             }
-            &-disabled {
+            @include disabled {
                 opacity: 0;
             }
         }
@@ -38,11 +38,11 @@ $transition-timing: 0.2s;
             font-size: $typographic-base-font-size * 1;
             font-weight: 500;
 
-            &-enabled {
+            @include enabled {
                 transition: opacity $transition-timing ease-in;
                 opacity: 1;
             }
-            &-disabled {
+            @include disabled {
                 opacity: 0;
             }
         }
@@ -59,14 +59,14 @@ $transition-timing: 0.2s;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
 
-        &-enabled {
+        @include enabled {
             transition: 
                 width $transition-timing ease-out,
                 opacity $transition-timing cubic-bezier(0,0,1,0);
             opacity: 1;
             width: 100vw;
         }
-        &-disabled {
+        @include disabled {
             transition: 
                 width $transition-timing ease-out,
                 opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
@@ -88,7 +88,7 @@ $transition-timing: 0.2s;
             border-right: 1px solid #E7E7E7;
             outline: none;
 
-            &-enabled {
+            @include enabled {
                 color: $color-primary;
             }
         }
@@ -134,14 +134,14 @@ $transition-timing: 0.2s;
         font-size: $typographic-base-font-size * 0.9;
         transform: translate(0, 1px);
 
-        &-enabled {
+        @include enabled {
             transition: 
                 width $transition-timing ease-out,
                 opacity $transition-timing cubic-bezier(0,0,1,0);
             opacity: 1;
             width: 80vw;
         }
-        &-disabled {
+        @include disabled {
             transition: 
                 width $transition-timing ease-out,
                 opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
@@ -163,7 +163,7 @@ $transition-timing: 0.2s;
             border-left: 1px solid #E7E7E7;
             outline: none;
 
-            &-enabled {
+            @include enabled {
                 color: $color-primary;
             }
         }
@@ -193,7 +193,7 @@ $transition-timing: 0.2s;
                 position: unset;
                 left: unset;
                 transform: unset;
-                &-disabled {
+                @include disabled {
                     opacity: unset;
                 }
             }
@@ -202,7 +202,7 @@ $transition-timing: 0.2s;
                 position: unset;
                 left: unset;
                 transform: unset;
-                &-disabled {
+                @include disabled {
                     opacity: unset;
                 }
             }
@@ -223,7 +223,7 @@ $transition-timing: 0.2s;
             &-button {
                 display: none;
             }
-            &-disabled {
+            @include disabled {
                 opacity: unset;
                 width: unset;
             }
@@ -257,7 +257,7 @@ $transition-timing: 0.2s;
             &-button {
                 display: none;
             }
-            &-disabled {
+            @include disabled {
                 opacity: unset;
                 width: unset;
             }
