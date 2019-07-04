@@ -1,7 +1,6 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
-import { addEventListener } from '../utility'
 import './style.scss'
 
 export const squareImage = graphql`
@@ -49,19 +48,13 @@ class ProfileImg extends React.Component {
 
         function setupMove(div, eventType, extractCoordinates) {
             if (div) {
-                addEventListener(div, eventType, (event) => {
-                    const {x, y} = extractCoordinates(event)
+                div.addEventListener(eventType, (event) => {
                     const container = div.parentElement
-                    const {left, top, bottom} = container.getBoundingClientRect()
-                    
-                    const mouseInContainer = y >= top && y <= bottom
-                    
-                    if (mouseInContainer) {
-                        const newWidth = x - left
-                        _this.setBackWidth(Math.max(newWidth, 0))
-                    }
-                    return !mouseInContainer
-                })
+                    const { x } = extractCoordinates(event)
+                    const { left } = container.getBoundingClientRect()
+                    const newWidth = x - left
+                    _this.setBackWidth(Math.max(newWidth, 0))
+                }, {once: true})
             }
         }
         
@@ -122,7 +115,10 @@ class ProfileImg extends React.Component {
                             title={author}
                             alt={author}
                             style={{
-                                position: "unset",
+                                position: "absolute",
+                                width: "100%",
+                                height: "100%",
+                                top: 0,
                             }}
                             imgStyle={{
                                 width: `${this.state.backWidth}px`,
