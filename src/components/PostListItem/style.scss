@@ -1,38 +1,114 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
+$border-styling: dashed 1px $color-gray-border;
+
 .post-item {
-    &:last-child {
-        @include margin-bottom(2.5);
+    margin-top: 1rem;
+    &__year {
+        display: none;
     }
-    & time {
+    &__time {
         @include line-height(1.5);
         font-size: $typographic-small-font-size;
         float: right;
-    }
-    & header {
-        font-size: $typographic-base-font-size * 1.3;
-        margin-top: 1rem;
-        max-width: 70%;
-    }
-    & footer {
-        font-size: $typographic-small-font-size;
-        max-width: 75%;
-        word-break: break-all;
-        & .divider {
-            margin-right: 0.8125rem;
-            margin-left: 0.8125rem;
-            border-left: 0.075rem solid $color-gray-border;
+
+        .nonmobile {
+            display: none;
         }
-        & .tagDivider {
-            margin-right: 0.3125rem;
-            margin-left: 0.3125rem;
+
+        .month {
+            margin-right: 0.1rem;
+            margin-left: 0.3rem;
         }
+    }
+    &__details {
+        & header {
+            font-size: $typographic-base-font-size * 1.3;
+            max-width: 70%;
+        }
+        & footer {
+            font-size: $typographic-small-font-size;
+            max-width: 75%;
+            word-break: break-all;
+            & .divider {
+                margin-right: 0.8125rem;
+                margin-left: 0.8125rem;
+                border-left: 0.075rem solid $color-gray-border;
+            }
+            & .tagDivider {
+                margin-right: 0.3125rem;
+                margin-left: 0.3125rem;
+            }
+        }
+    }
+    &:last-child {
+        @include margin-bottom(2.5);
     }
 }
 
 @include breakpoint-sm {
     .post-item {
+        display: flex;
+        align-items: baseline;
+
+        &:nth-child(2) {
+            @include margin-top(1);
+        }
+
+        &__year {
+            display: inline-block;
+            width: 3rem;
+            min-width: 3rem;
+            margin-right: 2rem;
+            margin-top: 0;
+            
+            font-size: $typographic-base-font-size * 1.5;
+            color: gray;
+            font-weight: 300;
+            
+            &.bordered {
+                border-top: $border-styling;
+                padding-top: 1rem;
+            }
+        }
+        
+        &__time {
+            margin-right: 3rem;
+            font-size: $typographic-base-font-size * 1.1;
+            border-top: $border-styling;
+            padding-top: 1.1rem;
+            color: gray;
+
+            .month {
+                margin-right: 0.3rem;
+                margin-left: unset;
+            }
+
+            .nonmobile {
+                display: unset;
+            }
+            .year {
+                display: none;
+            }
+            .mobile {
+                display: none;
+            }
+        }
+        
+        &__details {
+            border-top: $border-styling;
+            padding-top: 1rem;
+            & header {
+                margin-bottom: 0.2rem;
+                font-size: $typographic-base-font-size * 1.4;
+                max-width: unset;
+            }
+            & footer {
+                max-width: unset;
+            }
+        }
+
         &:last-child {
             @include margin-bottom(3.5);
         }

@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import Layout from '../Layout'
 import PostListItem from '../PostListItem'
 import './style.scss'
@@ -8,8 +9,20 @@ class PostList extends React.Component {
     const items = []
     const { pageTitle, listTitle } = this.props
     const posts = this.props.data.allMarkdownRemark.edges
+    const years = new Set()
+
     posts.forEach(post => {
-      items.push(<PostListItem data={post} key={post.node.fields.slug} />)
+      const year = moment(post.node.frontmatter.date).year()
+      const showYear = !years.has(year)
+      years.add(year)
+
+      items.push(
+        <PostListItem
+          data={post}
+          key={post.node.fields.slug} 
+          showYear={showYear}
+        />
+      )
     })
 
     return (

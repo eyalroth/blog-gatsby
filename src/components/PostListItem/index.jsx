@@ -5,6 +5,7 @@ import './style.scss'
 
 class PostListItem extends React.Component {
   render() {
+    const { showYear } = this.props
     const {
       title,
       date,
@@ -43,12 +44,31 @@ class PostListItem extends React.Component {
       ]
     }
 
-    return (
-      <article className="post-item">
-        <time dateTime={moment(date).format('MM DD, YYYY')}>
-          {moment(date).format('DD MMM YYYY')}
-        </time>
+    const itemDate = moment(date)
 
+    const yearHeader = (
+      <h2 className={`post-item__year${(showYear) ? " bordered" : ""}`}>
+        {(showYear) ? itemDate.format('YYYY') : "    "}
+      </h2>
+    )
+
+    const time = (
+        <time 
+          className="post-item__time"
+          dateTime={itemDate.format('MM DD, YYYY')}
+          pubdate=""
+        >
+          <span className="day mobile">{itemDate.format('DD')}</span>
+          <span className="month mobile">{itemDate.format('MMM')}</span>
+          <span className="year mobile">{itemDate.format(' YYYY')}</span>
+          <span className="month nonmobile">{itemDate.format('MMM')}</span>
+          <span className="day nonmobile">{itemDate.format('DD')}</span>
+          <span className="year nonmobile">{itemDate.format(', YYYY')}</span>
+        </time>
+    )
+
+    const details = (
+      <div className="post-item__details">
         <header>
           <Link to={slug}>
             {title}
@@ -59,6 +79,14 @@ class PostListItem extends React.Component {
           {readingTime}
           {tags}
         </footer>
+      </div>
+    )
+
+    return (
+      <article className="post-item">
+        {yearHeader}
+        {time}
+        {details}
       </article>
     )
   }
