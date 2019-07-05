@@ -16,11 +16,34 @@ export const squareImage = graphql`
 class ProfileImg extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {backWidth: 0}
+        this.state = {
+            backWidth: 0,
+            isMouseUp: true
+        }
+        this.toggleMouse = this.toggleMouse.bind(this)
+        this.setMouseUp = this.setMouseUp.bind(this)
+        this.setMouseDown = this.setMouseDown.bind(this)
     }
 
     setBackWidth(newWidth) {
-        this.setState({backWidth: newWidth})
+        this.setState({
+            backWidth: newWidth
+        })
+    }
+
+    setMouseUp(event) {
+        this.toggleMouse(event, true)
+    }
+
+    setMouseDown(event) {
+        this.toggleMouse(event, false)
+    }
+    
+    toggleMouse(event, isMouseUp) {
+        const isLeftClick = event.which == 1
+        if (isLeftClick) {
+            this.setState({isMouseUp})
+        }
     }
 
 
@@ -57,12 +80,31 @@ class ProfileImg extends React.Component {
                 }, {once: true})
             }
         }
+
+        function addToggleMouseListener(target, type, listener) {
+            target.removeEventListener(type, listener)
+            target.addEventListener(type, listener)
+        }
+        
+        function setupMouseUp(div) {
+            if (div && !_this.state.isMouseUp) {
+                addToggleMouseListener(div, 'mouseup', _this.setMouseUp)
+            }
+        }
         
         function setupMouseMove(div) {
-            setupMove(div, 'mousemove', (event) => {
-                const { clientX: x, clientY: y } = event
-                return {x, y}
-            })
+            if (div) {
+                const toggleEvent = (_this.state.isMouseUp) ? 'mousedown' : 'mouseup'
+                const toggleAction = (_this.state.isMouseUp) ? _this.setMouseDown : _this.setMouseUp
+                addToggleMouseListener(div, toggleEvent,toggleAction)
+            }
+
+            if (!_this.state.isMouseUp) {
+                setupMove(div, 'mousemove', (event) => {
+                    const { clientX: x, clientY: y } = event
+                    return {x, y}
+                })
+            }
         }
 
         function setupTouchMove(div) {
@@ -89,7 +131,23 @@ class ProfileImg extends React.Component {
                                 height: "100%",
                                 left: "-15%",
                                 position: "absolute",
-                                zIndex: 1
+                                background: "transparent",
+                                zIndex: 2
+                            }}
+                        />
+                        <div
+                            ref={setupMouseUp}
+                            className="profile-img-mouseup"
+                            style={{
+                                position: "fixed",
+                                height: "100vh",
+                                width: "100vw",
+                                padding: 0,
+                                margin: 0,
+                                top: 0,
+                                left: 0,
+                                background: "transparent",
+                                display: (_this.state.isMouseUp) ? "none" : "inherit"
                             }}
                         />
                         <div 
@@ -100,6 +158,7 @@ class ProfileImg extends React.Component {
                                 height: "100%",
                                 left: "-15%",
                                 position: "absolute",
+                                background: "transparent",
                                 zIndex: 1
                             }}
                         />
@@ -121,6 +180,7 @@ class ProfileImg extends React.Component {
                                 top: 0,
                             }}
                             imgStyle={{
+                                transition: "width 0.1s ease-out",
                                 width: `${this.state.backWidth}px`,
                                 objectPosition: "left",
                             }}

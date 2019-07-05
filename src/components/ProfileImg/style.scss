@@ -5,11 +5,17 @@
     &-mousemove {
         display: none;
     }
+    &-mouseup {
+        display: none;
+    }
 }
 
 @include breakpoint-sm {
     .profile-img {
         &-mousemove {
+            display: unset;
+        }
+        &-mouseup {
             display: unset;
         }
         &-touchmove {
