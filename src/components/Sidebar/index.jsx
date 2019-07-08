@@ -181,7 +181,8 @@ class Sidebar extends React.Component {
         const { left, width } = link.getBoundingClientRect()
         underline.current.setStyle({
           left,
-          width
+          width,
+          transition: "none"
         })
       }
     }
