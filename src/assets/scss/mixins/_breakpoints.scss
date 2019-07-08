@@ -23,3 +23,9 @@
         @content
     }
 }
+
+@mixin breakpoint-xlg {
+    @media screen and (min-width: $layout-breakpoint-xlg) {
+        @content
+    }
+}

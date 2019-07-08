@@ -242,6 +242,7 @@ $transition-timing: 0.2s;
             &-underline {
                 margin-bottom: -4px;
                 height: 2px;
+                position: sticky;
             }
         }
 
@@ -269,7 +270,7 @@ $transition-timing: 0.2s;
             position: absolute;
             content: "";
             width: 1px;
-            height: 540px;
+            height: 70vh;
             top: 30px;
             right: -10px;
             bottom: 0;
@@ -294,6 +295,23 @@ $transition-timing: 0.2s;
                 font-size: $typographic-base-font-size * 0.8;
                 @include line-height(1.5);
             }
+        }
+    }
+}
+@include breakpoint-lg {
+    .sidebar {
+        lost-column: 1/5;
+        &:after {
+            right: -35px;
+        }
+    }
+}
+
+@include breakpoint-xlg {
+    .sidebar {
+        lost-column: 1/6;
+        &:after {
+            right: -70px;
         }
     }
 }

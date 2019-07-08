@@ -6,6 +6,7 @@ import ProfileImg from '../ProfileImg'
 import Footer from '../Footer'
 import globalState from '../GlobalState'
 import './style.scss'
+import '../Layout/style.scss'
 
 class Home extends React.Component {
   render() {

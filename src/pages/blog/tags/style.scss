@@ -2,7 +2,6 @@
 @import "../../../assets/scss/mixins";
 
 .tags {
-    max-width: $max-page-width;
     padding-left: $page-base-padding-left;
     padding-right: $page-base-padding-right;
     @include margin-top($page-base-margin-top);
