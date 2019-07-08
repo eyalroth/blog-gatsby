@@ -249,7 +249,7 @@ class Sidebar extends React.Component {
           className="sidebar__contact-button"
           onClick={() => this.changeMode(newMode)}
         >
-          <i className="icon-phone" />
+          <i className="icon-info-circled" />
         </button>
       </Toggle>
     )

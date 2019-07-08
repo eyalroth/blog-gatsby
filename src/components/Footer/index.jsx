@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import './style.scss'
-import '../../assets/fonts/fontello-41f8de9d/css/fontello.css'
+import '../../assets/fonts/fontello/css/fontello.css'
 
 class Footer extends React.Component {
   render() {
