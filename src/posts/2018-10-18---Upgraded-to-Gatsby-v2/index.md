@@ -4,7 +4,7 @@ date: "2018-10-18T16:51:00.000Z"
 layout: post
 draft: false
 path: "upgraded-to-gatsby-v2"
-category: "Gatsby"
+category: "software"
 tags:
   - "Gatsby"
   - "Web Development"

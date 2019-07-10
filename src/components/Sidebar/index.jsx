@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link, StaticQuery, graphql } from "gatsby"
+import { StaticQuery, graphql } from "gatsby"
 import Links from '../Links'
 import ProfileImg from '../ProfileImg'
+import NavMenu from '../NavMenu'
 import Toggle from '../Toggle'
 import globalState from '../GlobalState'
 import './style.scss'
@@ -35,7 +36,6 @@ class Sidebar extends React.Component {
       globalState.sidebar.mode = SidebarMode.Main
     }
     this.state = { mode: globalState.sidebar.mode }
-    this.menuLinks = {}
   }
 
   changeMode(newMode) {
@@ -116,92 +116,11 @@ class Sidebar extends React.Component {
   }
 
   renderMenu() {
-    const underline = React.createRef()
-    const links = this.menuLinks
-
     return (
       <Toggle isEnabled={this.valueByMode(false, true, false)}>
-        <nav ref={updateUnderline} className="sidebar__menu">
-          <ul className="sidebar__menu-list">
-            {menuList.map(item => (
-              <li 
-                className="sidebar__menu-list-item"
-                key={item.path}
-              >
-               {createLink(item)} 
-              </li>
-            ))}
-          </ul>
-          <Stylized ref={underline} className="sidebar__menu-underline"/>
-        </nav>
+        <NavMenu id="global-links" menuList={menuList} classNamePrefix="sidebar__menu"/>
       </Toggle>
     )
-
-    function createLink(item) {
-      return (
-        <Link
-          ref={em => {
-            links[noTrailingSlash(item.path)] = em
-          }}
-          to={item.path}
-          className="sidebar__menu-list-item-link"
-        >
-          {item.label}
-        </Link>
-      )
-    }
-
-
-    function updateUnderline(menu) {
-      if (menu) {
-        const currentPath = noTrailingSlash(window.location.pathname)
-        const currentLink = links[currentPath]
-        if (currentLink) {
-          if (globalState.sidebar.lastUnderlinePath && globalState.sidebar.lastUnderlinePath != currentPath) {
-            const lastLink = links[globalState.sidebar.lastUnderlinePath]
-            shiftUnderline({from: lastLink, to: currentLink})
-          } else {
-            if (menu.getBoundingClientRect().width > 0) {
-              setUnderline(currentLink)
-            } else {
-              menu.addEventListener('transitionend', () => {
-                setUnderline(currentLink)
-              }, {once: true})
-            }
-          }
-          globalState.sidebar.lastUnderlinePath = currentPath
-        } else {
-          globalState.sidebar.lastUnderlinePath = null
-        }
-      }
-    }
-
-    function setUnderline(link) {
-      if (underline.current) {
-        const { left, width } = link.getBoundingClientRect()
-        underline.current.setStyle({
-          left,
-          width,
-          transition: "none"
-        })
-      }
-    }
-
-    function shiftUnderline({from, to}) {
-      if (underline.current) {
-        const { left: fromX  } = from.getBoundingClientRect()
-        const { left: toX, width } = to.getBoundingClientRect()
-        underline.current.setStyle({
-          left: fromX,
-          transform: `translateX(${toX - fromX}px)`,
-          width
-        })
-      }
-    }
-    
-    function noTrailingSlash(pathname) {     
-      return pathname.replace(/\/$/, "")
-    }
   }
 
   renderContact(author) {
@@ -269,20 +188,3 @@ class Sidebar extends React.Component {
 }
 
 export default Sidebar
-
-class Stylized extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {style: {}};
-  }
-
-  setStyle(style) {
-    this.setState({style})
-  }
-
-  render() {
-    return (
-      <div className={this.props.className} style={this.state.style}/>
-    )
-  }
-}

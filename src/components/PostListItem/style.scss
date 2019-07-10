@@ -4,7 +4,9 @@
 $border-styling: dashed 1px $color-gray-border;
 
 .post-item {
-    margin-top: 1rem;
+    &:not(:nth-child(2)) {
+        margin-top: 1rem;
+    }
     &__year {
         display: none;
     }
@@ -52,10 +54,6 @@ $border-styling: dashed 1px $color-gray-border;
         display: flex;
         justify-content: flex-start;
 
-        &:nth-child(2) {
-            @include margin-top(1);
-        }
-
         &__year {
             display: inline-block;
             width: 3rem;
@@ -66,19 +64,22 @@ $border-styling: dashed 1px $color-gray-border;
             font-size: $typographic-base-font-size * 1.5;
             color: gray;
             font-weight: 300;
-            
-            &.bordered {
+            padding-top: 1rem;
+
+            @include enabled {
                 border-top: $border-styling;
-                padding-top: 1rem;
             }
         }
         
         &__time {
             margin-right: 3rem;
             font-size: $typographic-base-font-size * 1.1;
-            border-top: $border-styling;
             padding-top: 1.1rem;
             color: gray;
+
+            @include enabled {
+                border-top: $border-styling;
+            }
 
             .month {
                 margin-right: 0.3rem;
@@ -97,8 +98,12 @@ $border-styling: dashed 1px $color-gray-border;
         }
         
         &__details {
-            border-top: $border-styling;
             padding-top: 1rem;
+
+            @include enabled {
+                border-top: $border-styling;
+            }
+
             & header {
                 margin-bottom: 0.2rem;
                 font-size: $typographic-base-font-size * 1.4;

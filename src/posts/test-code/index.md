@@ -4,6 +4,7 @@ date: "2000-06-12T16:51:00.000Z"
 layout: post
 draft: false
 path: "test-code"
+category: "software"
 description: "Test code"
 ---
 

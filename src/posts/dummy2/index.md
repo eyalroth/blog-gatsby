@@ -4,6 +4,7 @@ date: "2000-06-14T16:51:00.000Z"
 layout: post
 draft: false
 path: "dummy2"
+category: "software"
 description: "Dummy 2"
 ---
 

@@ -4,8 +4,11 @@ const path = require('path')
 const slash = require('slash')
 const moment = require('moment')
 
+const constants = require('./src/consts/constants.jsx')
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
+  const { categories } = constants
 
   return new Promise((resolve, reject) => {
     const postTemplate = path.resolve('./src/templates/PostTemplate/index.jsx')
@@ -14,6 +17,7 @@ exports.createPages = ({ graphql, actions }) => {
     const categoryTemplate = path.resolve(
       './src/templates/CategoryTemplate/index.jsx'
     )
+    const postListTemplate = path.resolve('./src/templates/PostListTemplate/index.jsx')
 
     graphql(`
       {
@@ -70,18 +74,19 @@ exports.createPages = ({ graphql, actions }) => {
             })
           })
 
-          let categories = []
-          if (_.get(edge, 'node.frontmatter.category')) {
-            categories = categories.concat(edge.node.frontmatter.category)
-          }
-
-          categories = _.uniq(categories)
           _.each(categories, category => {
-            const categoryPath = `/blog/categories/${_.kebabCase(category)}/`
             createPage({
-              path: categoryPath,
+              path: `/blog/categories/${_.kebabCase(category.id)}/`,
               component: categoryTemplate,
-              context: { category },
+              context: { category: category.id },
+            })
+            createPage({
+              path: `/blog/${_.kebabCase(category.id)}`,
+              component: postListTemplate,
+              context: {
+                categoryId: category.id,
+                categoryLabel: category.label
+              },
             })
           })
         }

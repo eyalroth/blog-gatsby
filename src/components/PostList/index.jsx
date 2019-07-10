@@ -1,15 +1,18 @@
 import React from 'react'
 import moment from 'moment'
 import Layout from '../Layout'
+import PostListHeader from '../PostListHeader'
 import PostListItem from '../PostListItem'
 import './style.scss'
 
 class PostList extends React.Component {
   render() {
     const items = []
-    const { pageTitle, listTitle } = this.props
+    const { pageTitle } = this.props
     const posts = this.props.data.allMarkdownRemark.edges
     const years = new Set()
+
+    let isFirst = true
 
     posts.forEach(post => {
       const year = moment(post.node.frontmatter.date).year()
@@ -21,17 +24,18 @@ class PostList extends React.Component {
           data={post}
           key={post.node.fields.slug} 
           showYear={showYear}
+          isFirst={isFirst}
         />
       )
+      
+      isFirst = false
     })
 
     return (
       <Layout subtitle={pageTitle}>
-        <div>
-          <div className="posts">
-            <h1 className="posts__title">{listTitle}</h1>
-            {items}
-          </div>
+        <div className="posts">
+          <PostListHeader />
+          {items}
         </div>
       </Layout>
     )

@@ -5,8 +5,7 @@ class GlobalState {
     
     reset() {
         this.sidebar = {
-            mode: null,
-            lastUnderlinePath: null
+            mode: null
         }
     }
 }
