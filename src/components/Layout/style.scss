@@ -8,18 +8,18 @@ html {
 .page-container {
     position: relative;
     min-height: 100vh;
-    
-    max-width: $layout-breakpoint-lg;
-    margin: 0 auto;
 }
 
 .content-wrap {
     lost-center: $layout-width;
     padding-bottom: $footer-padding;
+    
+    max-width: $layout-breakpoint-lg;
+    margin: 0 auto;
 }
 
 @include breakpoint-xlg {
-    .page-container {
+    .content-wrap {
         max-width: $layout-breakpoint-xlg;
     }
 }
