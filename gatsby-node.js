@@ -7,8 +7,14 @@ const moment = require('moment')
 const menuLinks = require('./src/consts/menuLinks.jsx')
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
   const { CategoryLinks } = menuLinks
+
+  createRedirect({
+    fromPath: '/blog',
+    toPath: '/blog/software',
+    redirectInBrowser: true,
+  })
 
   return new Promise((resolve, reject) => {
     const postTemplate = path.resolve('./src/templates/PostTemplate/index.jsx')
