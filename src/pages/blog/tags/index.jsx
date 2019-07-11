@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, graphql } from 'gatsby'
 import kebabCase from 'lodash/kebabCase'
 import Layout from '../../../components/Layout'
+import { GlobalLinks } from '../../../consts/menuLinks'
 import './style.scss'
 
 class TagsRoute extends React.Component {
@@ -9,7 +10,7 @@ class TagsRoute extends React.Component {
     const tags = this.props.data.allMarkdownRemark.group
 
     return (
-      <Layout subtitle="Tags" currentPath={this.props.location.pathname}>
+      <Layout subtitle="Tags" globalLinkId={GlobalLinks.Blog.id}>
         <div className="tags">
           <h1 className="tags__title">Tags</h1>
           <ul className="tags__list">

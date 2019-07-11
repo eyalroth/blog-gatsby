@@ -21,7 +21,7 @@ class Layout extends React.Component {
         <Helmet>
           <title>{subtitle}Eyal Roth</title>
         </Helmet>
-        <Sidebar currentPath={this.props.currentPath} />
+        <Sidebar globalLinkId={this.props.globalLinkId} />
         <div className="content-wrap">
           {children}
         </div>

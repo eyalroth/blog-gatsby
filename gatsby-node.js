@@ -4,11 +4,11 @@ const path = require('path')
 const slash = require('slash')
 const moment = require('moment')
 
-const constants = require('./src/consts/menuLinks.jsx')
+const menuLinks = require('./src/consts/menuLinks.jsx')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
-  const { categories } = constants
+  const { CategoryLinks } = menuLinks
 
   return new Promise((resolve, reject) => {
     const postTemplate = path.resolve('./src/templates/PostTemplate/index.jsx')
@@ -74,18 +74,18 @@ exports.createPages = ({ graphql, actions }) => {
             })
           })
 
-          _.each(categories, category => {
+          _.each(CategoryLinks, categoryLink => {
             createPage({
-              path: `/blog/categories/${_.kebabCase(category.id)}/`,
+              path: `/blog/categories/${_.kebabCase(categoryLink.id)}/`,
               component: categoryTemplate,
-              context: { category: category.id },
+              context: { category: categoryLink.id },
             })
             createPage({
-              path: `/blog/${_.kebabCase(category.id)}`,
+              path: `/blog/${_.kebabCase(categoryLink.id)}`,
               component: postListTemplate,
               context: {
-                categoryId: category.id,
-                categoryLabel: category.label
+                categoryId: categoryLink.id,
+                categoryLabel: categoryLink.label
               },
             })
           })

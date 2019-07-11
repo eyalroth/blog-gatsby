@@ -3,7 +3,7 @@ import { StaticQuery, graphql } from "gatsby"
 import Links from '../Links'
 import ProfileImg from '../ProfileImg'
 import NavMenu from '../NavMenu'
-import { globalNavLinks } from '../../consts/menuLinks'
+import { GlobalLinks } from '../../consts/menuLinks'
 import Toggle from '../Toggle'
 import globalState from '../GlobalState'
 import './style.scss'
@@ -106,9 +106,9 @@ class Sidebar extends React.Component {
       <Toggle isEnabled={this.valueByMode(false, true, false)}>
         <NavMenu
           id="global-links"
-          menuList={globalNavLinks}
+          linkDescriptions={GlobalLinks}
           classNamePrefix="sidebar__menu"
-          currentPath={this.props.currentPath}
+          currentLinkId={this.props.globalLinkId}
         />
       </Toggle>
     )

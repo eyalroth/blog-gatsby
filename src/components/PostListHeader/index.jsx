@@ -1,6 +1,6 @@
 import React from 'react'
 import NavMenu from '../NavMenu'
-import { categories } from '../../consts/menuLinks'
+import { CategoryLinks } from '../../consts/menuLinks'
 import './style.scss'
 
 
@@ -10,9 +10,9 @@ class PostListHeader extends React.Component {
             <div className="posts-header">
                 <NavMenu
                     id="blog-category"
-                    menuList={categories}
+                    linkDescriptions={CategoryLinks}
                     classNamePrefix="posts-header__menu"
-                    currentPath={this.props.currentPath}
+                    currentLinkId={this.props.categoryId}
                 />
             </div>
         )

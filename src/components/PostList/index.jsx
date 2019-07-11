@@ -3,6 +3,7 @@ import moment from 'moment'
 import Layout from '../Layout'
 import PostListHeader from '../PostListHeader'
 import PostListItem from '../PostListItem'
+import { GlobalLinks } from '../../consts/menuLinks'
 import './style.scss'
 
 class PostList extends React.Component {
@@ -32,9 +33,9 @@ class PostList extends React.Component {
     })
 
     return (
-      <Layout subtitle={pageTitle} currentPath={this.props.location.pathname}>
+      <Layout subtitle={pageTitle} globalLinkId={GlobalLinks.Blog.id}>
         <div className="posts">
-          <PostListHeader currentPath={this.props.location.pathname}/>
+          <PostListHeader categoryId={this.props.categoryId}/>
           {items}
         </div>
       </Layout>

@@ -1,29 +1,28 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
-var lastUnderlinePath = {}
+var lastUnderlineLinkId = {}
 
 class NavMenu extends React.Component {
     constructor(props) {
         super(props)
-        this.menuLinks = {}
+        this.links = {}
     }
 
     render() {
         const underline = React.createRef()
-        const links = this.menuLinks
-        const { menuList, classNamePrefix, currentPath } = this.props
+        const { linkDescriptions, classNamePrefix, currentLinkId } = this.props
         const _this = this
 
         return (
             <nav ref={updateUnderline} className={classNamePrefix}>
                 <ul className={`${classNamePrefix}-list`}>
-                    {menuList.map(item => (
+                    {Object.values(linkDescriptions).map(description => (
                         <li 
                             className={`${classNamePrefix}-list-item`}
-                            key={item.path}
+                            key={description.id}
                         >
-                            {createLink(item)} 
+                            {createLink(description)} 
                         </li>
                     ))}
                 </ul>
@@ -31,27 +30,27 @@ class NavMenu extends React.Component {
             </nav>
         )
 
-        function createLink(item) {
+        function createLink(linkDescription) {
             return (
               <Link
                 ref={em => {
-                  links[noTrailingSlash(item.path)] = em
+                  _this.links[linkDescription.id] = em
                 }}
-                to={item.path}
+                to={linkDescription.path}
                 className={`${classNamePrefix}-list-item-link`}
-                onClick={() => _this.setLastUnderlinePath(currentPath)}
+                onClick={() => _this.setLastUnderlineLinkId(currentLinkId)}
               >
-                {item.label}
+                {linkDescription.label}
               </Link>
             )
           }
 
           function updateUnderline(menu) {
             if (menu) {
-              const currentLink = links[currentPath]
+              const currentLink = _this.links[currentLinkId]
               if (currentLink) {
-                if (_this.getLastUnderlinePath() && _this.getLastUnderlinePath() != currentPath) {
-                  const lastLink = links[_this.getLastUnderlinePath()]
+                if (_this.getLastUnderlineLinkId() && _this.getLastUnderlineLinkId() != currentLinkId) {
+                  const lastLink = _this.links[_this.getLastUnderlineLinkId()]
                   shiftUnderline({from: lastLink, to: currentLink})
                 } else {
                   if (menu.getBoundingClientRect().width > 0) {
@@ -64,7 +63,7 @@ class NavMenu extends React.Component {
                 }
               }
 
-              _this.setLastUnderlinePath(null)
+              _this.setLastUnderlineLinkId(null)
             }
           }
 
@@ -90,19 +89,14 @@ class NavMenu extends React.Component {
               })
             }
           }
-
-          function noTrailingSlash(pathname) {     
-            return pathname.replace(/\/$/, "")
-          }
     }
 
-    getLastUnderlinePath() {
-      return lastUnderlinePath[this.props.id]
+    getLastUnderlineLinkId() {
+      return lastUnderlineLinkId[this.props.id]
     }
     
-    setLastUnderlinePath(path) {
-      console.log("hey")
-      lastUnderlinePath[this.props.id] = path
+    setLastUnderlineLinkId(id) {
+      lastUnderlineLinkId[this.props.id] = id
     }
 }
 

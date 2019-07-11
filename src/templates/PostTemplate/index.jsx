@@ -3,6 +3,7 @@ import { Link, graphql } from 'gatsby'
 import moment from 'moment'
 import { Utterences } from '../../components/Utterances'
 import Layout from '../../components/Layout'
+import { GlobalLinks } from '../../consts/menuLinks'
 import './style.scss'
 
 class PostTemplate extends React.Component {
@@ -77,7 +78,7 @@ class PostTemplate extends React.Component {
     )
 
     return (
-      <Layout subtitle={title} currentPath={this.props.location.pathname}>
+      <Layout subtitle={title} globalLinkId={GlobalLinks.Blog.id}>
         <div className="post-single">
           {header}
           {body}
