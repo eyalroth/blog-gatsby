@@ -26,7 +26,7 @@ class NavMenu extends React.Component {
                         </li>
                     ))}
                 </ul>
-                <Stylized ref={underline} className={`${classNamePrefix}-underline`}/>
+                <Underline ref={underline} className={`${classNamePrefix}-underline`}/>
             </nav>
         )
 
@@ -51,13 +51,15 @@ class NavMenu extends React.Component {
               if (currentLink) {
                 if (_this.getLastUnderlineLinkId() && _this.getLastUnderlineLinkId() != currentLinkId) {
                   const lastLink = _this.links[_this.getLastUnderlineLinkId()]
-                  shiftUnderline({from: lastLink, to: currentLink})
+                  underline.current.shift({from: lastLink, to: currentLink})
                 } else {
                   if (menu.getBoundingClientRect().width > 0) {
-                    setUnderline(currentLink)
+                    underline.current.moveTo(currentLink)
                   } else {
                     menu.addEventListener('transitionend', () => {
-                      setUnderline(currentLink)
+                      if (underline.current) {
+                        underline.current.moveTo(currentLink)
+                      }
                     }, {once: true})
                   }
                 }
@@ -67,28 +69,7 @@ class NavMenu extends React.Component {
             }
           }
 
-          function setUnderline(link) {
-            if (underline.current) {
-              const { left, width } = link.getBoundingClientRect()
-              underline.current.setStyle({
-                left,
-                width,
-                transition: "none"
-              })
-            }
-          }
-
-          function shiftUnderline({from, to}) {
-            if (underline.current) {
-              const { left: fromX  } = from.getBoundingClientRect()
-              const { left: toX, width } = to.getBoundingClientRect()
-              underline.current.setStyle({
-                left: fromX,
-                transform: `translateX(${toX - fromX}px)`,
-                width
-              })
-            }
-          }
+          
     }
 
     getLastUnderlineLinkId() {
@@ -102,19 +83,62 @@ class NavMenu extends React.Component {
 
 export default NavMenu
 
-class Stylized extends React.Component {
+class Underline extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {style: {}};
+
+      this.state = {
+        style: {}
+      };
+      this.underline = null
+
+      this.moveTo = this.moveTo.bind(this)
+      this.shift = this.shift.bind(this)
+      this.parentX = this.parentX.bind(this)
     }
-  
+
+    render() {
+      const _this = this
+      function underlineRendered(underline) {
+        if (underline) {
+          _this.underline = underline
+        }
+      }
+
+      return (
+        <div ref={underlineRendered} className={this.props.className} style={this.state.style}/>
+      )
+    }
+
     setStyle(style) {
       this.setState({style})
     }
-  
-    render() {
-      return (
-        <div className={this.props.className} style={this.state.style}/>
-      )
+
+    moveTo(link) {
+      const parentX = this.parentX()
+      const { left: toX, width } = link.getBoundingClientRect()
+
+      this.setStyle({
+        left: toX - parentX,
+        width,
+        transition: "none"
+      })
+    }
+
+    
+    shift({from, to}) {
+        const parentX = this.parentX()
+        const { left: fromX  } = from.getBoundingClientRect()
+        const { left: toX, width } = to.getBoundingClientRect()
+
+        this.setStyle({
+          left: fromX - parentX,
+          width,
+          transform: `translateX(${toX - fromX}px)`,
+        })
+    }
+
+    parentX() {
+      return this.underline.parentElement.getBoundingClientRect().left
     }
 }

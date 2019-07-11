@@ -215,7 +215,7 @@ $transition-timing: 0.2s;
         
         &__menu {
             overflow: unset;
-            position: unset;
+            position: relative;
             z-index: unset;
             padding-top: unset;
             padding-bottom: unset;
@@ -242,7 +242,7 @@ $transition-timing: 0.2s;
             &-underline {
                 margin-bottom: -4px;
                 height: 2px;
-                position: sticky;
+                position: absolute;
             }
         }
 
