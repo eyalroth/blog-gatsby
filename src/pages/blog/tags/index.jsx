@@ -9,7 +9,7 @@ class TagsRoute extends React.Component {
     const tags = this.props.data.allMarkdownRemark.group
 
     return (
-      <Layout subtitle="Tags">
+      <Layout subtitle="Tags" currentPath={this.props.location.pathname}>
         <div className="tags">
           <h1 className="tags__title">Tags</h1>
           <ul className="tags__list">

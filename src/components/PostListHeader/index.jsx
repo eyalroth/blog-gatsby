@@ -8,7 +8,12 @@ class PostListHeader extends React.Component {
     render() {
         return (
             <div className="posts-header">
-                <NavMenu id="blog-category" menuList={categories} classNamePrefix="posts-header__menu"/>
+                <NavMenu
+                    id="blog-category"
+                    menuList={categories}
+                    classNamePrefix="posts-header__menu"
+                    currentPath={this.props.currentPath}
+                />
             </div>
         )
     }

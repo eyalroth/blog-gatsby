@@ -77,7 +77,7 @@ class PostTemplate extends React.Component {
     )
 
     return (
-      <Layout subtitle={title}>
+      <Layout subtitle={title} currentPath={this.props.location.pathname}>
         <div className="post-single">
           {header}
           {body}

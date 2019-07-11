@@ -12,8 +12,7 @@ class NavMenu extends React.Component {
     render() {
         const underline = React.createRef()
         const links = this.menuLinks
-        const { menuList, classNamePrefix } = this.props
-        const currentPath = noTrailingSlash(window.location.pathname)
+        const { menuList, classNamePrefix, currentPath } = this.props
         const _this = this
 
         return (

@@ -32,9 +32,9 @@ class PostList extends React.Component {
     })
 
     return (
-      <Layout subtitle={pageTitle}>
+      <Layout subtitle={pageTitle} currentPath={this.props.location.pathname}>
         <div className="posts">
-          <PostListHeader />
+          <PostListHeader currentPath={this.props.location.pathname}/>
           {items}
         </div>
       </Layout>

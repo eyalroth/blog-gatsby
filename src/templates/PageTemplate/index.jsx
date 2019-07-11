@@ -9,7 +9,7 @@ class PageTemplate extends React.Component {
     const { title } = page.frontmatter
 
     return (
-      <Layout subtitle={title}>
+      <Layout subtitle={title} currentPath={this.props.location.pathname}>
         <div className="page">
             <h1 className="page__title">{title}</h1>
             <div

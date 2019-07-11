@@ -9,7 +9,7 @@ class CategoriesRoute extends React.Component {
     const categories = this.props.data.allMarkdownRemark.group
 
     return (
-      <Layout subtitle="Categories">
+      <Layout subtitle="Categories" currentPath={this.props.location.pathname}>
         <div className="categories">
           <h1 className="categories__title">Categories</h1>
           <ul className="categories__list">

@@ -118,7 +118,12 @@ class Sidebar extends React.Component {
   renderMenu() {
     return (
       <Toggle isEnabled={this.valueByMode(false, true, false)}>
-        <NavMenu id="global-links" menuList={menuList} classNamePrefix="sidebar__menu"/>
+        <NavMenu
+          id="global-links"
+          menuList={menuList}
+          classNamePrefix="sidebar__menu"
+          currentPath={this.props.currentPath}
+        />
       </Toggle>
     )
   }
