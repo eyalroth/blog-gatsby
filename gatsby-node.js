@@ -4,7 +4,7 @@ const path = require('path')
 const slash = require('slash')
 const moment = require('moment')
 
-const constants = require('./src/consts/constants.jsx')
+const constants = require('./src/consts/menuLinks.jsx')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions

@@ -1,6 +1,6 @@
 import React from 'react'
 import NavMenu from '../NavMenu'
-import { categories } from '../../consts/constants'
+import { categories } from '../../consts/menuLinks'
 import './style.scss'
 
 

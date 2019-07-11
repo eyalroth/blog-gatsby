@@ -1,5 +1,20 @@
-// TODO move to gatsby-config?
-// TODO do the same for sidebar links
+module.exports.globalNavLinks = [
+    {
+        id: "home",
+        label: "Home",
+        path: "/"
+    },
+    {
+        id: "blog",
+        label: "Blog",
+        path: "/blog"
+    },
+    {
+        id: "about",
+        label: "About",
+        path: "/about"
+    },
+]
 
 module.exports.categories = [
     {

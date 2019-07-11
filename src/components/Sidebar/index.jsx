@@ -3,24 +3,10 @@ import { StaticQuery, graphql } from "gatsby"
 import Links from '../Links'
 import ProfileImg from '../ProfileImg'
 import NavMenu from '../NavMenu'
+import { globalNavLinks } from '../../consts/menuLinks'
 import Toggle from '../Toggle'
 import globalState from '../GlobalState'
 import './style.scss'
-
-const menuList = [
-  {
-    label: "Home",
-    path: "/"
-  },
-  {
-    label: "Blog",
-    path: "/blog"
-  },
-  {
-    label: "About",
-    path: "/about"
-  },
-]
 
 const SidebarMode = Object.freeze({
   Main: "main",
@@ -120,7 +106,7 @@ class Sidebar extends React.Component {
       <Toggle isEnabled={this.valueByMode(false, true, false)}>
         <NavMenu
           id="global-links"
-          menuList={menuList}
+          menuList={globalNavLinks}
           classNamePrefix="sidebar__menu"
           currentPath={this.props.currentPath}
         />
