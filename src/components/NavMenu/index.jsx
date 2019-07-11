@@ -40,7 +40,11 @@ class NavMenu extends React.Component {
                 className={`${classNamePrefix}-list-item-link`}
                 onClick={() => _this.setLastUnderlineLinkId(currentLinkId)}
               >
+                {(linkDescription.icon) ? <i className={`${linkDescription.icon} left`} /> : null}
+                {(linkDescription.icon) ? <span className="left">{" "}</span> : null}
                 {linkDescription.label}
+                {(linkDescription.icon) ? <span className="right">{" "}</span> : null}
+                {(linkDescription.icon) ? <i className={`${linkDescription.icon} right`} /> : null}
               </Link>
             )
           }
