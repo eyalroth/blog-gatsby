@@ -10,8 +10,7 @@ class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
-    const { title } = post.frontmatter
-    const tags = post.fields.tagSlugs
+    const { title, tags } = post.frontmatter
     const readingTime = post.fields.readingTime.text
 
     const titleBlock = (
@@ -34,11 +33,9 @@ class PostTemplate extends React.Component {
       <div className="post-single__tags">
         <ul className="post-single__tags-list">
           {tags &&
-            tags.map((tag, i) => (
+            tags.map(tag => (
               <li className="post-single__tags-list-item" key={tag}>
-                <Link to={tag} className="post-single__tags-list-item-link">
-                  {post.frontmatter.tags[i]}
-                </Link>
+                {tag}
               </li>
             ))}
         </ul>
@@ -104,7 +101,6 @@ export const pageQuery = graphql`
       html
       fields {
         slug
-        tagSlugs
         readingTime {
           text
         }

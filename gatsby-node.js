@@ -19,11 +19,18 @@ exports.createPages = ({ graphql, actions }) => {
   return new Promise((resolve, reject) => {
     const postTemplate = path.resolve('./src/templates/PostTemplate/index.jsx')
     const pageTemplate = path.resolve('./src/templates/PageTemplate/index.jsx')
-    const tagTemplate = path.resolve('./src/templates/TagTemplate/index.jsx')
-    const categoryTemplate = path.resolve(
-      './src/templates/CategoryTemplate/index.jsx'
-    )
     const postListTemplate = path.resolve('./src/templates/PostListTemplate/index.jsx')
+
+    _.each(CategoryLinks, categoryLink => {
+      createPage({
+        path: `/blog/${_.kebabCase(categoryLink.id)}`,
+        component: postListTemplate,
+        context: {
+          categoryId: categoryLink.id,
+          categoryLabel: categoryLink.label
+        },
+      })
+    })
 
     graphql(`
       {
@@ -37,9 +44,7 @@ exports.createPages = ({ graphql, actions }) => {
                 slug
               }
               frontmatter {
-                tags
                 layout
-                category
               }
             }
           }
@@ -63,37 +68,6 @@ exports.createPages = ({ graphql, actions }) => {
             path: edge.node.fields.slug,
             component: slash(postTemplate),
             context: { slug: edge.node.fields.slug },
-          })
-
-          let tags = []
-          if (_.get(edge, 'node.frontmatter.tags')) {
-            tags = tags.concat(edge.node.frontmatter.tags)
-          }
-
-          tags = _.uniq(tags)
-          _.each(tags, tag => {
-            const tagPath = `/blog/tags/${_.kebabCase(tag)}/`
-            createPage({
-              path: tagPath,
-              component: tagTemplate,
-              context: { tag },
-            })
-          })
-
-          _.each(CategoryLinks, categoryLink => {
-            createPage({
-              path: `/blog/categories/${_.kebabCase(categoryLink.id)}/`,
-              component: categoryTemplate,
-              context: { category: categoryLink.id },
-            })
-            createPage({
-              path: `/blog/${_.kebabCase(categoryLink.id)}`,
-              component: postListTemplate,
-              context: {
-                categoryId: categoryLink.id,
-                categoryLabel: categoryLink.label
-              },
-            })
           })
         }
       })
@@ -131,19 +105,5 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: 'slug',
       value: slug,
     })
-
-    if (node.frontmatter.tags) {
-      const tagSlugs = node.frontmatter.tags.map(
-        tag => `/blog/tags/${_.kebabCase(tag)}/`
-      )
-      createNodeField({ node, name: 'tagSlugs', value: tagSlugs })
-    }
-
-    if (typeof node.frontmatter.category !== 'undefined') {
-      const categorySlug = `/blog/categories/${_.kebabCase(
-        node.frontmatter.category
-      )}/`
-      createNodeField({ node, name: 'categorySlug', value: categorySlug })
-    }
   }
 }

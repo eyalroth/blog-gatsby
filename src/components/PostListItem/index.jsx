@@ -10,10 +10,8 @@ class PostListItem extends React.Component {
     const {
       title,
       date,
-      category,
-      description,
     } = this.props.data.node.frontmatter
-    const { slug, tagSlugs } = this.props.data.node.fields
+    const { slug } = this.props.data.node.fields
     
     const readingTime = <span key="readingTime">
       {this.props.data.node.fields.readingTime.text}
@@ -21,20 +19,11 @@ class PostListItem extends React.Component {
 
     var tags =  this.props.data.node.frontmatter.tags
     if (tags != null) {
-      let tagToSlug = tags.map(function(e, i) {
-        return {
-          label: e,
-          slug: tagSlugs[i]
-        }
-      });
-
-      tags = tagToSlug.map (tag => (
-        [<span key={tag.label}>
-          <Link to={tag.slug}>
-            {tag.label}
-          </Link>
+      tags = tags.map (tag => (
+        [<span key={tag}>
+            {tag}
         </span>,
-        <span key={`${tag.label}-div`} className="tagDivider">&#183;</span>]
+        <span key={`${tag}-div`} className="tagDivider">&#183;</span>]
       ))
       
       tags = [].concat(...tags).slice(0, -1)

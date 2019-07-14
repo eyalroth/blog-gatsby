@@ -35,7 +35,6 @@ export const pageQuery = graphql`
         node {
           fields {
             slug
-            tagSlugs
             readingTime {
               text
             }
@@ -44,7 +43,6 @@ export const pageQuery = graphql`
             title
             date
             tags
-            description
           }
         }
       }
