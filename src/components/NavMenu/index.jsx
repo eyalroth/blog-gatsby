@@ -92,7 +92,8 @@ class Underline extends React.Component {
       super(props);
 
       this.state = {
-        style: {}
+        style: {},
+        callback: null
       };
       this.underline = null
 
@@ -106,6 +107,9 @@ class Underline extends React.Component {
       function underlineRendered(underline) {
         if (underline) {
           _this.underline = underline
+          if (_this.state.callback) {
+            _this.state.callback()
+          }
         }
       }
 
@@ -114,8 +118,11 @@ class Underline extends React.Component {
       )
     }
 
-    setStyle(style) {
-      this.setState({style})
+    setStyle(style, callback) {
+      this.setState({
+        style,
+        callback
+      })
     }
 
     moveTo(link) {
@@ -128,18 +135,26 @@ class Underline extends React.Component {
         transition: "none"
       })
     }
-
     
     shift({from, to}) {
-        const parentX = this.parentX()
-        const { left: fromX  } = from.getBoundingClientRect()
-        const { left: toX, width } = to.getBoundingClientRect()
+      const _this = this
+      const parentX = this.parentX()
+      const { left: fromX, width: fromWidth  } = from.getBoundingClientRect()
+      const { left: toX, width: toWidth } = to.getBoundingClientRect()
 
-        this.setStyle({
-          left: fromX - parentX,
-          width,
-          transform: `translateX(${toX - fromX}px)`,
-        })
+      const initialStyle = {
+        left: fromX - parentX,
+        width: fromWidth,
+      }
+      
+      const transitionedStyle = {
+        left: toX - parentX,
+        width: toWidth,
+      }
+
+      this.setStyle(initialStyle, () => {
+        setTimeout(() => _this.setStyle(transitionedStyle), 0)
+      })
     }
 
     parentX() {

@@ -119,7 +119,7 @@ $transition-timing: 0.2s;
             bottom: 0;
             height: 2px;
             z-index: 0;
-            transition: transform $transition-timing ease-out;
+            transition: left $transition-timing ease-out;
         }
     }
 
