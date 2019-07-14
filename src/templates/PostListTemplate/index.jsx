@@ -1,17 +1,45 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import PostList from '../../components/PostList';
+import moment from 'moment'
+import Layout from '../../components/Layout'
+import PostListHeader from '../../components/PostListHeader'
+import PostListItem from '../../components/PostListItem'
+import { GlobalLinks } from '../../consts/menuLinks'
+import './style.scss'
 
 class PostListTemplate extends React.Component {
     render() {
       const { categoryId, categoryLabel } = this.props.pageContext
+      const posts = this.props.data.allMarkdownRemark.edges
   
+      const years = new Set()
+      let isFirst = true
+
+      const items = posts.map(post => {
+        const year = moment(post.node.frontmatter.date).year()
+        const showYear = !years.has(year)
+        years.add(year)
+
+        const item = (
+          <PostListItem
+            data={post}
+            key={post.node.fields.slug} 
+            showYear={showYear}
+            isFirst={isFirst}
+          />
+        )
+        isFirst = false
+
+        return item
+      })
+
       return (
-        <PostList
-            categoryId={categoryId}
-            pageTitle={categoryLabel}
-            {...this.props}
-        />
+        <Layout subtitle={categoryLabel} globalLinkId={GlobalLinks.Blog.id}>
+          <div className="posts">
+            <PostListHeader categoryId={categoryId}/>
+            {items}
+          </div>
+        </Layout>
       )
     }
 }
