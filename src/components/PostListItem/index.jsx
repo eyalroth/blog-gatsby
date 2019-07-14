@@ -7,32 +7,8 @@ import './style.scss'
 class PostListItem extends React.Component {
   render() {
     const { showYear } = this.props
-    const {
-      title,
-      date,
-    } = this.props.data.node.frontmatter
+    const { title, date, tags } = this.props.data.node.frontmatter
     const { slug } = this.props.data.node.fields
-    
-    const readingTime = <span key="readingTime">
-      {this.props.data.node.fields.readingTime.text}
-    </span>
-
-    var tags =  this.props.data.node.frontmatter.tags
-    if (tags != null) {
-      tags = tags.map (tag => (
-        [<span key={tag}>
-            {tag}
-        </span>,
-        <span key={`${tag}-div`} className="tagDivider">&#183;</span>]
-      ))
-      
-      tags = [].concat(...tags).slice(0, -1)
-
-      tags = [
-        <span key="tagsDivider" className="divider"/>,
-        tags
-      ]
-    }
 
     const itemDate = moment(date)
 
@@ -61,19 +37,33 @@ class PostListItem extends React.Component {
         </Toggle>
     )
 
+    const detailsHeader = (
+      <div className="post-item__details-header">
+        <Link to={slug}>
+          {title}
+        </Link>
+      </div>
+    )
+
+    const detailsFooter = (
+      <ul className="post-item__details-footer">
+        <li className="post-item__details-footer-reading-time" key="readingTime">
+          {this.props.data.node.fields.readingTime.text}
+        </li>
+        {tags && <li className="post-item__details-footer-tags-divider" key="divider"/>}
+        {tags && tags.map(tag => (
+          <li className="post-item__details-footer-tags-item" key={tag}>
+            {tag}
+          </li>
+        ))}
+      </ul>
+    )
+
     const details = (
       <Toggle isEnabled={!this.props.isFirst}>
         <div className="post-item__details">
-          <header>
-            <Link to={slug}>
-              {title}
-            </Link>
-          </header>
-          
-          <footer>
-            {readingTime}
-            {tags}
-          </footer>
+          {detailsHeader}
+          {detailsFooter}
         </div>
       </Toggle>
     )
