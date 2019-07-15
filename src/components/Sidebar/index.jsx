@@ -18,10 +18,14 @@ class Sidebar extends React.Component {
 
   constructor(props) {
     super(props)
+
     if (!globalState.sidebar.mode) {
       globalState.sidebar.mode = SidebarMode.Main
     }
-    this.state = { mode: globalState.sidebar.mode }
+    this.state = { isEnabled: true, mode: globalState.sidebar.mode }
+    this.lastScrollY = null
+
+    this.handleScroll = this.handleScroll.bind(this)
   }
 
   changeMode(newMode) {
@@ -68,17 +72,35 @@ class Sidebar extends React.Component {
   compose(profileImg, authorTitle, menu, contact, menuButton, contactButton) {
 
     return (
-      <div id="sidebar" className="sidebar">
-        {menuButton}
-        {profileImg}
-        {authorTitle}
-        {contact}
-        {menu}
-        {contactButton}
-      </div>
+      <Toggle isEnabled={this.state.isEnabled}>
+        <div id="sidebar" className="sidebar">
+          {menuButton}
+          {profileImg}
+          {authorTitle}
+          {contact}
+          {menu}
+          {contactButton}
+        </div>
+      </Toggle>
     )
   }
 
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll() {
+    const isScrollUp = this.lastScrollY && window.scrollY < this.lastScrollY 
+    this.lastScrollY = window.scrollY
+    const isEnabled = isScrollUp || scrollY <= window.innerHeight
+    if (isEnabled != this.state.isEnabled) {
+      this.setState({isEnabled})
+    }
+  }
 
   renderProfileImg(author) {
     return (
