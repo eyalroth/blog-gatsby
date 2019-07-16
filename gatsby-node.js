@@ -4,16 +4,33 @@ const path = require('path')
 const slash = require('slash')
 const moment = require('moment')
 
+const menuLinks = require('./src/consts/menuLinks.jsx')
+
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
+  const { CategoryLinks } = menuLinks
+
+  createRedirect({
+    fromPath: '/blog',
+    toPath: '/blog/software',
+    redirectInBrowser: true,
+  })
 
   return new Promise((resolve, reject) => {
     const postTemplate = path.resolve('./src/templates/PostTemplate/index.jsx')
     const pageTemplate = path.resolve('./src/templates/PageTemplate/index.jsx')
-    const tagTemplate = path.resolve('./src/templates/TagTemplate/index.jsx')
-    const categoryTemplate = path.resolve(
-      './src/templates/CategoryTemplate/index.jsx'
-    )
+    const postListTemplate = path.resolve('./src/templates/PostListTemplate/index.jsx')
+
+    _.each(CategoryLinks, categoryLink => {
+      createPage({
+        path: `/blog/${_.kebabCase(categoryLink.id)}`,
+        component: postListTemplate,
+        context: {
+          categoryId: categoryLink.id,
+          categoryLabel: categoryLink.label
+        },
+      })
+    })
 
     graphql(`
       {
@@ -27,9 +44,7 @@ exports.createPages = ({ graphql, actions }) => {
                 slug
               }
               frontmatter {
-                tags
                 layout
-                category
               }
             }
           }
@@ -53,36 +68,6 @@ exports.createPages = ({ graphql, actions }) => {
             path: edge.node.fields.slug,
             component: slash(postTemplate),
             context: { slug: edge.node.fields.slug },
-          })
-
-          let tags = []
-          if (_.get(edge, 'node.frontmatter.tags')) {
-            tags = tags.concat(edge.node.frontmatter.tags)
-          }
-
-          tags = _.uniq(tags)
-          _.each(tags, tag => {
-            const tagPath = `/blog/tags/${_.kebabCase(tag)}/`
-            createPage({
-              path: tagPath,
-              component: tagTemplate,
-              context: { tag },
-            })
-          })
-
-          let categories = []
-          if (_.get(edge, 'node.frontmatter.category')) {
-            categories = categories.concat(edge.node.frontmatter.category)
-          }
-
-          categories = _.uniq(categories)
-          _.each(categories, category => {
-            const categoryPath = `/blog/categories/${_.kebabCase(category)}/`
-            createPage({
-              path: categoryPath,
-              component: categoryTemplate,
-              context: { category },
-            })
           })
         }
       })
@@ -120,19 +105,5 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: 'slug',
       value: slug,
     })
-
-    if (node.frontmatter.tags) {
-      const tagSlugs = node.frontmatter.tags.map(
-        tag => `/blog/tags/${_.kebabCase(tag)}/`
-      )
-      createNodeField({ node, name: 'tagSlugs', value: tagSlugs })
-    }
-
-    if (typeof node.frontmatter.category !== 'undefined') {
-      const categorySlug = `/blog/categories/${_.kebabCase(
-        node.frontmatter.category
-      )}/`
-      createNodeField({ node, name: 'categorySlug', value: categorySlug })
-    }
   }
 }

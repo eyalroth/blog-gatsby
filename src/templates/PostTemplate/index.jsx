@@ -3,14 +3,14 @@ import { Link, graphql } from 'gatsby'
 import moment from 'moment'
 import { Utterences } from '../../components/Utterances'
 import Layout from '../../components/Layout'
+import { GlobalLinks } from '../../consts/menuLinks'
 import './style.scss'
 
 class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
-    const { title } = post.frontmatter
-    const tags = post.fields.tagSlugs
+    const { title, tags } = post.frontmatter
     const readingTime = post.fields.readingTime.text
 
     const titleBlock = (
@@ -33,11 +33,9 @@ class PostTemplate extends React.Component {
       <div className="post-single__tags">
         <ul className="post-single__tags-list">
           {tags &&
-            tags.map((tag, i) => (
+            tags.map(tag => (
               <li className="post-single__tags-list-item" key={tag}>
-                <Link to={tag} className="post-single__tags-list-item-link">
-                  {post.frontmatter.tags[i]}
-                </Link>
+                {tag}
               </li>
             ))}
         </ul>
@@ -77,7 +75,7 @@ class PostTemplate extends React.Component {
     )
 
     return (
-      <Layout subtitle={title}>
+      <Layout subtitle={title} globalLinkId={GlobalLinks.Blog.id}>
         <div className="post-single">
           {header}
           {body}
@@ -103,7 +101,6 @@ export const pageQuery = graphql`
       html
       fields {
         slug
-        tagSlugs
         readingTime {
           text
         }

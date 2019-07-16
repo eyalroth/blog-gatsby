@@ -1,33 +1,193 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
+import './style.scss'
+
+export const squareImage = graphql`
+  fragment squareImage on File {
+    childImageSharp {
+        fluid(maxWidth: 145, maxHeight: 145, quality: 100) {
+            ...GatsbyImageSharpFluid_noBase64
+        }
+    }
+  }
+`
 
 class ProfileImg extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            backWidth: 0,
+            isMouseUp: true
+        }
+        this.toggleMouse = this.toggleMouse.bind(this)
+        this.setMouseUp = this.setMouseUp.bind(this)
+        this.setMouseDown = this.setMouseDown.bind(this)
+    }
+
+    setBackWidth(newWidth) {
+        this.setState({
+            backWidth: newWidth
+        })
+    }
+
+    setMouseUp(event) {
+        this.toggleMouse(event, true)
+    }
+
+    setMouseDown(event) {
+        this.toggleMouse(event, false)
+    }
+    
+    toggleMouse(event, isMouseUp) {
+        const isLeftClick = event.which == 1
+        if (isLeftClick) {
+            this.setState({isMouseUp})
+        }
+    }
+
+
     render() {
-        const { id, className, author } = this.props
         return (
         <StaticQuery
             query={graphql`
                 query ProfileImgQuery {
-                    file(relativePath: { eq: "icon2.png" }) {
-                        childImageSharp {
-                            fluid(maxWidth: 145, maxHeight: 145, quality: 100) {
-                            ...GatsbyImageSharpFluid_noBase64
-                            }
-                        }
+                    front: file(relativePath: { eq: "icon2.png" }) {
+                        ...squareImage
+                    }
+                    
+                    back: file(relativePath: { eq: "icon.png" }) {
+                        ...squareImage
                     }
                 }
             `}
-            render={data => (
-                <div id={id} className={className}>
-                    <Img 
-                        fluid={data.file.childImageSharp.fluid}
-                        title={author}
-                        alt={author}
-                    />
-                </div>
-            )}
+            render={data => this.renderWithQueryData(data)}
         />)
+    }
+
+    renderWithQueryData(data) {
+        const { className, author } = this.props
+        const _this = this
+
+        function setupMove(div, eventType, extractCoordinates) {
+            if (div) {
+                div.addEventListener(eventType, (event) => {
+                    const container = div.parentElement
+                    const { x } = extractCoordinates(event)
+                    const { left } = container.getBoundingClientRect()
+                    const newWidth = x - left
+                    _this.setBackWidth(Math.max(newWidth, 0))
+                }, {once: true})
+            }
+        }
+
+        function addToggleMouseListener(target, type, listener) {
+            target.removeEventListener(type, listener)
+            target.addEventListener(type, listener)
+        }
+        
+        function setupMouseUp(div) {
+            if (div && !_this.state.isMouseUp) {
+                addToggleMouseListener(div, 'mouseup', _this.setMouseUp)
+            }
+        }
+        
+        function setupMouseMove(div) {
+            if (div) {
+                const toggleEvent = (_this.state.isMouseUp) ? 'mousedown' : 'mouseup'
+                const toggleAction = (_this.state.isMouseUp) ? _this.setMouseDown : _this.setMouseUp
+                addToggleMouseListener(div, toggleEvent,toggleAction)
+            }
+
+            if (!_this.state.isMouseUp) {
+                setupMove(div, 'mousemove', (event) => {
+                    const { clientX: x, clientY: y } = event
+                    return {x, y}
+                })
+            }
+        }
+
+        function setupTouchMove(div) {
+            setupMove(div, 'touchmove', (event) => {
+                const { clientX: x, clientY: y } = event.changedTouches[0]
+                return {x, y}
+            })
+        }
+
+        return (
+            <div className={className}>
+                    <div 
+                        className="profile-img-container"
+                        style={{
+                            position: "relative",
+                            height: "inherit"
+                        }}
+                    >
+                        <div 
+                            ref={setupMouseMove}
+                            className="profile-img-mousemove"
+                            style={{
+                                width: "130%",
+                                height: "100%",
+                                left: "-15%",
+                                position: "absolute",
+                                background: "transparent",
+                                zIndex: 2
+                            }}
+                        />
+                        <div
+                            ref={setupMouseUp}
+                            className="profile-img-mouseup"
+                            style={{
+                                position: "fixed",
+                                height: "100vh",
+                                width: "100vw",
+                                padding: 0,
+                                margin: 0,
+                                top: 0,
+                                left: 0,
+                                background: "transparent",
+                                display: (_this.state.isMouseUp) ? "none" : "inherit"
+                            }}
+                        />
+                        <div 
+                            ref={setupTouchMove}
+                            className="profile-img-touchmove"
+                            style={{
+                                width: "130%",
+                                height: "100%",
+                                left: "-15%",
+                                position: "absolute",
+                                background: "transparent",
+                                zIndex: 1
+                            }}
+                        />
+                        <Img
+                            className="profile-img-front"
+                            fluid={data.front.childImageSharp.fluid}
+                            title={author}
+                            alt={author}
+                        />
+                        <Img 
+                            className="profile-img-back"
+                            fluid={data.back.childImageSharp.fluid}
+                            title={author}
+                            alt={author}
+                            style={{
+                                position: "absolute",
+                                width: "100%",
+                                height: "100%",
+                                top: 0,
+                            }}
+                            imgStyle={{
+                                transition: "width 0.1s ease-out",
+                                width: `${this.state.backWidth}px`,
+                                objectPosition: "left",
+                            }}
+                        />
+                    </div>
+                </div>
+        )
     }
 }
 

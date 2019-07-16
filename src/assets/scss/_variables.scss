@@ -5,7 +5,6 @@
 // Colors
 $color-base: #222;
 $color-primary: #5d93ff;
-$color-secondary: #f7a046;
 
 $color-white: lighten($color-base, 100%);
 $color-gray: lighten($color-base, 40%);
@@ -23,17 +22,16 @@ $typographic-base-line-height: 1.625;
 
 $typographic-base-font-color: $color-base;
 $typographic-link-p-font-color: $color-primary;
-$typographic-link-s-font-color: $color-secondary;
 
 $typographic-leading: round(16 * ($typographic-root-font-size / 100) * $typographic-base-line-height);
 
 $layout-width: 100%;
-$layout-breakpoint-sm: 685px;
+$layout-breakpoint-sm: 600Px;
 $layout-breakpoint-md: 960px;
-$layout-breakpoint-lg: 1100px;
+$layout-breakpoint-lg: 1280px;
+$layout-breakpoint-xlg: 1600px;
 
-$max-page-width: 660px;
-
+$max-content-width: 660px;
 
 $page-base-margin-top: 0.5;
 $page-base-padding-left: 15px;
@@ -43,5 +41,7 @@ $page-sm-padding-left: 25%;
 
 $page-md-padding-top: 30px;
 $page-md-padding-left: 35%;
+
+$topbar-height: 44px;
 
 $footer-padding: 2.5rem;

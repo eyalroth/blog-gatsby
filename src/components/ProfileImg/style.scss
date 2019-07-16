@@ -1,0 +1,25 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.profile-img {
+    &-mousemove {
+        display: none;
+    }
+    &-mouseup {
+        display: none;
+    }
+}
+
+@include breakpoint-sm {
+    .profile-img {
+        &-mousemove {
+            display: unset;
+        }
+        &-mouseup {
+            display: unset;
+        }
+        &-touchmove {
+            display: none;
+        }
+    }
+}

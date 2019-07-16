@@ -2,10 +2,11 @@
 @import "../../assets/scss/mixins";
 
 .page {
-    max-width: $max-page-width;
-    padding-left: $page-base-padding-left;
-    padding-right: $page-base-padding-right;
+    max-width: $max-content-width;
     @include margin-top($page-base-margin-top);
+
+    padding-right: $page-base-padding-left;
+    padding-left: $page-base-padding-right;
     
     &__title {
         font-size: $typographic-base-font-size * 1.275;

@@ -4,7 +4,7 @@ date: "2017-08-18T22:12:03.284Z"
 layout: post
 draft: false
 path: "the-birth-of-movable-type"
-category: "Typography"
+category: "software"
 tags:
   - "Open source"
   - "Gatsby"

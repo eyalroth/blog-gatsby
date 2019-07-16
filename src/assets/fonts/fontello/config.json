@@ -43,12 +43,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "ccc2329632396dc096bb638d4b46fb98",
-      "css": "mail-alt",
-      "code": 61664,
-      "src": "fontawesome"
-    },
-    {
       "uid": "bf09b1c6561dc0ced707476e2cd83d29",
       "css": "medium",
       "code": 62010,
@@ -79,12 +73,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "de5f0a564ccf8816325330e292e11533",
-      "css": "rss-squared",
-      "code": 61763,
-      "src": "fontawesome"
-    },
-    {
       "uid": "e1597911f34fea0a188ae51fe4a2d9a9",
       "css": "stackoverflow",
       "code": 61804,
@@ -97,10 +85,28 @@
       "src": "fontawesome"
     },
     {
-      "uid": "9f7e588c66cfd6891f6f507cf6f6596b",
-      "css": "phone",
-      "code": 59393,
+      "uid": "7e4164950ffa4990961958b2d6318658",
+      "css": "info-circled",
+      "code": 59394,
+      "src": "entypo"
+    },
+    {
+      "uid": "0133387f2069a1b3168942b84d81dd3a",
+      "css": "gamepad",
+      "code": 61723,
       "src": "fontawesome"
+    },
+    {
+      "uid": "e36d581e4f2844db345bddc205d15dda",
+      "css": "group",
+      "code": 59393,
+      "src": "elusive"
+    },
+    {
+      "uid": "52cde78d270e411ccf22c9ec02910d69",
+      "css": "cd",
+      "code": 59396,
+      "src": "linecons"
     }
   ]
 }

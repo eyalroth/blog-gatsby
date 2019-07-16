@@ -1,0 +1,15 @@
+/**
+ * Toggle control
+ */
+
+@mixin enabled {
+    .enabled > & {
+        @content;
+    }
+}
+
+@mixin disabled {
+    .disabled > & {
+        @content;
+    }
+}

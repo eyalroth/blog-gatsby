@@ -4,10 +4,14 @@ import Helmet from 'react-helmet'
 import Links from '../Links'
 import ProfileImg from '../ProfileImg'
 import Footer from '../Footer'
+import globalState from '../GlobalState'
 import './style.scss'
+import '../Layout/style.scss'
 
 class Home extends React.Component {
   render() {
+    globalState.reset()
+
     return (
       <div className="page-container">
         <Helmet>

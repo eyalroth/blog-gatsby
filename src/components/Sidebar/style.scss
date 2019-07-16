@@ -9,9 +9,19 @@ $transition-timing: 0.2s;
 
 .sidebar {
     width: 100%;
-    position: relative;
     border-bottom: 1px solid #E7E7E7;
     display: inline-block;
+    
+    position: fixed;
+    background-color: $color-white;
+    transition: transform 0.5s ease-out;
+    z-index: 1;
+    height: $topbar-height;
+    top: 0;
+    
+    @include disabled {
+        transform: translateY(-$topbar-height - 10);
+    }
 
     &__author {
         &-img {
@@ -21,12 +31,12 @@ $transition-timing: 0.2s;
             position: absolute;
             left: 32%;
             transform: translate(0, $top-padding - 2px);
-            
-            &-enabled {
+           
+            @include enabled {
                 transition: opacity $transition-timing ease-in;
                 opacity: 1;
             }
-            &-disabled {
+            @include disabled {
                 opacity: 0;
             }
         }
@@ -38,11 +48,11 @@ $transition-timing: 0.2s;
             font-size: $typographic-base-font-size * 1;
             font-weight: 500;
 
-            &-enabled {
+            @include enabled {
                 transition: opacity $transition-timing ease-in;
                 opacity: 1;
             }
-            &-disabled {
+            @include disabled {
                 opacity: 0;
             }
         }
@@ -59,14 +69,14 @@ $transition-timing: 0.2s;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
 
-        &-enabled {
+        @include enabled {
             transition: 
                 width $transition-timing ease-out,
                 opacity $transition-timing cubic-bezier(0,0,1,0);
             opacity: 1;
             width: 100vw;
         }
-        &-disabled {
+        @include disabled {
             transition: 
                 width $transition-timing ease-out,
                 opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
@@ -88,7 +98,7 @@ $transition-timing: 0.2s;
             border-right: 1px solid #E7E7E7;
             outline: none;
 
-            &-enabled {
+            @include enabled {
                 color: $color-primary;
             }
         }
@@ -119,7 +129,7 @@ $transition-timing: 0.2s;
             bottom: 0;
             height: 2px;
             z-index: 0;
-            transition: transform $transition-timing ease-out;
+            transition: left $transition-timing ease-out;
         }
     }
 
@@ -134,14 +144,14 @@ $transition-timing: 0.2s;
         font-size: $typographic-base-font-size * 0.9;
         transform: translate(0, 1px);
 
-        &-enabled {
+        @include enabled {
             transition: 
                 width $transition-timing ease-out,
                 opacity $transition-timing cubic-bezier(0,0,1,0);
             opacity: 1;
             width: 80vw;
         }
-        &-disabled {
+        @include disabled {
             transition: 
                 width $transition-timing ease-out,
                 opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
@@ -163,7 +173,7 @@ $transition-timing: 0.2s;
             border-left: 1px solid #E7E7E7;
             outline: none;
 
-            &-enabled {
+            @include enabled {
                 color: $color-primary;
             }
         }
@@ -180,6 +190,17 @@ $transition-timing: 0.2s;
         display: unset;
         text-align: center;
 
+        position: relative;
+        background-color: unset;
+        transition: unset;
+        z-index: unset;
+        height: unset;
+        top: unset;
+    
+        @include disabled {
+            transform: unset;
+        }
+
         &__author {
             &-img {
                 display: block;
@@ -193,7 +214,7 @@ $transition-timing: 0.2s;
                 position: unset;
                 left: unset;
                 transform: unset;
-                &-disabled {
+                @include disabled {
                     opacity: unset;
                 }
             }
@@ -202,7 +223,7 @@ $transition-timing: 0.2s;
                 position: unset;
                 left: unset;
                 transform: unset;
-                &-disabled {
+                @include disabled {
                     opacity: unset;
                 }
             }
@@ -215,7 +236,7 @@ $transition-timing: 0.2s;
         
         &__menu {
             overflow: unset;
-            position: unset;
+            position: relative;
             z-index: unset;
             padding-top: unset;
             padding-bottom: unset;
@@ -223,7 +244,7 @@ $transition-timing: 0.2s;
             &-button {
                 display: none;
             }
-            &-disabled {
+            @include disabled {
                 opacity: unset;
                 width: unset;
             }
@@ -242,6 +263,7 @@ $transition-timing: 0.2s;
             &-underline {
                 margin-bottom: -4px;
                 height: 2px;
+                position: absolute;
             }
         }
 
@@ -257,7 +279,7 @@ $transition-timing: 0.2s;
             &-button {
                 display: none;
             }
-            &-disabled {
+            @include disabled {
                 opacity: unset;
                 width: unset;
             }
@@ -269,7 +291,7 @@ $transition-timing: 0.2s;
             position: absolute;
             content: "";
             width: 1px;
-            height: 540px;
+            height: 70vh;
             top: 30px;
             right: -10px;
             bottom: 0;
@@ -294,6 +316,23 @@ $transition-timing: 0.2s;
                 font-size: $typographic-base-font-size * 0.8;
                 @include line-height(1.5);
             }
+        }
+    }
+}
+@include breakpoint-lg {
+    .sidebar {
+        lost-column: 1/5;
+        &:after {
+            right: -35px;
+        }
+    }
+}
+
+@include breakpoint-xlg {
+    .sidebar {
+        lost-column: 1/6;
+        &:after {
+            right: -70px;
         }
     }
 }

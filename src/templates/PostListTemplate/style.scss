@@ -1,0 +1,22 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.posts {
+    margin-right: $page-base-padding-left;
+    margin-left: $page-base-padding-right;
+}
+
+@include breakpoint-sm {
+    .posts {
+        margin-left: $page-sm-padding-left;
+        margin-right: 5%;
+    }
+
+}
+
+@include breakpoint-md {
+    .posts {
+        margin-left: $page-md-padding-left;
+        margin-right: 10%;
+    }
+}
