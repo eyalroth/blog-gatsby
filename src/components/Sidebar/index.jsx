@@ -24,8 +24,14 @@ class Sidebar extends React.Component {
     }
     this.state = { isEnabled: true, mode: globalState.sidebar.mode }
     this.lastScrollY = null
+    this.scrollUpRate = {
+      firstEventTime: null,
+      lastEventTime: null,
+      firstScrollY: null
+    }
 
     this.handleScroll = this.handleScroll.bind(this)
+    this.calcScrollUpRate = this.calcScrollUpRate.bind(this)
   }
 
   changeMode(newMode) {
@@ -93,12 +99,48 @@ class Sidebar extends React.Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll() {
-    const isScrollUp = this.lastScrollY && window.scrollY < this.lastScrollY 
-    this.lastScrollY = window.scrollY
-    const isEnabled = isScrollUp || scrollY <= window.innerHeight
+  handleScroll(event) {
+    const scrollY = window.scrollY
+    
+    const isScrollUp = this.lastScrollY && this.lastScrollY > scrollY
+    this.lastScrollY = scrollY
+    const isFastScrollUp = this.calcScrollUpRate(event.timeStamp, scrollY, isScrollUp)
+
+    const isInTopOfPage = scrollY <= window.innerHeight
+    const isEnabled = isInTopOfPage || isFastScrollUp || (this.state.isEnabled && isScrollUp)
+
     if (isEnabled != this.state.isEnabled) {
       this.setState({isEnabled})
+    }
+  }
+
+  calcScrollUpRate(eventTime, scrollY, isScrollUp) {
+
+    const maxEventTimeGap = 100
+
+    if (isScrollUp) {
+      if (this.scrollUpRate.firstScrollY && 
+          maxEventTimeGap > eventTime - this.scrollUpRate.lastEventTime) {
+        this.scrollUpRate.lastEventTime = eventTime
+      } else {
+        this.scrollUpRate = {
+          firstEventTime: eventTime,
+          lastEventTime: eventTime,
+          firstScrollY: scrollY
+        }
+      }
+
+      const pixels = this.scrollUpRate.firstScrollY - scrollY
+      const millis = this.scrollUpRate.lastEventTime - this.scrollUpRate.firstEventTime
+
+      return pixels > 50 && (millis / pixels) < 10
+    } else {
+      this.scrollUpRate = {
+        firstEventTime: null,
+        lastEventTime: null,
+        firstScrollY: null
+      }
+      return false
     }
   }
 
