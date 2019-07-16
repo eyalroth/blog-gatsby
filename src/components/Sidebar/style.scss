@@ -17,6 +17,7 @@ $transition-timing: 0.2s;
     transition: transform 0.5s ease-out;
     z-index: 1;
     height: $topbar-height;
+    top: 0;
     
     @include disabled {
         transform: translateY(-$topbar-height - 10);
@@ -194,6 +195,7 @@ $transition-timing: 0.2s;
         transition: unset;
         z-index: unset;
         height: unset;
+        top: unset;
     
         @include disabled {
             transform: unset;
