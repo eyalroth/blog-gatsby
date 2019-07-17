@@ -1,19 +1,11 @@
 import React from 'react'
 import {
-    FacebookIcon,
 	FacebookShareButton,
-    LinkedinIcon,
 	LinkedinShareButton,
-    TwitterIcon,
 	TwitterShareButton,
-    RedditIcon,
 	RedditShareButton,
-    EmailIcon,
     EmailShareButton,
-    PocketIcon,
     PocketShareButton,
-    InstapaperIcon,
-    InstapaperShareButton,
 } from 'react-share';
 import './style.scss'
 

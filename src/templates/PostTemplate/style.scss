@@ -28,6 +28,9 @@
             margin: 0.3rem;
         }
     }
+    &__share-panel {
+        display: none;
+    }
     &__tags {
         &-list {
             @include margin-top(0.15);
@@ -123,6 +126,7 @@
             max-width: calc(100% - 230px);
         }
         &__share-panel {
+            display: unset;
             position: absolute;
             top: -2px;
             right: 0;
