@@ -1,0 +1,84 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+$button-size: 18px;
+$button-size-sm: 20px;
+$button-size-md: 22px;
+
+$brand-colors: (
+	facebook: #3b5998,
+	twitter: #00aced,
+	linkedin: #007Fb1,
+    reddit: #ff5d20,
+    pocket: #ef3f56,
+    email: #f14336,
+    clipboard: #777777,
+);
+
+.share-panel {
+    display: inline-block;
+
+    &__button {
+        display: inline-block;
+        padding: 0;
+        background: transparent;
+        border: none;
+        height: $button-size;
+        width: $button-size;
+        margin-right: 8px;
+    }
+    
+    &__icon {
+        height: $button-size;
+        width: $button-size;
+        &::before {
+            margin: 0;
+            padding: 0;
+            font-size: $button-size;
+        }
+
+        @each $class, $color in $brand-colors {
+			&.#{$class} {
+				color: $color;
+				&:hover {
+                    &::before {
+                        color: darken($color, 10%);
+                    }
+				}
+			}
+		}
+    }
+}
+
+@include breakpoint-sm {
+    .share-panel {
+        &__button {
+            height: $button-size-sm;
+            width: $button-size-sm;
+        }
+        &__icon {
+            height: $button-size-sm;
+            width: $button-size-sm;
+            &::before {
+                font-size: $button-size-sm;
+            }
+        }
+    }
+}
+
+@include breakpoint-md {
+    .share-panel {
+        &__button {
+            height: $button-size-md;
+            width: $button-size-md;
+            margin-right: 10px;
+        }
+        &__icon {
+            height: $button-size-md;
+            width: $button-size-md;
+            &::before {
+                font-size: $button-size-md;
+            }
+        }
+    }
+}

@@ -1,9 +1,10 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import moment from 'moment'
 import { Utterences } from '../../components/Utterances'
 import Layout from '../../components/Layout'
 import { GlobalLinks } from '../../consts/menuLinks'
+import SharePanel from '../../components/SharePanel'
 import './style.scss'
 
 class PostTemplate extends React.Component {
@@ -42,6 +43,12 @@ class PostTemplate extends React.Component {
       </div>
     )
 
+    const sharePanel = (
+      <div className="post-single__share-panel">
+        <SharePanel url={this.props.location.href}/>
+      </div>
+    )
+
     const header = (
       <div className="post-single__header">
         {titleBlock}
@@ -49,7 +56,10 @@ class PostTemplate extends React.Component {
           {dateBlock}
           <span id="subtitle-div">&#183;</span>
           {readTimeBlock}
-          {tagsBlock}
+          <div className="post-single__header-bottom">
+            {tagsBlock}
+            {sharePanel}
+          </div>
         </div>
       </div>
     )

@@ -10,6 +10,9 @@
 
     &__header {
         @include line-height(1);
+        &-bottom {
+            position: relative;
+        }        
     }
     &__title {
         font-size: $typographic-base-font-size * 1.275;
@@ -23,6 +26,18 @@
         color: gray;
         #subtitle-div {
             margin: 0.3rem;
+        }
+    }
+    &__tags {
+        &-list {
+            @include margin-top(0.15);
+            @include margin-bottom(0.15);
+            margin-left: -5px;
+            padding: 0;
+            &-item {
+                display: inline-block;
+                @include line-height(.7);
+            }
         }
     }
     &__body {
@@ -76,18 +91,6 @@
             }
         }
     }
-    
-    &__tags {
-        &-list {
-            @include margin-top(0.15);
-            margin-left: -5px;
-            padding: 0;
-            &-item {
-                display: inline-block;
-                @include line-height(.7);
-            }
-        }
-    }
 }
 
 @include breakpoint-sm {
@@ -95,6 +98,11 @@
         padding-left: $page-sm-padding-left;
         &__title {
             font-size: $typographic-base-font-size * 1.4875;
+        }
+        &__tags {
+            &-list {
+                @include margin-bottom(0.3);
+            }
         }
         &__body {
             & .gatsby-highlight {
@@ -112,6 +120,12 @@
         
         &__tags {
             font-weight: 500;
+            max-width: calc(100% - 230px);
+        }
+        &__share-panel {
+            position: absolute;
+            top: -2px;
+            right: 0;
         }
         &__body {
             font-size: $typographic-base-font-size * 1.06;
