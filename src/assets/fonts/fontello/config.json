@@ -149,6 +149,12 @@
       "css": "link",
       "code": 59397,
       "src": "entypo"
+    },
+    {
+      "uid": "91426c82d94428a33353e495418435e3",
+      "css": "share",
+      "code": 59398,
+      "src": "entypo"
     }
   ]
 }

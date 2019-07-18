@@ -6,6 +6,7 @@ import Layout from '../../components/Layout'
 import { GlobalLinks } from '../../consts/menuLinks'
 import SharePanel from '../../components/SharePanel'
 import './style.scss'
+import MobileShareButton from '../../components/MobileShareButton';
 
 class PostTemplate extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class PostTemplate extends React.Component {
     const post = this.props.data.markdownRemark
     const { title, tags } = post.frontmatter
     const readingTime = post.fields.readingTime.text
+    const url = this.props.location.href
 
     const titleBlock = (
       <h2 className="post-single__title">{post.frontmatter.title}</h2>
@@ -45,7 +47,7 @@ class PostTemplate extends React.Component {
 
     const sharePanel = (
       <div className="post-single__share-panel">
-        <SharePanel url={this.props.location.href}/>
+        <SharePanel url={url}/>
       </div>
     )
 
@@ -72,6 +74,8 @@ class PostTemplate extends React.Component {
       />
     )
 
+    const mobileShare = <MobileShareButton url={url}/>
+
     const commentsBlock = (
       <div>
         {!!utterances && <Utterences repo={utterances} />}
@@ -88,6 +92,7 @@ class PostTemplate extends React.Component {
       <Layout subtitle={title} globalLinkId={GlobalLinks.Blog.id}>
         <div className="post-single">
           {header}
+          {mobileShare}
           {body}
           <hr />
           {footer}

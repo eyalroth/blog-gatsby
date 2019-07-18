@@ -15,7 +15,7 @@ class SharePanel extends React.Component {
 
         return (
             <div className="share-panel">
-                <button title="hehe" className="share-panel__button clipboard" onClick={urlToClipboard}>
+                <button className="share-panel__button clipboard" onClick={urlToClipboard}>
                     <i title="Copy to clipboard" className="share-panel__icon icon-link clipboard" />
                 </button>
                 <FacebookShareButton className="share-panel__button facebook" url={url} >
