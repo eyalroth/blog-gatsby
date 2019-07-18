@@ -31,6 +31,8 @@ $brand-colors: (
     &__icon {
         height: $button-size;
         width: $button-size;
+        cursor: pointer;
+        
         &::before {
             margin: 0;
             padding: 0;
