@@ -1,10 +1,12 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import moment from 'moment'
 import { Utterences } from '../../components/Utterances'
 import Layout from '../../components/Layout'
 import { GlobalLinks } from '../../consts/menuLinks'
+import SharePanel from '../../components/SharePanel'
 import './style.scss'
+import MobileShareButton from '../../components/MobileShareButton';
 
 class PostTemplate extends React.Component {
   render() {
@@ -12,6 +14,7 @@ class PostTemplate extends React.Component {
     const post = this.props.data.markdownRemark
     const { title, tags } = post.frontmatter
     const readingTime = post.fields.readingTime.text
+    const url = this.props.location.href
 
     const titleBlock = (
       <h2 className="post-single__title">{post.frontmatter.title}</h2>
@@ -42,6 +45,12 @@ class PostTemplate extends React.Component {
       </div>
     )
 
+    const sharePanel = (
+      <div className="post-single__share-panel">
+        <SharePanel url={url}/>
+      </div>
+    )
+
     const header = (
       <div className="post-single__header">
         {titleBlock}
@@ -49,7 +58,10 @@ class PostTemplate extends React.Component {
           {dateBlock}
           <span id="subtitle-div">&#183;</span>
           {readTimeBlock}
-          {tagsBlock}
+          <div className="post-single__header-bottom">
+            {tagsBlock}
+            {sharePanel}
+          </div>
         </div>
       </div>
     )
@@ -61,6 +73,8 @@ class PostTemplate extends React.Component {
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
     )
+
+    const mobileShare = <MobileShareButton url={url}/>
 
     const commentsBlock = (
       <div>
@@ -78,6 +92,7 @@ class PostTemplate extends React.Component {
       <Layout subtitle={title} globalLinkId={GlobalLinks.Blog.id}>
         <div className="post-single">
           {header}
+          {mobileShare}
           {body}
           <hr />
           {footer}

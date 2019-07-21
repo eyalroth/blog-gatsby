@@ -1,0 +1,34 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+$button-size: 20px;
+
+.share-mobile {
+    &__button {
+        position: fixed;
+        z-index: 1;
+
+        bottom: 4vmin;
+        right: 4vmin;
+        margin: 0;
+        padding: 5px 3px;
+        border-radius: 30px;
+
+        box-shadow: 0px 3px 6px -3px rgba(0,0,0,0.8);
+        background-color: transparent;
+        outline: none;
+        border: none;
+        
+        &:active {
+            box-shadow: 0px 3px 6px -2px rgba(0,0,0,0.8);
+        }
+    }
+
+    &__icon {
+        font-size: $button-size;
+        color: rgba(0, 0, 0, 0.2);
+        &:active {
+            color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}

@@ -2,7 +2,10 @@
 .icon-mail:before { content: '\e800'; } /* '' */
 .icon-group:before { content: '\e801'; } /* '' */
 .icon-info-circled:before { content: '\e802'; } /* '' */
+.icon-mail-circled:before { content: '\e803'; } /* '' */
 .icon-cd:before { content: '\e804'; } /* '' */
+.icon-link:before { content: '\e805'; } /* '' */
+.icon-share:before { content: '\e806'; } /* '' */
 .icon-twitter:before { content: '\f099'; } /* '' */
 .icon-github-circled:before { content: '\f09b'; } /* '' */
 .icon-rss:before { content: '\f09e'; } /* '' */
@@ -11,8 +14,13 @@
 .icon-gamepad:before { content: '\f11b'; } /* '' */
 .icon-stackoverflow:before { content: '\f16c'; } /* '' */
 .icon-instagram:before { content: '\f16d'; } /* '' */
+.icon-reddit:before { content: '\f1a1'; } /* '' */
 .icon-facebook-official:before { content: '\f230'; } /* '' */
 .icon-whatsapp:before { content: '\f232'; } /* '' */
 .icon-medium:before { content: '\f23a'; } /* '' */
+.icon-get-pocket:before { content: '\f265'; } /* '' */
 .icon-facebook-squared:before { content: '\f308'; } /* '' */
+.icon-twitter-circled:before { content: '\f30a'; } /* '' */
 .icon-linkedin-squared:before { content: '\f30c'; } /* '' */
+.icon-facebook-circled:before { content: '\f30d'; } /* '' */
+.icon-linkedin-circled:before { content: '\f319'; } /* '' */
