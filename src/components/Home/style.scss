@@ -49,6 +49,7 @@
         }
         &-item {
             &-link {
+                text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
                 font-size: $typographic-base-font-size * 0.9;
                 color: $typographic-base-font-color;
                 font-weight: 500;

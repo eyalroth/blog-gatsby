@@ -26,10 +26,10 @@ $typographic-link-p-font-color: $color-primary;
 $typographic-leading: round(16 * ($typographic-root-font-size / 100) * $typographic-base-line-height);
 
 $layout-width: 100%;
-$layout-breakpoint-sm: 600Px;
-$layout-breakpoint-md: 960px;
-$layout-breakpoint-lg: 1280px;
-$layout-breakpoint-xlg: 1600px;
+$layout-breakpoint-sm: 600Px; // tablet (portrait), handset (landscape)
+$layout-breakpoint-md: 960px; // tablet (landscape)
+$layout-breakpoint-lg: 1280px; // laptop
+$layout-breakpoint-xlg: 1600px; // desktop
 
 $max-content-width: 660px;
 

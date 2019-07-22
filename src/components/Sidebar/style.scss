@@ -185,10 +185,8 @@ $shadow-height: 4px;
 
 @include breakpoint-sm {
     .sidebar {
-        box-shadow: unset;
         padding-bottom: unset;
         lost-column: 2/9;
-        padding-top: 30vh;
         display: unset;
         text-align: center;
         
@@ -197,7 +195,12 @@ $shadow-height: 4px;
         z-index: unset;
         height: unset;
         top: unset;
-    
+        
+        top: -10px;
+        height: 100vh;
+        box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
+        padding: 30vh 0 0 0;
+
         @include disabled {
             transform: unset;
         }
@@ -242,10 +245,8 @@ $shadow-height: 4px;
             padding-bottom: unset;
             position: unset;
 
-            border-radius: 5px;
-            padding-bottom: 5px;
-            padding-top: 5px;
-            box-shadow: 0px 2px 6px -2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px -3px 4px -3px rgba(0, 0, 0, 0.05);
+            padding-top: 14px;
 
             &-button {
                 display: none;
@@ -258,6 +259,7 @@ $shadow-height: 4px;
             &-list {
                 &-item {
                     &-link {
+                        text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
                         &:hover,
                         &:focus {
                             color: $typographic-base-font-color;
@@ -267,10 +269,12 @@ $shadow-height: 4px;
             }
 
             &-underline {
-                background-color: rgba(0, 0, 0, 0.5);
-                margin-bottom: -4px;
+                position: relative;
+                background-color: rgba(0, 0, 0, 0.4);
+                box-shadow: 0px 5px 6px -1px rgba(0, 0, 0, 0.5);
                 height: 2px;
-                position: absolute;
+                margin-top: 5px;
+                bottom: 0;
             }
         }
 
@@ -291,25 +295,13 @@ $shadow-height: 4px;
                 width: unset;
             }
         }
-
-        &:after {
-            background: $color-gray-border;
-            background: linear-gradient(to bottom, $color-white 0%, $color-gray-border 48%, $color-white 100%);
-            position: absolute;
-            content: "";
-            width: 1px;
-            height: 70vh;
-            top: 30px;
-            right: -10px;
-            bottom: 0;
-        }
     }
 }
 
 @include breakpoint-md {
     .sidebar {
         lost-column: 1/4;
-        padding-top: 25vh;
+        // TODO padding / position
 
         &__author {
             &-img {
@@ -329,8 +321,10 @@ $shadow-height: 4px;
 @include breakpoint-lg {
     .sidebar {
         lost-column: 1/5;
-        &:after {
-            right: -35px;
+        padding: 25vh 2vw 0 2vw;
+        transform: translateX(-1vw);
+        @include disabled {
+            transform: translateX(-1vw);
         }
     }
 }
@@ -338,8 +332,6 @@ $shadow-height: 4px;
 @include breakpoint-xlg {
     .sidebar {
         lost-column: 1/6;
-        &:after {
-            right: -70px;
-        }
+        // TODO padding / position
     }
 }
