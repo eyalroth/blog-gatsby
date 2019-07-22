@@ -252,6 +252,9 @@ $shadow-height: 4px;
             &-button {
                 display: none;
             }
+            @include enabled {
+                width: unset;
+            }
             @include disabled {
                 opacity: unset;
                 width: unset;
@@ -290,6 +293,9 @@ $shadow-height: 4px;
 
             &-button {
                 display: none;
+            }
+            @include enabled {
+                width: unset;
             }
             @include disabled {
                 opacity: unset;
