@@ -183,10 +183,9 @@ $shadow-height: 4px;
     }
 }
 
-@include breakpoint-sm {
+@include breakpoint-md {
     .sidebar {
         padding-bottom: unset;
-        lost-column: 2/9;
         display: unset;
         text-align: center;
         
@@ -195,11 +194,13 @@ $shadow-height: 4px;
         z-index: unset;
         height: unset;
         top: unset;
-        
+
         top: -10px;
         height: 100vh;
         box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
-        padding: 30vh 0 0 0;
+
+        lost-column: 1/4;
+        padding: 30vh 2vw 0 2vw;
 
         @include disabled {
             transform: unset;
@@ -298,10 +299,14 @@ $shadow-height: 4px;
     }
 }
 
-@include breakpoint-md {
+@include breakpoint-lg {
     .sidebar {
-        lost-column: 1/4;
-        // TODO padding / position
+        lost-column: 1/5;
+        padding: 25vh 2vw 0 2vw;
+        transform: translateX(-1vw);
+        @include disabled {
+            transform: translateX(-1vw);
+        }
 
         &__author {
             &-img {
@@ -315,16 +320,6 @@ $shadow-height: 4px;
                 font-size: $typographic-base-font-size * 0.8;
                 @include line-height(1.5);
             }
-        }
-    }
-}
-@include breakpoint-lg {
-    .sidebar {
-        lost-column: 1/5;
-        padding: 25vh 2vw 0 2vw;
-        transform: translateX(-1vw);
-        @include disabled {
-            transform: translateX(-1vw);
         }
     }
 }
