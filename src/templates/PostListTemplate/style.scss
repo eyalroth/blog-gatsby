@@ -9,7 +9,7 @@
 @include breakpoint-sm {
     .posts {
         margin-left: $page-sm-padding-left;
-        margin-right: 5%;
+        margin-right: $page-sm-padding-right;
     }
 
 }
@@ -17,6 +17,6 @@
 @include breakpoint-md {
     .posts {
         margin-left: $page-md-padding-left;
-        margin-right: 10%;
+        margin-right: $page-md-padding-right;
     }
 }

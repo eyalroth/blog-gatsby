@@ -26,10 +26,10 @@ $typographic-link-p-font-color: $color-primary;
 $typographic-leading: round(16 * ($typographic-root-font-size / 100) * $typographic-base-line-height);
 
 $layout-width: 100%;
-$layout-breakpoint-sm: 600Px;
-$layout-breakpoint-md: 960px;
-$layout-breakpoint-lg: 1280px;
-$layout-breakpoint-xlg: 1600px;
+$layout-breakpoint-sm: 600Px; // tablet (portrait), handset (landscape)
+$layout-breakpoint-md: 1024px; // xlarge tablet (portrait), tablet (landscape)
+$layout-breakpoint-lg: 1280px; // laptop, xlarge tablet (landscape)
+$layout-breakpoint-xlg: 1600px; // desktop
 
 $max-content-width: 660px;
 
@@ -37,11 +37,13 @@ $page-base-margin-top: 0.5;
 $page-base-padding-left: 15px;
 $page-base-padding-right: 15px;
 
-$page-sm-padding-left: 25%;
+$page-sm-padding-left: 15%;
+$page-sm-padding-right: 15%;
 
 $page-md-padding-top: 30px;
 $page-md-padding-left: 35%;
+$page-md-padding-right: 5%;
 
-$topbar-height: 44px;
+$topbar-height: 48px;
 
 $footer-padding: 2.5rem;

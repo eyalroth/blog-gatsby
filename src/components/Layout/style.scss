@@ -19,7 +19,7 @@ html {
     margin: 0 auto;
 }
 
-@include breakpoint-sm {
+@include breakpoint-md {
     .content-wrap {
         padding-top: unset;
     }

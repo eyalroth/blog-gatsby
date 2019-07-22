@@ -7,17 +7,19 @@ $bottom-padding: 10px;
 $button-side-padding: 10px;
 $transition-timing: 0.2s;
 
+$shadow-height: 4px;
+
 .sidebar {
     width: 100%;
-    border-bottom: 1px solid #E7E7E7;
     display: inline-block;
+    box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
     
     position: fixed;
     background-color: $color-white;
     transition: transform 0.5s ease-out;
     z-index: 1;
-    height: $topbar-height;
-    top: 0;
+    height: $topbar-height - $shadow-height;
+    top: -1px;
     
     @include disabled {
         transform: translateY(-$topbar-height - 10);
@@ -95,9 +97,9 @@ $transition-timing: 0.2s;
             padding-right: $button-side-padding;
             height: $img-size * 1.5;
             width: $img-size * 1.5;
-            border-right: 1px solid #E7E7E7;
             outline: none;
 
+            text-shadow: 0px 2px 3px rgba(0,0,0,0.1);
             @include enabled {
                 color: $color-primary;
             }
@@ -126,7 +128,7 @@ $transition-timing: 0.2s;
             display: block;
             position: absolute;
             width: 0;
-            bottom: 0;
+            bottom: 2px;
             height: 2px;
             z-index: 0;
             transition: left $transition-timing ease-out;
@@ -170,9 +172,10 @@ $transition-timing: 0.2s;
             padding-right: $button-side-padding;
             height: $img-size * 1.5;
             width: $img-size * 1.5;
-            border-left: 1px solid #E7E7E7;
             outline: none;
-
+            
+            color: rgba(0, 0, 0, 0.8);
+            text-shadow: 0px 2px 2px rgba(0,0,0,0.1);
             @include enabled {
                 color: $color-primary;
             }
@@ -180,21 +183,25 @@ $transition-timing: 0.2s;
     }
 }
 
-@include breakpoint-sm {
+@include breakpoint-md {
     .sidebar {
-        border-bottom: unset;
         padding-bottom: unset;
-        lost-column: 2/9;
-        padding-top: 30vh;
         display: unset;
         text-align: center;
-
+        
         background-color: unset;
         transition: unset;
         z-index: unset;
         height: unset;
         top: unset;
-    
+
+        top: -10px;
+        height: 100vh;
+        box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
+
+        lost-column: 1/4;
+        padding: 30vh 2vw 0 2vw;
+
         @include disabled {
             transform: unset;
         }
@@ -234,11 +241,14 @@ $transition-timing: 0.2s;
         
         &__menu {
             overflow: unset;
-            position: relative;
             z-index: unset;
             padding-top: unset;
             padding-bottom: unset;
-            
+            position: unset;
+
+            box-shadow: 0px -3px 4px -3px rgba(0, 0, 0, 0.05);
+            padding-top: 14px;
+
             &-button {
                 display: none;
             }
@@ -250,6 +260,7 @@ $transition-timing: 0.2s;
             &-list {
                 &-item {
                     &-link {
+                        text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
                         &:hover,
                         &:focus {
                             color: $typographic-base-font-color;
@@ -259,9 +270,12 @@ $transition-timing: 0.2s;
             }
 
             &-underline {
-                margin-bottom: -4px;
+                position: relative;
+                background-color: rgba(0, 0, 0, 0.4);
+                box-shadow: 0px 5px 6px -1px rgba(0, 0, 0, 0.5);
                 height: 2px;
-                position: absolute;
+                margin-top: 5px;
+                bottom: 0;
             }
         }
 
@@ -282,25 +296,17 @@ $transition-timing: 0.2s;
                 width: unset;
             }
         }
-
-        &:after {
-            background: $color-gray-border;
-            background: linear-gradient(to bottom, $color-white 0%, $color-gray-border 48%, $color-white 100%);
-            position: absolute;
-            content: "";
-            width: 1px;
-            height: 70vh;
-            top: 30px;
-            right: -10px;
-            bottom: 0;
-        }
     }
 }
 
-@include breakpoint-md {
+@include breakpoint-lg {
     .sidebar {
-        lost-column: 1/4;
-        padding-top: 25vh;
+        lost-column: 1/5;
+        padding: 25vh 2vw 0 2vw;
+        transform: translateX(-1vw);
+        @include disabled {
+            transform: translateX(-1vw);
+        }
 
         &__author {
             &-img {
@@ -317,20 +323,10 @@ $transition-timing: 0.2s;
         }
     }
 }
-@include breakpoint-lg {
-    .sidebar {
-        lost-column: 1/5;
-        &:after {
-            right: -35px;
-        }
-    }
-}
 
 @include breakpoint-xlg {
     .sidebar {
         lost-column: 1/6;
-        &:after {
-            right: -70px;
-        }
+        // TODO padding / position
     }
 }

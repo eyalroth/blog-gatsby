@@ -5,14 +5,15 @@ import { Utterences } from '../../components/Utterances'
 import Layout from '../../components/Layout'
 import { GlobalLinks } from '../../consts/menuLinks'
 import SharePanel from '../../components/SharePanel'
-import './style.scss'
 import MobileShareButton from '../../components/MobileShareButton';
+import PostSeriesBox from '../../components/PostSeriesBox';
+import './style.scss'
 
 class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
-    const { title, tags } = post.frontmatter
+    const { title, tags, series } = post.frontmatter
     const readingTime = post.fields.readingTime.text
     const url = this.props.location.href
 
@@ -76,6 +77,8 @@ class PostTemplate extends React.Component {
 
     const mobileShare = <MobileShareButton url={url}/>
 
+    const seriesBox = <PostSeriesBox series={series}/>
+
     const commentsBlock = (
       <div>
         {!!utterances && <Utterences repo={utterances} />}
@@ -93,6 +96,7 @@ class PostTemplate extends React.Component {
         <div className="post-single">
           {header}
           {mobileShare}
+          {seriesBox}
           {body}
           <hr />
           {footer}
@@ -125,6 +129,10 @@ export const pageQuery = graphql`
         tags
         date
         description
+        series {
+          name
+          order
+        }
       }
     }
   }

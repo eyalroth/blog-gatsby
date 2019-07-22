@@ -26,6 +26,7 @@
 @include breakpoint-sm {
     .page {
         padding-left: $page-sm-padding-left;
+        padding-right: $page-sm-padding-right;
         &__title {
             font-size: $typographic-base-font-size * 1.4875;
         }
@@ -35,6 +36,7 @@
 @include breakpoint-md {
     .page {
         padding-left: $page-md-padding-left;
+        padding-right: $page-md-padding-right;
         padding-top: $page-md-padding-top;
 
         &__body {
