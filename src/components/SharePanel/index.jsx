@@ -13,6 +13,10 @@ class SharePanel extends React.Component {
     render() {
         const { url } = this.props
 
+        if (typeof navigator !== 'undefined' && navigator.share) {
+            return null
+        }
+
         return (
             <div className="share-panel">
                 <button className="share-panel__button clipboard" onClick={urlToClipboard}>

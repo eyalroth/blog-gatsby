@@ -27,9 +27,6 @@
             margin: 0.3rem;
         }
     }
-    &__share-panel {
-        display: none;
-    }
     &__tags {
         &-list {
             @include margin-top(0.15);
@@ -103,9 +100,15 @@
             font-size: $typographic-base-font-size * 1.4875;
         }
         &__tags {
+            max-width: calc(100% - 210px);
             &-list {
                 @include margin-bottom(0.3);
             }
+        }
+        &__share-panel {
+            position: absolute;
+            top: -2px;
+            right: 0;
         }
         &__body {
             & .gatsby-highlight {
@@ -124,14 +127,8 @@
         padding-top: $content-padding-top-md;
         
         &__tags {
-            font-weight: 500;
             max-width: calc(100% - 230px);
-        }
-        &__share-panel {
-            display: unset;
-            position: absolute;
-            top: -2px;
-            right: 0;
+            font-weight: 500;
         }
         &__body {
             font-size: $typographic-base-font-size * 1.06;
