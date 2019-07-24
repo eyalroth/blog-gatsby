@@ -2,11 +2,10 @@
 @import "../../assets/scss/mixins";
 
 .post-single {
-    max-width: $max-content-width;
-    @include margin-top($page-base-margin-top);
-
-    padding-right: $page-base-padding-left;
-    padding-left: $page-base-padding-right;
+    max-width: $content-max-width;
+    width: $content-width-base;
+    margin: 0 auto;
+    padding-top: $content-padding-top-base;
 
     &__header {
         @include line-height(1);
@@ -98,8 +97,8 @@
 
 @include breakpoint-sm {
     .post-single {
-        padding-left: $page-sm-padding-left;
-        padding-right: $page-sm-padding-right;
+        width: $content-width-sm;
+
         &__title {
             font-size: $typographic-base-font-size * 1.4875;
         }
@@ -119,9 +118,10 @@
 
 @include breakpoint-md {
     .post-single {
-        padding-left: $page-md-padding-left;
-        padding-right: $page-md-padding-right;
-        padding-top: $page-md-padding-top;
+        width: $content-width-md;
+        margin: unset;
+        padding-left: $content-padding-left-md;
+        padding-top: $content-padding-top-md;
         
         &__tags {
             font-weight: 500;
@@ -140,5 +140,13 @@
                 @include line-height(1.2);
             }
         }
+    }
+}
+
+@include breakpoint-lg {
+    .post-single {
+        width: $content-width-lg;
+        padding-left: $content-padding-left-lg;
+        padding-top: $content-padding-top-lg;
     }
 }

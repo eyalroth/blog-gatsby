@@ -6,7 +6,6 @@ require("dotenv").config({
   path: `.env.${activeEnv}`,
 })
 
-const lost = require('lost')
 const pxtorem = require('postcss-pxtorem')
 const path = require(`path`)
 
@@ -94,7 +93,6 @@ module.exports = {
       resolve: 'gatsby-plugin-sass',
       options: {
         postCssPlugins: [
-          lost(),
           pxtorem({
             rootValue: 16,
             unitPrecision: 5,

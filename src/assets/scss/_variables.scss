@@ -25,25 +25,42 @@ $typographic-link-p-font-color: $color-primary;
 
 $typographic-leading: round(16 * ($typographic-root-font-size / 100) * $typographic-base-line-height);
 
-$layout-width: 100%;
-$layout-breakpoint-sm: 600Px; // tablet (portrait), handset (landscape)
-$layout-breakpoint-md: 1024px; // xlarge tablet (portrait), tablet (landscape)
-$layout-breakpoint-lg: 1280px; // laptop, xlarge tablet (landscape)
-$layout-breakpoint-xlg: 1600px; // desktop
+$footer-padding: 2.5rem;
 
-$max-content-width: 660px;
+$sidebar-width-pct: 0.25;
+$content-width-pct: 0.65;
 
-$page-base-margin-top: 0.5;
-$page-base-padding-left: 15px;
-$page-base-padding-right: 15px;
+$max-layout-width: 1280px;
+$content-max-width: 660px;
 
-$page-sm-padding-left: 15%;
-$page-sm-padding-right: 15%;
+// breakpoint - base - handset (portrait)
+$sidebar-width-base: 100vw;
+$content-width-base: 90vw;
 
-$page-md-padding-top: 30px;
-$page-md-padding-left: 35%;
-$page-md-padding-right: 5%;
+$content-padding-top-base: 15px;
 
 $topbar-height: 48px;
 
-$footer-padding: 2.5rem;
+// breakpoint - sm - tablet (portrait), handset (landscape)
+$layout-breakpoint-sm: 600px;
+
+$content-width-sm: 92vw;
+
+// breakpoint - md - xlarge tablet (portrait), tablet (landscape), xlarge handset (landscape)
+$layout-breakpoint-md: 900px;
+
+$sidebar-width-md: 100vw * $sidebar-width-pct;
+$content-width-md: 100vw * $content-width-pct;
+
+$sidebar-margin-left-md: 30px;
+$content-padding-top-md: 5vh;
+$content-padding-left-md: calc(#{$sidebar-width-md} + #{$sidebar-margin-left-md} + 30px);
+
+// breakpoint - lg - laptop, xlarge tablet (landscape)
+$layout-breakpoint-lg: $max-layout-width;
+
+$sidebar-width-lg: $max-layout-width * $sidebar-width-pct;
+$content-width-lg: $max-layout-width * $content-width-pct;
+
+$content-padding-left-lg: $sidebar-width-lg + $max-layout-width * 0.085;
+$content-padding-top-lg: 10vh;

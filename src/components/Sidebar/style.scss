@@ -10,16 +10,17 @@ $transition-timing: 0.2s;
 $shadow-height: 4px;
 
 .sidebar {
-    width: 100%;
-    display: inline-block;
-    box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
-    
+    width: $sidebar-width-base;
+
     position: fixed;
-    background-color: $color-white;
-    transition: transform 0.5s ease-out;
+    display: inline-block;
     z-index: 1;
-    height: $topbar-height - $shadow-height;
     top: -1px;
+    height: $topbar-height - $shadow-height;
+
+    background-color: $color-white;
+    box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
+    transition: transform 0.5s ease-out;
     
     @include disabled {
         transform: translateY(-$topbar-height - 10);
@@ -185,22 +186,19 @@ $shadow-height: 4px;
 
 @include breakpoint-md {
     .sidebar {
-        padding-bottom: unset;
-        display: unset;
-        text-align: center;
-        
-        background-color: unset;
-        transition: unset;
-        z-index: unset;
-        height: unset;
-        top: unset;
+        width: $sidebar-width-md;
 
+        display: unset;
+        z-index: unset;
         top: -10px;
         height: 100vh;
-        box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
+        margin-left: $sidebar-margin-left-md;
+        padding-top: 30vh;
 
-        lost-column: 1/4;
-        padding: 30vh 2vw 0 2vw;
+        box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
+        background-color: unset;
+        transition: unset;
+        text-align: center;
 
         @include disabled {
             transform: unset;
@@ -307,12 +305,7 @@ $shadow-height: 4px;
 
 @include breakpoint-lg {
     .sidebar {
-        lost-column: 1/5;
-        padding: 25vh 2vw 0 2vw;
-        transform: translateX(-1vw);
-        @include disabled {
-            transform: translateX(-1vw);
-        }
+        width: $sidebar-width-lg;
 
         &__author {
             &-img {
@@ -327,12 +320,5 @@ $shadow-height: 4px;
                 @include line-height(1.5);
             }
         }
-    }
-}
-
-@include breakpoint-xlg {
-    .sidebar {
-        lost-column: 1/6;
-        // TODO padding / position
     }
 }

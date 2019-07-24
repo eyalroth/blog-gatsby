@@ -2,21 +2,30 @@
 @import "../../assets/scss/mixins";
 
 .posts {
-    margin-right: $page-base-padding-left;
-    margin-left: $page-base-padding-right;
+    max-width: $content-max-width;
+    width: $content-width-base;
+    margin: 0 auto;
 }
 
 @include breakpoint-sm {
     .posts {
-        margin-left: $page-sm-padding-left;
-        margin-right: $page-sm-padding-right;
+        width: $content-width-sm;
     }
 
 }
 
 @include breakpoint-md {
     .posts {
-        margin-left: $page-md-padding-left;
-        margin-right: $page-md-padding-right;
+        width: $content-width-md;
+        margin: unset;
+        padding-left: calc(#{$content-padding-left-md} + 1vw);
     }
+}
+
+@include breakpoint-lg {
+    .posts {
+        width: $content-width-lg;
+        margin: unset;
+        padding-left: calc(#{$content-padding-left-lg} + 1vw);
+    }   
 }
