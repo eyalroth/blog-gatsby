@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import moment from 'moment'
 import { Utterences } from '../../components/Utterances'
 import Layout from '../../components/Layout'
@@ -7,15 +7,27 @@ import { GlobalLinks } from '../../consts/menuLinks'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton';
 import PostSeriesBox from '../../components/PostSeriesBox';
+import { CategoryLinks } from '../../consts/menuLinks'
 import './style.scss'
 
 class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
-    const { title, tags, series } = post.frontmatter
+    const { category: categoryId, title, tags, series } = post.frontmatter
     const readingTime = post.fields.readingTime.text
     const url = this.props.location.href
+    
+    const category = Object.values(CategoryLinks).find(link => link.id == categoryId)
+    const categoryTab = (
+      <div className="post-single__category-tab">
+        <Link className="post-single__category-tab-link" to={category.path}>
+            {(category.icon) ? <i className={category.icon} /> : null}
+            {(category.icon) ? <span>{" "}</span> : null}
+            {category.label}
+        </Link>
+      </div>
+    )
 
     const titleBlock = (
       <h2 className="post-single__title">{post.frontmatter.title}</h2>
@@ -94,6 +106,7 @@ class PostTemplate extends React.Component {
     return (
       <Layout subtitle={title} globalLinkId={GlobalLinks.Blog.id}>
         <div className="post-single">
+          {categoryTab}
           {header}
           {mobileShare}
           {seriesBox}
@@ -125,6 +138,7 @@ export const pageQuery = graphql`
         }
       }
       frontmatter {
+        category
         title
         tags
         date

@@ -37,8 +37,6 @@ $content-max-width: 660px;
 $sidebar-width-base: 100vw;
 $content-width-base: 90vw;
 
-$content-padding-top-base: 15px;
-
 $topbar-height: 48px;
 
 // breakpoint - sm - tablet (portrait), handset (landscape)
@@ -53,7 +51,6 @@ $sidebar-width-md: 100vw * $sidebar-width-pct;
 $content-width-md: 100vw * $content-width-pct;
 
 $sidebar-margin-left-md: 30px;
-$content-padding-top-md: 5vh;
 $content-padding-left-md: calc(#{$sidebar-width-md} + #{$sidebar-margin-left-md} + 30px);
 
 // breakpoint - lg - laptop, xlarge tablet (landscape)
@@ -63,4 +60,3 @@ $sidebar-width-lg: $max-layout-width * $sidebar-width-pct;
 $content-width-lg: $max-layout-width * $content-width-pct;
 
 $content-padding-left-lg: $sidebar-width-lg + $max-layout-width * 0.085;
-$content-padding-top-lg: 10vh;

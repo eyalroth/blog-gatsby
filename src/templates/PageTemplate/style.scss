@@ -6,7 +6,7 @@
     width: $content-width-base;
     margin: 0 auto;
 
-    padding-top: $content-padding-top-base;
+    padding-top: 15px;
     
     &__title {
         font-size: $typographic-base-font-size * 1.275;
@@ -38,7 +38,7 @@
         width: $content-width-md;
         margin: unset;
         padding-left: $content-padding-left-md;
-        padding-top: $content-padding-top-md;
+        padding-top: 5vh;
 
         &__body {
             font-size: $typographic-base-font-size * 1.0625;
@@ -54,6 +54,5 @@
     .page {
         width: $content-width-lg;
         padding-left: $content-padding-left-lg;
-        padding-top: $content-padding-top-lg;
     }
 }
