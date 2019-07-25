@@ -39,13 +39,20 @@
         @include margin-bottom(0.15);
     }
     &__subtitle {
+        margin-top: 0.4rem;
+
         font-size: $typographic-base-font-size * 0.95625;
-        color: gray;
+        text-shadow: 0px 1px 0px rgba(0,0,0,0.05);
+
         #subtitle-div {
-            margin: 0.3rem;
+            margin: 0 0.3rem;
         }
     }
+    &__reading-time {
+        color: lighten($typographic-base-font-color, 20%);
+    }
     &__tags {
+        color: darken($typographic-link-p-font-color, 10%);
         &-list {
             @include margin-top(0.15);
             @include margin-bottom(0.15);
@@ -54,6 +61,7 @@
             &-item {
                 display: inline-block;
                 @include line-height(.7);
+                margin-right: 0.2rem;
             }
         }
     }
@@ -157,7 +165,6 @@
         }
         &__tags {
             max-width: calc(100% - 230px);
-            font-weight: 500;
         }
         &__body {
             font-size: $typographic-base-font-size * 1.06;
