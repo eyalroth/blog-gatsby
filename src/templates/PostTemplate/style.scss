@@ -9,14 +9,13 @@
     &__category-tab {
         display: inline-block;
         position: relative;
-        margin-top: 0.7rem;
-        margin-bottom: 0.8rem;
-      
-        $content-left-margin: calc((100vw - #{$content-width-base}) / 2);
 
-        left: calc(-4px - #{$content-left-margin});
-        padding: 0.6rem 1rem 0.6rem calc(#{$content-left-margin} - 5px);
-        box-shadow: 2px 1px 3px 1px rgba(0,0,0,0.15);
+        margin-top: -10px;
+        margin-bottom: 0.8rem;
+        left: 0;
+
+        padding: 1rem 1rem 0.6rem 0.7rem;
+        box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
         border-radius: 7px;
 
         &-link {
@@ -152,12 +151,9 @@
         padding-left: $content-padding-left-md;
         
         &__category-tab {
-            left: 0;
-            margin-top: -10px;
             margin-bottom: 1.5rem;
 
-            padding: 1.4rem 0.7rem 0.6rem 0.7rem;
-            box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
+            padding: 1.4rem 1rem 0.6rem 0.7rem;
 
             &-link {
                 font-size: $typographic-base-font-size * 0.95;
