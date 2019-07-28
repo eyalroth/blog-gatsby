@@ -18,7 +18,12 @@
     .posts {
         width: $content-width-md;
         margin: unset;
-        padding-left: calc(#{$content-padding-left-md} + 1vw);
+        @include ltr {
+            padding-left: calc(#{$content-side-padding-md} + 1vw);
+        }
+        @include rtl {
+            padding-right: calc(#{$content-side-padding-md} + 1vw);
+        }
     }
 }
 
@@ -26,6 +31,11 @@
     .posts {
         width: $content-width-lg;
         margin: unset;
-        padding-left: calc(#{$content-padding-left-lg} + 1vw);
+        @include ltr {
+            padding-left: calc(#{$content-side-padding-lg} + 1vw);
+        }
+        @include rtl {
+            padding-right: calc(#{$content-side-padding-lg} + 1vw);
+        }
     }   
 }

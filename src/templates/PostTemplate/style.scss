@@ -189,7 +189,13 @@
     .post-single {
         width: $content-width-md;
         margin: unset;
-        padding-left: $content-padding-left-md;
+        @include ltr {
+            padding-left: $content-side-padding-md;
+        }
+        @include rtl {
+            right: calc((100vw - #{$max-layout-width}) / 2);
+            padding-right: $content-side-padding-md;
+        }
         
         &__category-tab {
             &-box {
@@ -217,6 +223,11 @@
 @include breakpoint-lg {
     .post-single {
         width: $content-width-lg;
-        padding-left: $content-padding-left-lg;
+        @include ltr {
+            padding-left: $content-side-padding-lg;
+        }
+        @include rtl {
+            padding-right: $content-side-padding-lg;
+        }
     }
 }

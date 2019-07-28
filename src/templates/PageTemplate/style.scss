@@ -45,8 +45,13 @@
     .page {
         width: $content-width-md;
         margin: unset;
-        padding-left: $content-padding-left-md;
         padding-top: 5vh;
+        @include ltr {
+            padding-left: $content-side-padding-md;
+        }
+        @include rtl {
+            padding-right: $content-side-padding-md;
+        }
 
         &__body {
             font-size: $typographic-base-font-size * 1.0625;
@@ -61,6 +66,11 @@
 @include breakpoint-lg {
     .page {
         width: $content-width-lg;
-        padding-left: $content-padding-left-lg;
+        @include ltr {
+            padding-left: $content-side-padding-lg;
+        }
+        @include rtl {
+            padding-right: $content-side-padding-lg;
+        }
     }
 }
