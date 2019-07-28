@@ -1,10 +1,10 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import moment from 'moment'
-import Layout from '../../components/Layout'
+import Page from '../../components/Page'
 import PostListHeader from '../../components/PostListHeader'
 import PostListItem from '../../components/PostListItem'
-import { GlobalLinks } from '../../consts/menuLinks'
+import { SidebarLinks } from '../../consts/menuLinks'
 import './style.scss'
 
 class PostListTemplate extends React.Component {
@@ -34,12 +34,12 @@ class PostListTemplate extends React.Component {
       })
 
       return (
-        <Layout subtitle={categoryLabel} globalLinkId={GlobalLinks.Blog.id}>
+        <Page subtitle={categoryLabel} sidebarLinkId={SidebarLinks.Blog.id}>
           <div className="posts">
             <PostListHeader categoryId={categoryId}/>
             {items}
           </div>
-        </Layout>
+        </Page>
       )
     }
 }

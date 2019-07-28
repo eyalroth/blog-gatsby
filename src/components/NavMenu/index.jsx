@@ -58,7 +58,6 @@ class NavMenu extends React.Component {
               }}
               to={linkDescription.path}
               className={`${classNamePrefix}-list-item-link`}
-              onClick={() => _this.setLastUnderlineLinkId(currentLinkId)}
             >
               {(linkDescription.icon) ? <i className={linkDescription.icon} /> : null}
               {(linkDescription.icon) ? <span>{" "}</span> : null}
@@ -99,7 +98,7 @@ class NavMenu extends React.Component {
         }
       }
 
-      this.setLastUnderlineLinkId(null)
+      this.setLastUnderlineLinkId(currentLinkId)
     }
 
     getLastUnderlineLinkId() {

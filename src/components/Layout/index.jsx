@@ -1,5 +1,5 @@
 import React from 'react'
-import Helmet from 'react-helmet'
+import ContextConsumer, { ContextProviderComponent } from '../Context'
 import '../../assets/scss/init.scss'
 import Sidebar from '../Sidebar'
 import Footer from '../Footer'
@@ -9,24 +9,22 @@ class Layout extends React.Component {
   render() {
     const { children } = this.props
 
-    let { subtitle } = this.props
-    if (subtitle) {
-      subtitle = `${subtitle} | `
-    } else {
-      subtitle = ""
-    }
+    const sidebar = (
+      <ContextConsumer>
+          {context => (context.data.sidebar.isRendered) ? <Sidebar /> : null}
+      </ContextConsumer>
+    )
 
     return (
-      <div className="page-container">
-        <Helmet>
-          <title>{subtitle}Eyal Roth</title>
-        </Helmet>
-        <div className="content-wrap">
-          <Sidebar globalLinkId={this.props.globalLinkId} />
-          {children}
+      <ContextProviderComponent>
+        <div className="page-container">
+          <div className="content-wrap">
+            {sidebar}  
+            {children}
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </ContextProviderComponent>
     )
   }
 }

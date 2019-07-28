@@ -1,15 +1,15 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../../components/Layout'
+import Page from '../../components/Page'
 import './style.scss'
 
 class PageTemplate extends React.Component {
   render() {
     const page = this.props.data.markdownRemark
-    const { title, globalLinkId } = page.frontmatter
+    const { title, sidebarLinkId } = page.frontmatter
 
     return (
-      <Layout subtitle={title} globalLinkId={globalLinkId}>
+      <Page subtitle={title} sidebarLinkId={sidebarLinkId}>
         <div className="page">
             <h1 className="page__title">{title}</h1>
             <div
@@ -17,7 +17,7 @@ class PageTemplate extends React.Component {
               dangerouslySetInnerHTML={{ __html: page.html }}
             />
         </div>
-      </Layout>
+      </Page>
     )
   }
 }
@@ -33,7 +33,7 @@ export const pageQuery = graphql`
         title
         date
         description
-        globalLinkId
+        sidebarLinkId
       }
     }
   }
