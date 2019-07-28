@@ -6,7 +6,7 @@ import {
 	RedditShareButton,
     EmailShareButton,
     PocketShareButton,
-} from 'react-share';
+} from 'react-share'
 import './style.scss'
 
 class SharePanel extends React.Component {
@@ -65,12 +65,12 @@ class SharePanel extends React.Component {
             textArea.select()
 
             try {
-                document.execCommand('copy');
+                document.execCommand('copy')
             } catch (err) {
-                console.log('Oops, unable to copy');
+                console.log('Oops, unable to copy')
             }
 
-            document.body.removeChild(textArea);
+            document.body.removeChild(textArea)
         }
     }
 }

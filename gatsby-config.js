@@ -14,16 +14,8 @@ module.exports = {
     url: process.env.URL,
     siteUrl: process.env.URL,
     title: 'Eyal Roth',
-    subtitle: 'Software Developer, Tel Aviv',
     description: '',
-    copyright: '© All rights reserved.',
     utterances: 'eyalroth/blog-gatsby-comments',
-    author: {
-      name: 'Eyal Roth',
-      linkedin: "https://linkedin.com/in/eyal-roth",
-      github: 'https://github.com/eyalroth',
-      email: 'eyalroth1@gmail.com',
-    },
   },
   plugins: [
     {

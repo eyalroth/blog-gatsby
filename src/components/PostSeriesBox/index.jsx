@@ -43,17 +43,17 @@ class PostSeriesBox extends React.Component {
         </h2>
 
         const firstLink = this.createLink(postOrder > 1, orderToSlug, 1, 
-                new Map([[Languages.English, "First"], [Languages.Hebrew, "ראשון"]]),
-                (language.ltr) ? "<<" : ">>")
-            const previousLink = this.createLink(postOrder > 1, orderToSlug, postOrder - 1,
-                new Map([[Languages.English, "Previous"], [Languages.Hebrew, "קודם"]]),
-                (language.ltr) ? "<" : ">")
-            const nextLink = this.createLink(postOrder < maxOrder, orderToSlug, postOrder + 1, 
-                new Map([[Languages.English, "Next"], [Languages.Hebrew, "הבא"]]),
-                (language.ltr) ? ">" : "<")
-            const lastLink = this.createLink(postOrder < maxOrder, orderToSlug, maxOrder, 
-                new Map([[Languages.English, "Last"], [Languages.Hebrew, "אחרון"]]),
-                (language.ltr) ? ">>" : "<<")
+            new Map([[Languages.English, "First"], [Languages.Hebrew, "ראשון"]]),
+            (language.ltr) ? "<<" : ">>")
+        const previousLink = this.createLink(postOrder > 1, orderToSlug, postOrder - 1,
+            new Map([[Languages.English, "Previous"], [Languages.Hebrew, "קודם"]]),
+            (language.ltr) ? "<" : ">")
+        const nextLink = this.createLink(postOrder < maxOrder, orderToSlug, postOrder + 1, 
+            new Map([[Languages.English, "Next"], [Languages.Hebrew, "הבא"]]),
+            (language.ltr) ? ">" : "<")
+        const lastLink = this.createLink(postOrder < maxOrder, orderToSlug, maxOrder, 
+            new Map([[Languages.English, "Last"], [Languages.Hebrew, "אחרון"]]),
+            (language.ltr) ? ">>" : "<<")
 
         const navMenu = <ul className="post-series-box__nav">
             {(language.ltr) ? firstLink : lastLink}

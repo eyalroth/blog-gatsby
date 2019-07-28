@@ -1,6 +1,7 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
+import { Author } from '../../consts/author'
 import './style.scss'
 
 export const squareImage = graphql`
@@ -66,7 +67,8 @@ class ProfileImg extends React.Component {
     }
 
     renderWithQueryData(data) {
-        const { className, author } = this.props
+        const { className, languageId } = this.props
+        const authorName = Author.name[languageId]
         const _this = this
 
         function setupMove(div, eventType, extractCoordinates) {
@@ -165,14 +167,14 @@ class ProfileImg extends React.Component {
                         <Img
                             className="profile-img-front"
                             fluid={data.front.childImageSharp.fluid}
-                            title={author}
-                            alt={author}
+                            title={authorName}
+                            alt={authorName}
                         />
                         <Img 
                             className="profile-img-back"
                             fluid={data.back.childImageSharp.fluid}
-                            title={author}
-                            alt={author}
+                            title={authorName}
+                            alt={authorName}
                             style={{
                                 position: "absolute",
                                 width: "100%",

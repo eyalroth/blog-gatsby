@@ -5,7 +5,7 @@ date: "2019-02-01T16:51:00.000Z"
 layout: post
 draft: false
 path: "שרהט-2"
-category: "entertainment"
+category: "hebrew"
 series:
   name: "שר הטבעות"
   order: 2

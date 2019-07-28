@@ -11,8 +11,20 @@ exports.createPages = ({ graphql, actions }) => {
   const { CategoryLinks } = menuLinks
 
   createRedirect({
-    fromPath: '/blog',
-    toPath: '/blog/software',
+    fromPath: '/',
+    toPath: '/en',
+    redirectInBrowser: true,
+  })
+
+  createRedirect({
+    fromPath: '/en/blog',
+    toPath: '/en/blog/software',
+    redirectInBrowser: true,
+  })
+
+  createRedirect({
+    fromPath: '/he/blog',
+    toPath: '/he/blog/hebrew',
     redirectInBrowser: true,
   })
 
@@ -21,14 +33,17 @@ exports.createPages = ({ graphql, actions }) => {
     const pageTemplate = path.resolve('./src/templates/PageTemplate/index.jsx')
     const postListTemplate = path.resolve('./src/templates/PostListTemplate/index.jsx')
 
-    _.each(CategoryLinks, categoryLink => {
-      createPage({
-        path: `/blog/${_.kebabCase(categoryLink.id)}`,
-        component: postListTemplate,
-        context: {
-          categoryId: categoryLink.id,
-          categoryLabel: categoryLink.label
-        },
+    _.forOwn(CategoryLinks, function(links, languageId) {
+      _.each(links, categoryLink => {
+        createPage({
+          path: categoryLink.path,
+          component: postListTemplate,
+          context: {
+            languageId,
+            categoryId: categoryLink.id,
+            categoryLabel: categoryLink.label
+          },
+        })
       })
     })
 

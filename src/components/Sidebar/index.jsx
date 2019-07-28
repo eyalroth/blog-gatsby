@@ -1,9 +1,9 @@
 import React from 'react'
-import { StaticQuery, graphql } from "gatsby"
 import ContextConsumer from '../Context'
 import Links from '../Links'
 import ProfileImg from '../ProfileImg'
 import NavMenu from '../NavMenu'
+import { Author } from '../../consts/author'
 import { SidebarLinks } from '../../consts/menuLinks'
 import Toggle from '../Toggle'
 import './style.scss'
@@ -36,35 +36,10 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    return (
-        <StaticQuery
-            query={graphql`
-                query SidebarQuery {
-                  site {
-                    siteMetadata {
-                      subtitle
-                      copyright
-                      author {
-                        name
-                        email
-                        github
-                        linkedin
-                      }
-                    }
-                  }
-                }
-            `}
-            render={data => this.renderFromQueryData(data)}
-        />)
-  }
-
-  renderFromQueryData(queryData) {
-    const { author, subtitle, copyright } = queryData.site.siteMetadata
-
-    const profileImg = this.renderProfileImg(author)
-    const authorTitle = this.renderAuthorTitle(author, subtitle)
+    const profileImg = this.renderProfileImg()
+    const authorTitle = this.renderAuthorTitle()
     const menu = this.renderMenu()
-    const contact = this.renderContact(author)
+    const contact = this.renderContact()
     const menuButton = this.renderMenuButton()
     const contactButton = this.renderContactButton()
 
@@ -88,11 +63,11 @@ class Sidebar extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
   handleScroll(event) {
@@ -140,23 +115,38 @@ class Sidebar extends React.Component {
     }
   }
 
-  renderProfileImg(author) {
+  renderProfileImg() {
     return (
       <SidebarToggle main={true} menu={false} contact={true} {...this.state}>
-        <ProfileImg className="sidebar__author-img" author={author.name}/>
+        <ContextConsumer>
+          {context => (
+            <ProfileImg
+              className="sidebar__author-img"
+              languageId={context.data.languageId}
+            />
+          )}
+        </ContextConsumer>
       </SidebarToggle>
     )
   }
 
-  renderAuthorTitle(author, subtitle) {
+  renderAuthorTitle() {
     return (
       <SidebarToggle main={true} menu={false} contact={false} {...this.state}>
-        <span className="sidebar__author-title">
-          {author.name}
-        </span>
-        <p className="sidebar__author-subtitle">
-          {subtitle}
-        </p>
+        <ContextConsumer>
+          {context => (
+            <span className="sidebar__author-title">
+              {Author.name[context.data.languageId]}
+            </span>
+          )}
+        </ContextConsumer>
+        <ContextConsumer>
+          {context => (
+            <p className="sidebar__author-subtitle">
+              {Author.subtitle[context.data.languageId]}
+            </p>
+          )}
+        </ContextConsumer>
       </SidebarToggle>
     )
   }
@@ -168,7 +158,7 @@ class Sidebar extends React.Component {
           {context => (
             <NavMenu
               id="sidebar-links"
-              linkDescriptions={SidebarLinks}
+              linkDescriptions={SidebarLinks[context.data.languageId]}
               classNamePrefix="sidebar__menu"
               currentLinkId={context.data.sidebar.linkId}
             />

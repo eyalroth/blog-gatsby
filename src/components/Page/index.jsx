@@ -1,6 +1,8 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import ContextConsumer from '../../components/Context'
+import { Languages } from '../../consts/languages'
+import { Author } from '../../consts/author'
 
 class Page extends React.Component {
     constructor(props) {
@@ -9,6 +11,8 @@ class Page extends React.Component {
     }
 
     render() {
+        const title = Author.name[this.props.languageId]
+
         let { subtitle } = this.props
         if (subtitle) {
             subtitle = `${subtitle} | `
@@ -17,7 +21,7 @@ class Page extends React.Component {
         }
 
         const helmet = (
-            <Helmet key="helmet" title={`${subtitle}Eyal Roth`} defer={false} />
+            <Helmet key="helmet" title={`${subtitle}${title}`} defer={false} />
         )
 
         return ([
@@ -43,6 +47,7 @@ class Page extends React.Component {
         const isSidebarRendered = this.props.renderSidebar != false
 
         this.context.set({
+            languageId: this.props.languageId,
             sidebar: {
                 isRendered: isSidebarRendered,
                 linkId: this.props.sidebarLinkId,

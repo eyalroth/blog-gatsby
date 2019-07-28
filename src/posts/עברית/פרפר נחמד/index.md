@@ -5,7 +5,7 @@ date: "2019-02-12T16:51:00.000Z"
 layout: post
 draft: false
 path: "פרפר-נחמד"
-category: "entertainment"
+category: "hebrew"
 tags:
   - "טלוויזיה"
   - "תוכניות ילדים"
