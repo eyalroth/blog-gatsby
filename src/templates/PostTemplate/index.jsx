@@ -2,12 +2,11 @@ import React from 'react'
 import { Link, graphql } from 'gatsby'
 import moment from 'moment'
 import { Utterences } from '../../components/Utterances'
-import Layout from '../../components/Layout'
-import { GlobalLinks } from '../../consts/menuLinks'
+import Page from '../../components/Page'
+import { SidebarLinks, CategoryLinks } from '../../consts/menuLinks'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton';
 import PostSeriesBox from '../../components/PostSeriesBox';
-import { CategoryLinks } from '../../consts/menuLinks'
 import './style.scss'
 
 class PostTemplate extends React.Component {
@@ -104,7 +103,7 @@ class PostTemplate extends React.Component {
     )
 
     return (
-      <Layout subtitle={title} globalLinkId={GlobalLinks.Blog.id}>
+      <Page subtitle={title} sidebarLinkId={SidebarLinks.Blog.id}>
         <div className="post-single">
           {categoryTab}
           {header}
@@ -114,7 +113,7 @@ class PostTemplate extends React.Component {
           <hr />
           {footer}
         </div>
-      </Layout>
+      </Page>
     )
   }
 }

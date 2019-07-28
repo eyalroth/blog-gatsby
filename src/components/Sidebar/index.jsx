@@ -1,11 +1,11 @@
 import React from 'react'
 import { StaticQuery, graphql } from "gatsby"
+import ContextConsumer from '../Context'
 import Links from '../Links'
 import ProfileImg from '../ProfileImg'
 import NavMenu from '../NavMenu'
-import { GlobalLinks } from '../../consts/menuLinks'
+import { SidebarLinks } from '../../consts/menuLinks'
 import Toggle from '../Toggle'
-import globalState from '../GlobalState'
 import './style.scss'
 
 const SidebarMode = Object.freeze({
@@ -19,10 +19,7 @@ class Sidebar extends React.Component {
   constructor(props) {
     super(props)
 
-    if (!globalState.sidebar.mode) {
-      globalState.sidebar.mode = SidebarMode.Main
-    }
-    this.state = { isEnabled: true, mode: globalState.sidebar.mode }
+    this.state = { isEnabled: true, mode: SidebarMode.Main }
     this.lastScrollY = null
     this.scrollUpRate = {
       firstEventTime: null,
@@ -35,8 +32,7 @@ class Sidebar extends React.Component {
   }
 
   changeMode(newMode) {
-    this.setState({mode: newMode})
-    globalState.sidebar.mode = newMode
+    this.setState({ mode: newMode })
   }
 
   render() {
@@ -146,56 +142,55 @@ class Sidebar extends React.Component {
 
   renderProfileImg(author) {
     return (
-      <Toggle isEnabled={this.valueByMode(true, false, true)}>
+      <SidebarToggle main={true} menu={false} contact={true} {...this.state}>
         <ProfileImg className="sidebar__author-img" author={author.name}/>
-      </Toggle>
+      </SidebarToggle>
     )
   }
 
   renderAuthorTitle(author, subtitle) {
     return (
-      <Toggle isEnabled={this.valueByMode(true, false, false)}>
+      <SidebarToggle main={true} menu={false} contact={false} {...this.state}>
         <span className="sidebar__author-title">
           {author.name}
         </span>
         <p className="sidebar__author-subtitle">
           {subtitle}
         </p>
-      </Toggle>
+      </SidebarToggle>
     )
   }
 
   renderMenu() {
     return (
-      <Toggle isEnabled={this.valueByMode(false, true, false)}>
-        <NavMenu
-          id="global-links"
-          linkDescriptions={GlobalLinks}
-          classNamePrefix="sidebar__menu"
-          currentLinkId={this.props.globalLinkId}
-        />
-      </Toggle>
+      <SidebarToggle main={false} menu={true} contact={false} {...this.state}>
+        <ContextConsumer>
+          {context => (
+            <NavMenu
+              id="sidebar-links"
+              linkDescriptions={SidebarLinks}
+              classNamePrefix="sidebar__menu"
+              currentLinkId={context.data.sidebar.linkId}
+            />
+          )}
+        </ContextConsumer>
+      </SidebarToggle>
     )
   }
 
   renderContact(author) {
     return (
-      <Toggle isEnabled={this.valueByMode(false, false, true)}>
+      <SidebarToggle main={false} menu={false} contact={true} {...this.state}>
         <nav className="sidebar__contact">
           <Links data={author} />
         </nav>
-      </Toggle>
+      </SidebarToggle>
     )
   }
 
   renderMenuButton() {
-    let isEnabled = this.valueByMode(false, true, false)
-    let newMode
-    if (isEnabled) {
-      newMode = SidebarMode.Main
-    } else {
-      newMode = SidebarMode.Menu
-    }
+    const isEnabled = this.state.mode == SidebarMode.Menu
+    const newMode = (isEnabled) ? SidebarMode.Main : SidebarMode.Menu
 
     return (
       <Toggle isEnabled={isEnabled}>
@@ -210,13 +205,8 @@ class Sidebar extends React.Component {
   }
 
   renderContactButton() {
-    let isEnabled = this.valueByMode(false, false, true)
-    let newMode
-    if (isEnabled) {
-      newMode = SidebarMode.Main
-    } else {
-      newMode = SidebarMode.Contact
-    }
+    const isEnabled = this.state.mode == SidebarMode.Contact
+    const newMode = (isEnabled) ? SidebarMode.Main : SidebarMode.Contact
 
     return (
       <Toggle isEnabled={isEnabled}>
@@ -229,17 +219,27 @@ class Sidebar extends React.Component {
       </Toggle>
     )
   }
-
-  valueByMode(mainMode, menuMode, contactMode) {
-    switch(this.state.mode) {
-      case SidebarMode.Main:
-        return mainMode
-      case SidebarMode.Menu:
-        return menuMode
-      case SidebarMode.Contact:
-        return contactMode
-    }
-  }
 }
 
 export default Sidebar
+
+class SidebarToggle extends React.Component {
+  render() {
+    return (
+      <Toggle isEnabled={this.isEnabled(this.props.mode)}>
+        {this.props.children}
+      </Toggle>
+    )
+  }
+
+  isEnabled(mode) {
+    switch (mode) {
+      case SidebarMode.Main:
+        return this.props.main
+      case SidebarMode.Menu:
+        return this.props.menu
+      case SidebarMode.Contact:
+        return this.props.contact
+    }
+  }
+}

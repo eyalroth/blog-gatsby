@@ -1,25 +1,18 @@
 import React from 'react'
 import { Link, StaticQuery, graphql } from 'gatsby'
-import Helmet from 'react-helmet'
+import Page from '../Page'
 import Links from '../Links'
 import ProfileImg from '../ProfileImg'
-import Footer from '../Footer'
-import globalState from '../GlobalState'
+import { SidebarLinks } from '../../consts/menuLinks'
 import './style.scss'
 import '../Layout/style.scss'
 
 class Home extends React.Component {
   render() {
-    globalState.reset()
-
     return (
-      <div className="page-container">
-        <Helmet>
-          <title>Eyal Roth</title>
-        </Helmet>
+      <Page sidebarLinkId={SidebarLinks.Home.id} renderSidebar={false}>
         {this.renderContent()}
-        <Footer />
-      </div>
+      </Page>
     )
   }
 

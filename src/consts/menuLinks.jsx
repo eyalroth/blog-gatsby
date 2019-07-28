@@ -7,7 +7,7 @@ class MenuLink {
     }
 }
 
-module.exports.GlobalLinks = Object.freeze({
+module.exports.SidebarLinks = Object.freeze({
     Home: new MenuLink("home", "Home", "/"),
     Blog: new MenuLink("blog", "Blog", "/blog"),
     About: new MenuLink("about", "About", "/about"),
