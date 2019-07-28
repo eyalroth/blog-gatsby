@@ -1,16 +1,19 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import moment from 'moment'
+import 'moment/locale/he'
 import Toggle from '../Toggle'
+import { Languages } from '../../consts/languages'
 import './style.scss'
 
 class PostListItem extends React.Component {
   render() {
-    const { showYear } = this.props
-    const { title, date, tags } = this.props.data.node.frontmatter
-    const { slug } = this.props.data.node.fields
+    const { showYear, languageId } = this.props
+    const { title, date, tags, } = this.props.data.node.frontmatter
+    const { slug, readingTime } = this.props.data.node.fields
 
-    const itemDate = moment(date)
+    const language = Object.values(Languages).find(lang => lang.id == languageId)
+    const itemDate = moment(date).locale(language.locale)
 
     const yearHeader = (
       <Toggle isEnabled={!this.props.isFirst && showYear}>
@@ -45,11 +48,27 @@ class PostListItem extends React.Component {
       </div>
     )
 
+    const readingTimeBlock = (
+      <li className="post-item__details-footer-reading-time" key="readingTime">
+        {(function(lang) {
+          switch(lang) {
+              case Languages.English:
+                  return readingTime.text
+              case Languages.Hebrew:
+                const minutes = Math.round(readingTime.minutes)
+                if (minutes < 2) {
+                  return "דקת קריאה אחת"
+                } else {
+                  return `${minutes} דקות קריאה`
+                }
+          }
+        })(language)}
+      </li>
+    )
+
     const detailsFooter = (
       <ul className="post-item__details-footer">
-        <li className="post-item__details-footer-reading-time" key="readingTime">
-          {this.props.data.node.fields.readingTime.text}
-        </li>
+        {readingTimeBlock}
         {tags && <li className="post-item__details-footer-tags-divider" key="divider"/>}
         {tags && tags.map(tag => (
           <li className="post-item__details-footer-tags-item" key={tag}>

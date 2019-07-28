@@ -1,7 +1,7 @@
 ---
 language: hebrew
 title: "שר הטבעות - חלק I: אחוות הטבעת"
-date: "2019-01-01T16:51:00.000Z"
+date: "2018-12-23T16:51:00.000Z"
 layout: post
 draft: false
 path: "שרהט-1"

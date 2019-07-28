@@ -22,6 +22,7 @@ class PostListTemplate extends React.Component {
 
         const item = (
           <PostListItem
+            languageId={languageId}
             data={post}
             key={post.node.fields.slug} 
             showYear={showYear}
@@ -65,6 +66,7 @@ export const pageQuery = graphql`
             slug
             readingTime {
               text
+              minutes
             }
           }
           frontmatter {

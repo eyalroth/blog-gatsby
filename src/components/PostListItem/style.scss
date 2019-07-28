@@ -5,21 +5,36 @@ $border-styling: dashed 1px $color-gray-border;
 
 .post-item {
     margin-top: 1rem;
+    @include rtl {
+        text-align: right;
+    }
+
     &__year {
         display: none;
     }
     &__time {
         @include line-height(1.5);
         font-size: $typographic-small-font-size;
-        float: right;
+        @include ltr {
+            float: right;
+        }
+        @include rtl {
+            float: left;
+        }
 
         .nonmobile {
             display: none;
         }
 
         .month {
-            margin-right: 0.1rem;
-            margin-left: 0.3rem;
+            @include ltr {
+                margin-right: 0.1rem;
+                margin-left: 0.3rem;
+            }
+            @include rtl {
+                margin-right: 0.3rem;
+                margin-left: 0.1rem;
+            }
         }
     }
     &__details {
@@ -43,15 +58,21 @@ $border-styling: dashed 1px $color-gray-border;
             &-tags-divider {
                 border-left: 1px solid $color-gray-border;
                 height: 1rem;
-                margin-right: 0.8125rem;
                 margin-left: 0.8125rem;
+                margin-right: 0.8125rem;
                 align-self: center;
             }
             
             &-tags-item:not(:last-child)::after {
                 content: " \00B7";
-                margin-right: 0.3125rem;
-                margin-left: 0.1125rem;
+                @include ltr {
+                    margin-left: 0.1125rem;
+                    margin-right: 0.3125rem;
+                }
+                @include rtl {
+                    margin-left: 0.3125rem;
+                    margin-right: 0.1125rem;
+                }
             }
         }
     }
@@ -66,10 +87,8 @@ $border-styling: dashed 1px $color-gray-border;
         justify-content: flex-start;
 
         &__year {
-            display: inline-block;
+            display: block;
             width: 3rem;
-            min-width: 3rem;
-            margin-right: 2rem;
             margin-top: 0;
             
             font-size: $typographic-base-font-size * 1.5;
@@ -77,24 +96,42 @@ $border-styling: dashed 1px $color-gray-border;
             font-weight: 300;
             padding-top: 1rem;
 
+            @include ltr {
+                margin-right: 2rem;
+            }
+            @include rtl {
+                margin-left: 2rem;
+            }
+
             @include enabled {
                 border-top: $border-styling;
             }
         }
         
         &__time {
-            margin-right: 3rem;
             font-size: $typographic-base-font-size * 1.1;
             padding-top: 1.1rem;
             color: gray;
+            display: flex;
 
             @include enabled {
                 border-top: $border-styling;
             }
 
             .month {
-                margin-right: 0.3rem;
+                width: 2.2rem;
                 margin-left: unset;
+                margin-right: unset;
+            }
+
+            .day {
+                width: 1rem;
+                @include ltr {
+                    margin-right: 3rem;
+                }
+                @include rtl {
+                    margin-left: 3rem;
+                }
             }
 
             .nonmobile {
