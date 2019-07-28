@@ -4,7 +4,7 @@ import isMatch from 'lodash/isMatch'
 const defaultContextValue = {
   data: {
     sidebar: {
-        isRendered: true,
+        isRendered: false,
         linkId: null,
     },
   },
