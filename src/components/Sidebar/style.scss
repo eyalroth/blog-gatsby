@@ -148,7 +148,12 @@ $shadow-height: 4px;
             bottom: 2px;
             height: 2px;
             z-index: 0;
-            transition: left $transition-timing ease-out;
+            @include ltr {
+                transition: left $transition-timing ease-out;
+            }
+            @include rtl {
+                transition: right $transition-timing ease-out;
+            }
         }
     }
 

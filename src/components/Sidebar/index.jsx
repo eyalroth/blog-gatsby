@@ -158,6 +158,7 @@ class Sidebar extends React.Component {
           {context => (
             <NavMenu
               id="sidebar-links"
+              languageId={context.data.languageId}
               linkDescriptions={SidebarLinks[context.data.languageId]}
               classNamePrefix="sidebar__menu"
               currentLinkId={context.data.sidebar.linkId}

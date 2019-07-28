@@ -14,6 +14,7 @@ class PostListHeader extends React.Component {
                 <div className="posts-header">
                     <NavMenu
                         id="blog-category"
+                        languageId={languageId}
                         linkDescriptions={categories}
                         classNamePrefix="posts-header__menu"
                         currentLinkId={categoryId}

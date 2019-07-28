@@ -54,9 +54,16 @@
             bottom: 0;
             height: 2px;
             z-index: 0;
-            transition: 
-                left 0.3s ease-out,
-                width 0.15s ease-out;
+            @include ltr {
+                transition: 
+                    left 0.3s ease-out,
+                    width 0.15s ease-out;
+            }
+            @include rtl {
+                transition: 
+                    right 0.3s ease-out,
+                    width 0.15s ease-out;
+            }
         }
     }
 }
