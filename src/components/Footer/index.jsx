@@ -17,7 +17,7 @@ class Footer extends React.Component {
                 <a href="https://www.netlify.com/" target="_blank" rel="noopener noreferrer">Netlify</a>
               </div>
             </div> 
-            <div className="footer__right">
+            <div className="footer__feed-box">
               <a className="footer__feed" href="/rss.xml">
                 <i className="icon-rss" />
               </a>
