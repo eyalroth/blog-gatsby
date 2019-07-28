@@ -88,6 +88,10 @@ $shadow-height: 4px;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
 
+        @include rtl {
+            text-align: right;
+        }
+
         @include enabled {
             transition: 
                 width $transition-timing ease-out,
