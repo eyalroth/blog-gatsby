@@ -7,7 +7,6 @@ const defaultContextValue = {
         isRendered: true,
         linkId: null,
     },
-    pageSubtitle: null,
   },
   set: () => {},
 }

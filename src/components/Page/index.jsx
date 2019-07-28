@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import ContextConsumer from '../../components/Context'
 
 class Page extends React.Component {
@@ -8,14 +9,26 @@ class Page extends React.Component {
     }
 
     render() {
-        return (
+        let { subtitle } = this.props
+        if (subtitle) {
+            subtitle = `${subtitle} | `
+        } else {
+            subtitle = ""
+        }
+
+        const helmet = (
+            <Helmet title={`${subtitle}Eyal Roth`} defer={false} />
+        )
+
+        return ([
+            helmet,
             <ContextConsumer>
                 {context => {
                     this.context = context
                     return this.props.children
                 }}
             </ContextConsumer>
-        )
+        ])
     }
 
     componentDidMount() {
@@ -27,19 +40,10 @@ class Page extends React.Component {
     }
 
     updateContext() {
-        let { subtitle } = this.props
-        if (subtitle) {
-            subtitle = `${subtitle} | `
-        } else {
-            subtitle = ""
-        }
-
         const isSidebarRendered = this.props.renderSidebar != false
 
         this.context.set({
-            pageSubtitle: subtitle,
             sidebar: {
-                ...this.context.data.sidebar,
                 isRendered: isSidebarRendered,
                 linkId: this.props.sidebarLinkId,
             },
