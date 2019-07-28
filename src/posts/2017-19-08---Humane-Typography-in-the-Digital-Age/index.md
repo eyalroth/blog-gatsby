@@ -1,4 +1,5 @@
 ---
+language: english
 title: Humane Typography in the Digital Age
 date: "2017-08-19T22:40:32.169Z"
 layout: post

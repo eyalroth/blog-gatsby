@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, StaticQuery, graphql } from 'gatsby'
+import { Languages } from '../../consts/languages'
 import './style.scss'
 
 class PostSeriesBox extends React.Component {
@@ -17,7 +18,8 @@ class PostSeriesBox extends React.Component {
     }
             
     renderWithQueryData(data) {
-        const { name: seriesName, order: postOrder } = this.props.series
+        const { language, series } = this.props
+        const { name: seriesName, order: postOrder } = series
 
         const seriesEdges = data.allMarkdownRemark.edges.filter ( edge =>
             edge.node.frontmatter.series.name == seriesName
@@ -30,20 +32,35 @@ class PostSeriesBox extends React.Component {
         const maxOrder = Math.max(...Array.from(orderToSlug.keys()))
 
         const title = <h2 className="post-series-box__title">
-            This post is part of a series
+            {(function(lang) {
+                switch(lang) {
+                    case Languages.English:
+                        return "This post is part of a series"
+                    case Languages.Hebrew:
+                        return "פוסט זה הוא חלק מסדרה"
+                }
+            })(language)}
         </h2>
 
-        const firstLink = this.createLink(postOrder > 1, orderToSlug, 1, "First", "<<")
-        const previousLink = this.createLink(postOrder > 1, orderToSlug, postOrder - 1, "Previous", "<")
-        const nextLink = this.createLink(postOrder < maxOrder, orderToSlug, postOrder + 1, "Next", ">")
-        const lastLink = this.createLink(postOrder < maxOrder, orderToSlug, maxOrder, "Last", ">>")
+        const firstLink = this.createLink(postOrder > 1, orderToSlug, 1, 
+                new Map([[Languages.English, "First"], [Languages.Hebrew, "ראשון"]]),
+                (language.ltr) ? "<<" : ">>")
+            const previousLink = this.createLink(postOrder > 1, orderToSlug, postOrder - 1,
+                new Map([[Languages.English, "Previous"], [Languages.Hebrew, "קודם"]]),
+                (language.ltr) ? "<" : ">")
+            const nextLink = this.createLink(postOrder < maxOrder, orderToSlug, postOrder + 1, 
+                new Map([[Languages.English, "Next"], [Languages.Hebrew, "הבא"]]),
+                (language.ltr) ? ">" : "<")
+            const lastLink = this.createLink(postOrder < maxOrder, orderToSlug, maxOrder, 
+                new Map([[Languages.English, "Last"], [Languages.Hebrew, "אחרון"]]),
+                (language.ltr) ? ">>" : "<<")
 
         const navMenu = <ul className="post-series-box__nav">
-            {firstLink}
-            {previousLink}
+            {(language.ltr) ? firstLink : lastLink}
+            {(language.ltr) ? previousLink : nextLink}
             <li className="post-series-box__nav-item current">{postOrder}</li>
-            {nextLink}
-            {lastLink}
+            {(language.ltr) ? nextLink : previousLink}
+            {(language.ltr) ? lastLink : firstLink}
         </ul>
         
         return (
@@ -57,6 +74,7 @@ class PostSeriesBox extends React.Component {
     }
 
     createLink(shouldDisplay, orderToSlug, order, title, symbol) {
+        const { language } = this.props
         return (
             <li className="post-series-box__nav-item">
                 {
@@ -64,7 +82,7 @@ class PostSeriesBox extends React.Component {
                         <Link
                             className="post-series-box__nav-link" 
                             to={orderToSlug.get(order)}
-                            title={title}
+                            title={title.get(language)}
                         >
                             {symbol}
                         </Link>

@@ -1,4 +1,5 @@
 ---
+language: english
 title: "The Death of Love and Robots - Part III: Robots"
 date: "2019-02-05T16:51:00.000Z"
 layout: post
