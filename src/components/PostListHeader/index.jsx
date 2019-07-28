@@ -6,16 +6,20 @@ import './style.scss'
 
 class PostListHeader extends React.Component {
     render() {
-        return (
-            <div className="posts-header">
-                <NavMenu
-                    id="blog-category"
-                    linkDescriptions={CategoryLinks}
-                    classNamePrefix="posts-header__menu"
-                    currentLinkId={this.props.categoryId}
-                />
-            </div>
-        )
+        if (Object.keys(CategoryLinks).length > 1) {
+            return (
+                <div className="posts-header">
+                    <NavMenu
+                        id="blog-category"
+                        linkDescriptions={CategoryLinks}
+                        classNamePrefix="posts-header__menu"
+                        currentLinkId={this.props.categoryId}
+                    />
+                </div>
+            )
+        } else {
+            return null
+        }
     }
 }
 
