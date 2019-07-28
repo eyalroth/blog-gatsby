@@ -6,74 +6,100 @@ var lastUnderlineLinkId = {}
 class NavMenu extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {reRender: false}
+
+        this.underline = React.createRef()
+        this.menu = React.createRef()
         this.links = {}
+
+        this.updateUnderline = this.updateUnderline.bind(this)
     }
 
     render() {
-        const underline = React.createRef()
-        const { linkDescriptions, classNamePrefix, currentLinkId } = this.props
-        const _this = this
+      const _this = this
+      const { linkDescriptions, classNamePrefix, currentLinkId } = this.props
 
-        return (
-            <nav ref={updateUnderline} className={classNamePrefix}>
-                <ul className={`${classNamePrefix}-list`}>
-                    {Object.values(linkDescriptions).map(description => (
-                        <li 
-                            className={`${classNamePrefix}-list-item`}
-                            key={description.id}
-                        >
-                            {createLink(description)} 
-                        </li>
-                    ))}
-                </ul>
-                <Underline ref={underline} className={`${classNamePrefix}-underline`}/>
-            </nav>
-        )
+      if (this.state.reRender) {
+        setTimeout(() => _this.setState({reRender: false}), 0)
+        return null
+      }
 
-        function createLink(linkDescription) {
-            return (
-              <Link
-                ref={em => {
-                  _this.links[linkDescription.id] = em
-                }}
-                to={linkDescription.path}
-                className={`${classNamePrefix}-list-item-link`}
-                onClick={() => _this.setLastUnderlineLinkId(currentLinkId)}
-              >
-                {(linkDescription.icon) ? <i className={`${linkDescription.icon} left`} /> : null}
-                {(linkDescription.icon) ? <span className="left">{" "}</span> : null}
-                {linkDescription.label}
-                {(linkDescription.icon) ? <span className="right">{" "}</span> : null}
-                {(linkDescription.icon) ? <i className={`${linkDescription.icon} right`} /> : null}
-              </Link>
-            )
-          }
+      function reRender() {
+        _this.setState({reRender: true})
+      }
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', reRender)
+        window.addEventListener('resize', reRender, {once: true})
+      }
+      
+      return (
+          <nav ref={this.menu} className={classNamePrefix}>
+              <ul className={`${classNamePrefix}-list`}>
+                  {Object.values(linkDescriptions).map(description => (
+                      <li 
+                          className={`${classNamePrefix}-list-item`}
+                          key={description.id}
+                      >
+                          {createLink(description)} 
+                      </li>
+                  ))}
+              </ul>
+              <Underline ref={this.underline} className={`${classNamePrefix}-underline`}/>
+          </nav>
+      )
 
-          function updateUnderline(menu) {
-            if (menu) {
-              const currentLink = _this.links[currentLinkId]
-              if (currentLink) {
-                if (_this.getLastUnderlineLinkId() && _this.getLastUnderlineLinkId() != currentLinkId) {
-                  const lastLink = _this.links[_this.getLastUnderlineLinkId()]
-                  underline.current.shift({from: lastLink, to: currentLink})
-                } else {
-                  if (menu.getBoundingClientRect().width > 0) {
-                    underline.current.moveTo(currentLink)
-                  } else {
-                    menu.addEventListener('transitionend', () => {
-                      if (underline.current) {
-                        underline.current.moveTo(currentLink)
-                      }
-                    }, {once: true})
-                  }
-                }
+      function createLink(linkDescription) {
+          return (
+            <Link
+              id={`${classNamePrefix}-${linkDescription.id}`}
+              ref={em => {
+                _this.links[linkDescription.id] = em
+              }}
+              to={linkDescription.path}
+              className={`${classNamePrefix}-list-item-link`}
+              onClick={() => _this.setLastUnderlineLinkId(currentLinkId)}
+            >
+              {(linkDescription.icon) ? <i className={linkDescription.icon} /> : null}
+              {(linkDescription.icon) ? <span>{" "}</span> : null}
+              {linkDescription.label}
+            </Link>
+          )
+        }
+    }
+
+    componentDidMount() {
+      this.updateUnderline()
+    }
+    
+    componentDidUpdate() {
+      this.updateUnderline()
+    }
+
+    updateUnderline() {
+      const { currentLinkId } = this.props
+      const currentLink = this.links[currentLinkId]
+      const menu = this.menu.current
+      const underline = this.underline.current
+
+      if (currentLink) {
+        if (this.getLastUnderlineLinkId() && this.getLastUnderlineLinkId() != currentLinkId) {
+          const lastLink = this.links[this.getLastUnderlineLinkId()]
+          underline.shift({from: lastLink, to: currentLink})
+        } else {
+          if (menu.getBoundingClientRect().width > 0) {
+            underline.moveTo(currentLink)
+          } else {
+            menu.addEventListener('transitionend', () => {
+              if (underline) {
+                underline.moveTo(currentLink)
               }
-
-              _this.setLastUnderlineLinkId(null)
-            }
+            }, {once: true})
           }
+        }
+      }
 
-          
+      this.setLastUnderlineLinkId(null)
     }
 
     getLastUnderlineLinkId() {
@@ -89,12 +115,12 @@ export default NavMenu
 
 class Underline extends React.Component {
     constructor(props) {
-      super(props);
+      super(props)
 
       this.state = {
         style: {},
         callback: null
-      };
+      }
       this.underline = null
 
       this.moveTo = this.moveTo.bind(this)

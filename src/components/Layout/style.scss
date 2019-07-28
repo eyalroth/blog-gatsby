@@ -11,22 +11,15 @@ html {
 }
 
 .content-wrap {
-    lost-center: $layout-width;
     padding-top: $topbar-height;
     padding-bottom: $footer-padding;
     
-    max-width: $layout-breakpoint-lg;
+    max-width: $max-layout-width;
     margin: 0 auto;
 }
 
 @include breakpoint-md {
     .content-wrap {
         padding-top: unset;
-    }
-}
-
-@include breakpoint-xlg {
-    .content-wrap {
-        max-width: $layout-breakpoint-xlg;
     }
 }

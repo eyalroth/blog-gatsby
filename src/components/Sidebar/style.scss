@@ -1,25 +1,32 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
-$img-size: 30px;
-$top-padding: $img-size / 3;
-$bottom-padding: 10px;
+$img-size-base: 30px;
+$img-size-md: 85px;
+$img-size-lg: 115px;
+
+$button-size: $img-size-base * 1.5;
 $button-side-padding: 10px;
+
+$top-padding: $img-size-base / 3;
+$bottom-padding: 10px;
 $transition-timing: 0.2s;
 
 $shadow-height: 4px;
 
 .sidebar {
-    width: 100%;
-    display: inline-block;
-    box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
+    width: $sidebar-width-base;
     
     position: fixed;
-    background-color: $color-white;
-    transition: transform 0.5s ease-out;
+    display: flex;
+    
     z-index: 1;
-    height: $topbar-height - $shadow-height;
     top: -1px;
+    height: $topbar-height - $shadow-height;
+
+    background-color: $color-white;
+    box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
+    transition: transform 0.5s ease-out;
     
     @include disabled {
         transform: translateY(-$topbar-height - 10);
@@ -27,13 +34,17 @@ $shadow-height: 4px;
 
     &__author {
         &-img {
-            display: inherit;
-            height: $img-size;
-            width: $img-size;
+            height: $img-size-base;
+            width: $img-size-base;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
             position: absolute;
-            left: 32%;
-            transform: translate(0, $top-padding - 2px);
-           
+            top: ($topbar-height - $img-size-base) / 2 - 1;
+            left: calc(46vw - #{$img-size-base} - 20px);
+
             @include enabled {
                 transition: opacity $transition-timing ease-in;
                 opacity: 1;
@@ -43,10 +54,16 @@ $shadow-height: 4px;
             }
         }
         &-title {
+            height: $topbar-height;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
             position: absolute;
-            left: 57%;
-            transform: translate(-50%, $top-padding);
-            display: inherit;
+            top: -2px;
+            left: 47vw;
+
             font-size: $typographic-base-font-size * 1;
             font-weight: 500;
 
@@ -64,9 +81,9 @@ $shadow-height: 4px;
     }
     
     &__menu {
-        overflow: hidden;
         position: absolute;
-        z-index: 10;
+        left: $button-size;
+        overflow: hidden;
         transition: width $transition-timing ease-out;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
@@ -76,7 +93,7 @@ $shadow-height: 4px;
                 width $transition-timing ease-out,
                 opacity $transition-timing cubic-bezier(0,0,1,0);
             opacity: 1;
-            width: 100vw;
+            width: calc(100vw - #{$button-size} * 2);
         }
         @include disabled {
             transition: 
@@ -87,16 +104,12 @@ $shadow-height: 4px;
         }
         
         &-button {
-            position: relative;
-            z-index: 11;
-            display: inherit;
-            float: left;
-            background-color: transparent;
-            border: none;
+            height: $button-size;
+            width: $button-size;
             padding-left: $button-side-padding;
             padding-right: $button-side-padding;
-            height: $img-size * 1.5;
-            width: $img-size * 1.5;
+            background-color: transparent;
+            border: none;
             outline: none;
 
             text-shadow: 0px 2px 3px rgba(0,0,0,0.1);
@@ -138,7 +151,6 @@ $shadow-height: 4px;
     &__contact {
         overflow: hidden;
         position: absolute;
-        z-index: 10;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
 
@@ -162,16 +174,16 @@ $shadow-height: 4px;
         }
     
         &-button {
-            position: relative;
-            z-index: 11;
-            display: inherit;
-            float: right;
-            background-color: transparent;
-            border: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            height: $button-size;
+            width: $button-size;
             padding-left: $button-side-padding;
             padding-right: $button-side-padding;
-            height: $img-size * 1.5;
-            width: $img-size * 1.5;
+            background-color: transparent;
+            border: none;
             outline: none;
             
             color: rgba(0, 0, 0, 0.8);
@@ -185,22 +197,19 @@ $shadow-height: 4px;
 
 @include breakpoint-md {
     .sidebar {
-        padding-bottom: unset;
-        display: unset;
-        text-align: center;
-        
-        background-color: unset;
-        transition: unset;
-        z-index: unset;
-        height: unset;
-        top: unset;
+        width: $sidebar-width-md;
 
+        display: unset;
+        z-index: unset;
         top: -10px;
         height: 100vh;
-        box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
+        margin-left: $sidebar-margin-left-md;
+        padding-top: 30vh;
 
-        lost-column: 1/4;
-        padding: 30vh 2vw 0 2vw;
+        box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
+        background-color: unset;
+        transition: unset;
+        text-align: center;
 
         @include disabled {
             transform: unset;
@@ -213,11 +222,10 @@ $shadow-height: 4px;
                 margin-right: auto;
                 @include margin-bottom(.5);
 
-                height: 85px;
-                width: 85px;
+                height: $img-size-md;
+                width: $img-size-md;
 
                 position: unset;
-                left: unset;
                 transform: unset;
                 @include disabled {
                     opacity: unset;
@@ -226,7 +234,7 @@ $shadow-height: 4px;
             &-title {
                 display: inherit;
                 position: unset;
-                left: unset;
+                height: unset;
                 transform: unset;
                 @include disabled {
                     opacity: unset;
@@ -241,7 +249,6 @@ $shadow-height: 4px;
         
         &__menu {
             overflow: unset;
-            z-index: unset;
             padding-top: unset;
             padding-bottom: unset;
             position: unset;
@@ -251,6 +258,9 @@ $shadow-height: 4px;
 
             &-button {
                 display: none;
+            }
+            @include enabled {
+                width: unset;
             }
             @include disabled {
                 opacity: unset;
@@ -282,7 +292,6 @@ $shadow-height: 4px;
         &__contact {
             overflow: unset;
             position: unset;
-            z-index: unset;
             padding-top: unset;
             padding-bottom: unset;
             right: unset;
@@ -290,6 +299,9 @@ $shadow-height: 4px;
 
             &-button {
                 display: none;
+            }
+            @include enabled {
+                width: unset;
             }
             @include disabled {
                 opacity: unset;
@@ -301,17 +313,12 @@ $shadow-height: 4px;
 
 @include breakpoint-lg {
     .sidebar {
-        lost-column: 1/5;
-        padding: 25vh 2vw 0 2vw;
-        transform: translateX(-1vw);
-        @include disabled {
-            transform: translateX(-1vw);
-        }
+        width: $sidebar-width-lg;
 
         &__author {
             &-img {
-                height: 115px;
-                width: 115px;
+                height: $img-size-lg;
+                width: $img-size-lg;
             }
             &-title {
                 font-size: $typographic-base-font-size * 1.125;
@@ -321,12 +328,5 @@ $shadow-height: 4px;
                 @include line-height(1.5);
             }
         }
-    }
-}
-
-@include breakpoint-xlg {
-    .sidebar {
-        lost-column: 1/6;
-        // TODO padding / position
     }
 }

@@ -4,9 +4,7 @@
 $border-styling: dashed 1px $color-gray-border;
 
 .post-item {
-    &:not(:nth-child(2)) {
-        margin-top: 1rem;
-    }
+    margin-top: 1rem;
     &__year {
         display: none;
     }
@@ -62,7 +60,7 @@ $border-styling: dashed 1px $color-gray-border;
     }
 }
 
-@include breakpoint-sm {
+@include breakpoint-md {
     .post-item {
         display: flex;
         justify-content: flex-start;
