@@ -17,12 +17,12 @@ class Page extends React.Component {
         }
 
         const helmet = (
-            <Helmet title={`${subtitle}Eyal Roth`} defer={false} />
+            <Helmet key="helmet" title={`${subtitle}Eyal Roth`} defer={false} />
         )
 
         return ([
             helmet,
-            <ContextConsumer>
+            <ContextConsumer key="content">
                 {context => {
                     this.context = context
                     return this.props.children

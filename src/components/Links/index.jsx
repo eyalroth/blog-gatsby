@@ -13,7 +13,7 @@ class Links extends React.Component {
 
     return (
       <ul className="author-links">
-        <li>
+        <li key="github">
           <a
             href={links.github}
             target="_blank"
@@ -22,7 +22,7 @@ class Links extends React.Component {
             <i className="icon-github-circled" />
           </a>
         </li>
-        <li>
+        <li key="linkedin">
           <a
             href={links.linkedin}
             target="_blank"
@@ -31,7 +31,7 @@ class Links extends React.Component {
             <i className="icon-linkedin" />
           </a>
         </li>
-        <li>
+        <li key="email">
           <a href={`mailto:${links.email}`}>
             <i className="icon-mail" />
           </a>
