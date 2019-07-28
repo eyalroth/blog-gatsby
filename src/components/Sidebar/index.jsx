@@ -1,6 +1,6 @@
 import React from 'react'
 import ContextConsumer from '../Context'
-import Links from '../Links'
+import AuthorLinks from '../AuthorLinks'
 import ProfileImg from '../ProfileImg'
 import NavMenu from '../NavMenu'
 import { Author } from '../../consts/author'
@@ -168,11 +168,11 @@ class Sidebar extends React.Component {
     )
   }
 
-  renderContact(author) {
+  renderContact() {
     return (
       <SidebarToggle main={false} menu={false} contact={true} {...this.state}>
         <nav className="sidebar__contact">
-          <Links data={author} />
+          <AuthorLinks />
         </nav>
       </SidebarToggle>
     )

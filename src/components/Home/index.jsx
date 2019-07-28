@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import Page from '../Page'
-import Links from '../Links'
+import AuthorLinks from '../AuthorLinks'
 import ProfileImg from '../ProfileImg'
 import { Author } from '../../consts/author'
 import { SidebarLinks } from '../../consts/menuLinks'
@@ -38,7 +38,7 @@ class Home extends React.Component {
               {Author.subtitle[languageId]}
             </p>
             <div className="home__author-icons">
-                <Links/>
+                <AuthorLinks/>
             </div>
             <nav className="home__site-links">
               <ul className="home__site-links-list">

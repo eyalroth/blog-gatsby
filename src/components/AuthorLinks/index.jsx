@@ -3,8 +3,7 @@ import { Author } from '../../consts/author'
 import './style.scss'
 import '../../assets/fonts/fontello/css/fontello.css'
 
-// TODO rename to  "author links"
-class Links extends React.Component {
+class AuthorLinks extends React.Component {
   render() {
     return (
       <ul className="author-links">
@@ -36,4 +35,4 @@ class Links extends React.Component {
   }
 }
 
-export default Links
+export default AuthorLinks
