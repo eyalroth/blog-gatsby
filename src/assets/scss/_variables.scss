@@ -50,8 +50,8 @@ $layout-breakpoint-md: 900px;
 $sidebar-width-md: 100vw * $sidebar-width-pct;
 $content-width-md: 100vw * $content-width-pct;
 
-$sidebar-margin-left-md: 30px;
-$content-padding-left-md: calc(#{$sidebar-width-md} + #{$sidebar-margin-left-md} + 30px);
+$sidebar-side-margin-md: 30px;
+$content-side-padding-md: calc(#{$sidebar-width-md} + #{$sidebar-side-margin-md} + 30px);
 
 // breakpoint - lg - laptop, xlarge tablet (landscape)
 $layout-breakpoint-lg: $max-layout-width;
@@ -59,4 +59,4 @@ $layout-breakpoint-lg: $max-layout-width;
 $sidebar-width-lg: $max-layout-width * $sidebar-width-pct;
 $content-width-lg: $max-layout-width * $content-width-pct;
 
-$content-padding-left-lg: $sidebar-width-lg + $max-layout-width * 0.085;
+$content-side-padding-lg: $sidebar-width-lg + $max-layout-width * 0.085;

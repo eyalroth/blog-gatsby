@@ -4,15 +4,34 @@ const path = require('path')
 const slash = require('slash')
 const moment = require('moment')
 
-const menuLinks = require('./src/consts/menuLinks.jsx')
+const { Languages } = require('./src/consts/languages.jsx')
+const { SidebarLinks, CategoryLinks } = require('./src/consts/menuLinks.jsx')
+const { Feeds } = require('./src/consts/rss.jsx')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
-  const { CategoryLinks } = menuLinks
 
   createRedirect({
-    fromPath: '/blog',
-    toPath: '/blog/software',
+    fromPath: '/',
+    toPath: SidebarLinks[Languages.English.id].Home.path,
+    redirectInBrowser: true,
+  })
+
+  createRedirect({
+    fromPath: '/rss.xml',
+    toPath: Feeds[Languages.English.id].outputPath,
+    redirectInBrowser: true,
+  })
+
+  createRedirect({
+    fromPath: SidebarLinks[Languages.English.id].Blog.path,
+    toPath: CategoryLinks[Languages.English.id].Software.path,
+    redirectInBrowser: true,
+  })
+
+  createRedirect({
+    fromPath: SidebarLinks[Languages.Hebrew.id].Blog.path,
+    toPath: CategoryLinks[Languages.Hebrew.id].Hebrew.path,
     redirectInBrowser: true,
   })
 
@@ -21,14 +40,17 @@ exports.createPages = ({ graphql, actions }) => {
     const pageTemplate = path.resolve('./src/templates/PageTemplate/index.jsx')
     const postListTemplate = path.resolve('./src/templates/PostListTemplate/index.jsx')
 
-    _.each(CategoryLinks, categoryLink => {
-      createPage({
-        path: `/blog/${_.kebabCase(categoryLink.id)}`,
-        component: postListTemplate,
-        context: {
-          categoryId: categoryLink.id,
-          categoryLabel: categoryLink.label
-        },
+    _.forOwn(CategoryLinks, function(links, languageId) {
+      _.each(links, categoryLink => {
+        createPage({
+          path: categoryLink.path,
+          component: postListTemplate,
+          context: {
+            languageId,
+            categoryId: categoryLink.id,
+            categoryLabel: categoryLink.label
+          },
+        })
       })
     })
 

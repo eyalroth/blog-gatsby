@@ -17,17 +17,23 @@
         text-align: center;
     }
 
-    &__right {
-        position: absolute;
-        bottom: 20px;
-        right: 5vw;
-    }
-
+    
     &__links {
         font-size: 0.8rem;
     }
     
     &__feed {
+        &-box {
+            position: absolute;
+            bottom: 20px;
+            @include ltr {
+                right: 5vw;
+            }
+            @include rtl {
+                left: 5vw;
+            }
+        }
+        
         font-size: 0.9rem;
         & i {
             color: lighten($color-base, 30%);
@@ -49,8 +55,15 @@
             font-size: 1rem;
         }
 
-        &__right {
-            right: 2vw;
+        &__feed {
+            &-box {
+                @include ltr {
+                    right: 2vw;
+                }
+                @include rtl {
+                    left: 2vw;
+                }
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import { Languages } from '../../consts/languages'
 
 var lastUnderlineLinkId = {}
 
@@ -18,7 +19,7 @@ class NavMenu extends React.Component {
 
     render() {
       const _this = this
-      const { linkDescriptions, classNamePrefix, currentLinkId } = this.props
+      const { languageId, linkDescriptions, classNamePrefix } = this.props
 
       if (this.state.reRender) {
         setTimeout(() => _this.setState({reRender: false}), 0)
@@ -45,7 +46,11 @@ class NavMenu extends React.Component {
                       </li>
                   ))}
               </ul>
-              <Underline ref={this.underline} className={`${classNamePrefix}-underline`}/>
+              <Underline
+                ref={this.underline}
+                className={`${classNamePrefix}-underline`}
+                languageId={languageId}
+              />
           </nav>
       )
 
@@ -121,10 +126,12 @@ class Underline extends React.Component {
         callback: null
       }
       this.underline = null
+      const language = Object.values(Languages).find(lang => lang.id == this.props.languageId)
+      this.ltr = language.ltr
 
       this.moveTo = this.moveTo.bind(this)
       this.shift = this.shift.bind(this)
-      this.parentX = this.parentX.bind(this)
+      this.parentRect = this.parentRect.bind(this)
     }
 
     render() {
@@ -151,11 +158,18 @@ class Underline extends React.Component {
     }
 
     moveTo(link) {
-      const parentX = this.parentX()
+      const {left: parentX, width: parentWidth} = this.parentRect()
       const { left: toX, width } = link.getBoundingClientRect()
 
+      const position = {}
+      if (this.ltr) {
+        position.left = toX - parentX
+      } else {
+        position.right = parentX + parentWidth - (toX + width) 
+      }
+
       this.setStyle({
-        left: toX - parentX,
+        ...position,
         width,
         transition: "none"
       })
@@ -163,17 +177,34 @@ class Underline extends React.Component {
     
     shift({from, to}) {
       const _this = this
-      const parentX = this.parentX()
+      const { left: parentX, width: parentWidth } = this.parentRect()
       const { left: fromX, width: fromWidth  } = from.getBoundingClientRect()
       const { left: toX, width: toWidth } = to.getBoundingClientRect()
 
+      const position = {}
+      if (this.ltr) {
+        position.initial = {
+          left: fromX - parentX,
+        }
+        position.transitioned = {
+          left: toX - parentX,
+        }
+      } else {
+        position.initial = {
+          right: parentX + parentWidth - (fromX + fromWidth),
+        }
+        position.transitioned = {
+          right: parentX + parentWidth - (toX + toWidth),
+        }
+      }
+
       const initialStyle = {
-        left: fromX - parentX,
+        ...position.initial,
         width: fromWidth,
       }
       
       const transitionedStyle = {
-        left: toX - parentX,
+        ...position.transitioned,
         width: toWidth,
       }
 
@@ -182,7 +213,7 @@ class Underline extends React.Component {
       })
     }
 
-    parentX() {
-      return this.underline.parentElement.getBoundingClientRect().left
+    parentRect() {
+      return this.underline.parentElement.getBoundingClientRect()
     }
 }

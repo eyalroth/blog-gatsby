@@ -9,7 +9,7 @@ import './style.scss'
 
 class PostListTemplate extends React.Component {
     render() {
-      const { categoryId, categoryLabel } = this.props.pageContext
+      const { languageId, categoryId, categoryLabel } = this.props.pageContext
       const posts = this.props.data.allMarkdownRemark.edges
   
       const years = new Set()
@@ -22,6 +22,7 @@ class PostListTemplate extends React.Component {
 
         const item = (
           <PostListItem
+            languageId={languageId}
             data={post}
             key={post.node.fields.slug} 
             showYear={showYear}
@@ -34,9 +35,9 @@ class PostListTemplate extends React.Component {
       })
 
       return (
-        <Page subtitle={categoryLabel} sidebarLinkId={SidebarLinks.Blog.id}>
+        <Page languageId={languageId} subtitle={categoryLabel} sidebarLinkId={SidebarLinks[languageId].Blog.id}>
           <div className="posts">
-            <PostListHeader categoryId={categoryId}/>
+            <PostListHeader languageId={languageId} categoryId={categoryId}/>
             {items}
           </div>
         </Page>
@@ -65,6 +66,7 @@ export const pageQuery = graphql`
             slug
             readingTime {
               text
+              minutes
             }
           }
           frontmatter {

@@ -88,6 +88,10 @@ $shadow-height: 4px;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
 
+        @include rtl {
+            text-align: right;
+        }
+
         @include enabled {
             transition: 
                 width $transition-timing ease-out,
@@ -144,7 +148,12 @@ $shadow-height: 4px;
             bottom: 2px;
             height: 2px;
             z-index: 0;
-            transition: left $transition-timing ease-out;
+            @include ltr {
+                transition: left $transition-timing ease-out;
+            }
+            @include rtl {
+                transition: right $transition-timing ease-out;
+            }
         }
     }
 
@@ -203,8 +212,14 @@ $shadow-height: 4px;
         z-index: unset;
         top: -10px;
         height: 100vh;
-        margin-left: $sidebar-margin-left-md;
         padding-top: 30vh;
+        @include ltr {
+            margin-left: $sidebar-side-margin-md;
+        }
+        @include rtl {
+            right: calc((100vw - #{$max-layout-width}) / 2);
+            margin-right: $sidebar-side-margin-md;
+        }
 
         box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
         background-color: unset;

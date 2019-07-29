@@ -1,69 +1,44 @@
 import React from 'react'
-import { Link, StaticQuery, graphql } from 'gatsby'
+import { Link } from 'gatsby'
 import Page from '../Page'
-import Links from '../Links'
+import AuthorLinks from '../AuthorLinks'
 import ProfileImg from '../ProfileImg'
+import { Author } from '../../consts/author'
 import { SidebarLinks } from '../../consts/menuLinks'
 import './style.scss'
 import '../Layout/style.scss'
 
 class Home extends React.Component {
   render() {
+    const { languageId } = this.props
+
     return (
-      <Page sidebarLinkId={SidebarLinks.Home.id} renderSidebar={false}>
+      <Page
+        languageId={languageId}
+        sidebarLinkId={SidebarLinks[languageId].Home.id}
+        renderSidebar={false}
+      >
         {this.renderContent()}
       </Page>
     )
   }
 
   renderContent() {
-    return (
-      <StaticQuery
-        query={graphql`
-            query HomeQuery {
-              site {
-                siteMetadata {
-                  subtitle
-                  copyright
-                  author {
-                    name
-                    email
-                    github
-                    linkedin
-                  }
-                }
-              }
-            }
-        `}
-        render={data => this.renderContentFromQuery(data)}
-    />)
-  }
+    const { languageId } = this.props
 
-  renderContentFromQuery(queryData) {
-    const { author, subtitle, copyright } = queryData.site.siteMetadata
-
-    const siteLinks = [
-      {
-        label: "Blog",
-        path: "/blog"
-      },
-      {
-        label: "About",
-        path: "/about"
-      },
-    ]
+    const siteLinks = Object.values(SidebarLinks[languageId]).filter(link => link.id != "home")
 
     return (
       <div className="home">
-            <ProfileImg className="home__author-img" author={author.name}/>
+            <ProfileImg className="home__author-img" languageId={languageId}/>
             <h1 className="home__author-title">
-              {author.name}
+              {Author.name[languageId]}
             </h1>
             <p className="home__author-subtitle">
-              {subtitle}
+              {Author.subtitle[languageId]}
             </p>
             <div className="home__author-icons">
-                <Links data={author} />
+                <AuthorLinks/>
             </div>
             <nav className="home__site-links">
               <ul className="home__site-links-list">

@@ -8,22 +8,38 @@ require("dotenv").config({
 
 const pxtorem = require('postcss-pxtorem')
 const path = require(`path`)
+const { Feeds } = require('./src/consts/rss.jsx')
+
+function rssQuery(languageId) {
+  return `
+    {
+      allMarkdownRemark(
+        filter: {frontmatter: {language: {eq: "${languageId}"}}}
+        sort: { order: DESC, fields: [frontmatter___date] },
+      ) {
+        edges {
+          node {
+            excerpt
+            html
+            fields { slug }
+            frontmatter {
+              title
+              date
+            }
+          }
+        }
+      }
+    }
+  `
+}
 
 module.exports = {
   siteMetadata: {
     url: process.env.URL,
     siteUrl: process.env.URL,
     title: 'Eyal Roth',
-    subtitle: 'Software Developer, Tel Aviv',
     description: '',
-    copyright: '© All rights reserved.',
     utterances: 'eyalroth/blog-gatsby-comments',
-    author: {
-      name: 'Eyal Roth',
-      linkedin: "https://linkedin.com/in/eyal-roth",
-      github: 'https://github.com/eyalroth',
-      email: 'eyalroth1@gmail.com',
-    },
   },
   plugins: [
     {
@@ -47,7 +63,33 @@ module.exports = {
         path: path.join(__dirname, `src`, `images`),
       },
     },
-    'gatsby-plugin-feed',
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        feeds: Object.values(Feeds).map(feed => (
+          {
+            output: feed.outputPath,
+            title: feed.title,
+            query: rssQuery(feed.languageId),
+            language: feed.languageShort,
+            'site_url': `${process.env.URL}${feed.homePath}`,
+          }
+        )),
+        setup: // see https://github.com/gatsbyjs/gatsby/issues/16177
+          ({
+            query: {
+              site: { siteMetadata },
+            },
+            ...rest
+          }) => {
+            return {
+              ...siteMetadata,
+              ...rest,
+            }
+          }
+        ,
+      }
+    },
     {
       resolve: 'gatsby-transformer-remark',
       options: {

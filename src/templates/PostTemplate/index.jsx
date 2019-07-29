@@ -1,30 +1,38 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import moment from 'moment'
+import 'moment/locale/he'
 import { Utterences } from '../../components/Utterances'
 import Page from '../../components/Page'
 import { SidebarLinks, CategoryLinks } from '../../consts/menuLinks'
+import { Languages } from '../../consts/languages'
 import SharePanel from '../../components/SharePanel'
-import MobileShareButton from '../../components/MobileShareButton';
-import PostSeriesBox from '../../components/PostSeriesBox';
+import MobileShareButton from '../../components/MobileShareButton'
+import PostSeriesBox from '../../components/PostSeriesBox'
 import './style.scss'
 
 class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
-    const { category: categoryId, title, tags, series } = post.frontmatter
-    const readingTime = post.fields.readingTime.text
+    const { category: categoryId, title, tags, series, language: languageId } = post.frontmatter
+    const readingTime = post.fields.readingTime
     const url = this.props.location.href
-    
-    const category = Object.values(CategoryLinks).find(link => link.id == categoryId)
+
+    const language = Object.values(Languages).find(lang => lang.id == languageId)
+    const category = Object.values(CategoryLinks[languageId]).find(link => link.id == categoryId)
+
     const categoryTab = (
       <div className="post-single__category-tab">
-        <Link className="post-single__category-tab-link" to={category.path}>
-            {(category.icon) ? <i className={category.icon} /> : null}
-            {(category.icon) ? <span>{" "}</span> : null}
-            {category.label}
-        </Link>
+        <div className="post-single__category-tab-box">
+          <Link className="post-single__category-tab-link" to={category.path}>
+              {(category.icon && language.ltr) ? <i className={category.icon} /> : null}
+              {(category.icon && language.ltr) ? <span>{" "}</span> : null}
+              {category.label}
+              {(category.icon && !language.ltr) ? <span>{" "}</span> : null}
+              {(category.icon && !language.ltr) ? <i className={category.icon} /> : null}
+          </Link>
+        </div>
       </div>
     )
 
@@ -34,13 +42,25 @@ class PostTemplate extends React.Component {
 
     const dateBlock = (
       <span className="post-single__date">
-          {moment(post.frontmatter.date).format('MMMM D, YYYY')}
+          {moment(post.frontmatter.date).locale(language.locale).format('MMMM D, YYYY')}
       </span>
     )
     
     const readTimeBlock = (
       <span className="post-single__reading-time">
-        {readingTime}
+        {(function(lang) {
+          switch(lang) {
+              case Languages.English:
+                  return readingTime.text
+              case Languages.Hebrew:
+                const minutes = Math.round(readingTime.minutes)
+                if (minutes < 2) {
+                  return "דקת קריאה אחת"
+                } else {
+                  return `${minutes} דקות קריאה`
+                }
+          }
+        })(language)}
       </span>
     )
     
@@ -88,7 +108,7 @@ class PostTemplate extends React.Component {
 
     const mobileShare = <MobileShareButton url={url}/>
 
-    const seriesBox = <PostSeriesBox series={series}/>
+    const seriesBox = <PostSeriesBox language={language} series={series}/>
 
     const commentsBlock = (
       <div>
@@ -103,7 +123,7 @@ class PostTemplate extends React.Component {
     )
 
     return (
-      <Page subtitle={title} sidebarLinkId={SidebarLinks.Blog.id}>
+      <Page languageId={languageId} subtitle={title} sidebarLinkId={SidebarLinks[language.id].Blog.id}>
         <div className="post-single">
           {categoryTab}
           {header}
@@ -134,6 +154,7 @@ export const pageQuery = graphql`
         slug
         readingTime {
           text
+          minutes
         }
       }
       frontmatter {
@@ -146,6 +167,7 @@ export const pageQuery = graphql`
           name
           order
         }
+        language
       }
     }
   }

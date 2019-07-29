@@ -1,10 +1,13 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Languages } from '../../consts/languages'
+import { Feeds } from '../../consts/rss'
 import './style.scss'
-import '../../assets/fonts/fontello/css/fontello.css'
 
 class Footer extends React.Component {
   render() {
+    const { languageId } = this.props
+    const feed = (languageId) ? Feeds[languageId] : Feeds[Languages.English.id]
+
     return (
         <footer className="footer">
             <div className="footer__center">
@@ -17,8 +20,8 @@ class Footer extends React.Component {
                 <a href="https://www.netlify.com/" target="_blank" rel="noopener noreferrer">Netlify</a>
               </div>
             </div> 
-            <div className="footer__right">
-              <a className="footer__feed" href="/rss.xml">
+            <div className="footer__feed-box">
+              <a className="footer__feed" href={feed.outputPath}>
                 <i className="icon-rss" />
               </a>
             </div>

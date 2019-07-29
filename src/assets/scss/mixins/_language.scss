@@ -1,0 +1,17 @@
+/**
+ * Language control
+ */
+
+@mixin ltr {
+    .ltr & {
+        direction: ltr;
+        @content;
+    }
+}
+
+@mixin rtl {
+    .rtl & {
+        direction: rtl;
+        @content;
+    }
+}

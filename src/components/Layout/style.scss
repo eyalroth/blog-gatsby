@@ -21,5 +21,8 @@ html {
 @include breakpoint-md {
     .content-wrap {
         padding-top: unset;
+        @include rtl {
+            text-align: right;
+        }
     }
 }

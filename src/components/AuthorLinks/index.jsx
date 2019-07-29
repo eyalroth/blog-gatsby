@@ -1,38 +1,31 @@
 import React from 'react'
+import { Author } from '../../consts/author'
 import './style.scss'
-import '../../assets/fonts/fontello/css/fontello.css'
 
-class Links extends React.Component {
+class AuthorLinks extends React.Component {
   render() {
-    const author = this.props.data
-    const links = {
-      github: author.github,
-      linkedin: author.linkedin,
-      email: author.email,
-    }
-
     return (
       <ul className="author-links">
-        <li>
+        <li key="github">
           <a
-            href={links.github}
+            href={Author.links.github}
             target="_blank"
             rel="noopener noreferrer"
             >
             <i className="icon-github-circled" />
           </a>
         </li>
-        <li>
+        <li key="linkedin">
           <a
-            href={links.linkedin}
+            href={Author.links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             >
             <i className="icon-linkedin" />
           </a>
         </li>
-        <li>
-          <a href={`mailto:${links.email}`}>
+        <li key="email">
+          <a href={`mailto:${Author.links.email}`}>
             <i className="icon-mail" />
           </a>
         </li>
@@ -41,4 +34,4 @@ class Links extends React.Component {
   }
 }
 
-export default Links
+export default AuthorLinks

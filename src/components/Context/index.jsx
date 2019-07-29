@@ -3,6 +3,7 @@ import isMatch from 'lodash/isMatch'
 
 const defaultContextValue = {
   data: {
+    languageId: null,
     sidebar: {
         isRendered: false,
         linkId: null,
