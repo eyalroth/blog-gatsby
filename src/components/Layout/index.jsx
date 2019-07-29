@@ -29,7 +29,7 @@ class Layout extends React.Component {
                   {sidebar}  
                   {children}
                 </div>
-                <Footer />
+                <Footer languageId={context.data.languageId} />
               </div>
             )
           }}

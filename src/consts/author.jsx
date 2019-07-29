@@ -1,5 +1,4 @@
-const languages = require('./languages.jsx')
-const { Languages } = languages
+const { Languages } = require('./languages.jsx')
 
 const name = {}
 name[Languages.English.id] = "Eyal Roth"

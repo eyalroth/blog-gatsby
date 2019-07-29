@@ -1,7 +1,6 @@
 import React from 'react'
 import { Author } from '../../consts/author'
 import './style.scss'
-import '../../assets/fonts/fontello/css/fontello.css'
 
 class AuthorLinks extends React.Component {
   render() {
