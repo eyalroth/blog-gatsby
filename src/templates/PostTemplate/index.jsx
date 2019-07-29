@@ -1,11 +1,12 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
 import { Utterences } from '../../components/Utterances'
 import Page from '../../components/Page'
-import { SidebarLinks, CategoryLinks } from '../../consts/menuLinks'
 import { Languages } from '../../consts/languages'
+import { SidebarLinks } from '../../consts/menuLinks'
+import CategoryTab from '../../components/CategoryTab'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
@@ -15,25 +16,14 @@ class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
-    const { category: categoryId, title, tags, series, language: languageId } = post.frontmatter
+    const { category, title, tags, series, language: languageId } = post.frontmatter
     const readingTime = post.fields.readingTime
     const url = this.props.location.href
 
     const language = Object.values(Languages).find(lang => lang.id == languageId)
-    const category = Object.values(CategoryLinks[languageId]).find(link => link.id == categoryId)
 
     const categoryTab = (
-      <div className="post-single__category-tab">
-        <div className="post-single__category-tab-box">
-          <Link className="post-single__category-tab-link" to={category.path}>
-              {(category.icon && language.ltr) ? <i className={category.icon} /> : null}
-              {(category.icon && language.ltr) ? <span>{" "}</span> : null}
-              {category.label}
-              {(category.icon && !language.ltr) ? <span>{" "}</span> : null}
-              {(category.icon && !language.ltr) ? <i className={category.icon} /> : null}
-          </Link>
-        </div>
-      </div>
+      <CategoryTab languageId={languageId} categoryId={category}/>
     )
 
     const titleBlock = (

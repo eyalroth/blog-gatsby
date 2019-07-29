@@ -3,6 +3,8 @@ import { Link, StaticQuery, graphql } from 'gatsby'
 import { Languages } from '../../consts/languages'
 import './style.scss'
 
+const _ = require('lodash')
+
 class PostSeriesBox extends React.Component {
     render() {
         if (this.props.series) {
@@ -31,16 +33,35 @@ class PostSeriesBox extends React.Component {
 
         const maxOrder = Math.max(...Array.from(orderToSlug.keys()))
 
+        const titlePrefix = (function(lang) {
+            switch(lang) {
+                case Languages.English:
+                    return "This post is part of a "
+                case Languages.Hebrew:
+                    return "פוסט זה הוא חלק מ"
+            }
+        })(language)
+
+        const linkLabel = (function(lang) {
+            switch(lang) {
+                case Languages.English:
+                    return "series"
+                case Languages.Hebrew:
+                    return "סדרה"
+            }
+        })(language)
+
         const title = <h2 className="post-series-box__title">
-            {(function(lang) {
-                switch(lang) {
-                    case Languages.English:
-                        return "This post is part of a series"
-                    case Languages.Hebrew:
-                        return "פוסט זה הוא חלק מסדרה"
-                }
-            })(language)}
+            {titlePrefix}
+            <Link
+                className="post-series-box__series-link" 
+                to={`/blog/series/${_.kebabCase(seriesName)}`}
+                title={linkLabel}
+            >
+                {linkLabel}    
+            </Link>
         </h2>
+
 
         const firstLink = this.createLink(postOrder > 1, orderToSlug, 1, 
             new Map([[Languages.English, "First"], [Languages.Hebrew, "ראשון"]]),

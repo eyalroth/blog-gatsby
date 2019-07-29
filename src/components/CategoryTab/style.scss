@@ -1,0 +1,44 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.category-tab {
+    @include rtl {
+        text-align: right;
+    }
+    &-box {
+        display: inline-block;
+        margin-top: -10px;
+        margin-bottom: 0.8rem;
+        box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
+        border-radius: 7px;
+        padding-top: 1rem;
+        padding-bottom: 0.6rem;
+
+        @include ltr {
+            padding-left: 1rem;
+            padding-right: 0.7rem;
+        }
+        @include rtl {
+            padding-left: 0.7rem;
+            padding-right: 1rem;
+        }
+    }
+    &-link {
+        color: $typographic-base-font-color;
+        text-shadow: 0px 2px 3px rgba(0,0,0,0.1);
+        font-size: $typographic-base-font-size * 0.9;
+    }
+}
+
+@include breakpoint-md {
+    .category-tab {
+        &-box {
+            margin-bottom: 1.5rem;
+            padding-top: 1.4rem;
+        }
+
+        &-link {
+            font-size: $typographic-base-font-size * 0.95;
+        }
+    }
+}
