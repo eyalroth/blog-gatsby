@@ -1,0 +1,19 @@
+/**
+ * Dark mode control
+ */
+
+@mixin dark {
+    transition: 
+        background-color 0.4s,
+        color 0.4s,
+    ;
+    .dark-mode & {
+        color: $color-dark-text;
+        @content;
+    }
+    
+    &.dark-mode {
+        color: $color-dark-text;
+        @content;
+    }
+}

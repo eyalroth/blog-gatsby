@@ -16,15 +16,23 @@ class Layout extends React.Component {
       </ContextConsumer>
     )
 
+    const background = (
+      <ContextConsumer>
+          {context => (context.data.sidebar.isRendered) ? <div className="content-bg"/> : null}
+      </ContextConsumer>
+    )
+
     return (
       <ContextProviderComponent>
         <ContextConsumer>
           {context => {
             const language = Object.values(Languages).find(lang => lang.id == context.data.languageId)
             const languageCss = (language) ? language.cssClass : ""
+            const darkModeCss = (context.data.darkMode) ? "dark-mode" : ""
 
             return (
-              <div className={`page-container ${languageCss}`}>
+              <div className={`page-container ${languageCss} ${darkModeCss}`}>
+                {background}
                 <div className="content-wrap">
                   {sidebar}  
                   {children}

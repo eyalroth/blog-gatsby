@@ -11,6 +11,15 @@ $color-gray: lighten($color-base, 40%);
 $color-gray-border: lighten($color-base, 77%);
 $color-gray-bg: lighten($color-base, 79%);
 
+$color-dark-bg: #121212;
+$color-dark-dp1: lighten($color-dark-bg, 5%);
+$color-dark-dp2: lighten($color-dark-bg, 7%);
+$color-dark-dp3: lighten($color-dark-bg, 8%);
+$color-dark-dp4: lighten($color-dark-bg, 9%);
+$color-dark-text: rgba(255, 255, 255, 0.87);
+$color-dark-text-medium: rgba(255, 255, 255, 0.6);
+$color-dark-text-weak: rgba(255, 255, 255, 0.38);
+
 // Typographic
 $typographic-font-family: Roboto, sans-serif;
 
@@ -25,13 +34,17 @@ $typographic-link-p-font-color: $color-primary;
 
 $typographic-leading: round(16 * ($typographic-root-font-size / 100) * $typographic-base-line-height);
 
+$footer-height: 30px;
 $footer-padding: 2.5rem;
 
 $sidebar-width-pct: 0.25;
 $content-width-pct: 0.65;
 
 $max-layout-width: 1280px;
+$bg-width: $max-layout-width - 120px;
+$bg-shift: 110px;
 $content-max-width: 660px;
+
 
 // breakpoint - base - handset (portrait)
 $sidebar-width-base: 100vw;

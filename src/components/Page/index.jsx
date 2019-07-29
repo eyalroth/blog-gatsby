@@ -1,7 +1,6 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import ContextConsumer from '../../components/Context'
-import { Languages } from '../../consts/languages'
 import { Author } from '../../consts/author'
 
 class Page extends React.Component {

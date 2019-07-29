@@ -3,7 +3,7 @@
 
 .post-single {
     max-width: $content-max-width;
-    width: $content-width-base;;
+    width: $content-width-base;
     margin: 0 auto;
 
     &__header {
@@ -39,9 +39,15 @@
     }
     &__reading-time {
         color: lighten($typographic-base-font-color, 20%);
+        @include dark {
+            color: $color-dark-text-weak;
+        }
     }
     &__tags {
         color: darken($typographic-link-p-font-color, 10%);
+        @include dark {
+            color: darken($typographic-link-p-font-color, 7%);
+        }
         @include rtl {
             margin-left: auto;
             margin-right: 0;
@@ -141,6 +147,9 @@
         &__share-panel {
             position: absolute;
             top: -2px;
+            @include dark {
+                top: -12px;
+            }
             @include ltr {
                 right: 0;
             }
@@ -161,6 +170,7 @@
     .post-single {
         width: $content-width-md;
         margin: unset;
+        
         @include ltr {
             padding-left: $content-side-padding-md;
         }
@@ -168,6 +178,7 @@
             right: calc((100vw - #{$max-layout-width}) / 2);
             padding-right: $content-side-padding-md;
         }
+
         &__tags {
             max-width: calc(100% - 230px);
         }
@@ -184,6 +195,7 @@
 @include breakpoint-lg {
     .post-single {
         width: $content-width-lg;
+
         @include ltr {
             padding-left: $content-side-padding-lg;
         }

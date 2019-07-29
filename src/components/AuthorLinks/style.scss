@@ -15,11 +15,17 @@
         border: 0;
         & i {
             color: lighten($color-base, 20%);
+            @include dark {
+                color: darken($color-dark-text, 20%);
+            }
         }
         &:hover,
         &:focus {
             & i {
                 color: $color-base;
+                @include dark {
+                    color: $color-dark-text;
+                }
             }
         }
     }

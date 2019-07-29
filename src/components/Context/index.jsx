@@ -8,6 +8,7 @@ const defaultContextValue = {
         isRendered: false,
         linkId: null,
     },
+    darkMode: false,
   },
   set: () => {},
 }
