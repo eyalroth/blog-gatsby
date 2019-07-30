@@ -345,6 +345,13 @@ $shadow-height: 4px;
     .sidebar {
         width: $sidebar-width-lg;
 
+        @include ltr {
+            margin-left: $sidebar-side-margin-lg;
+        }
+        @include rtl {
+            margin-right: $sidebar-side-margin-lg;
+        }
+
         &__author {
             &-img {
                 height: $img-size-lg;

@@ -92,3 +92,4 @@ $sidebar-width-lg: $max-layout-width * $sidebar-width-pct;
 $content-width-lg: $max-layout-width * $content-width-pct;
 
 $content-side-padding-lg: $sidebar-width-lg + $max-layout-width * 0.085;
+$sidebar-side-margin-lg: ($content-side-padding-lg - $sidebar-width-lg) / 2.5;
