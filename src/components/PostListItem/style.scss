@@ -1,7 +1,17 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
-$border-styling: dashed 1px $color-gray-border;
+$light-border: lighten($color-light-text, 80%);
+$dark-border: $color-dark-text-weak;
+
+@mixin border-top {
+    @include light {
+        border-top: dashed 1px $light-border;
+    }
+    @include dark {
+        border-top: dashed 1px $dark-border;
+    }
+}
 
 .post-item {
     margin-top: 1rem;
@@ -56,11 +66,16 @@ $border-styling: dashed 1px $color-gray-border;
             }
             
             &-tags-divider {
-                border-left: 1px solid $color-gray-border;
                 height: 1rem;
                 margin-left: 0.8125rem;
                 margin-right: 0.8125rem;
                 align-self: center;
+                @include light {
+                    border-left: 1px solid $light-border;
+                }
+                @include dark {
+                    border-left: 1px solid $dark-border;
+                }
             }
             
             &-tags-item:not(:last-child)::after {
@@ -104,7 +119,7 @@ $border-styling: dashed 1px $color-gray-border;
             }
 
             @include enabled {
-                border-top: $border-styling;
+                @include border-top;
             }
         }
         
@@ -115,7 +130,7 @@ $border-styling: dashed 1px $color-gray-border;
             display: flex;
 
             @include enabled {
-                border-top: $border-styling;
+                @include border-top;
             }
 
             .month {
@@ -149,7 +164,7 @@ $border-styling: dashed 1px $color-gray-border;
             padding-top: 1rem;
 
             @include enabled {
-                border-top: $border-styling;
+                @include border-top;
             }
 
             &-header {

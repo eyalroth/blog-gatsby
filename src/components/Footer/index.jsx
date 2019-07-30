@@ -1,7 +1,7 @@
 import React from 'react'
 import { Languages } from '../../consts/languages'
 import { Feeds } from '../../consts/rss'
-import DarkModeButton from '../DarkModeButton'
+import ThemeButton from '../ThemeButton'
 import './style.scss'
 
 class Footer extends React.Component {
@@ -9,11 +9,11 @@ class Footer extends React.Component {
     const { languageId } = this.props
     const feed = (languageId) ? Feeds[languageId] : Feeds[Languages.English.id]
 
-    // TODO remove dark mode button (including "import")
+    // TODO remove theme button (including "import")
     return (
         <footer className="footer">
             <div className="footer__center">
-              <DarkModeButton/>
+              <ThemeButton/>
               {`Made with ❤️`}
               <div className="footer__links">
                 <a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener noreferrer">Gatsby</a>

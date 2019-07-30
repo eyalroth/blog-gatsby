@@ -8,7 +8,6 @@ html {
 
 body {
     font-family: $typographic-font-family;
-    color: $typographic-base-font-color;
     line-height: $typographic-base-line-height;
     font-size: $typographic-base-font-size;
     -ms-text-size-adjust: 100%;
@@ -88,15 +87,16 @@ hr {
     background-size: 100% 26px;
     width: 100px;
 
-    color: $color-base;
-    background-image: linear-gradient(to bottom, transparent 1px, transparent 11px, $color-base 11px, $color-base 15px, transparent 15px, transparent 26px);
+    @include light {
+        background-image: linear-gradient(to bottom, transparent 1px, transparent 11px, $color-light-text 11px, $color-light-text 15px, transparent 15px, transparent 26px);
+    }
     @include dark {
         background-image: linear-gradient(to bottom, transparent 1px, transparent 11px, $color-dark-text 11px, $color-dark-text 15px, transparent 15px, transparent 26px);
     }
 }
 
 a {
-    color: $typographic-link-p-font-color;
+    @include text-link;
     text-decoration: none;
 }
 
@@ -134,7 +134,7 @@ figure {
 figcaption {
     @include line-height(.75);
     @include margin-top(.25);
-    color: $color-base;
+    @include text-normal;
     font-size: $typographic-small-font-size;
     font-style: italic;
     margin-bottom: 0;

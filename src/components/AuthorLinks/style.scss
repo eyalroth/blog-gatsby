@@ -14,18 +14,13 @@
         width: 24px;
         border: 0;
         & i {
-            color: lighten($color-base, 20%);
-            @include dark {
-                color: darken($color-dark-text, 20%);
-            }
+            @include text-icon-unfocused;
         }
+
         &:hover,
         &:focus {
             & i {
-                color: $color-base;
-                @include dark {
-                    color: $color-dark-text;
-                }
+                @include text-icon-active;
             }
         }
     }

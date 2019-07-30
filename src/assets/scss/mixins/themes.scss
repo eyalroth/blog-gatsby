@@ -1,0 +1,90 @@
+/**
+ * Color themes
+ */
+
+ @mixin theme-transition {
+    transition: 
+        background-color 0.4s,
+        color 0.4s,
+    ;
+}
+
+@mixin light {
+    @include theme-transition;
+    .theme-light & {
+        @content;
+    }
+    &.theme-light {
+        @content;
+    }
+}
+ 
+@mixin dark {
+    @include theme-transition;
+    .theme-dark & {
+        @content;
+    }
+    &.theme-dark {
+        @content;
+    }
+}
+
+// Text colors
+
+@mixin text-color($lightColor, $darkColor) {
+    @include light {
+        color: $lightColor;
+    }
+    @include dark {
+        color: $darkColor;
+    }
+}
+
+@mixin text-normal {
+    @include text-color($color-light-text, $color-dark-text);
+}
+@mixin text-strong {
+    @include text-color($color-light-strong, $color-dark-text-strong);
+}
+@mixin text-medium {
+    @include text-color($color-light-text, $color-dark-text-medium);
+}
+@mixin text-weak {
+    @include text-color($color-light-text, $color-dark-text-weak);
+}
+@mixin text-link {
+    @include text-color($color-light-text-link, $color-dark-text-link);
+}
+@mixin text-icon-active {
+    @include text-color($color-light-icon-active, $color-dark-icon-active);
+}
+@mixin text-icon-unfocused {
+    @include text-color($color-light-icon-unfocused, $color-dark-icon-unfocused);
+}
+@mixin text-icon-inactive {
+    @include text-color($color-light-icon-inactive, $color-dark-icon-inactive);
+}
+
+// Background colors
+
+@mixin bg-color($lightColor, $darkColor) {
+    @include light {
+        background-color: $lightColor;
+    }
+    @include dark {
+        background-color: $darkColor;
+    }
+}
+
+@mixin layer0 {
+    @include bg-color($color-light-dp0, $color-dark-dp0);
+}
+@mixin layer1 {
+    @include bg-color($color-light-dp1, $color-dark-dp1);
+}
+@mixin layer2 {
+    @include bg-color($color-light-dp2, $color-dark-dp2);
+}
+@mixin layer3 {
+    @include bg-color($color-light-dp3, $color-dark-dp3);
+}

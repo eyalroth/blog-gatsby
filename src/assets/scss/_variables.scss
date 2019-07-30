@@ -3,22 +3,47 @@
  */
 
 // Colors
-$color-base: #222;
-$color-primary: #5d93ff;
 
-$color-white: lighten($color-base, 100%);
-$color-gray: lighten($color-base, 40%);
-$color-gray-border: lighten($color-base, 77%);
-$color-gray-bg: lighten($color-base, 79%);
+// Light theme
 
+// https://material.io/design/color/ (gray 50)
+$color-light-dp0: #fafafa;
+$color-light-dp1: #ffffff;
+$color-light-dp2: #ffffff;
+$color-light-dp3: #ffffff;
+
+// https://material.io/design/color/text-legibility.html
+$color-light-text: rgba(0, 0, 0, 0.87);
+$color-light-text-strong: rgba(0, 0, 0, 1);
+$color-light-text-medium: rgba(0, 0, 0, 0.6);
+$color-light-text-weak: rgba(0, 0, 0, 0.38);
+$color-light-text-link: #2196F3; // Blue 50 (500)
+
+// https://material.io/design/iconography/system-icons.html#color
+$color-light-icon-active: rgba(0, 0, 0, 0.87);
+$color-light-icon-unfocused: rgba(0, 0, 0, 0.54);
+$color-light-icon-inactive: rgba(0, 0, 0, 0.38);
+
+// Dark theme
+
+// https://material.io/design/color/dark-theme.html
 $color-dark-bg: #121212;
+$color-dark-dp0: $color-dark-bg;
 $color-dark-dp1: lighten($color-dark-bg, 5%);
 $color-dark-dp2: lighten($color-dark-bg, 7%);
 $color-dark-dp3: lighten($color-dark-bg, 8%);
-$color-dark-dp4: lighten($color-dark-bg, 9%);
+
+// https://material.io/design/color/text-legibility.html
 $color-dark-text: rgba(255, 255, 255, 0.87);
+$color-dark-text-strong: rgba(255, 255, 255, 1);
 $color-dark-text-medium: rgba(255, 255, 255, 0.6);
 $color-dark-text-weak: rgba(255, 255, 255, 0.38);
+$color-dark-text-link: #2196F3; // Blue 50 (500)
+
+// https://material.io/design/iconography/system-icons.html#color
+$color-dark-icon-active: rgba(255, 255, 255, 1);
+$color-dark-icon-unfocused: rgba(255, 255, 255, 0.7);
+$color-dark-icon-inactive: rgba(255, 255, 255, 0.5);
 
 // Typographic
 $typographic-font-family: Roboto, sans-serif;
@@ -28,9 +53,6 @@ $typographic-base-font-size: 16px;
 $typographic-small-font-size: 14px;
 
 $typographic-base-line-height: 1.625;
-
-$typographic-base-font-color: $color-base;
-$typographic-link-p-font-color: $color-primary;
 
 $typographic-leading: round(16 * ($typographic-root-font-size / 100) * $typographic-base-line-height);
 

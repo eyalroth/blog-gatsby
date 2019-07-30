@@ -38,16 +38,10 @@
         }
     }
     &__reading-time {
-        color: lighten($typographic-base-font-color, 20%);
-        @include dark {
-            color: $color-dark-text-weak;
-        }
+        @include text-weak;
     }
     &__tags {
-        color: darken($typographic-link-p-font-color, 10%);
-        @include dark {
-            color: darken($typographic-link-p-font-color, 7%);
-        }
+        @include text-color(darken(#5d93ff, 10%), darken(#5d93ff, 7%));
         @include rtl {
             margin-left: auto;
             margin-right: 0;
@@ -147,9 +141,6 @@
         &__share-panel {
             position: absolute;
             top: -2px;
-            @include dark {
-                top: -12px;
-            }
             @include ltr {
                 right: 0;
             }

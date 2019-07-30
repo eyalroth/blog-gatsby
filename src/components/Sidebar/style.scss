@@ -24,12 +24,8 @@ $shadow-height: 4px;
     top: -1px;
     height: $topbar-height - $shadow-height;
 
-    background-color: $color-white;
     box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
-    @include dark {
-        background-color: $color-dark-dp2;
-        box-shadow: unset;
-    }
+    @include layer3;
 
     transition: transform 0.5s ease-out;
     
@@ -121,12 +117,9 @@ $shadow-height: 4px;
             border: none;
             outline: none;
 
-            text-shadow: 0px 2px 3px rgba(0,0,0,0.1);
-            @include dark {
-                color: $color-dark-text;
-            }
+            @include text-icon-unfocused;
             @include enabled {
-                color: $color-primary;
+                @include text-icon-active;
             }
         }
 
@@ -144,10 +137,7 @@ $shadow-height: 4px;
                     font-weight: 400;
                     border: 0;
 
-                    color: $typographic-base-font-color;
-                    @include dark {
-                        color: $color-dark-text;
-                    }
+                    @include text-normal;
                 }
             }
         }
@@ -160,7 +150,7 @@ $shadow-height: 4px;
             height: 2px;
             z-index: 0;
 
-            background-color: $color-base;
+            background-color: $color-light-text;
             @include dark {
                 background-color: $color-dark-text;
             }
@@ -212,13 +202,9 @@ $shadow-height: 4px;
             border: none;
             outline: none;
             
-            color: rgba(0, 0, 0, 0.8);
-            text-shadow: 0px 2px 2px rgba(0,0,0,0.1);
-            @include dark {
-                color: darken($color-dark-text, 10%);
-            }
+            @include text-icon-unfocused;
             @include enabled {
-                color: $color-primary;
+                @include text-icon-active;
             }
         }
     }
@@ -244,10 +230,9 @@ $shadow-height: 4px;
         transition: unset;
         text-align: center;
 
-        box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
-        background-color: unset;
-        @include dark {
-            background-color: $color-dark-dp2;
+        @include layer2;
+        @include light {
+            box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
         }
 
         @include disabled {
@@ -275,6 +260,7 @@ $shadow-height: 4px;
                 position: unset;
                 height: unset;
                 transform: unset;
+                @include text-normal;
                 @include disabled {
                     opacity: unset;
                 }
@@ -282,10 +268,7 @@ $shadow-height: 4px;
             &-subtitle {
                 display: unset;
                 font-size: $typographic-base-font-size * 0.7;
-                color: $color-gray;
-                @include dark {
-                    color: $color-dark-text-medium;
-                }
+                @include text-medium;
             }
         }
         
@@ -318,10 +301,7 @@ $shadow-height: 4px;
                         text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
                         &:hover,
                         &:focus {
-                            color: $typographic-base-font-color;
-                            @include dark {
-                                color: #ffffff;
-                            }
+                            @include text-normal;
                         }
                     }
                 }

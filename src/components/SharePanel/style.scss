@@ -18,20 +18,6 @@ $brand-colors: (
 .share-panel {
     display: inline-block;
     
-    border-radius: 10px;
-
-    @include ltr {
-        padding-left: 6px;
-    }
-    @include rtl {
-        padding-right: 7px;
-    }
-    @include dark {
-        background-color: $color-dark-dp4;
-        padding-top: 10px;
-        padding-bottom: 5px;
-    }
-
     &__button {
         display: inline-block;
         padding: 0;

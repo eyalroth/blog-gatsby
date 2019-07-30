@@ -1,27 +1,55 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Themes } from '../../consts/themes'
 
 const src = 'https://utteranc.es/client.js'
 const branch = 'master'
 
-export const Utterences = ({ repo }) => {
-  const rootElm = React.createRef()
+class Utterences extends React.Component {
+  constructor(props) {
+    super(props)
 
-  useEffect(() => {
+    this.rootElm = React.createRef()
+  }
+
+  render() {
+    return <div className="utterences" ref={this.rootElm} />
+  }
+
+  componentDidMount() {
+    this.loadScript()
+  }
+  
+  componentDidUpdate() {
+    this.loadScript()
+  }
+
+  loadScript() {
+    const { repo, theme } = this.props
+
+    const githubTheme  = (function(theme) {
+      switch(theme) {
+        case Themes.Light:
+          return 'github-light'
+        case Themes.Dark:
+          return 'github-dark'
+      }
+    })(theme)
+
     const utterances = document.createElement('script')
-    const utterancesConfig = {
-      src,
-      repo,
-      branch,
-      async: true,
-      'issue-term': 'pathname',
-      crossorigin: 'anonymous',
+
+    utterances.setAttribute('src', src)
+    utterances.setAttribute('repo', repo)
+    utterances.setAttribute('branch', branch)
+    utterances.setAttribute('async', true)
+    utterances.setAttribute('issue-term', 'pathname')
+    utterances.setAttribute('crossOrigin', 'anonymous')
+    utterances.setAttribute('theme', githubTheme)
+
+    if (this.rootElm.current.childElementCount > 0) {
+      this.rootElm.current.removeChild(this.rootElm.current.firstChild)
     }
-
-    Object.keys(utterancesConfig).forEach(configKey => {
-      utterances.setAttribute(configKey, utterancesConfig[configKey])
-    })
-    rootElm.current.appendChild(utterances)
-  }, [])
-
-  return <div className="utterences" ref={rootElm} />
+    this.rootElm.current.appendChild(utterances)
+  }
 }
+
+export default Utterences

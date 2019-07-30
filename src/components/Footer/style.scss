@@ -5,18 +5,17 @@
     position: absolute;
     height: $footer-height;
     width: 100%;
-    bottom: -1px;
+    bottom: 0;
     z-index: 2;
 
     padding-top: 10px;
-    padding-bottom: 26px;
+    padding-bottom: 25px;
     
-    background-color: #F8F8F8;
-    border-top: 1px solid #E7E7E7;
-    @include dark {
-        border-top: unset;
-        background-color: $color-dark-dp2;
+    @include layer2;
+    @include light {
+        border-top: 1px solid #E7E7E7;
     }
+    @include text-normal;
     
     &__center {
         font-size: 0.9rem;
@@ -42,18 +41,12 @@
         
         font-size: 0.9rem;
         & i {
-            color: lighten($color-base, 30%);
-            @include dark {
-                color: darken($color-dark-text, 30%);
-            }
+            @include text-icon-unfocused;
         }
         &:hover,
         &:focus {
             & i {
-                color: $color-base;
-                @include dark {
-                    color: $color-dark-text;
-                }
+                @include text-icon-active;
             }
         }
     }
@@ -61,11 +54,9 @@
 
 @include breakpoint-md {
     .footer {
-        padding-bottom: 31px;
+        padding-bottom: 30px;
 
-        @include dark {
-            background-color: $color-dark-dp3;
-        }
+        @include layer3;
 
         &__center {
             font-size: 1rem;

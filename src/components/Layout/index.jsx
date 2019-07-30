@@ -28,10 +28,10 @@ class Layout extends React.Component {
           {context => {
             const language = Object.values(Languages).find(lang => lang.id == context.data.languageId)
             const languageCss = (language) ? language.cssClass : ""
-            const darkModeCss = (context.data.darkMode) ? "dark-mode" : ""
+            const themeCss = context.data.theme.cssClass
 
             return (
-              <div className={`page-container ${languageCss} ${darkModeCss}`}>
+              <div className={`page-container ${languageCss} ${themeCss}`}>
                 {background}
                 <div className="content-wrap">
                   {sidebar}  

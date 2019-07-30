@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
-import { Utterences } from '../../components/Utterances'
+import Utterences from '../../components/Utterances'
 import Page from '../../components/Page'
 import { Languages } from '../../consts/languages'
 import { SidebarLinks } from '../../consts/menuLinks'
@@ -10,6 +10,7 @@ import CategoryTab from '../../components/CategoryTab'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
+import ContextConsumer from '../../components/Context'
 import './style.scss'
 
 class PostTemplate extends React.Component {
@@ -101,9 +102,11 @@ class PostTemplate extends React.Component {
     const seriesBox = <PostSeriesBox language={language} series={series}/>
 
     const commentsBlock = (
-      <div>
-        {!!utterances && <Utterences repo={utterances} />}
-      </div>
+      <ContextConsumer>
+        {context => (
+          <Utterences repo={utterances} theme={context.data.theme} />
+        )}
+      </ContextConsumer>
     )
 
     const footer = (

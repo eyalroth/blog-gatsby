@@ -1,5 +1,6 @@
 import React from "react"
 import isMatch from 'lodash/isMatch'
+import { Themes } from '../../consts/themes'
 
 const defaultContextValue = {
   data: {
@@ -8,7 +9,7 @@ const defaultContextValue = {
         isRendered: false,
         linkId: null,
     },
-    darkMode: false,
+    theme: Themes.Light
   },
   set: () => {},
 }
