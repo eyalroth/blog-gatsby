@@ -5,14 +5,27 @@ $img-size-base: 30px;
 $img-size-md: 85px;
 $img-size-lg: 115px;
 
-$button-size: $img-size-base * 1.5;
-$button-side-padding: 10px;
 
 $top-padding: $img-size-base / 3;
 $bottom-padding: 10px;
 $transition-timing: 0.2s;
 
 $shadow-height: 4px;
+
+$button-size: $img-size-base * 1.5;
+
+@mixin button {
+    height: $button-size;
+    width: $button-size;
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    @include text-icon-unfocused;
+    @include enabled {
+        @include text-icon-active;
+    }
+}
 
 .sidebar {
     width: $sidebar-width-base;
@@ -83,13 +96,14 @@ $shadow-height: 4px;
     
     &__menu {
         position: absolute;
-        left: $button-size;
+        left: $button-size * 2;
         overflow: hidden;
         transition: width $transition-timing ease-out;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
 
         @include rtl {
+            left: $button-size * 1.8;
             text-align: right;
         }
 
@@ -98,7 +112,7 @@ $shadow-height: 4px;
                 width $transition-timing ease-out,
                 opacity $transition-timing cubic-bezier(0,0,1,0);
             opacity: 1;
-            width: calc(100vw - #{$button-size} * 2);
+            width: calc(100vw - #{$button-size} * 3.5);
         }
         @include disabled {
             transition: 
@@ -109,18 +123,7 @@ $shadow-height: 4px;
         }
         
         &-button {
-            height: $button-size;
-            width: $button-size;
-            padding-left: $button-side-padding;
-            padding-right: $button-side-padding;
-            background-color: transparent;
-            border: none;
-            outline: none;
-
-            @include text-icon-unfocused;
-            @include enabled {
-                @include text-icon-active;
-            }
+            @include button;
         }
 
         &-list {
@@ -190,23 +193,16 @@ $shadow-height: 4px;
         }
     
         &-button {
+            @include button;
+
             position: absolute;
             top: 0;
             right: 0;
-
-            height: $button-size;
-            width: $button-size;
-            padding-left: $button-side-padding;
-            padding-right: $button-side-padding;
-            background-color: transparent;
-            border: none;
-            outline: none;
-            
-            @include text-icon-unfocused;
-            @include enabled {
-                @include text-icon-active;
-            }
         }
+    }
+
+    &__theme-button {
+        @include button;
     }
 }
 
@@ -338,7 +334,12 @@ $shadow-height: 4px;
                 width: unset;
             }
         }
+
+        &__theme-button {
+            padding-top: 35px;
+        }
     }
+
 }
 
 @include breakpoint-lg {
