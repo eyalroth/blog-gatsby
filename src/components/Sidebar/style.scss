@@ -21,7 +21,7 @@ $shadow-height: 4px;
     display: flex;
     
     z-index: 1;
-    top: -1px;
+    top: 0;
     height: $topbar-height - $shadow-height;
 
     box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
@@ -216,9 +216,11 @@ $shadow-height: 4px;
 
         display: unset;
         z-index: unset;
+        
         top: -10px;
-        height: 100vh;
-        padding-top: 30vh;
+        height: 70vh;
+        padding-top: calc(30vh + 10px);
+        
         @include ltr {
             margin-left: $sidebar-side-margin-md;
         }

@@ -8,11 +8,5 @@
     height: 2px;
     background-color: gray;
     transition: none;
-    z-index: 2
-}
-
-@include breakpoint-sm {
-    #gatsby-plugin-page-progress {
-        z-index: unset;
-    }
+    z-index: 2;
 }

@@ -16,9 +16,13 @@ class Layout extends React.Component {
       </ContextConsumer>
     )
 
-    const background = (
+    const surface0 = (
+      <div className="surface0"/>
+    )
+
+    const surface1 = (
       <ContextConsumer>
-          {context => (context.data.sidebar.isRendered) ? <div className="content-bg"/> : null}
+          {context => (context.data.sidebar.isRendered) ? <div className="surface1"/> : null}
       </ContextConsumer>
     )
 
@@ -32,7 +36,8 @@ class Layout extends React.Component {
 
             return (
               <div className={`page-container ${languageCss} ${themeCss}`}>
-                {background}
+                {surface0}
+                {surface1}
                 <div className="content-wrap">
                   {sidebar}  
                   {children}
