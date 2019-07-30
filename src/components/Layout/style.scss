@@ -16,6 +16,7 @@ html {
     @include layer0;
 
     position: fixed;
+    top: 0;
     height: calc(100vh + 1px);
     width: 100vw;
 }
@@ -24,6 +25,7 @@ html {
     @include layer1;
 
     position: fixed;
+    top: 0;
     height: 100vh;
     width: $bg-width;
     margin: 0 auto;
