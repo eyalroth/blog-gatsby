@@ -1,10 +1,17 @@
 import React from 'react'
+import { instanceOf } from 'prop-types'
+import { withCookies, Cookies } from 'react-cookie'
 import ContextConsumer from '../Context'
 import { Themes } from '../../consts/themes'
 
-// TODO make it "stick" with a cookie?
 class ThemeButton extends React.Component {
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    }
+
     render() {
+        const _this = this
+
         return (
             <ContextConsumer>
                 {context => (
@@ -25,10 +32,12 @@ class ThemeButton extends React.Component {
                 }
             })(context.data.theme)
 
+            _this.props.cookies.set('theme', newTheme.id, { path: '/' })
+
             context.set({theme: newTheme})
         }
     }
 
 }
 
-export default ThemeButton
+export default withCookies(ThemeButton)
