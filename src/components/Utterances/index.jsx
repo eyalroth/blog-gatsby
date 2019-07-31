@@ -9,6 +9,7 @@ class Utterences extends React.Component {
     super(props)
 
     this.rootElm = React.createRef()
+    this.createdScripts = []
   }
 
   render() {
@@ -26,6 +27,17 @@ class Utterences extends React.Component {
   loadScript() {
     const { repo, theme } = this.props
 
+    if (!(this.createdScripts.includes(theme.id))) {
+      this.rootElm.current.appendChild(this.createScript(repo, theme))
+      this.createdScripts.push(theme.id)
+    }
+
+    Array.from(this.rootElm.current.children).forEach(script => {
+      script.style.display = (script.id == theme.id) ? 'block' : 'none'
+    });
+  }
+
+  createScript(repo, theme) {
     const githubTheme  = (function(theme) {
       switch(theme) {
         case Themes.Light:
@@ -35,20 +47,22 @@ class Utterences extends React.Component {
       }
     })(theme)
 
-    const utterances = document.createElement('script')
+    const div = document.createElement('div')
+    div.id = theme.id
 
-    utterances.setAttribute('src', src)
-    utterances.setAttribute('repo', repo)
-    utterances.setAttribute('branch', branch)
-    utterances.setAttribute('async', true)
-    utterances.setAttribute('issue-term', 'pathname')
-    utterances.setAttribute('crossOrigin', 'anonymous')
-    utterances.setAttribute('theme', githubTheme)
+    const script = document.createElement('script')
 
-    if (this.rootElm.current.childElementCount > 0) {
-      this.rootElm.current.removeChild(this.rootElm.current.firstChild)
-    }
-    this.rootElm.current.appendChild(utterances)
+    script.setAttribute('src', src)
+    script.setAttribute('repo', repo)
+    script.setAttribute('branch', branch)
+    script.setAttribute('async', true)
+    script.setAttribute('issue-term', 'pathname')
+    script.setAttribute('crossOrigin', 'anonymous')
+    script.setAttribute('theme', githubTheme)
+
+    div.appendChild(script)
+
+    return div
   }
 }
 
