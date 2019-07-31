@@ -49,10 +49,10 @@
     @include text-color($color-light-strong, $color-dark-text-strong);
 }
 @mixin text-medium {
-    @include text-color($color-light-text, $color-dark-text-medium);
+    @include text-color($color-light-text-medium, $color-dark-text-medium);
 }
 @mixin text-weak {
-    @include text-color($color-light-text, $color-dark-text-weak);
+    @include text-color($color-light-text-weak, $color-dark-text-weak);
 }
 @mixin text-link {
     @include text-color($color-light-text-link, $color-dark-text-link);

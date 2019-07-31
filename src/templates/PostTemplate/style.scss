@@ -38,7 +38,7 @@
         }
     }
     &__reading-time {
-        @include text-weak;
+        @include text-medium;
     }
     &__tags {
         @include text-color(darken(#5d93ff, 10%), darken(#5d93ff, 7%));
