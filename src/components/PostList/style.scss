@@ -19,10 +19,10 @@
         width: $content-width-md;
         margin: unset;
         @include ltr {
-            padding-left: calc(#{$content-side-padding-md} + 1vw);
+            padding-left: $content-side-padding-md;
         }
         @include rtl {
-            padding-right: calc(#{$content-side-padding-md} + 1vw);
+            padding-right: $content-side-padding-md;
         }
     }
 }
@@ -32,10 +32,10 @@
         width: $content-width-lg;
         margin: unset;
         @include ltr {
-            padding-left: calc(#{$content-side-padding-lg} + 1vw);
+            padding-left: $content-side-padding-lg;
         }
         @include rtl {
-            padding-right: calc(#{$content-side-padding-lg} + 1vw);
+            padding-right: $content-side-padding-lg;
         }
     }   
 }

@@ -155,6 +155,12 @@
       "css": "share",
       "code": 59398,
       "src": "entypo"
+    },
+    {
+      "uid": "c2152732d525871cf35345955854f711",
+      "css": "moon-inv",
+      "code": 59399,
+      "src": "iconic"
     }
   ]
 }

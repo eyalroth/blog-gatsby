@@ -11,40 +11,48 @@ const { Feeds } = require('./src/consts/rss.jsx')
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
 
-  createRedirect({
-    fromPath: '/',
-    toPath: SidebarLinks[Languages.English.id].Home.path,
-    redirectInBrowser: true,
+  const redirects = new Promise((resolve, reject) => {
+    createRedirect({
+      fromPath: '/',
+      toPath: SidebarLinks[Languages.English.id].Home.path,
+      redirectInBrowser: true,
+    })
+
+    createRedirect({
+      fromPath: '/blog',
+      toPath: SidebarLinks[Languages.English.id].Blog.path,
+      redirectInBrowser: true,
+    })
+  
+    createRedirect({
+      fromPath: '/rss.xml',
+      toPath: Feeds[Languages.English.id].outputPath,
+      redirectInBrowser: true,
+    })
+  
+    createRedirect({
+      fromPath: SidebarLinks[Languages.English.id].Blog.path,
+      toPath: CategoryLinks[Languages.English.id].Software.path,
+      redirectInBrowser: true,
+    })
+  
+    createRedirect({
+      fromPath: SidebarLinks[Languages.Hebrew.id].Blog.path,
+      toPath: CategoryLinks[Languages.Hebrew.id].Hebrew.path,
+      redirectInBrowser: true,
+    })
+
+    resolve()
   })
 
-  createRedirect({
-    fromPath: '/rss.xml',
-    toPath: Feeds[Languages.English.id].outputPath,
-    redirectInBrowser: true,
-  })
-
-  createRedirect({
-    fromPath: SidebarLinks[Languages.English.id].Blog.path,
-    toPath: CategoryLinks[Languages.English.id].Software.path,
-    redirectInBrowser: true,
-  })
-
-  createRedirect({
-    fromPath: SidebarLinks[Languages.Hebrew.id].Blog.path,
-    toPath: CategoryLinks[Languages.Hebrew.id].Hebrew.path,
-    redirectInBrowser: true,
-  })
-
-  return new Promise((resolve, reject) => {
-    const postTemplate = path.resolve('./src/templates/PostTemplate/index.jsx')
-    const pageTemplate = path.resolve('./src/templates/PageTemplate/index.jsx')
-    const postListTemplate = path.resolve('./src/templates/PostListTemplate/index.jsx')
+  const categoryLists = new Promise((resolve, reject) => {
+    const template = path.resolve('./src/templates/PostCategoryTemplate/index.jsx')
 
     _.forOwn(CategoryLinks, function(links, languageId) {
       _.each(links, categoryLink => {
         createPage({
           path: categoryLink.path,
-          component: postListTemplate,
+          component: template,
           context: {
             languageId,
             categoryId: categoryLink.id,
@@ -54,19 +62,22 @@ exports.createPages = ({ graphql, actions }) => {
       })
     })
 
+    resolve()
+  })
+
+  const pages = new Promise((resolve, reject) => {
+    const template = path.resolve('./src/templates/PageTemplate/index.jsx')
+
     graphql(`
       {
         allMarkdownRemark(
           limit: 1000
-          filter: { frontmatter: { draft: { ne: true } } }
+          filter: { frontmatter: { layout: { eq: "page" }, draft: { ne: true } } }
         ) {
           edges {
             node {
               fields {
                 slug
-              }
-              frontmatter {
-                layout
               }
             }
           }
@@ -77,26 +88,77 @@ exports.createPages = ({ graphql, actions }) => {
         console.log(result.errors)
         reject(result.errors)
       }
-
       _.each(result.data.allMarkdownRemark.edges, edge => {
-        if (_.get(edge, 'node.frontmatter.layout') === 'page') {
-          createPage({
-            path: edge.node.fields.slug,
-            component: slash(pageTemplate),
-            context: { slug: edge.node.fields.slug },
-          })
-        } else if (_.get(edge, 'node.frontmatter.layout') === 'post') {
-          createPage({
-            path: edge.node.fields.slug,
-            component: slash(postTemplate),
-            context: { slug: edge.node.fields.slug },
-          })
-        }
+        createPage({
+          path: edge.node.fields.slug,
+          component: slash(template),
+          context: { slug: edge.node.fields.slug },
+        })
       })
-
       resolve()
     })
   })
+
+  const posts = new Promise((resolve, reject) => {
+    const template = path.resolve('./src/templates/PostTemplate/index.jsx')
+
+    graphql(`
+      {
+        allMarkdownRemark(
+          limit: 1000
+          filter: { frontmatter: { layout: { eq: "post" }, draft: { ne: true } } }
+        ) {
+          edges {
+            node {
+              fields {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `).then(result => {
+      if (result.errors) {
+        console.log(result.errors)
+        reject(result.errors)
+      }
+      _.each(result.data.allMarkdownRemark.edges, edge => {
+        createPage({
+          path: edge.node.fields.slug,
+          component: slash(template),
+          context: { slug: edge.node.fields.slug },
+        })
+      })
+      resolve()
+    })
+  })
+
+  const seriesLists = new Promise((resolve, reject) => {
+    const template = path.resolve('./src/templates/PostSeriesTemplate/index.jsx')
+
+    graphql(`
+      {
+        allMarkdownRemark {
+          distinct(field: frontmatter___series___name)
+        }
+      }
+    `).then(result => {
+      if (result.errors) {
+        console.log(result.errors)
+        reject(result.errors)
+      }
+      _.each(result.data.allMarkdownRemark.distinct, seriesName => {
+        createPage({
+          path: `/blog/series/${_.kebabCase(seriesName)}`,
+          component: template,
+          context: { seriesName },
+        })
+      })
+      resolve()
+    })
+  })
+
+  return Promise.all([redirects, categoryLists, pages, posts, seriesLists])
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

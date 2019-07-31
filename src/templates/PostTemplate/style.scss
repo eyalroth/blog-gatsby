@@ -3,37 +3,9 @@
 
 .post-single {
     max-width: $content-max-width;
-    width: $content-width-base;;
+    width: $content-width-base;
     margin: 0 auto;
 
-    &__category-tab {
-        @include rtl {
-            text-align: right;
-        }
-        &-box {
-            display: inline-block;
-            margin-top: -10px;
-            margin-bottom: 0.8rem;
-            box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
-            border-radius: 7px;
-            padding-top: 1rem;
-            padding-bottom: 0.6rem;
-
-            @include ltr {
-                padding-left: 1rem;
-                padding-right: 0.7rem;
-            }
-            @include rtl {
-                padding-left: 0.7rem;
-                padding-right: 1rem;
-            }
-        }
-        &-link {
-            color: $typographic-base-font-color;
-            text-shadow: 0px 2px 3px rgba(0,0,0,0.1);
-            font-size: $typographic-base-font-size * 0.9;
-        }
-    }
     &__header {
         @include line-height(1);
         &-bottom {
@@ -66,10 +38,10 @@
         }
     }
     &__reading-time {
-        color: lighten($typographic-base-font-color, 20%);
+        @include text-medium;
     }
     &__tags {
-        color: darken($typographic-link-p-font-color, 10%);
+        @include text-color(darken(#5d93ff, 10%), darken(#5d93ff, 7%));
         @include rtl {
             margin-left: auto;
             margin-right: 0;
@@ -189,6 +161,7 @@
     .post-single {
         width: $content-width-md;
         margin: unset;
+        
         @include ltr {
             padding-left: $content-side-padding-md;
         }
@@ -196,17 +169,7 @@
             right: calc((100vw - #{$max-layout-width}) / 2);
             padding-right: $content-side-padding-md;
         }
-        
-        &__category-tab {
-            &-box {
-                margin-bottom: 1.5rem;
-                padding-top: 1.4rem;
-            }
 
-            &-link {
-                font-size: $typographic-base-font-size * 0.95;
-            }
-        }
         &__tags {
             max-width: calc(100% - 230px);
         }
@@ -223,6 +186,7 @@
 @include breakpoint-lg {
     .post-single {
         width: $content-width-lg;
+
         @include ltr {
             padding-left: $content-side-padding-lg;
         }

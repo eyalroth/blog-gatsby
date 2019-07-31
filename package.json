@@ -54,6 +54,7 @@
     "node-sass": "^4.9.3",
     "prismjs": "^1.16.0",
     "react": "^16.5.2",
+    "react-cookie": "^4.0.1",
     "react-dom": "^16.5.2",
     "react-helmet": "^5.2.0",
     "react-share": "^3.0.0"

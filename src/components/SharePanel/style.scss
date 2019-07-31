@@ -17,11 +17,11 @@ $brand-colors: (
 
 .share-panel {
     display: inline-block;
-
+    
     &__button {
         display: inline-block;
         padding: 0;
-        background: transparent;
+        background-color: transparent;
         border: none;
         height: $button-size;
         width: $button-size;
@@ -46,10 +46,13 @@ $brand-colors: (
 
         @each $class, $color in $brand-colors {
 			&.#{$class} {
-				color: $color;
+                color: $color;
 				&:hover {
                     &::before {
                         color: darken($color, 10%);
+                        @include dark {
+                            color: lighten($color, 10%);
+                        }
                     }
 				}
 			}

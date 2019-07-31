@@ -1,15 +1,12 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
+// TODO adjust to dark mode
+// TODO right-to-left
+
 #gatsby-plugin-page-progress {
     height: 2px;
     background-color: gray;
     transition: none;
-    z-index: 2
-}
-
-@include breakpoint-sm {
-    #gatsby-plugin-page-progress {
-        z-index: unset;
-    }
+    z-index: 2;
 }

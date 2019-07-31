@@ -171,7 +171,6 @@ class Underline extends React.Component {
       this.setStyle({
         ...position,
         width,
-        transition: "none"
       })
     }
     

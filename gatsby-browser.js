@@ -2,7 +2,7 @@ require("prismjs/themes/prism-okaidia.css")
 require("prismjs/plugins/line-numbers/prism-line-numbers.css")
 
 import littlefoot from 'littlefoot'
-import 'littlefoot/dist/littlefoot.css'
+import './src/assets/scss/littlefoot.scss'
 import './src/assets/scss/_progress.scss'
 import './src/assets/fonts/fontello/css/fontello.css'
 

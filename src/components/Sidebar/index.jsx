@@ -6,6 +6,7 @@ import NavMenu from '../NavMenu'
 import { Author } from '../../consts/author'
 import { SidebarLinks } from '../../consts/menuLinks'
 import Toggle from '../Toggle'
+import ThemeButton from '../ThemeButton'
 import './style.scss'
 
 const SidebarMode = Object.freeze({
@@ -48,6 +49,10 @@ class Sidebar extends React.Component {
 
   compose(profileImg, authorTitle, menu, contact, menuButton, contactButton) {
 
+    const themeButton = (
+      <ThemeButton className="sidebar__theme-button"/>
+    )
+
     return (
       <Toggle isEnabled={this.state.isEnabled}>
         <div id="sidebar" className="sidebar">
@@ -56,6 +61,7 @@ class Sidebar extends React.Component {
           {authorTitle}
           {contact}
           {menu}
+          {themeButton}
           {contactButton}
         </div>
       </Toggle>

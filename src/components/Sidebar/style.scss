@@ -5,14 +5,28 @@ $img-size-base: 30px;
 $img-size-md: 85px;
 $img-size-lg: 115px;
 
-$button-size: $img-size-base * 1.5;
-$button-side-padding: 10px;
 
 $top-padding: $img-size-base / 3;
 $bottom-padding: 10px;
 $transition-timing: 0.2s;
 
 $shadow-height: 4px;
+
+$button-size: $img-size-base * 1.5;
+
+@mixin button {
+    height: $button-size;
+    width: $button-size;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    @include text-icon-unfocused;
+    @include enabled {
+        @include text-icon-active;
+    }
+}
 
 .sidebar {
     width: $sidebar-width-base;
@@ -21,12 +35,17 @@ $shadow-height: 4px;
     display: flex;
     
     z-index: 1;
-    top: -1px;
+    top: 0;
     height: $topbar-height - $shadow-height;
 
-    background-color: $color-white;
-    box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
-    transition: transform 0.5s ease-out;
+    @include layer3;
+    @include light {
+        box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
+    }
+
+    @include theme-transition("
+        transform 0.5s ease-out,
+    ");
     
     @include disabled {
         transform: translateY(-$topbar-height - 10);
@@ -46,7 +65,9 @@ $shadow-height: 4px;
             left: calc(46vw - #{$img-size-base} - 20px);
 
             @include enabled {
-                transition: opacity $transition-timing ease-in;
+                @include theme-transition("
+                    opacity #{$transition-timing} ease-in,
+                ");
                 opacity: 1;
             }
             @include disabled {
@@ -67,8 +88,12 @@ $shadow-height: 4px;
             font-size: $typographic-base-font-size * 1;
             font-weight: 500;
 
+            @include text-normal;
+
             @include enabled {
-                transition: opacity $transition-timing ease-in;
+                @include theme-transition("
+                    opacity #{$transition-timing} ease-in
+                ");
                 opacity: 1;
             }
             @include disabled {
@@ -82,44 +107,39 @@ $shadow-height: 4px;
     
     &__menu {
         position: absolute;
-        left: $button-size;
+        left: $button-size * 2;
         overflow: hidden;
-        transition: width $transition-timing ease-out;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
 
+        @include theme-transition("
+            width #{$transition-timing} ease-out,
+        ");
+
         @include rtl {
+            left: $button-size * 1.8;
             text-align: right;
         }
 
         @include enabled {
-            transition: 
-                width $transition-timing ease-out,
-                opacity $transition-timing cubic-bezier(0,0,1,0);
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} cubic-bezier(0,0,1,0),
+            "); 
             opacity: 1;
-            width: calc(100vw - #{$button-size} * 2);
+            width: calc(100vw - #{$button-size} * 3.5);
         }
         @include disabled {
-            transition: 
-                width $transition-timing ease-out,
-                opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} / 2 cubic-bezier(0,1,1,1),
+            "); 
             opacity: 0;
             width: 0;
         }
         
         &-button {
-            height: $button-size;
-            width: $button-size;
-            padding-left: $button-side-padding;
-            padding-right: $button-side-padding;
-            background-color: transparent;
-            border: none;
-            outline: none;
-
-            text-shadow: 0px 2px 3px rgba(0,0,0,0.1);
-            @include enabled {
-                color: $color-primary;
-            }
+            @include button;
         }
 
         &-list {
@@ -133,26 +153,38 @@ $shadow-height: 4px;
                 margin-bottom: 0;
                 &-link {
                     font-size: $typographic-base-font-size;
-                    color: $typographic-base-font-color;
                     font-weight: 400;
                     border: 0;
+
+                    @include text-normal;
                 }
             }
         }
 
         &-underline {
-            background: $color-base;
             display: block;
             position: absolute;
             width: 0;
             bottom: 2px;
             height: 2px;
             z-index: 0;
+
+            @include light {
+                background-color: $color-light-text;
+            }
+            @include dark {
+                background-color: $color-dark-text;
+            }
+
             @include ltr {
-                transition: left $transition-timing ease-out;
+                @include theme-transition("
+                    left #{$transition-timing} ease-out,
+                ");
             }
             @include rtl {
-                transition: right $transition-timing ease-out;
+                @include theme-transition("
+                    right #{$transition-timing} ease-out,
+                ");
             }
         }
     }
@@ -168,39 +200,33 @@ $shadow-height: 4px;
         transform: translate(0, 1px);
 
         @include enabled {
-            transition: 
-                width $transition-timing ease-out,
-                opacity $transition-timing cubic-bezier(0,0,1,0);
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} cubic-bezier(0,0,1,0),
+            ");
             opacity: 1;
             width: 80vw;
         }
         @include disabled {
-            transition: 
-                width $transition-timing ease-out,
-                opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} / 2 cubic-bezier(0,1,1,1),
+            ");
             opacity: 0;
             width: 0;
         }
     
         &-button {
+            @include button;
+
             position: absolute;
             top: 0;
             right: 0;
-
-            height: $button-size;
-            width: $button-size;
-            padding-left: $button-side-padding;
-            padding-right: $button-side-padding;
-            background-color: transparent;
-            border: none;
-            outline: none;
-            
-            color: rgba(0, 0, 0, 0.8);
-            text-shadow: 0px 2px 2px rgba(0,0,0,0.1);
-            @include enabled {
-                color: $color-primary;
-            }
         }
+    }
+
+    &__theme-button {
+        @include button;
     }
 }
 
@@ -210,9 +236,11 @@ $shadow-height: 4px;
 
         display: unset;
         z-index: unset;
+        
         top: -10px;
-        height: 100vh;
-        padding-top: 30vh;
+        height: 70vh;
+        padding-top: calc(30vh + 10px);
+        
         @include ltr {
             margin-left: $sidebar-side-margin-md;
         }
@@ -221,10 +249,13 @@ $shadow-height: 4px;
             margin-right: $sidebar-side-margin-md;
         }
 
-        box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
-        background-color: unset;
-        transition: unset;
+        @include theme-transition;
         text-align: center;
+
+        @include layer2;
+        @include light {
+            box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.3);
+        }
 
         @include disabled {
             transform: unset;
@@ -258,7 +289,7 @@ $shadow-height: 4px;
             &-subtitle {
                 display: unset;
                 font-size: $typographic-base-font-size * 0.7;
-                color: $color-gray;
+                @include text-medium;
             }
         }
         
@@ -268,8 +299,13 @@ $shadow-height: 4px;
             padding-bottom: unset;
             position: unset;
 
-            box-shadow: 0px -3px 4px -3px rgba(0, 0, 0, 0.05);
             padding-top: 14px;
+            @include light {
+                box-shadow: 0px -3px 4px -3px rgba(0, 0, 0, 0.05);
+            }
+            @include dark {
+                box-shadow: 0px -3px 3px -3px rgba(255, 255, 255, 0.1);
+            }
 
             &-button {
                 display: none;
@@ -288,7 +324,7 @@ $shadow-height: 4px;
                         text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
                         &:hover,
                         &:focus {
-                            color: $typographic-base-font-color;
+                            @include text-normal;
                         }
                     }
                 }
@@ -296,11 +332,13 @@ $shadow-height: 4px;
 
             &-underline {
                 position: relative;
-                background-color: rgba(0, 0, 0, 0.4);
-                box-shadow: 0px 5px 6px -1px rgba(0, 0, 0, 0.5);
                 height: 2px;
                 margin-top: 5px;
                 bottom: 0;
+
+                @include light {
+                    box-shadow: 0px 5px 6px -1px rgba(0, 0, 0, 0.5);
+                }
             }
         }
 
@@ -323,12 +361,24 @@ $shadow-height: 4px;
                 width: unset;
             }
         }
+
+        &__theme-button {
+            padding-top: 35px;
+        }
     }
+
 }
 
 @include breakpoint-lg {
     .sidebar {
         width: $sidebar-width-lg;
+
+        @include ltr {
+            margin-left: $sidebar-side-margin-lg;
+        }
+        @include rtl {
+            margin-right: $sidebar-side-margin-lg;
+        }
 
         &__author {
             &-img {

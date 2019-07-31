@@ -1,0 +1,19 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.series-title {
+    @include rtl {
+        text-align: right;
+    }
+    &__text {
+        font-size: $typographic-base-font-size * 1.5;
+    }
+}
+
+@include breakpoint-md {
+    .series-title {
+        &__text {
+            font-size: $typographic-base-font-size * 2;
+        }
+    }
+}
