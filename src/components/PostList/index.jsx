@@ -11,7 +11,6 @@ class PostList extends React.Component {
       const posts = this.props.data.allMarkdownRemark.edges
   
       const years = new Set()
-      let isFirst = true
 
       const items = posts.map(post => {
         const year = moment(post.node.frontmatter.date).year()
@@ -24,10 +23,8 @@ class PostList extends React.Component {
             data={post}
             key={post.node.fields.slug} 
             showYear={showYear}
-            isFirst={isFirst}
           />
         )
-        isFirst = false
 
         return item
       })
