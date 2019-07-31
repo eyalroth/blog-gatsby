@@ -20,6 +20,7 @@ $button-size: $img-size-base * 1.5;
     background-color: transparent;
     border: none;
     outline: none;
+    cursor: pointer;
 
     @include text-icon-unfocused;
     @include enabled {
