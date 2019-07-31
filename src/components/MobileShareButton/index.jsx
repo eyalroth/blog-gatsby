@@ -8,7 +8,7 @@ class MobileShareButton extends React.Component {
         if (typeof navigator !== 'undefined' && navigator.share) {
             return (
                 <button className="share-mobile__button" onClick={share}>
-                    <i title="Share" className="share-mobile__button icon-share" />
+                    <i title="Share" className="share-mobile__icon icon-share" />
                 </button>
             )
         } else {
