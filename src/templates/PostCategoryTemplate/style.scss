@@ -52,20 +52,24 @@
             height: 2px;
             z-index: 0;
             
-            background: gray;
+            @include light {
+                background: gray;
+            }
             @include dark {
                 background-color: $color-dark-text;
             }
 
             @include ltr {
-                transition: 
+                @include theme-transition(" 
                     left 0.3s ease-out,
-                    width 0.15s ease-out;
+                    width 0.15s ease-out,
+                ");
             }
             @include rtl {
-                transition: 
+                @include theme-transition(" 
                     right 0.3s ease-out,
-                    width 0.15s ease-out;
+                    width 0.15s ease-out,
+                ");
             }
         }
     }

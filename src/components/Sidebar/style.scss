@@ -40,7 +40,9 @@ $button-size: $img-size-base * 1.5;
     box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
     @include layer3;
 
-    transition: transform 0.5s ease-out;
+    @include theme-transition("
+        transform 0.5s ease-out,
+    ");
     
     @include disabled {
         transform: translateY(-$topbar-height - 10);
@@ -60,7 +62,9 @@ $button-size: $img-size-base * 1.5;
             left: calc(46vw - #{$img-size-base} - 20px);
 
             @include enabled {
-                transition: opacity $transition-timing ease-in;
+                @include theme-transition("
+                    opacity #{$transition-timing} ease-in,
+                ");
                 opacity: 1;
             }
             @include disabled {
@@ -81,8 +85,12 @@ $button-size: $img-size-base * 1.5;
             font-size: $typographic-base-font-size * 1;
             font-weight: 500;
 
+            @include text-normal;
+
             @include enabled {
-                transition: opacity $transition-timing ease-in;
+                @include theme-transition("
+                    opacity #{$transition-timing} ease-in
+                ");
                 opacity: 1;
             }
             @include disabled {
@@ -98,9 +106,12 @@ $button-size: $img-size-base * 1.5;
         position: absolute;
         left: $button-size * 2;
         overflow: hidden;
-        transition: width $transition-timing ease-out;
         padding-top: $top-padding;
         padding-bottom: $bottom-padding;
+
+        @include theme-transition("
+            width #{$transition-timing} ease-out,
+        ");
 
         @include rtl {
             left: $button-size * 1.8;
@@ -108,16 +119,18 @@ $button-size: $img-size-base * 1.5;
         }
 
         @include enabled {
-            transition: 
-                width $transition-timing ease-out,
-                opacity $transition-timing cubic-bezier(0,0,1,0);
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} cubic-bezier(0,0,1,0),
+            "); 
             opacity: 1;
             width: calc(100vw - #{$button-size} * 3.5);
         }
         @include disabled {
-            transition: 
-                width $transition-timing ease-out,
-                opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} / 2 cubic-bezier(0,1,1,1),
+            "); 
             opacity: 0;
             width: 0;
         }
@@ -153,16 +166,22 @@ $button-size: $img-size-base * 1.5;
             height: 2px;
             z-index: 0;
 
-            background-color: $color-light-text;
+            @include light {
+                background-color: $color-light-text;
+            }
             @include dark {
                 background-color: $color-dark-text;
             }
 
             @include ltr {
-                transition: left $transition-timing ease-out;
+                @include theme-transition("
+                    left #{$transition-timing} ease-out,
+                ");
             }
             @include rtl {
-                transition: right $transition-timing ease-out;
+                @include theme-transition("
+                    right #{$transition-timing} ease-out,
+                ");
             }
         }
     }
@@ -178,16 +197,18 @@ $button-size: $img-size-base * 1.5;
         transform: translate(0, 1px);
 
         @include enabled {
-            transition: 
-                width $transition-timing ease-out,
-                opacity $transition-timing cubic-bezier(0,0,1,0);
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} cubic-bezier(0,0,1,0),
+            ");
             opacity: 1;
             width: 80vw;
         }
         @include disabled {
-            transition: 
-                width $transition-timing ease-out,
-                opacity $transition-timing / 2 cubic-bezier(0,1,1,1);
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} / 2 cubic-bezier(0,1,1,1),
+            ");
             opacity: 0;
             width: 0;
         }
@@ -225,7 +246,7 @@ $button-size: $img-size-base * 1.5;
             margin-right: $sidebar-side-margin-md;
         }
 
-        transition: unset;
+        @include theme-transition;
         text-align: center;
 
         @include layer2;
@@ -258,7 +279,6 @@ $button-size: $img-size-base * 1.5;
                 position: unset;
                 height: unset;
                 transform: unset;
-                @include text-normal;
                 @include disabled {
                     opacity: unset;
                 }

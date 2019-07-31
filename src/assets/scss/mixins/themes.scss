@@ -2,10 +2,12 @@
  * Color themes
  */
 
- @mixin theme-transition {
+ @mixin theme-transition($additional: "") {
     transition: 
         background-color 0.4s,
         color 0.4s,
+        border 0.4s,
+        unquote($additional)
     ;
 }
 
