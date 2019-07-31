@@ -38,8 +38,10 @@ $button-size: $img-size-base * 1.5;
     top: 0;
     height: $topbar-height - $shadow-height;
 
-    box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
     @include layer3;
+    @include light {
+        box-shadow: 0px $shadow-height 8px -2px rgba(0,0,0,0.16);
+    }
 
     @include theme-transition("
         transform 0.5s ease-out,
@@ -298,7 +300,9 @@ $button-size: $img-size-base * 1.5;
             position: unset;
 
             padding-top: 14px;
-            box-shadow: 0px -3px 4px -3px rgba(0, 0, 0, 0.05);
+            @include light {
+                box-shadow: 0px -3px 4px -3px rgba(0, 0, 0, 0.05);
+            }
             @include dark {
                 box-shadow: 0px -3px 3px -3px rgba(255, 255, 255, 0.1);
             }
@@ -328,11 +332,13 @@ $button-size: $img-size-base * 1.5;
 
             &-underline {
                 position: relative;
-                background-color: rgba(0, 0, 0, 0.4);
-                box-shadow: 0px 5px 6px -1px rgba(0, 0, 0, 0.5);
                 height: 2px;
                 margin-top: 5px;
                 bottom: 0;
+
+                @include light {
+                    box-shadow: 0px 5px 6px -1px rgba(0, 0, 0, 0.5);
+                }
             }
         }
 
