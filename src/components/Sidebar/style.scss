@@ -397,6 +397,19 @@ $button-size: $img-size-base * 1.5;
 
 }
 
+@include breakpoint-xmd {
+    .sidebar {
+        width: $sidebar-width-xmd;
+
+        @include ltr {
+            margin-left: $sidebar-side-margin-xmd;
+        }
+        @include rtl {
+            margin-right: $sidebar-side-margin-xmd;
+        }
+    }
+}
+
 @include breakpoint-lg {
     .sidebar {
         width: $sidebar-width-lg;

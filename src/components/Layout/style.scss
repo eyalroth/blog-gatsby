@@ -25,18 +25,12 @@ html {
     @include layer1;
 
     position: fixed;
-    top: 0;
     height: 100vh;
     width: $bg-width;
+    top: 0;
+    left: 0;
+    right: 0;
     margin: 0 auto;
-    @include ltr {
-        left: -$bg-shift;
-        right: 0;
-    }
-    @include rtl {
-        left: 0;
-        right: -$bg-shift;
-    }
 
     @include light {
         box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.15);
@@ -55,7 +49,7 @@ html {
 }
 
 .content {
-    max-width: $content-max-width;
+    max-width: $max-content-width;
     width: $content-width-base;
     margin: 0 auto;
 }
@@ -87,10 +81,21 @@ html {
     }
 }
 
+@include breakpoint-xmd {
+    .content {
+        width: $content-width-xmd;
+        @include ltr {
+            padding-left: $content-side-padding-xmd;
+        }
+        @include rtl {
+            padding-right: $content-side-padding-xmd;
+        }
+    }
+}
+
 @include breakpoint-lg {
     .content {
         width: $content-width-lg;
-        margin: unset;
         @include ltr {
             padding-left: $content-side-padding-lg;
         }
@@ -98,32 +103,4 @@ html {
             padding-right: $content-side-padding-lg;
         }
     }   
-}
-
-@include breakpoint-xlg {
-    .content-wrap {
-        $margin: calc((100vw - #{$max-layout-width}) / 2 - #{$xlg-shift});
-        @include ltr {
-            margin-left: $margin;
-        }
-        @include rtl {
-            margin-right: $margin;
-        }
-    }
-
-    .surface1 {
-        @include light {
-            width: 100vw;
-            margin: 0;
-        }
-        @include dark {
-            width: round($bg-width + $xlg-shift / 3);
-        }
-        @include ltr {
-            left: 0;
-        }
-        @include rtl {
-            right: 0;
-        }
-    }
 }
