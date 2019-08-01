@@ -62,3 +62,26 @@ html {
         }
     }
 }
+
+@include breakpoint-xlg {
+    .surface1,
+    .content-wrap {
+        $margin: calc((100vw - #{$max-layout-width}) / 2 - #{$xlg-shift});
+        @include ltr {
+            margin-left: $margin;
+        }
+        @include rtl {
+            margin-right: $margin;
+        }
+    }
+
+    .surface1 {
+        width: round($bg-width + $xlg-shift / 3);
+        @include ltr {
+            left: 0;
+        }
+        @include rtl {
+            right: 0;
+        }
+    }
+}

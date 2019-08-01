@@ -88,8 +88,14 @@ $content-side-padding-md: calc(#{$sidebar-width-md} + #{$sidebar-side-margin-md}
 // breakpoint - lg - laptop, xlarge tablet (landscape)
 $layout-breakpoint-lg: $max-layout-width;
 
-$sidebar-width-lg: $max-layout-width * $sidebar-width-pct;
-$content-width-lg: $max-layout-width * $content-width-pct;
+$sidebar-width-lg: round($max-layout-width * $sidebar-width-pct);
+$content-width-lg: round($max-layout-width * $content-width-pct);
 
-$content-side-padding-lg: $sidebar-width-lg + $max-layout-width * 0.085;
-$sidebar-side-margin-lg: ($content-side-padding-lg - $sidebar-width-lg) / 2.5;
+$content-side-padding-lg: round($sidebar-width-lg + $max-layout-width * 0.085);
+$sidebar-side-margin-lg: round(($content-side-padding-lg - $sidebar-width-lg) / 2.5);
+
+// breakpoint - xlg - desktop
+$layout-breakpoint-xlg: 1600px;
+
+$xlg-content-center: round($content-side-padding-lg + $content-max-width / 2);
+$xlg-shift: round($xlg-content-center - $max-layout-width / 2);

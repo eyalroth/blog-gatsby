@@ -259,7 +259,6 @@ $button-size: $img-size-base * 1.5;
             margin-left: $sidebar-side-margin-md;
         }
         @include rtl {
-            right: calc((100vw - #{$max-layout-width}) / 2);
             margin-right: $sidebar-side-margin-md;
         }
 
