@@ -53,7 +53,9 @@ class Layout extends React.Component {
                   {surface1}
                   <div className="content-wrap">
                     {sidebar}  
-                    {children}
+                    <div className="content">
+                      {children}
+                    </div>
                   </div>
                   <Footer languageId={context.data.languageId} />
                 </div>

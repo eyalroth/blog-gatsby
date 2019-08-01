@@ -3,7 +3,6 @@ import moment from 'moment'
 import Page from '../../components/Page'
 import PostListItem from '../../components/PostListItem'
 import { SidebarLinks } from '../../consts/menuLinks'
-import './style.scss'
 
 class PostList extends React.Component {
     render() {

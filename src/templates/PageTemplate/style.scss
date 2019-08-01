@@ -2,10 +2,6 @@
 @import "../../assets/scss/mixins";
 
 .page {
-    max-width: $content-max-width;
-    width: $content-width-base;
-    margin: 0 auto;
-
     padding-top: 15px;
     
     &__title {
@@ -33,8 +29,6 @@
 
 @include breakpoint-sm {
     .page {
-        width: $content-width-sm;
-
         &__title {
             font-size: $typographic-base-font-size * 1.4875;
         }
@@ -43,34 +37,13 @@
 
 @include breakpoint-md {
     .page {
-        width: $content-width-md;
-        margin: unset;
         padding-top: 5vh;
-        @include ltr {
-            padding-left: $content-side-padding-md;
-        }
-        @include rtl {
-            padding-right: $content-side-padding-md;
-        }
-
         &__body {
             font-size: $typographic-base-font-size * 1.0625;
             @include margin-bottom(1.125);
             & p {
                 @include line-height(1.2);
             }
-        }
-    }
-}
-
-@include breakpoint-lg {
-    .page {
-        width: $content-width-lg;
-        @include ltr {
-            padding-left: $content-side-padding-lg;
-        }
-        @include rtl {
-            padding-right: $content-side-padding-lg;
         }
     }
 }
