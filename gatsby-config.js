@@ -195,5 +195,11 @@ module.exports = {
           component: require.resolve(`./src/components/Layout/index.jsx`)
       }
     },
+    {
+      resolve: `gatsby-plugin-browser-reload`,
+      options: {
+          autoReload: process.env.AUTO_RELOAD
+      }
+    },
   ],
 }
