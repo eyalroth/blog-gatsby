@@ -18,6 +18,12 @@
     }
 }
 
+@mixin breakpoint-xmd {
+    @media screen and (min-width: $layout-breakpoint-xmd) {
+        @content;
+    }
+}
+
 @mixin breakpoint-lg {
     @media screen and (min-width: $layout-breakpoint-lg) {
         @content

@@ -4,8 +4,10 @@
 
 [build.environment]
   GOOGLE_ANALYTICS = "UA-141926834-2"
+  AUTO_RELOAD = "false"
 
 [context.production]
 
 [context.production.environment]
   GOOGLE_ANALYTICS = "UA-141926834-1"
+  AUTO_RELOAD = "true"

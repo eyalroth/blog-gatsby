@@ -25,18 +25,12 @@ html {
     @include layer1;
 
     position: fixed;
-    top: 0;
     height: 100vh;
     width: $bg-width;
+    top: 0;
+    left: 0;
+    right: 0;
     margin: 0 auto;
-    @include ltr {
-        left: -$bg-shift;
-        right: 0;
-    }
-    @include rtl {
-        left: 0;
-        right: -$bg-shift;
-    }
 
     @include light {
         box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.15);
@@ -54,6 +48,19 @@ html {
     z-index: 2;
 }
 
+.content {
+    max-width: $max-content-width;
+    width: $content-width-base;
+    margin: 0 auto;
+}
+
+@include breakpoint-sm {
+    .content {
+        width: $content-width-sm;
+    }
+}
+
+
 @include breakpoint-md {
     .content-wrap {
         padding-top: 0;
@@ -61,4 +68,39 @@ html {
             text-align: right;
         }
     }
+
+    .content {
+        width: $content-width-md;
+        margin: unset;
+        @include ltr {
+            padding-left: $content-side-padding-md;
+        }
+        @include rtl {
+            padding-right: $content-side-padding-md;
+        }
+    }
+}
+
+@include breakpoint-xmd {
+    .content {
+        width: $content-width-xmd;
+        @include ltr {
+            padding-left: $content-side-padding-xmd;
+        }
+        @include rtl {
+            padding-right: $content-side-padding-xmd;
+        }
+    }
+}
+
+@include breakpoint-lg {
+    .content {
+        width: $content-width-lg;
+        @include ltr {
+            padding-left: $content-side-padding-lg;
+        }
+        @include rtl {
+            padding-right: $content-side-padding-lg;
+        }
+    }   
 }

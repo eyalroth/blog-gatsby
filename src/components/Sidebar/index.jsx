@@ -158,20 +158,32 @@ class Sidebar extends React.Component {
   }
 
   renderMenu() {
-    return (
-      <SidebarToggle main={false} menu={true} contact={false} {...this.state}>
+
+    function navMenu(className) {
+      const classNamePrefix = `${className} sidebar__menu`
+
+      return (
         <ContextConsumer>
           {context => (
-            <NavMenu
-              id="sidebar-links"
-              languageId={context.data.languageId}
-              linkDescriptions={SidebarLinks[context.data.languageId]}
-              classNamePrefix="sidebar__menu"
-              currentLinkId={context.data.sidebar.linkId}
-            />
+              <NavMenu
+                id={classNamePrefix}
+                languageId={context.data.languageId}
+                linkDescriptions={SidebarLinks[context.data.languageId]}
+                classNamePrefix={classNamePrefix}
+                currentLinkId={context.data.sidebar.linkId}
+              />
           )}
         </ContextConsumer>
-      </SidebarToggle>
+      )
+    }
+
+    return (
+      <div className="sidebar__menu-container">
+        <SidebarToggle main={false} menu={true} contact={false} {...this.state}>
+          {navMenu("visible")}
+          {navMenu("hidden")}
+        </SidebarToggle>
+      </div>
     )
   }
 

@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-plugin-page-progress-fork",
+  "name": "gatsby-plugin-browser-reload",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

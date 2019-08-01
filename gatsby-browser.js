@@ -3,21 +3,9 @@ require("prismjs/plugins/line-numbers/prism-line-numbers.css")
 
 import littlefoot from 'littlefoot'
 import './src/assets/scss/littlefoot.scss'
-import './src/assets/scss/_progress.scss'
 import './src/assets/fonts/fontello/css/fontello.css'
 
-export const onServiceWorkerUpdateReady = () => {
-    const answer = window.confirm(
-      `This application has been updated. ` +
-        `Reload to display the latest version?`
-    )
-  
-    if (answer === true) {
-      window.location.reload()
-    }
-}
-
-export function onRouteUpdate({ location }) {
+export function onRouteUpdate() {
   addLittlefoot()
 }
 

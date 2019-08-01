@@ -1,0 +1,18 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    
+    @include light {
+        height: 2px;
+        background-color: $color-light-text-link;
+    }
+    @include dark {
+        height: 3px;
+        background-color: $color-dark-text-link;
+    }
+}

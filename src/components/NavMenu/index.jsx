@@ -11,7 +11,6 @@ class NavMenu extends React.Component {
         this.state = {reRender: false}
 
         this.underline = React.createRef()
-        this.menu = React.createRef()
         this.links = {}
 
         this.updateUnderline = this.updateUnderline.bind(this)
@@ -35,7 +34,7 @@ class NavMenu extends React.Component {
       }
       
       return (
-          <nav ref={this.menu} className={classNamePrefix}>
+          <nav className={classNamePrefix}>
               <ul className={`${classNamePrefix}-list`}>
                   {Object.values(linkDescriptions).map(description => (
                       <li 
@@ -83,7 +82,6 @@ class NavMenu extends React.Component {
     updateUnderline() {
       const { currentLinkId } = this.props
       const currentLink = this.links[currentLinkId]
-      const menu = this.menu.current
       const underline = this.underline.current
 
       if (currentLink) {
@@ -91,15 +89,7 @@ class NavMenu extends React.Component {
           const lastLink = this.links[this.getLastUnderlineLinkId()]
           underline.shift({from: lastLink, to: currentLink})
         } else {
-          if (menu.getBoundingClientRect().width > 0) {
-            underline.moveTo(currentLink)
-          } else {
-            menu.addEventListener('transitionend', () => {
-              if (underline) {
-                underline.moveTo(currentLink)
-              }
-            }, {once: true})
-          }
+          underline.moveTo(currentLink)
         }
       }
 
