@@ -64,7 +64,6 @@ html {
 }
 
 @include breakpoint-xlg {
-    .surface1,
     .content-wrap {
         $margin: calc((100vw - #{$max-layout-width}) / 2 - #{$xlg-shift});
         @include ltr {
@@ -76,7 +75,13 @@ html {
     }
 
     .surface1 {
-        width: round($bg-width + $xlg-shift / 3);
+        @include light {
+            width: 100vw;
+            margin: 0;
+        }
+        @include dark {
+            width: round($bg-width + $xlg-shift / 3);
+        }
         @include ltr {
             left: 0;
         }
