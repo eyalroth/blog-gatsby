@@ -5,6 +5,7 @@ import ContextConsumer, { ContextProviderComponent } from '../Context'
 import '../../assets/scss/init.scss'
 import Sidebar from '../Sidebar'
 import Footer from '../Footer'
+import ProgressBar from '../ProgressBar'
 import { Languages } from '../../consts/languages'
 import { Themes } from '../../consts/themes'
 import './style.scss'
@@ -17,12 +18,6 @@ class Layout extends React.Component {
   render() {
     const { children } = this.props
 
-    const sidebar = (
-      <ContextConsumer>
-          {context => (context.data.sidebar.isRendered) ? <Sidebar /> : null}
-      </ContextConsumer>
-    )
-
     const surface0 = (
       <div className="surface0"/>
     )
@@ -30,6 +25,18 @@ class Layout extends React.Component {
     const surface1 = (
       <ContextConsumer>
           {context => (context.data.sidebar.isRendered) ? <div className="surface1"/> : null}
+      </ContextConsumer>
+    )
+
+    const progressBar = (
+      <ContextConsumer>
+          {context => (context.data.sidebar.isRendered) ? <ProgressBar /> : null}
+      </ContextConsumer>
+    )
+
+    const sidebar = (
+      <ContextConsumer>
+          {context => (context.data.sidebar.isRendered) ? <Sidebar /> : null}
       </ContextConsumer>
     )
 
@@ -49,6 +56,7 @@ class Layout extends React.Component {
 
               return (
                 <div className={`page-container ${languageCss} ${theme.cssClass}`}>
+                  {progressBar}
                   {surface0}
                   {surface1}
                   <div className="content-wrap">

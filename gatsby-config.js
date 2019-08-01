@@ -182,14 +182,6 @@ module.exports = {
     `gatsby-plugin-netlify`,
     `gatsby-plugin-robots-txt`,
     {
-      resolve: 'gatsby-plugin-page-progress-fork',
-      options: {
-        includePaths: [
-          { regex: '^/' },
-        ],
-      }
-    },
-    {
       resolve: `gatsby-plugin-layout`,
       options: {
           component: require.resolve(`./src/components/Layout/index.jsx`)
