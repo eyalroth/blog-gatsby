@@ -1,6 +1,5 @@
 import React from 'react'
-import ContextConsumer, { ContextProviderComponent } from '../Context'
-import ThemeConsumer, { ThemeProvider } from '../ThemeContext'
+import ContextConsumer, { ContextProvider } from '../Context'
 import '../../assets/scss/init.scss'
 import Sidebar from '../Sidebar'
 import Footer from '../Footer'
@@ -36,35 +35,29 @@ class Layout extends React.Component {
     )
 
     return (
-      <ThemeProvider>
-        <ContextProviderComponent>
-          <ThemeConsumer>
-            {theme => (
-              <ContextConsumer>
-                {context => {
-                  const language = Object.values(Languages).find(lang => lang.id == context.data.languageId)
-                  const languageCss = (language) ? language.cssClass : ""
+      <ContextProvider>
+        <ContextConsumer>
+          {context => {
+            const language = Object.values(Languages).find(lang => lang.id == context.data.languageId)
+            const languageCss = (language) ? language.cssClass : ""
 
-                  return (
-                    <div className={`page-container ${languageCss} ${theme.get().cssClass}`}>
-                      {progressBar}
-                      {surface0}
-                      {surface1}
-                      <div className="content-wrap">
-                        {sidebar}  
-                        <div className="content">
-                          {children}
-                        </div>
-                      </div>
-                      <Footer languageId={context.data.languageId} />
-                    </div>
-                  )
-                }}
-              </ContextConsumer>
-            )}
-          </ThemeConsumer>
-        </ContextProviderComponent>
-      </ThemeProvider>
+            return (
+              <div className={`page-container ${languageCss} ${context.theme.get().cssClass}`}>
+                {progressBar}
+                {surface0}
+                {surface1}
+                <div className="content-wrap">
+                  {sidebar}  
+                  <div className="content">
+                    {children}
+                  </div>
+                </div>
+                <Footer languageId={context.data.languageId} />
+              </div>
+            )
+          }}
+        </ContextConsumer>
+      </ContextProvider>
     )
   }
 }

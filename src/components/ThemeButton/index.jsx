@@ -1,18 +1,18 @@
 import React from 'react'
-import ThemeConsumer from '../ThemeContext'
+import ContextConsumer from '../Context'
 import { Themes } from '../../consts/themes'
 
 class ThemeButton extends React.Component {
 
     render() {
         return (
-            <ThemeConsumer>
-                {theme => (
-                    <button className={this.props.className} onClick={() => toggleTheme(theme)}>
+            <ContextConsumer>
+                {context => (
+                    <button className={this.props.className} onClick={() => toggleTheme(context.theme)}>
                         <i title="Toggle theme" className="icon-moon-inv" />
                     </button>
                 )}
-            </ThemeConsumer>
+            </ContextConsumer>
         )
 
         function toggleTheme(theme) {

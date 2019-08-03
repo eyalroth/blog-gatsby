@@ -1,5 +1,6 @@
 import React from "react"
 import isMatch from 'lodash/isMatch'
+import ThemeContextProvider from '../ThemeContextProvider'
 
 const defaultContextValue = {
   data: {
@@ -14,7 +15,7 @@ const defaultContextValue = {
 
 const { Provider, Consumer } = React.createContext(defaultContextValue)
 
-class ContextProviderComponent extends React.Component {
+class ContextProvider extends React.Component {
   constructor() {
     super()
 
@@ -23,6 +24,9 @@ class ContextProviderComponent extends React.Component {
       ...defaultContextValue,
       set: this.setData,
     }
+
+    this.get = this.get.bind(this)
+    this.set = this.set.bind(this)
   }
 
   setData(newData) {
@@ -37,8 +41,24 @@ class ContextProviderComponent extends React.Component {
   }
 
   render() {
-    return <Provider value={this.state}>{this.props.children}</Provider>
+    const provided = {
+      ...this.state,
+      theme: new ThemeContextProvider(this.get, this.set)
+    }
+
+
+    return <Provider value={provided}>{this.props.children}</Provider>
+  }
+
+  get(property) {
+    return this.state[property]
+  }
+
+  set(property, value) {
+    const newState = {}
+    newState[property] = value
+    this.setState(newState)
   }
 }
 
-export { Consumer as default, ContextProviderComponent }
+export { Consumer as default, ContextProvider }

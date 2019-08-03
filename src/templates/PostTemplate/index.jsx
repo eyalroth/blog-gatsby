@@ -10,7 +10,7 @@ import CategoryTab from '../../components/CategoryTab'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
-import ThemeConsumer from '../../components/ThemeContext'
+import ContextConsumer from '../../components/Context'
 import './style.scss'
 
 class PostTemplate extends React.Component {
@@ -102,11 +102,11 @@ class PostTemplate extends React.Component {
     const seriesBox = <PostSeriesBox language={language} series={series}/>
 
     const commentsBlock = (
-      <ThemeConsumer>
-        {theme => (
+      <ContextConsumer>
+        {({theme}) => (
           <Utterences repo={utterances} theme={theme.get()} />
         )}
-      </ThemeConsumer>
+      </ContextConsumer>
     )
 
     const footer = (
