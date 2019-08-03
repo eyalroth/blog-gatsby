@@ -1,17 +1,14 @@
-const contextProperty = 'navMenu.lastUnderlineLinkId'
-
 class NavMenuContextProvider {
-    constructor(getContext, setContext) {
-        this.getContext = getContext
-        this.setContext = setContext
+    constructor() {
+        this.lastUnderlineLinkId = {}
     }
 
     getLastUnderlineLinkId(menuId) {
-        return this.getContext(`${contextProperty}-${menuId}`)
+        return this.lastUnderlineLinkId[menuId]
     }
 
-    setLastUnderlineLinkId(menuId, linkId) {
-        this.setContext(`${contextProperty}-${menuId}`, linkId)
+    setLastUnderlineLinkId(menuId, newId) {
+        this.lastUnderlineLinkId[menuId] = newId
     }
 }
 

@@ -118,8 +118,8 @@ class ProfileImg extends React.Component {
 
         return (
             <ContextConsumer>
-                {({language}) => {
-                    const authorName = Author.name[language.get().id]
+                {({page}) => {
+                    const authorName = Author.name[page.language.get().id]
                     return (
                         <div className={className}>
                             <div 

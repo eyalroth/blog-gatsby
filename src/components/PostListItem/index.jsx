@@ -11,7 +11,7 @@ class PostListItem extends React.Component {
   render() {
     return (
       <ContextConsumer>
-        {({language}) => this.renderWithLanguage(language.get())}
+        {({page}) => this.renderWithLanguage(page.language.get())}
       </ContextConsumer>
     )
   }

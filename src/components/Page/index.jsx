@@ -7,6 +7,7 @@ import { Author } from '../../consts/author'
 class Page extends React.Component {
     constructor(props) {
         super(props)
+
         this.context = null
     }
 
@@ -29,26 +30,24 @@ class Page extends React.Component {
             <ContextConsumer key="content">
                 {context => {
                     this.context = context
-                    return this.props.children
+                    if (context.page.initialized.get()) {
+                        return this.props.children
+                    } else {
+                        return null
+                    }
                 }}
             </ContextConsumer>
         ])
     }
 
     componentDidMount() {
-        this.updateContext()
-    }
-    
-    componentDidUpdate() {
-        this.updateContext()
-    }
-
-    updateContext() {
         const language = Object.values(Languages).find(lang => lang.id ==  this.props.languageId)
 
-        this.context.language.set(language)
-        this.context.sidebar.isRendered.set(this.props.renderSidebar != false)
-        this.context.sidebar.linkId.set(this.props.sidebarLinkId)
+        this.context.page.isHome.set(this.props.isHome == true)
+        this.context.page.language.set(language)
+        this.context.page.sidebarLinkId.set(this.props.sidebarLinkId)
+        
+        this.context.page.initialized.set(true)
     }
 }
 

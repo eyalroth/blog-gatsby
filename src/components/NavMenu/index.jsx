@@ -50,7 +50,7 @@ class NavMenu extends React.Component {
             <Underline
               ref={this.underline}
               className={`${classNamePrefix}-underline`}
-              language={context.language.get()}
+              language={context.page.language.get()}
             />
         </nav>
       )

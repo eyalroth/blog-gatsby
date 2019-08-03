@@ -10,27 +10,23 @@ class CategoryTab extends React.Component {
 
         return (
             <ContextConsumer>
-                { ({language}) => {
-                    const languageId = language.get().id
-                    const category = Object.values(CategoryLinks[languageId]).find(link => link.id == categoryId)
+                { ({page}) => {
+                    const language = page.language.get()
+                    const category = Object.values(CategoryLinks[language.id]).find(link => link.id == categoryId)
 
-                    if (category) {
-                        return (
-                            <div className="category-tab">
-                                <div className="category-tab-box">
-                                    <Link className="category-tab-link" to={category.path}>
-                                        {(category.icon && language.ltr) ? <i className={category.icon} /> : null}
-                                        {(category.icon && language.ltr) ? <span>{" "}</span> : null}
-                                        {category.label}
-                                        {(category.icon && !language.ltr) ? <span>{" "}</span> : null}
-                                        {(category.icon && !language.ltr) ? <i className={category.icon} /> : null}
-                                    </Link>
-                                </div>
+                    return (
+                        <div className="category-tab">
+                            <div className="category-tab-box">
+                                <Link className="category-tab-link" to={category.path}>
+                                    {(category.icon && language.ltr) ? <i className={category.icon} /> : null}
+                                    {(category.icon && language.ltr) ? <span>{" "}</span> : null}
+                                    {category.label}
+                                    {(category.icon && !language.ltr) ? <span>{" "}</span> : null}
+                                    {(category.icon && !language.ltr) ? <i className={category.icon} /> : null}
+                                </Link>
                             </div>
-                        )
-                    } else {
-                        return null
-                    }
+                        </div>
+                    )
                 }}
             </ContextConsumer>
         )

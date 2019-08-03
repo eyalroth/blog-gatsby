@@ -133,16 +133,16 @@ class Sidebar extends React.Component {
     return (
       <SidebarToggle main={true} menu={false} contact={false} {...this.state}>
         <ContextConsumer>
-          {({language}) => (
+          {({page}) => (
             <span className="sidebar__author-title">
-              {Author.name[language.get().id]}
+              {Author.name[page.language.get().id]}
             </span>
           )}
         </ContextConsumer>
         <ContextConsumer>
-          {({language}) => (
+          {({page}) => (
             <p className="sidebar__author-subtitle">
-              {Author.subtitle[language.get().id]}
+              {Author.subtitle[page.language.get().id]}
             </p>
           )}
         </ContextConsumer>
@@ -157,12 +157,12 @@ class Sidebar extends React.Component {
 
       return (
         <ContextConsumer>
-          {context => (
+          {({page}) => (
               <NavMenu
                 id={classNamePrefix}
-                linkDescriptions={SidebarLinks[context.language.get().id]}
+                linkDescriptions={SidebarLinks[page.language.get().id]}
                 classNamePrefix={classNamePrefix}
-                currentLinkId={context.sidebar.linkId.get()}
+                currentLinkId={page.sidebarLinkId.get()}
               />
           )}
         </ContextConsumer>

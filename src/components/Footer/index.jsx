@@ -7,7 +7,7 @@ class Footer extends React.Component {
   render() {
     return (
       <ContextConsumer>
-        {({language}) => (
+        {({page}) => (
           <footer className="footer">
               <div className="footer__center">
                 {`Made with ❤️`}
@@ -20,7 +20,7 @@ class Footer extends React.Component {
                 </div>
               </div> 
               <div className="footer__feed-box">
-                <a className="footer__feed" href={Feeds[language.get().id].outputPath}>
+                <a className="footer__feed" href={Feeds[page.language.get().id].outputPath}>
                   <i className="icon-rss" />
                 </a>
               </div>

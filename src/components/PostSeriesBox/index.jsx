@@ -54,15 +54,15 @@ class PostSeriesBox extends React.Component {
 
         const title = (
             <ContextConsumer>
-                {({language}) => (
+                {({page}) => (
                     <h2 className="post-series-box__title">
-                        {titlePrefix(language.get())}
+                        {titlePrefix(page.language.get())}
                         <Link
                             className="post-series-box__series-link" 
                             to={`/blog/series/${_.kebabCase(seriesName)}`}
-                            title={linkLabel(language.get())}
+                            title={linkLabel(page.language.get())}
                         >
-                            {linkLabel(language.get())}
+                            {linkLabel(page.language.get())}
                         </Link>
                     </h2>
                 )}
@@ -71,8 +71,8 @@ class PostSeriesBox extends React.Component {
 
         const navMenu = (
             <ContextConsumer>
-                {context => {
-                    const language = context.language.get()
+                {({page}) => {
+                    const language = page.language.get()
 
                     const firstLink = this.createLink(postOrder > 1, orderToSlug, 1, 
                         new Map([[Languages.English, "First"], [Languages.Hebrew, "ראשון"]]),

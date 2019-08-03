@@ -31,9 +31,9 @@ class PostTemplate extends React.Component {
 
     const dateBlock = (
       <ContextConsumer>
-        {({language}) => (
+        {({page}) => (
           <span className="post-single__date">
-              {moment(post.frontmatter.date).locale(language.get().locale).format('MMMM D, YYYY')}
+              {moment(post.frontmatter.date).locale(page.language.get().locale).format('MMMM D, YYYY')}
           </span>
         )}
       </ContextConsumer>
@@ -41,7 +41,7 @@ class PostTemplate extends React.Component {
     
     const readTimeBlock = (
       <ContextConsumer>
-        {({language}) => (
+        {({page}) => (
           <span className="post-single__reading-time">
             {(function(lang) {
               switch(lang) {
@@ -55,7 +55,7 @@ class PostTemplate extends React.Component {
                       return `${minutes} דקות קריאה`
                     }
               }
-            })(language.get())}
+            })(page.language.get())}
           </span>
         )}
       </ContextConsumer>

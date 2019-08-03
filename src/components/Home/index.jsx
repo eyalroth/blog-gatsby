@@ -15,8 +15,7 @@ class Home extends React.Component {
     return (
       <Page
         languageId={languageId}
-        sidebarLinkId={SidebarLinks[languageId].Home.id}
-        renderSidebar={false}
+        isHome={true}
       >
         {this.renderContent()}
       </Page>
