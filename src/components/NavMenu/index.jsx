@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-
-var lastUnderlineLinkId = {}
+import ContextConsumer from '../Context'
 
 class NavMenu extends React.Component {
     constructor(props) {
@@ -14,11 +13,22 @@ class NavMenu extends React.Component {
 
         this.reRender = this.reRender.bind(this)
         this.updateUnderline = this.updateUnderline.bind(this)
+        this.context = null
     }
 
     render() {
+      return (
+        <ContextConsumer>
+          {context => this.renderWithContext(context)}
+        </ContextConsumer>
+      )
+    }
+
+    renderWithContext(context) {
+      this.context = context
+
       const _this = this
-      const { language, linkDescriptions, classNamePrefix } = this.props
+      const { linkDescriptions, classNamePrefix } = this.props
 
       if (this.state.reRender) {
         setTimeout(() => _this.setState({reRender: false}), 0)
@@ -26,23 +36,23 @@ class NavMenu extends React.Component {
       }
 
       return (
-          <nav className={classNamePrefix}>
-              <ul className={`${classNamePrefix}-list`}>
-                  {Object.values(linkDescriptions).map(description => (
-                      <li 
-                          className={`${classNamePrefix}-list-item`}
-                          key={description.id}
-                      >
-                          {createLink(description)} 
-                      </li>
-                  ))}
-              </ul>
-              <Underline
-                ref={this.underline}
-                className={`${classNamePrefix}-underline`}
-                language={language}
-              />
-          </nav>
+        <nav className={classNamePrefix}>
+            <ul className={`${classNamePrefix}-list`}>
+                {Object.values(linkDescriptions).map(description => (
+                    <li 
+                        className={`${classNamePrefix}-list-item`}
+                        key={description.id}
+                    >
+                        {createLink(description)} 
+                    </li>
+                ))}
+            </ul>
+            <Underline
+              ref={this.underline}
+              className={`${classNamePrefix}-underline`}
+              language={context.language.get()}
+            />
+        </nav>
       )
 
       function createLink(linkDescription) {
@@ -98,11 +108,11 @@ class NavMenu extends React.Component {
     }
 
     getLastUnderlineLinkId() {
-      return lastUnderlineLinkId[this.props.id]
+      return this.context.navMenu.getLastUnderlineLinkId(this.props.id)
     }
     
     setLastUnderlineLinkId(id) {
-      lastUnderlineLinkId[this.props.id] = id
+      this.context.navMenu.setLastUnderlineLinkId(this.props.id, id)
     }
 }
 
@@ -117,7 +127,6 @@ class Underline extends React.Component {
         callback: null
       }
       this.underline = null
-      this.ltr = this.props.language.ltr
 
       this.moveTo = this.moveTo.bind(this)
       this.shift = this.shift.bind(this)
@@ -148,11 +157,11 @@ class Underline extends React.Component {
     }
 
     moveTo(link) {
-      const {left: parentX, width: parentWidth} = this.parentRect()
+      const { left: parentX, width: parentWidth } = this.parentRect()
       const { left: toX, width } = link.getBoundingClientRect()
 
       const position = {}
-      if (this.ltr) {
+      if (this.props.language.ltr) {
         position.left = toX - parentX
       } else {
         position.right = parentX + parentWidth - (toX + width) 
@@ -171,7 +180,7 @@ class Underline extends React.Component {
       const { left: toX, width: toWidth } = to.getBoundingClientRect()
 
       const position = {}
-      if (this.ltr) {
+      if (this.props.language.ltr) {
         position.initial = {
           left: fromX - parentX,
         }

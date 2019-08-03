@@ -1,5 +1,6 @@
 import React from "react"
 import ThemeContextProvider from '../ThemeContextProvider'
+import NavMenuContextProvider from '../NavMenuContextProvider'
 import { Languages } from '../../consts/languages'
 
 const { Provider, Consumer } = React.createContext({})
@@ -14,17 +15,18 @@ class ContextProvider extends React.Component {
     this.set = this.set.bind(this)
 
     this.provided = {
-      language: new SimpleProvider(this.get, this.set, "languagex", Languages.English),
+      language: new SimpleProvider(this.get, this.set, "language", Languages.English),
       sidebar: {
           isRendered: new SimpleProvider(this.get, this.set, "sidebar.isRendered", true),
           linkId: new SimpleProvider(this.get, this.set, "sidebar.linkId"),
       },
       theme: new ThemeContextProvider(this.get, this.set),
+      navMenu: new NavMenuContextProvider(this.get, this.set),
     }
   }
 
   render() {
-    return <Provider value={{...this.provided, ...this.state}}>{this.props.children}</Provider>
+    return <Provider value={{...this.provided}}>{this.props.children}</Provider>
   }
 
   get(property) {
