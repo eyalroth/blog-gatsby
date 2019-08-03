@@ -1,19 +1,14 @@
 import React from 'react'
-import { instanceOf } from 'prop-types'
-import { CookiesProvider, withCookies, Cookies } from 'react-cookie'
 import ContextConsumer, { ContextProviderComponent } from '../Context'
+import ThemeConsumer, { ThemeProvider } from '../ThemeContext'
 import '../../assets/scss/init.scss'
 import Sidebar from '../Sidebar'
 import Footer from '../Footer'
 import ProgressBar from '../ProgressBar'
 import { Languages } from '../../consts/languages'
-import { Themes } from '../../consts/themes'
 import './style.scss'
 
 class Layout extends React.Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  }
 
   render() {
     const { children } = this.props
@@ -41,39 +36,37 @@ class Layout extends React.Component {
     )
 
     return (
-      <CookiesProvider>
+      <ThemeProvider>
         <ContextProviderComponent>
-          <ContextConsumer>
-            {context => {
-              const language = Object.values(Languages).find(lang => lang.id == context.data.languageId)
-              const languageCss = (language) ? language.cssClass : ""
+          <ThemeConsumer>
+            {theme => (
+              <ContextConsumer>
+                {context => {
+                  const language = Object.values(Languages).find(lang => lang.id == context.data.languageId)
+                  const languageCss = (language) ? language.cssClass : ""
 
-              const cookieThemeId = this.props.cookies.get('theme')
-              let theme = Object.values(Themes).find(theme => theme.id == cookieThemeId)
-              if (!theme) {
-                theme = context.data.theme
-              }
-
-              return (
-                <div className={`page-container ${languageCss} ${theme.cssClass}`}>
-                  {progressBar}
-                  {surface0}
-                  {surface1}
-                  <div className="content-wrap">
-                    {sidebar}  
-                    <div className="content">
-                      {children}
+                  return (
+                    <div className={`page-container ${languageCss} ${theme.get().cssClass}`}>
+                      {progressBar}
+                      {surface0}
+                      {surface1}
+                      <div className="content-wrap">
+                        {sidebar}  
+                        <div className="content">
+                          {children}
+                        </div>
+                      </div>
+                      <Footer languageId={context.data.languageId} />
                     </div>
-                  </div>
-                  <Footer languageId={context.data.languageId} />
-                </div>
-              )
-            }}
-          </ContextConsumer>
+                  )
+                }}
+              </ContextConsumer>
+            )}
+          </ThemeConsumer>
         </ContextProviderComponent>
-      </CookiesProvider>
+      </ThemeProvider>
     )
   }
 }
 
-export default withCookies(Layout)
+export default Layout
