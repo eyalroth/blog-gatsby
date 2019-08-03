@@ -13,6 +13,7 @@ class NavMenu extends React.Component {
         this.underline = React.createRef()
         this.links = {}
 
+        this.reRender = this.reRender.bind(this)
         this.updateUnderline = this.updateUnderline.bind(this)
     }
 
@@ -25,14 +26,6 @@ class NavMenu extends React.Component {
         return null
       }
 
-      function reRender() {
-        _this.setState({reRender: true})
-      }
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('resize', reRender)
-        window.addEventListener('resize', reRender, {once: true})
-      }
-      
       return (
           <nav className={classNamePrefix}>
               <ul className={`${classNamePrefix}-list`}>
@@ -71,12 +64,21 @@ class NavMenu extends React.Component {
         }
     }
 
+    reRender() {
+      this.setState({reRender: true})
+    }
+
     componentDidMount() {
       this.updateUnderline()
+      window.addEventListener('resize', this.reRender)
     }
     
     componentDidUpdate() {
       this.updateUnderline()
+    }
+    
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.reRender)
     }
 
     updateUnderline() {
