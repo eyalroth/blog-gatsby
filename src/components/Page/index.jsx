@@ -1,6 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import ContextConsumer from '../../components/Context'
+import { Languages } from '../../consts/languages'
 import { Author } from '../../consts/author'
 
 class Page extends React.Component {
@@ -43,15 +44,11 @@ class Page extends React.Component {
     }
 
     updateContext() {
-        const isSidebarRendered = this.props.renderSidebar != false
+        const language = Object.values(Languages).find(lang => lang.id ==  this.props.languageId)
 
-        this.context.set({
-            languageId: this.props.languageId,
-            sidebar: {
-                isRendered: isSidebarRendered,
-                linkId: this.props.sidebarLinkId,
-            },
-        })
+        this.context.language.set(language)
+        this.context.sidebar.isRendered.set(this.props.renderSidebar != false)
+        this.context.sidebar.linkId.set(this.props.sidebarLinkId)
     }
 }
 

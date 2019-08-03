@@ -2,17 +2,26 @@ import React from 'react'
 import { Link } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
+import ContextConsumer from '../../components/Context'
 import Toggle from '../Toggle'
 import { Languages } from '../../consts/languages'
 import './style.scss'
 
 class PostListItem extends React.Component {
   render() {
-    const { showYear, languageId } = this.props
+    return (
+      <ContextConsumer>
+        {({language}) => this.renderWithLanguage(language.get())}
+      </ContextConsumer>
+    )
+  }
+
+  renderWithLanguage(language) {
+
+    const { showYear } = this.props
     const { title, date, tags, } = this.props.data.node.frontmatter
     const { slug, readingTime } = this.props.data.node.fields
 
-    const language = Object.values(Languages).find(lang => lang.id == languageId)
     const itemDate = moment(date).locale(language.locale)
 
     const yearHeader = (

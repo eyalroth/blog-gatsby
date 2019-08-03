@@ -30,7 +30,7 @@ class Home extends React.Component {
 
     return (
       <div className="home">
-            <ProfileImg className="home__author-img" languageId={languageId}/>
+            <ProfileImg className="home__author-img" />
             <h1 className="home__author-title">
               {Author.name[languageId]}
             </h1>

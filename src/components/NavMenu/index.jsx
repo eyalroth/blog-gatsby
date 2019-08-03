@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { Languages } from '../../consts/languages'
 
 var lastUnderlineLinkId = {}
 
@@ -19,7 +18,7 @@ class NavMenu extends React.Component {
 
     render() {
       const _this = this
-      const { languageId, linkDescriptions, classNamePrefix } = this.props
+      const { language, linkDescriptions, classNamePrefix } = this.props
 
       if (this.state.reRender) {
         setTimeout(() => _this.setState({reRender: false}), 0)
@@ -41,7 +40,7 @@ class NavMenu extends React.Component {
               <Underline
                 ref={this.underline}
                 className={`${classNamePrefix}-underline`}
-                languageId={languageId}
+                language={language}
               />
           </nav>
       )
@@ -118,8 +117,7 @@ class Underline extends React.Component {
         callback: null
       }
       this.underline = null
-      const language = Object.values(Languages).find(lang => lang.id == this.props.languageId)
-      this.ltr = language.ltr
+      this.ltr = this.props.language.ltr
 
       this.moveTo = this.moveTo.bind(this)
       this.shift = this.shift.bind(this)

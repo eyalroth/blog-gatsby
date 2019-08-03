@@ -1,6 +1,7 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
+import ContextConsumer from '../Context'
 import { Author } from '../../consts/author'
 import './style.scss'
 
@@ -67,8 +68,7 @@ class ProfileImg extends React.Component {
     }
 
     renderWithQueryData(data) {
-        const { className, languageId } = this.props
-        const authorName = Author.name[languageId]
+        const { className } = this.props
         const _this = this
 
         function setupMove(div, eventType, extractCoordinates) {
@@ -117,78 +117,85 @@ class ProfileImg extends React.Component {
         }
 
         return (
-            <div className={className}>
-                    <div 
-                        className="profile-img-container"
-                        style={{
-                            position: "relative",
-                            height: "inherit"
-                        }}
-                    >
-                        <div 
-                            ref={setupMouseMove}
-                            className="profile-img-mousemove"
-                            style={{
-                                width: "130%",
-                                height: "100%",
-                                left: "-15%",
-                                position: "absolute",
-                                background: "transparent",
-                                zIndex: 2
-                            }}
-                        />
-                        <div
-                            ref={setupMouseUp}
-                            className="profile-img-mouseup"
-                            style={{
-                                position: "fixed",
-                                height: "100vh",
-                                width: "100vw",
-                                padding: 0,
-                                margin: 0,
-                                top: 0,
-                                left: 0,
-                                background: "transparent",
-                                display: (_this.state.isMouseUp) ? "none" : "inherit"
-                            }}
-                        />
-                        <div 
-                            ref={setupTouchMove}
-                            className="profile-img-touchmove"
-                            style={{
-                                width: "130%",
-                                height: "100%",
-                                left: "-15%",
-                                position: "absolute",
-                                background: "transparent",
-                                zIndex: 1
-                            }}
-                        />
-                        <Img
-                            className="profile-img-front"
-                            fluid={data.front.childImageSharp.fluid}
-                            title={authorName}
-                            alt={authorName}
-                        />
-                        <Img 
-                            className="profile-img-back"
-                            fluid={data.back.childImageSharp.fluid}
-                            title={authorName}
-                            alt={authorName}
-                            style={{
-                                position: "absolute",
-                                width: "100%",
-                                height: "100%",
-                                top: 0,
-                            }}
-                            imgStyle={{
-                                transition: "width 0.1s ease-out",
-                                width: `${this.state.backWidth}px`,
-                                objectPosition: "left",
-                            }}
-                        />
-                    </div>
-                </div>
+            <ContextConsumer>
+                {({language}) => {
+                    const authorName = Author.name[language.get().id]
+                    return (
+                        <div className={className}>
+                            <div 
+                                className="profile-img-container"
+                                style={{
+                                    position: "relative",
+                                    height: "inherit"
+                                }}
+                            >
+                                <div 
+                                    ref={setupMouseMove}
+                                    className="profile-img-mousemove"
+                                    style={{
+                                        width: "130%",
+                                        height: "100%",
+                                        left: "-15%",
+                                        position: "absolute",
+                                        background: "transparent",
+                                        zIndex: 2
+                                    }}
+                                />
+                                <div
+                                    ref={setupMouseUp}
+                                    className="profile-img-mouseup"
+                                    style={{
+                                        position: "fixed",
+                                        height: "100vh",
+                                        width: "100vw",
+                                        padding: 0,
+                                        margin: 0,
+                                        top: 0,
+                                        left: 0,
+                                        background: "transparent",
+                                        display: (_this.state.isMouseUp) ? "none" : "inherit"
+                                    }}
+                                />
+                                <div 
+                                    ref={setupTouchMove}
+                                    className="profile-img-touchmove"
+                                    style={{
+                                        width: "130%",
+                                        height: "100%",
+                                        left: "-15%",
+                                        position: "absolute",
+                                        background: "transparent",
+                                        zIndex: 1
+                                    }}
+                                />
+                                <Img
+                                    className="profile-img-front"
+                                    fluid={data.front.childImageSharp.fluid}
+                                    title={authorName}
+                                    alt={authorName}
+                                />
+                                <Img 
+                                    className="profile-img-back"
+                                    fluid={data.back.childImageSharp.fluid}
+                                    title={authorName}
+                                    alt={authorName}
+                                    style={{
+                                        position: "absolute",
+                                        width: "100%",
+                                        height: "100%",
+                                        top: 0,
+                                    }}
+                                    imgStyle={{
+                                        transition: "width 0.1s ease-out",
+                                        width: `${this.state.backWidth}px`,
+                                        objectPosition: "left",
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    )
+                }}
+            </ContextConsumer>
         )
     }
 }

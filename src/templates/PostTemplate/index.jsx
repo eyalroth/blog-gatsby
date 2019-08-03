@@ -21,10 +21,8 @@ class PostTemplate extends React.Component {
     const readingTime = post.fields.readingTime
     const url = this.props.location.href
 
-    const language = Object.values(Languages).find(lang => lang.id == languageId)
-
     const categoryTab = (
-      <CategoryTab languageId={languageId} categoryId={category}/>
+      <CategoryTab categoryId={category}/>
     )
 
     const titleBlock = (
@@ -32,27 +30,35 @@ class PostTemplate extends React.Component {
     )
 
     const dateBlock = (
-      <span className="post-single__date">
-          {moment(post.frontmatter.date).locale(language.locale).format('MMMM D, YYYY')}
-      </span>
+      <ContextConsumer>
+        {({language}) => (
+          <span className="post-single__date">
+              {moment(post.frontmatter.date).locale(language.get().locale).format('MMMM D, YYYY')}
+          </span>
+        )}
+      </ContextConsumer>
     )
     
     const readTimeBlock = (
-      <span className="post-single__reading-time">
-        {(function(lang) {
-          switch(lang) {
-              case Languages.English:
-                  return readingTime.text
-              case Languages.Hebrew:
-                const minutes = Math.round(readingTime.minutes)
-                if (minutes < 2) {
-                  return "דקת קריאה אחת"
-                } else {
-                  return `${minutes} דקות קריאה`
-                }
-          }
-        })(language)}
-      </span>
+      <ContextConsumer>
+        {({language}) => (
+          <span className="post-single__reading-time">
+            {(function(lang) {
+              switch(lang) {
+                  case Languages.English:
+                      return readingTime.text
+                  case Languages.Hebrew:
+                    const minutes = Math.round(readingTime.minutes)
+                    if (minutes < 2) {
+                      return "דקת קריאה אחת"
+                    } else {
+                      return `${minutes} דקות קריאה`
+                    }
+              }
+            })(language.get())}
+          </span>
+        )}
+      </ContextConsumer>
     )
     
     const tagsBlock = (
@@ -99,14 +105,10 @@ class PostTemplate extends React.Component {
 
     const mobileShare = <MobileShareButton url={url}/>
 
-    const seriesBox = <PostSeriesBox language={language} series={series}/>
+    const seriesBox = <PostSeriesBox series={series}/>
 
     const commentsBlock = (
-      <ContextConsumer>
-        {({theme}) => (
-          <Utterences repo={utterances} theme={theme.get()} />
-        )}
-      </ContextConsumer>
+        <Utterences repo={utterances} />
     )
 
     const footer = (
@@ -116,7 +118,7 @@ class PostTemplate extends React.Component {
     )
 
     return (
-      <Page languageId={languageId} subtitle={title} sidebarLinkId={SidebarLinks[language.id].Blog.id}>
+      <Page languageId={languageId} subtitle={title} sidebarLinkId={SidebarLinks[languageId].Blog.id}>
         <div className="post-single">
           {categoryTab}
           {header}

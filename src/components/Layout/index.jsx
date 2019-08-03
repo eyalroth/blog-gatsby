@@ -4,7 +4,6 @@ import '../../assets/scss/init.scss'
 import Sidebar from '../Sidebar'
 import Footer from '../Footer'
 import ProgressBar from '../ProgressBar'
-import { Languages } from '../../consts/languages'
 import './style.scss'
 
 class Layout extends React.Component {
@@ -18,31 +17,27 @@ class Layout extends React.Component {
 
     const surface1 = (
       <ContextConsumer>
-          {context => (context.data.sidebar.isRendered) ? <div className="surface1"/> : null}
+          {context => (context.sidebar.isRendered.get()) ? <div className="surface1"/> : null}
       </ContextConsumer>
     )
 
     const progressBar = (
       <ContextConsumer>
-          {context => (context.data.sidebar.isRendered) ? <ProgressBar /> : null}
+          {context => (context.sidebar.isRendered.get()) ? <ProgressBar /> : null}
       </ContextConsumer>
     )
 
     const sidebar = (
       <ContextConsumer>
-          {context => (context.data.sidebar.isRendered) ? <Sidebar /> : null}
+          {context => (context.sidebar.isRendered.get()) ? <Sidebar /> : null}
       </ContextConsumer>
     )
 
     return (
       <ContextProvider>
         <ContextConsumer>
-          {context => {
-            const language = Object.values(Languages).find(lang => lang.id == context.data.languageId)
-            const languageCss = (language) ? language.cssClass : ""
-
-            return (
-              <div className={`page-container ${languageCss} ${context.theme.get().cssClass}`}>
+          {({theme, language}) => (
+              <div className={`page-container ${language.get().cssClass} ${theme.get().cssClass}`}>
                 {progressBar}
                 {surface0}
                 {surface1}
@@ -52,10 +47,9 @@ class Layout extends React.Component {
                     {children}
                   </div>
                 </div>
-                <Footer languageId={context.data.languageId} />
+                <Footer />
               </div>
-            )
-          }}
+          )}
         </ContextConsumer>
       </ContextProvider>
     )

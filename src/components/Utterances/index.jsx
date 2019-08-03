@@ -1,4 +1,5 @@
 import React from 'react'
+import ContextConsumer from '../Context'
 import { Themes } from '../../consts/themes'
 
 const src = 'https://utteranc.es/client.js'
@@ -8,12 +9,29 @@ class Utterences extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      theme: null
+    }
+
     this.rootElm = React.createRef()
     this.createdScripts = []
   }
 
   render() {
-    return <div className="utterences" ref={this.rootElm} />
+    return (
+      <ContextConsumer>
+        {context => {
+          const _this = this
+          const theme = context.theme.get()
+          if(this.state.theme != theme) {
+            setTimeout(() => _this.setState({theme}), 0)
+          }
+          return (
+            <div className="utterences" ref={this.rootElm} />
+          )
+        }}
+      </ContextConsumer>
+    )
   }
 
   componentDidMount() {
@@ -25,16 +43,19 @@ class Utterences extends React.Component {
   }
 
   loadScript() {
-    const { repo, theme } = this.props
+    const { repo } = this.props
+    const theme = this.state.theme
 
-    if (!(this.createdScripts.includes(theme.id))) {
-      this.rootElm.current.appendChild(this.createScript(repo, theme))
-      this.createdScripts.push(theme.id)
+    if (theme) {
+      if (!(this.createdScripts.includes(theme.id))) {
+        this.rootElm.current.appendChild(this.createScript(repo, theme))
+        this.createdScripts.push(theme.id)
+      }
+
+      Array.from(this.rootElm.current.children).forEach(script => {
+        script.style.display = (script.id == theme.id) ? 'block' : 'none'
+      });
     }
-
-    Array.from(this.rootElm.current.children).forEach(script => {
-      script.style.display = (script.id == theme.id) ? 'block' : 'none'
-    });
   }
 
   createScript(repo, theme) {

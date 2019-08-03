@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import ContextConsumer from '../../components/Context'
 import PostList from '../../components/PostList'
 import NavMenu from '../../components/NavMenu'
 import { CategoryLinks } from '../../consts/menuLinks'
@@ -13,15 +14,19 @@ class PostCategoryTemplate extends React.Component {
     function categoryHeader(){
       if (Object.keys(categories).length > 1) {
         return (
-            <div className="category-header">
-                <NavMenu
-                    id="blog-category"
-                    languageId={languageId}
-                    linkDescriptions={categories}
-                    classNamePrefix="category-header__menu"
-                    currentLinkId={categoryId}
-                />
-            </div>
+            <ContextConsumer>
+              {({language}) => (
+                <div className="category-header">
+                    <NavMenu
+                        id="blog-category"
+                        language={language.get()}
+                        linkDescriptions={categories}
+                        classNamePrefix="category-header__menu"
+                        currentLinkId={categoryId}
+                    />
+                </div>
+              )}
+            </ContextConsumer>
         )
       } else {
           return null

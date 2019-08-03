@@ -7,8 +7,8 @@ class ThemeButton extends React.Component {
     render() {
         return (
             <ContextConsumer>
-                {context => (
-                    <button className={this.props.className} onClick={() => toggleTheme(context.theme)}>
+                {({theme}) => (
+                    <button className={this.props.className} onClick={() => toggleTheme(theme)}>
                         <i title="Toggle theme" className="icon-moon-inv" />
                     </button>
                 )}
