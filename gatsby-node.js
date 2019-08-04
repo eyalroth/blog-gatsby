@@ -161,33 +161,27 @@ exports.createPages = ({ graphql, actions }) => {
   return Promise.all([redirects, categoryLists, pages, posts, seriesLists])
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
+exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === 'File') {
-    const parsedFilePath = path.parse(node.absolutePath)
-    const slug = `/${parsedFilePath.dir.split('---')[1]}/`
-    createNodeField({ node, name: 'slug', value: slug })
-  } else if (
-    node.internal.type === 'MarkdownRemark' &&
-    typeof node.slug === 'undefined'
-  ) {
-    const fileNode = getNode(node.parent)
-    let slug = fileNode.fields.slug
-    if (typeof node.frontmatter.path !== 'undefined') {
-      if (node.frontmatter.layout == 'post') {
-        const postDate = moment(node.frontmatter.date) 
-        const postYear = postDate.format('YYYY')
-        const postMonth = postDate.format('MM')
-        slug = `/blog/${postYear}/${postMonth}/${node.frontmatter.path}/`
-      } else {
-        slug = node.frontmatter.path
-      }
+  if (node.internal.type === 'MarkdownRemark') {
+    let slug = node.frontmatter.path
+
+    if (node.frontmatter.layout == 'post') {
+      const postDate = moment(node.frontmatter.date) 
+      const postYear = postDate.format('YYYY')
+      const postMonth = postDate.format('MM')
+      slug = `/blog/${postYear}/${postMonth}/${node.frontmatter.path}/`
     }
+
     createNodeField({
       node,
       name: 'slug',
       value: slug,
     })
   }
+}
+
+exports.onCreatePage = ({ page }) => {
+  page.context.staticPage = true
 }

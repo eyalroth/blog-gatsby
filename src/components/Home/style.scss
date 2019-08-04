@@ -2,10 +2,10 @@
 @import "../../assets/scss/mixins";
 
 .home {
-    padding-top: 20vh;
     text-align: center;
-    width: 100%;
-    position: relative;
+
+    padding-top: 20vh;
+    padding-bottom: 150px;
 
     &__author {
         &-img {
@@ -58,7 +58,7 @@
 
 @include breakpoint-sm {
     .home {
-        padding-top: 35vh;
+        padding-top: 30vh;
 
         &__author {
             &-img {
@@ -81,13 +81,6 @@
 
 @include breakpoint-md {
     .home {
-        position: fixed;
-        width: 100vw;
-        left: 0;
-        top: 0;
-        height: 100vh;
-
-        @include layer1;
         padding-top: 25vh;
 
         &__author {

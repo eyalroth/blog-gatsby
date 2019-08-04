@@ -44,10 +44,9 @@ class Page extends React.Component {
     }
 
     componentDidMount() {
-        const isHome = this.props.isHome == true
         const language = Object.values(Languages).find(lang => lang.id ==  this.props.languageId)
 
-        this.context.page.set(isHome, language, this.props.sidebarLinkId)
+        this.context.page.set(language, this.props.sidebarLinkId)
         
         this.setState({
             initialized: true    

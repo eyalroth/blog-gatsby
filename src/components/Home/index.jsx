@@ -6,17 +6,13 @@ import ProfileImg from '../ProfileImg'
 import { Author } from '../../consts/author'
 import { SidebarLinks } from '../../consts/menuLinks'
 import './style.scss'
-import '../Layout/style.scss'
 
 class Home extends React.Component {
   render() {
     const { languageId } = this.props
 
     return (
-      <Page
-        languageId={languageId}
-        isHome={true}
-      >
+      <Page languageId={languageId}>
         {this.renderContent()}
       </Page>
     )

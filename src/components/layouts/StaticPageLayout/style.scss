@@ -1,0 +1,6 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
+
+.page-container {
+    @include layer1;
+}

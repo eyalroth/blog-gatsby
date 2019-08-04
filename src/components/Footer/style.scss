@@ -11,9 +11,12 @@
     padding-top: 10px;
     padding-bottom: 25px;
     
-    @include layer2;
     @include light {
+        background-color: $color-light-dp0;
         border-top: 1px solid #E7E7E7;
+    }
+    @include dark {
+        background-color: $color-dark-dp2;
     }
     @include text-normal;
     
@@ -56,7 +59,9 @@
     .footer {
         padding-bottom: 30px;
 
-        @include layer3;
+        @include dark {
+            background-color: $color-dark-dp3;
+        }
 
         &__center {
             font-size: 1rem;
