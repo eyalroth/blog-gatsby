@@ -1,6 +1,7 @@
 import React from 'react'
 import ContextConsumer from '../Context'
 import { Themes } from '../../consts/themes'
+import './style.scss'
 
 const src = 'https://utteranc.es/client.js'
 const branch = 'master'
@@ -10,14 +11,20 @@ class Utterences extends React.Component {
     super(props)
 
     this.state = {
-      theme: null
+      theme: null,
+      loadingScript: true,
     }
 
     this.rootElm = React.createRef()
-    this.createdScripts = []
+    this.scripts = {}
   }
 
   render() {
+    let status = "loading"
+    if (!this.state.loadingScript) {
+      status = (this.scripts[this.state.theme.id]) ? "success" : "fail"
+    }
+
     return (
       <ContextConsumer>
         {context => {
@@ -27,7 +34,9 @@ class Utterences extends React.Component {
             setTimeout(() => _this.setState({theme}), 0)
           }
           return (
-            <div className="utterences" ref={this.rootElm} />
+            <div className="utterences" ref={this.rootElm}>
+              <div className={`utterences-status ${status}`}/>
+            </div>
           )
         }}
       </ContextConsumer>
@@ -47,13 +56,18 @@ class Utterences extends React.Component {
     const theme = this.state.theme
 
     if (theme) {
-      if (!(this.createdScripts.includes(theme.id))) {
-        this.rootElm.current.appendChild(this.createScript(repo, theme))
-        this.createdScripts.push(theme.id)
+      if (!(theme.id in this.scripts)) {
+        if (!this.state.loadingScript) {
+          this.setState({loadingScript: true})
+        } else {
+          this.rootElm.current.appendChild(this.createScript(repo, theme))
+        }
       }
 
-      Array.from(this.rootElm.current.children).forEach(script => {
-        script.style.display = (script.id == theme.id) ? 'block' : 'none'
+      Array.from(this.rootElm.current.children).forEach(elem => {
+        if (elem.id in this.scripts) {
+          elem.style.display = (elem.id == theme.id) ? 'block' : 'none'
+        }
       });
     }
   }
@@ -81,9 +95,19 @@ class Utterences extends React.Component {
     script.setAttribute('crossOrigin', 'anonymous')
     script.setAttribute('theme', githubTheme)
 
+    script.addEventListener("load", () => this.scriptLoaded(theme.id, true), {once: true})
+    script.addEventListener("error", () => this.scriptLoaded(theme.id, false), {once: true})
+
     div.appendChild(script)
 
     return div
+  }
+
+  scriptLoaded(themeId, success) {
+    this.scripts[themeId] = success
+    this.setState({
+      loadingScript: false,
+    })
   }
 }
 

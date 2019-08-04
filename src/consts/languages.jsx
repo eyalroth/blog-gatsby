@@ -9,6 +9,6 @@ class Language {
 }
 
 module.exports.Languages = Object.freeze({
-    English: new Language("english", "English", 'en', true, "ltr"),
-    Hebrew: new Language("hebrew", "Hnglish", 'he', false, "rtl"),
+    English: new Language("english", "English", 'en', true, "english ltr"),
+    Hebrew: new Language("hebrew", "Hnglish", 'he', false, "hebrew rtl"),
 })
