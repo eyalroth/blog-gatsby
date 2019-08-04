@@ -1,4 +1,5 @@
 import React from "react"
+import isMatch from 'lodash/isMatch'
 import PageContextProvider from '../PageContextProvider'
 import ThemeContextProvider from '../ThemeContextProvider'
 import NavMenuContextProvider from '../NavMenuContextProvider'
@@ -11,12 +12,9 @@ class ContextProvider extends React.Component {
 
     this.state = {}
 
-    this.get = this.get.bind(this)
-    this.set = this.set.bind(this)
-
     this.provided = {
-      page: new PageContextProvider(this.get, this.set),
-      theme: new ThemeContextProvider(this.get, this.set),
+      page: new PageContextProvider(new StateManager(this)),
+      theme: new ThemeContextProvider(new StateManager(this)),
       navMenu: new NavMenuContextProvider(),
     }
   }
@@ -25,19 +23,35 @@ class ContextProvider extends React.Component {
     return <Provider value={{...this.provided}}>{this.props.children}</Provider>
   }
 
+}
+
+export { Consumer as default, ContextProvider }
+
+class StateManager {
+  constructor(component) {
+    this.component = component
+  }
+
   get(property) {
-    return this.state[property]
+    return this.component.state[property]
   }
 
   set(property, value) {
     if (this.get(property) != value) {
-      this.setState(state => {
+      this.component.setState(state => {
         const newState = {...state}
         newState[property] = value
         return newState
       })
     }
   }
-}
 
-export { Consumer as default, ContextProvider }
+  setBatch(newState) {
+    if (!isMatch(this.component.state, newState)) {
+      this.component.setState(state => ({
+        ...state,
+        ...newState,
+      }))
+    }
+  }
+}

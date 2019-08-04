@@ -2,17 +2,16 @@ import Cookies from 'js-cookie'
 import { Themes } from '../../consts/themes'
 
 const defaultTheme = Themes.Light
-const contextProperty = 'theme'
+const stateProperty = 'theme'
 const cookieName = 'theme'
 
 class ThemeContextProvider {
-    constructor(getContext, setContext) {
-        this.getContext = getContext
-        this.setContext = setContext
+    constructor(state) {
+        this.state = state
     }
 
     get() {
-        let theme = this.getContext(contextProperty)
+        let theme = this.state.get(stateProperty)
         if (!theme) {
             const cookieThemeId = Cookies.get(cookieName)
             theme = Object.values(Themes).find(theme => theme.id == cookieThemeId)
@@ -26,7 +25,7 @@ class ThemeContextProvider {
 
     set(newTheme) {
         Cookies.set(cookieName, newTheme.id, { path: '/' })
-        this.setContext(contextProperty, newTheme)
+        this.state.set(stateProperty, newTheme)
     }
 }
 

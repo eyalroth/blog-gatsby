@@ -7,6 +7,13 @@ import '../../assets/scss/init.scss'
 import './style.scss'
 
 class Layout extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      initialized: false
+    }
+  }
 
   render() {
     const { children } = this.props
@@ -37,7 +44,7 @@ class Layout extends React.Component {
       <ContextProvider>
         <ContextConsumer>
           {({theme, page}) => {
-            if (page.initialized.get()) {
+            if (this.state.initialized) {
               return (
                 <div className={`page-container ${page.language.get().cssClass} ${theme.get().cssClass}`}>
                   {progressBar}
@@ -59,6 +66,12 @@ class Layout extends React.Component {
         </ContextConsumer>
       </ContextProvider>
     )
+  }
+
+  componentDidMount() {
+    this.setState({
+      initialized: true
+    })
   }
 }
 

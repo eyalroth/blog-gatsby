@@ -9,6 +9,9 @@ class Page extends React.Component {
         super(props)
 
         this.context = null
+        this.state = {
+            initialized: false,
+        }
     }
 
     render() {
@@ -30,7 +33,7 @@ class Page extends React.Component {
             <ContextConsumer key="content">
                 {context => {
                     this.context = context
-                    if (context.page.initialized.get()) {
+                    if (this.state.initialized) {
                         return this.props.children
                     } else {
                         return null
@@ -41,13 +44,14 @@ class Page extends React.Component {
     }
 
     componentDidMount() {
+        const isHome = this.props.isHome == true
         const language = Object.values(Languages).find(lang => lang.id ==  this.props.languageId)
 
-        this.context.page.isHome.set(this.props.isHome == true)
-        this.context.page.language.set(language)
-        this.context.page.sidebarLinkId.set(this.props.sidebarLinkId)
+        this.context.page.set(isHome, language, this.props.sidebarLinkId)
         
-        this.context.page.initialized.set(true)
+        this.setState({
+            initialized: true    
+        })
     }
 }
 
