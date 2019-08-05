@@ -2,5 +2,10 @@
 @import "../../../assets/scss/mixins";
 
 .page-container {
-    @include layer1;
+    @include dark {
+        background-color: $color-dark-dp0;
+    }
+    @include light {
+        background-color: $color-light-dp3;
+    }
 }
