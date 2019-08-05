@@ -1,26 +1,26 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import ContextConsumer from '../Context'
+import UpdatedOnResize from '../UpdatedOnResize'
 
 class NavMenu extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {reRender: false}
-
         this.underline = React.createRef()
         this.links = {}
 
-        this.reRender = this.reRender.bind(this)
         this.updateUnderline = this.updateUnderline.bind(this)
         this.context = null
     }
 
     render() {
       return (
-        <ContextConsumer>
-          {context => this.renderWithContext(context)}
-        </ContextConsumer>
+        <UpdatedOnResize onRerender={this.updateUnderline} onAnyResize={this.updateUnderline}>
+          <ContextConsumer>
+            {context => this.renderWithContext(context)}
+          </ContextConsumer>
+        </UpdatedOnResize>
       )
     }
 
@@ -29,11 +29,6 @@ class NavMenu extends React.Component {
 
       const _this = this
       const { linkDescriptions, classNamePrefix } = this.props
-
-      if (this.state.reRender) {
-        setTimeout(() => _this.setState({reRender: false}), 0)
-        return null
-      }
 
       return (
         <nav className={classNamePrefix}>
@@ -73,23 +68,15 @@ class NavMenu extends React.Component {
         }
     }
 
-    reRender() {
-      this.setState({reRender: true})
-    }
-
     componentDidMount() {
       this.updateUnderline()
-      window.addEventListener('resize', this.reRender)
     }
     
     componentDidUpdate() {
       this.updateUnderline()
     }
-    
-    componentWillUnmount() {
-      window.removeEventListener('resize', this.reRender)
-    }
 
+    
     updateUnderline() {
       const { currentLinkId } = this.props
       const currentLink = this.links[currentLinkId]
@@ -131,6 +118,7 @@ class Underline extends React.Component {
       this.moveTo = this.moveTo.bind(this)
       this.shift = this.shift.bind(this)
       this.parentRect = this.parentRect.bind(this)
+      this.pctOfParent = this.pctOfParent.bind(this)
     }
 
     render() {
@@ -145,7 +133,7 @@ class Underline extends React.Component {
       }
 
       return (
-        <div ref={underlineRendered} className={this.props.className} style={this.state.style}/>
+          <div ref={underlineRendered} className={this.props.className} style={this.state.style}/>
       )
     }
 
@@ -162,9 +150,9 @@ class Underline extends React.Component {
 
       const position = {}
       if (this.props.language.ltr) {
-        position.left = toX - parentX
+        position.left = this.pctOfParent(toX - parentX)
       } else {
-        position.right = parentX + parentWidth - (toX + width) 
+        position.right = this.pctOfParent(parentX + parentWidth - (toX + width))
       }
 
       this.setStyle({
@@ -182,17 +170,17 @@ class Underline extends React.Component {
       const position = {}
       if (this.props.language.ltr) {
         position.initial = {
-          left: fromX - parentX,
+          left: this.pctOfParent(fromX - parentX),
         }
         position.transitioned = {
-          left: toX - parentX,
+          left: this.pctOfParent(toX - parentX),
         }
       } else {
         position.initial = {
-          right: parentX + parentWidth - (fromX + fromWidth),
+          right: this.pctOfParent(parentX + parentWidth - (fromX + fromWidth)),
         }
         position.transitioned = {
-          right: parentX + parentWidth - (toX + toWidth),
+          right: this.pctOfParent(parentX + parentWidth - (toX + toWidth)),
         }
       }
 
@@ -213,5 +201,9 @@ class Underline extends React.Component {
 
     parentRect() {
       return this.underline.parentElement.getBoundingClientRect()
+    }
+
+    pctOfParent(x) {
+      return `${x / this.parentRect().width * 100}%`
     }
 }
