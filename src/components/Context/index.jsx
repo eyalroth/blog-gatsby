@@ -28,30 +28,36 @@ class ContextProvider extends React.Component {
 export { Consumer as default, ContextProvider }
 
 class StateManager {
-  constructor(component) {
-    this.component = component
+  constructor(provider) {
+    this.provider = provider
+    // we keep a local state and not using React's state because we want immediate state changes
+    this.state = {}
   }
 
   get(property) {
-    return this.component.state[property]
+    return this.state[property]
   }
 
   set(property, value) {
     if (this.get(property) != value) {
-      this.component.setState(state => {
-        const newState = {...state}
-        newState[property] = value
-        return newState
-      })
+      this.state[property] = value
+      this.forceUpdate()
     }
   }
 
   setBatch(newState) {
-    if (!isMatch(this.component.state, newState)) {
-      this.component.setState(state => ({
-        ...state,
-        ...newState,
-      }))
+    if (!isMatch(this.state, newState)) {
+      this.state = {
+        ...this.state,
+        ...newState
+      }
+      this.forceUpdate()
     }
+  }
+
+  forceUpdate() {
+    // timeout since we don't want to update while in render
+    // we want an anonymous function so the update will be invoked for each set action
+    setTimeout(() => this.provider.forceUpdate(), 0)
   }
 }

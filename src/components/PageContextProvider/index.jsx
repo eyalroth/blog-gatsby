@@ -1,10 +1,8 @@
-import { Languages } from '../../consts/languages'
-
 class PageContextProvider {
     constructor(state) {
       this.state = state
 
-      this.language = new SimpleProvider(state, "page.language", Languages.English)
+      this.language = new SimpleProvider(state, "page.language")
       this.sidebarLinkId = new SimpleProvider(state, "page.sidebarLinkId")
     }
 

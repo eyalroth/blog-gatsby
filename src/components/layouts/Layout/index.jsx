@@ -2,6 +2,7 @@ import React from 'react'
 import ContextConsumer, { ContextProvider } from '../../Context'
 import DefaultLayout from '../DefaultLayout'
 import StaticPageLayout from '../StaticPageLayout'
+import { Languages } from '../../../consts/languages'
 
 import '../../../assets/scss/init.scss'
 import './style.scss'
@@ -25,6 +26,10 @@ class Layout extends React.Component {
                       {children}
                     </StaticPageLayout>
                   )
+                }
+
+                if (!page.language.get()) {
+                  page.set(Languages.English, null)
                 }
 
                 return (

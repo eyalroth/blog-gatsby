@@ -5,12 +5,6 @@ import { Languages } from '../../consts/languages'
 import { Author } from '../../consts/author'
 
 class Page extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.context = null
-    }
-
     render() {
         const title = Author.name[this.props.languageId]
 
@@ -25,11 +19,14 @@ class Page extends React.Component {
             <Helmet key="helmet" title={`${subtitle}${title}`} defer={false} />
         )
 
+        const language = Object.values(Languages).find(lang => lang.id ==  this.props.languageId)
+
+        
         return ([
             helmet,
             <ContextConsumer key="content">
-                {context => {
-                    this.context = context
+                {({page}) => {
+                    page.set(language, this.props.sidebarLinkId)
                     return this.props.children
                 }}
             </ContextConsumer>
@@ -37,9 +34,7 @@ class Page extends React.Component {
     }
 
     componentDidMount() {
-        const language = Object.values(Languages).find(lang => lang.id ==  this.props.languageId)
-
-        this.context.page.set(language, this.props.sidebarLinkId)
+        
     }
 }
 
