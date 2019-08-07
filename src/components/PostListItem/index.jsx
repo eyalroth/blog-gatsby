@@ -22,6 +22,20 @@ class PostListItem extends React.Component {
     const { title, date, tags, } = this.props.data.node.frontmatter
     const { slug, readingTime } = this.props.data.node.fields
 
+    const readingTimeText = (function(lang) {
+      switch(lang) {
+          case Languages.English:
+              return readingTime.text
+          case Languages.Hebrew:
+            const minutes = Math.round(readingTime.minutes)
+            if (minutes < 2) {
+              return "דקת קריאה אחת"
+            } else {
+              return `${minutes} דקות קריאה`
+            }
+      }
+    })(language)
+
     const itemDate = moment(date).locale(language.locale)
 
     const yearHeader = (
@@ -55,27 +69,21 @@ class PostListItem extends React.Component {
       </div>
     )
 
-    const readingTimeBlock = (
-      <li className="post-item__details-footer-reading-time" key="readingTime">
-        {(function(lang) {
-          switch(lang) {
-              case Languages.English:
-                  return readingTime.text
-              case Languages.Hebrew:
-                const minutes = Math.round(readingTime.minutes)
-                if (minutes < 2) {
-                  return "דקת קריאה אחת"
-                } else {
-                  return `${minutes} דקות קריאה`
-                }
-          }
-        })(language)}
+    const readingTimeMobile =(
+      <span className="post-item__reading-time mobile">
+        {readingTimeText}
+      </span>
+    )
+
+    const readingTimeNonMobile = (
+      <li className="post-item__reading-time nonmobile" key="readingTime">
+        {readingTimeText}
       </li>
     )
 
     const detailsFooter = (
       <ul className="post-item__details-footer">
-        {readingTimeBlock}
+        {readingTimeNonMobile}
         {tags && <li className="post-item__details-footer-tags-divider" key="divider"/>}
         {tags && tags.map(tag => (
           <li className="post-item__details-footer-tags-item" key={tag}>
@@ -96,6 +104,7 @@ class PostListItem extends React.Component {
       <article className="post-item">
         {yearHeader}
         {time}
+        {readingTimeMobile}
         {details}
       </article>
     )
