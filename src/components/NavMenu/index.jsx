@@ -7,16 +7,16 @@ class NavMenu extends React.Component {
     constructor(props) {
         super(props)
 
-        this.underline = React.createRef()
+        this.slider = React.createRef()
         this.links = {}
 
-        this.updateUnderline = this.updateUnderline.bind(this)
+        this.updateSlider = this.updateSlider.bind(this)
         this.context = null
     }
 
     render() {
       return (
-        <UpdatedOnResize onRerender={this.updateUnderline} onAnyResize={this.updateUnderline}>
+        <UpdatedOnResize onRerender={this.updateSlider} onAnyResize={this.updateSlider}>
           <ContextConsumer>
             {context => this.renderWithContext(context)}
           </ContextConsumer>
@@ -42,9 +42,9 @@ class NavMenu extends React.Component {
                     </li>
                 ))}
             </ul>
-            <Underline
-              ref={this.underline}
-              className={`${classNamePrefix}-underline`}
+            <Slider
+              ref={this.slider}
+              className={`${classNamePrefix}-slider`}
               language={context.page.language.get()}
             />
         </nav>
@@ -69,43 +69,43 @@ class NavMenu extends React.Component {
     }
 
     componentDidMount() {
-      this.updateUnderline()
+      this.updateSlider()
     }
     
     componentDidUpdate() {
-      this.updateUnderline()
+      this.updateSlider()
     }
 
     
-    updateUnderline() {
+    updateSlider() {
       const { currentLinkId } = this.props
       const currentLink = this.links[currentLinkId]
-      const underline = this.underline.current
+      const slider = this.slider.current
 
       if (currentLink) {
-        const lastLink = this.links[this.getLastUnderlineLinkId()]
+        const lastLink = this.links[this.getLastSliderLinkId()]
         if (lastLink && lastLink.id != currentLinkId) {
-          underline.shift({from: lastLink, to: currentLink})
+          slider.shift({from: lastLink, to: currentLink})
         } else {
-          underline.moveTo(currentLink)
+          slider.moveTo(currentLink)
         }
       }
 
-      this.setLastUnderlineLinkId(currentLinkId)
+      this.setLastSliderLinkId(currentLinkId)
     }
 
-    getLastUnderlineLinkId() {
-      return this.context.navMenu.getLastUnderlineLinkId(this.props.id)
+    getLastSliderLinkId() {
+      return this.context.navMenu.getLastSliderLinkId(this.props.id)
     }
     
-    setLastUnderlineLinkId(id) {
-      this.context.navMenu.setLastUnderlineLinkId(this.props.id, id)
+    setLastSliderLinkId(id) {
+      this.context.navMenu.setLastSliderLinkId(this.props.id, id)
     }
 }
 
 export default NavMenu
 
-class Underline extends React.Component {
+class Slider extends React.Component {
     constructor(props) {
       super(props)
 
@@ -113,7 +113,7 @@ class Underline extends React.Component {
         style: {},
         callback: null
       }
-      this.underline = null
+      this.slider = null
 
       this.moveTo = this.moveTo.bind(this)
       this.shift = this.shift.bind(this)
@@ -123,9 +123,9 @@ class Underline extends React.Component {
 
     render() {
       const _this = this
-      function underlineRendered(underline) {
-        if (underline) {
-          _this.underline = underline
+      function sliderRendered(slider) {
+        if (slider) {
+          _this.slider = slider
           if (_this.state.callback) {
             _this.state.callback()
           }
@@ -133,7 +133,7 @@ class Underline extends React.Component {
       }
 
       return (
-          <div ref={underlineRendered} className={this.props.className} style={this.state.style}/>
+          <div ref={sliderRendered} className={this.props.className} style={this.state.style}/>
       )
     }
 
@@ -200,7 +200,7 @@ class Underline extends React.Component {
     }
 
     parentRect() {
-      return this.underline.parentElement.getBoundingClientRect()
+      return this.slider.parentElement.getBoundingClientRect()
     }
 
     pctOfParent(x) {

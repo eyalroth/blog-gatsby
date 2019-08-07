@@ -1,14 +1,14 @@
 class NavMenuContextProvider {
     constructor() {
-        this.lastUnderlineLinkId = {}
+        this.lastSliderLinkId = {}
     }
 
-    getLastUnderlineLinkId(menuId) {
-        return this.lastUnderlineLinkId[menuId]
+    getLastSliderLinkId(menuId) {
+        return this.lastSliderLinkId[menuId]
     }
 
-    setLastUnderlineLinkId(menuId, newId) {
-        this.lastUnderlineLinkId[menuId] = newId
+    setLastSliderLinkId(menuId, newId) {
+        this.lastSliderLinkId[menuId] = newId
     }
 }
 

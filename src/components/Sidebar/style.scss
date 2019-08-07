@@ -176,7 +176,7 @@ $base-zindex: 3;
             }
         }
 
-        &-underline {
+        &-slider {
             &.visible {
                 visibility: hidden;
             }
@@ -357,7 +357,7 @@ $base-zindex: 3;
                 }
             }
 
-            &-underline {
+            &-slider {
                 &.visible {
                     visibility: unset;
                 }
