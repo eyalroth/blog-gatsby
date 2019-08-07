@@ -22,7 +22,7 @@ class PostTemplate extends React.Component {
     const url = this.props.location.href
 
     const categoryTab = (
-      <CategoryTab categoryId={category}/>
+      <CategoryTab languageId={languageId} categoryId={category}/>
     )
 
     const titleBlock = (

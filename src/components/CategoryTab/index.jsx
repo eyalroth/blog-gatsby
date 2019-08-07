@@ -6,13 +6,15 @@ import './style.scss'
 
 class CategoryTab extends React.Component {
     render() {
-        const { categoryId } = this.props
+        const { languageId, categoryId } = this.props
+
+        // not using context language since it might not be updated yet
+        const category = Object.values(CategoryLinks[languageId]).find(link => link.id == categoryId)
 
         return (
             <ContextConsumer>
                 { ({page}) => {
                     const language = page.language.get()
-                    const category = Object.values(CategoryLinks[language.id]).find(link => link.id == categoryId)
 
                     return (
                         <div className="category-tab">
