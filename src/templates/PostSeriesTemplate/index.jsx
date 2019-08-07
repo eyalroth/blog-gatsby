@@ -18,7 +18,7 @@ class PostSeriesTemplate extends React.Component {
 
       return (
         <PostList languageId={languageId} subtitle={seriesName} data={this.props.data}>
-          <CategoryTab languageId={languageId} categoryId={category}/>
+          <CategoryTab categoryId={category}/>
           {title}
         </PostList>
       )

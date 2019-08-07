@@ -1,0 +1,28 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.utterences-status {
+    text-align: center;
+
+    &.fail::before {
+        color: red;
+    }
+
+    @include english {
+        &.loading::before {
+            content: "Loading comments..."
+        }
+        &.fail::before {
+            content: "⚠️ Failed loading comments (no internet?) ⚠️"
+        }
+    }
+
+    @include hebrew {
+        &.loading::before {
+            content: "טוען תגובות..."
+        }
+        &.fail::before {
+            content: "⚠️תגובות נכשלו להטען (אין אינטרנט?) ⚠️"
+        }
+    }
+}

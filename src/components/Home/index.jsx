@@ -6,18 +6,13 @@ import ProfileImg from '../ProfileImg'
 import { Author } from '../../consts/author'
 import { SidebarLinks } from '../../consts/menuLinks'
 import './style.scss'
-import '../Layout/style.scss'
 
 class Home extends React.Component {
   render() {
     const { languageId } = this.props
 
     return (
-      <Page
-        languageId={languageId}
-        sidebarLinkId={SidebarLinks[languageId].Home.id}
-        renderSidebar={false}
-      >
+      <Page languageId={languageId}>
         {this.renderContent()}
       </Page>
     )
@@ -30,7 +25,7 @@ class Home extends React.Component {
 
     return (
       <div className="home">
-            <ProfileImg className="home__author-img" languageId={languageId}/>
+            <ProfileImg className="home__author-img" />
             <h1 className="home__author-title">
               {Author.name[languageId]}
             </h1>

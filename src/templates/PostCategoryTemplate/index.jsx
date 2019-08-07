@@ -13,15 +13,14 @@ class PostCategoryTemplate extends React.Component {
     function categoryHeader(){
       if (Object.keys(categories).length > 1) {
         return (
-            <div className="category-header">
-                <NavMenu
-                    id="blog-category"
-                    languageId={languageId}
-                    linkDescriptions={categories}
-                    classNamePrefix="category-header__menu"
-                    currentLinkId={categoryId}
-                />
-            </div>
+          <div className="category-header">
+              <NavMenu
+                  id="blog-category"
+                  linkDescriptions={categories}
+                  classNamePrefix="category-header__menu"
+                  currentLinkId={categoryId}
+              />
+          </div>
         )
       } else {
           return null

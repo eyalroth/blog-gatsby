@@ -18,9 +18,8 @@ class PostList extends React.Component {
 
         const item = (
           <PostListItem
-            languageId={languageId}
+            key={post.node.fields.slug}
             data={post}
-            key={post.node.fields.slug} 
             showYear={showYear}
           />
         )

@@ -1,46 +1,63 @@
 import React from "react"
 import isMatch from 'lodash/isMatch'
-import { Themes } from '../../consts/themes'
+import PageContextProvider from '../PageContextProvider'
+import ThemeContextProvider from '../ThemeContextProvider'
+import NavMenuContextProvider from '../NavMenuContextProvider'
 
-const defaultContextValue = {
-  data: {
-    languageId: null,
-    sidebar: {
-        isRendered: false,
-        linkId: null,
-    },
-    theme: Themes.Light
-  },
-  set: () => {},
-}
+const { Provider, Consumer } = React.createContext({})
 
-const { Provider, Consumer } = React.createContext(defaultContextValue)
+class ContextProvider extends React.Component {
+  constructor(props) {
+    super(props)
 
-class ContextProviderComponent extends React.Component {
-  constructor() {
-    super()
+    this.state = {}
 
-    this.setData = this.setData.bind(this)
-    this.state = {
-      ...defaultContextValue,
-      set: this.setData,
-    }
-  }
-
-  setData(newData) {
-    if (!isMatch(this.state.data, newData)) {
-        this.setState(state => ({
-          data: {
-              ...state.data,
-              ...newData,
-          },
-        }))
+    this.provided = {
+      page: new PageContextProvider(new StateManager(this)),
+      theme: new ThemeContextProvider(new StateManager(this)),
+      navMenu: new NavMenuContextProvider(),
     }
   }
 
   render() {
-    return <Provider value={this.state}>{this.props.children}</Provider>
+    return <Provider value={{...this.provided}}>{this.props.children}</Provider>
   }
+
 }
 
-export { Consumer as default, ContextProviderComponent }
+export { Consumer as default, ContextProvider }
+
+class StateManager {
+  constructor(provider) {
+    this.provider = provider
+    // we keep a local state and not using React's state because we want immediate state changes
+    this.state = {}
+  }
+
+  get(property) {
+    return this.state[property]
+  }
+
+  set(property, value) {
+    if (this.get(property) != value) {
+      this.state[property] = value
+      this.forceUpdate()
+    }
+  }
+
+  setBatch(newState) {
+    if (!isMatch(this.state, newState)) {
+      this.state = {
+        ...this.state,
+        ...newState
+      }
+      this.forceUpdate()
+    }
+  }
+
+  forceUpdate() {
+    // timeout since we don't want to update while in render
+    // we want an anonymous function so the update will be invoked for each set action
+    setTimeout(() => this.provider.forceUpdate(), 0)
+  }
+}

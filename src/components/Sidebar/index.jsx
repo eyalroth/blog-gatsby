@@ -124,14 +124,7 @@ class Sidebar extends React.Component {
   renderProfileImg() {
     return (
       <SidebarToggle main={true} menu={false} contact={true} {...this.state}>
-        <ContextConsumer>
-          {context => (
-            <ProfileImg
-              className="sidebar__author-img"
-              languageId={context.data.languageId}
-            />
-          )}
-        </ContextConsumer>
+        <ProfileImg className="sidebar__author-img"/>
       </SidebarToggle>
     )
   }
@@ -140,16 +133,16 @@ class Sidebar extends React.Component {
     return (
       <SidebarToggle main={true} menu={false} contact={false} {...this.state}>
         <ContextConsumer>
-          {context => (
+          {({page}) => (
             <span className="sidebar__author-title">
-              {Author.name[context.data.languageId]}
+              {Author.name[page.language.get().id]}
             </span>
           )}
         </ContextConsumer>
         <ContextConsumer>
-          {context => (
+          {({page}) => (
             <p className="sidebar__author-subtitle">
-              {Author.subtitle[context.data.languageId]}
+              {Author.subtitle[page.language.get().id]}
             </p>
           )}
         </ContextConsumer>
@@ -164,13 +157,12 @@ class Sidebar extends React.Component {
 
       return (
         <ContextConsumer>
-          {context => (
+          {({page}) => (
               <NavMenu
                 id={classNamePrefix}
-                languageId={context.data.languageId}
-                linkDescriptions={SidebarLinks[context.data.languageId]}
+                linkDescriptions={SidebarLinks[page.language.get().id]}
                 classNamePrefix={classNamePrefix}
-                currentLinkId={context.data.sidebar.linkId}
+                currentLinkId={page.sidebarLinkId.get()}
               />
           )}
         </ContextConsumer>

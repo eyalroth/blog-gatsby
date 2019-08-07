@@ -27,18 +27,13 @@ class ProgressBar extends React.Component {
     handleScroll() {
         const { innerHeight, scrollY } = window
 
-        // https://javascript.info/size-and-scroll-window#width-height-of-the-document
         const scrollHeight = Math.max(
-            document.body.scrollHeight,
             document.documentElement.scrollHeight,
-            document.body.offsetHeight,
             document.documentElement.offsetHeight,
-            document.body.clientHeight,
             document.documentElement.clientHeight
         )
         const ratio = scrollY / (scrollHeight - innerHeight)
-        const adjustedRatio = (ratio > 0.98) ? 1 : ratio 
-        const width = adjustedRatio * 100
+        const width = ratio * 100
 
         this.setState({width})
     }

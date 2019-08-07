@@ -46,7 +46,7 @@ $bg-color-dark: $color-dark-dp3;
     &__button {
         position: relative;
         display: inline-block;
-        z-index: 5;
+        outline: none;
 
         border: none;
         -webkit-font-smoothing: antialiased;

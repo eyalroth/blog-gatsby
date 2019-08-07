@@ -17,17 +17,11 @@
     .theme-light & {
         @content;
     }
-    &.theme-light {
-        @content;
-    }
 }
  
 @mixin dark {
     @include theme-transition;
     .theme-dark & {
-        @content;
-    }
-    &.theme-dark {
         @content;
     }
 }

@@ -1,56 +1,53 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { Languages } from '../../consts/languages'
-
-var lastUnderlineLinkId = {}
+import ContextConsumer from '../Context'
+import UpdatedOnResize from '../UpdatedOnResize'
 
 class NavMenu extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {reRender: false}
-
         this.underline = React.createRef()
         this.links = {}
 
         this.updateUnderline = this.updateUnderline.bind(this)
+        this.context = null
     }
 
     render() {
-      const _this = this
-      const { languageId, linkDescriptions, classNamePrefix } = this.props
-
-      if (this.state.reRender) {
-        setTimeout(() => _this.setState({reRender: false}), 0)
-        return null
-      }
-
-      function reRender() {
-        _this.setState({reRender: true})
-      }
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('resize', reRender)
-        window.addEventListener('resize', reRender, {once: true})
-      }
-      
       return (
-          <nav className={classNamePrefix}>
-              <ul className={`${classNamePrefix}-list`}>
-                  {Object.values(linkDescriptions).map(description => (
-                      <li 
-                          className={`${classNamePrefix}-list-item`}
-                          key={description.id}
-                      >
-                          {createLink(description)} 
-                      </li>
-                  ))}
-              </ul>
-              <Underline
-                ref={this.underline}
-                className={`${classNamePrefix}-underline`}
-                languageId={languageId}
-              />
-          </nav>
+        <UpdatedOnResize onRerender={this.updateUnderline} onAnyResize={this.updateUnderline}>
+          <ContextConsumer>
+            {context => this.renderWithContext(context)}
+          </ContextConsumer>
+        </UpdatedOnResize>
+      )
+    }
+
+    renderWithContext(context) {
+      this.context = context
+
+      const _this = this
+      const { linkDescriptions, classNamePrefix } = this.props
+
+      return (
+        <nav className={classNamePrefix}>
+            <ul className={`${classNamePrefix}-list`}>
+                {Object.values(linkDescriptions).map(description => (
+                    <li 
+                        className={`${classNamePrefix}-list-item`}
+                        key={description.id}
+                    >
+                        {createLink(description)} 
+                    </li>
+                ))}
+            </ul>
+            <Underline
+              ref={this.underline}
+              className={`${classNamePrefix}-underline`}
+              language={context.page.language.get()}
+            />
+        </nav>
       )
 
       function createLink(linkDescription) {
@@ -79,6 +76,7 @@ class NavMenu extends React.Component {
       this.updateUnderline()
     }
 
+    
     updateUnderline() {
       const { currentLinkId } = this.props
       const currentLink = this.links[currentLinkId]
@@ -97,11 +95,11 @@ class NavMenu extends React.Component {
     }
 
     getLastUnderlineLinkId() {
-      return lastUnderlineLinkId[this.props.id]
+      return this.context.navMenu.getLastUnderlineLinkId(this.props.id)
     }
     
     setLastUnderlineLinkId(id) {
-      lastUnderlineLinkId[this.props.id] = id
+      this.context.navMenu.setLastUnderlineLinkId(this.props.id, id)
     }
 }
 
@@ -116,12 +114,11 @@ class Underline extends React.Component {
         callback: null
       }
       this.underline = null
-      const language = Object.values(Languages).find(lang => lang.id == this.props.languageId)
-      this.ltr = language.ltr
 
       this.moveTo = this.moveTo.bind(this)
       this.shift = this.shift.bind(this)
       this.parentRect = this.parentRect.bind(this)
+      this.pctOfParent = this.pctOfParent.bind(this)
     }
 
     render() {
@@ -136,7 +133,7 @@ class Underline extends React.Component {
       }
 
       return (
-        <div ref={underlineRendered} className={this.props.className} style={this.state.style}/>
+          <div ref={underlineRendered} className={this.props.className} style={this.state.style}/>
       )
     }
 
@@ -148,14 +145,14 @@ class Underline extends React.Component {
     }
 
     moveTo(link) {
-      const {left: parentX, width: parentWidth} = this.parentRect()
+      const { left: parentX, width: parentWidth } = this.parentRect()
       const { left: toX, width } = link.getBoundingClientRect()
 
       const position = {}
-      if (this.ltr) {
-        position.left = toX - parentX
+      if (this.props.language.ltr) {
+        position.left = this.pctOfParent(toX - parentX)
       } else {
-        position.right = parentX + parentWidth - (toX + width) 
+        position.right = this.pctOfParent(parentX + parentWidth - (toX + width))
       }
 
       this.setStyle({
@@ -171,19 +168,19 @@ class Underline extends React.Component {
       const { left: toX, width: toWidth } = to.getBoundingClientRect()
 
       const position = {}
-      if (this.ltr) {
+      if (this.props.language.ltr) {
         position.initial = {
-          left: fromX - parentX,
+          left: this.pctOfParent(fromX - parentX),
         }
         position.transitioned = {
-          left: toX - parentX,
+          left: this.pctOfParent(toX - parentX),
         }
       } else {
         position.initial = {
-          right: parentX + parentWidth - (fromX + fromWidth),
+          right: this.pctOfParent(parentX + parentWidth - (fromX + fromWidth)),
         }
         position.transitioned = {
-          right: parentX + parentWidth - (toX + toWidth),
+          right: this.pctOfParent(parentX + parentWidth - (toX + toWidth)),
         }
       }
 
@@ -204,5 +201,9 @@ class Underline extends React.Component {
 
     parentRect() {
       return this.underline.parentElement.getBoundingClientRect()
+    }
+
+    pctOfParent(x) {
+      return `${x / this.parentRect().width * 100}%`
     }
 }

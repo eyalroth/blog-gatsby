@@ -1,28 +1,21 @@
 import React from 'react'
-import { instanceOf } from 'prop-types'
-import { withCookies, Cookies } from 'react-cookie'
 import ContextConsumer from '../Context'
 import { Themes } from '../../consts/themes'
 
 class ThemeButton extends React.Component {
-    static propTypes = {
-        cookies: instanceOf(Cookies).isRequired
-    }
 
     render() {
-        const _this = this
-
         return (
             <ContextConsumer>
-                {context => (
-                    <button className={this.props.className} onClick={() => toggleTheme(context)}>
+                {({theme}) => (
+                    <button className={this.props.className} onClick={() => toggleTheme(theme)}>
                         <i title="Toggle theme" className="icon-moon-inv" />
                     </button>
                 )}
             </ContextConsumer>
         )
 
-        function toggleTheme(context) {
+        function toggleTheme(theme) {
             const newTheme = (function(theme) {
                 switch(theme) {
                     case Themes.Light:
@@ -30,14 +23,11 @@ class ThemeButton extends React.Component {
                     case Themes.Dark:
                         return Themes.Light
                 }
-            })(context.data.theme)
+            })(theme.get())
 
-            _this.props.cookies.set('theme', newTheme.id, { path: '/' })
-
-            context.set({theme: newTheme})
+            theme.set(newTheme)
         }
     }
-
 }
 
-export default withCookies(ThemeButton)
+export default ThemeButton

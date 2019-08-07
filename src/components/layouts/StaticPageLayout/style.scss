@@ -1,0 +1,11 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
+
+.page-container {
+    @include dark {
+        background-color: $color-dark-dp0;
+    }
+    @include light {
+        background-color: $color-light-dp3;
+    }
+}

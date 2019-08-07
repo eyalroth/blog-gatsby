@@ -15,3 +15,17 @@
         @content;
     }
 }
+
+@mixin english {
+    .english & {
+        direction: ltr;
+        @content;
+    }
+}
+
+@mixin hebrew {
+    .hebrew & {
+        direction: rtl;
+        @content;
+    }
+}

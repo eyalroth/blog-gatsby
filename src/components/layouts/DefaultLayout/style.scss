@@ -1,9 +1,5 @@
-@import "../../assets/scss/variables";
-@import "../../assets/scss/mixins";
-
-html {
-    overflow-y: scroll;
-}
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
 
 .page-container {
     position: relative;
