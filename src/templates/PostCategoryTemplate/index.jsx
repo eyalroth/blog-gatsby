@@ -1,35 +1,15 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import PostList from '../../components/PostList'
-import NavMenu from '../../components/NavMenu'
-import { CategoryLinks } from '../../consts/menuLinks'
-import './style.scss'
+import CategoryMenu from '../../components/CategoryMenu'
 
 class PostCategoryTemplate extends React.Component {
   render() {
     const { languageId, categoryId, categoryLabel } = this.props.pageContext
-    const categories = CategoryLinks[languageId]
-
-    function categoryHeader(){
-      if (Object.keys(categories).length > 1) {
-        return (
-          <div className="category-header">
-              <NavMenu
-                  id="blog-category"
-                  linkDescriptions={categories}
-                  classNamePrefix="category-header__menu"
-                  currentLinkId={categoryId}
-              />
-          </div>
-        )
-      } else {
-          return null
-      }
-    }
 
     return (
       <PostList languageId={languageId} subtitle={categoryLabel} data={this.props.data}>
-        {categoryHeader()}
+        <CategoryMenu categoryId={categoryId} />
       </PostList>
     )
   }

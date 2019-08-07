@@ -2,11 +2,9 @@
 @import "../../assets/scss/mixins";
 
 .post-item {
+    margin-top: 1rem;
     @include rtl {
         text-align: right;
-    }
-    &:not(:first-child) {
-        margin-top: 1rem;
     }
 
     &__year {
@@ -91,6 +89,7 @@
     .post-item {
         display: flex;
         justify-content: flex-start;
+        margin-top: unset;
 
         &__year {
             display: block;

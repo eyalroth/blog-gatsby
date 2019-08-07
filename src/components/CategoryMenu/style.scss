@@ -1,0 +1,107 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.category-menu {
+    position: relative;
+    margin-top: 5px;
+    
+    &-list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 5px;
+
+        @include light {
+            border-top: 1px solid rgba(0,0,0,0.15);
+            border-bottom: 1px solid rgba(0,0,0,0.15);
+        }
+        @include dark {
+            border-top: 1px solid rgba(255,255,255,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        padding-top: 4px;
+        padding-bottom: 10px;
+        
+        &-item {
+            z-index: 2;
+            margin: 0 0.2rem;
+            &-link {
+                font-size: $typographic-base-font-size * 0.8;
+                font-weight: 400;
+                border: 0;
+                text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
+
+                @include text-normal;
+            }
+        }
+    }
+
+    &-underline {
+        display: block;
+        position: absolute;
+        z-index: 1;
+
+        top: 0.4rem;
+        height: 1.7rem;
+        padding: 0px 6px;
+        border-radius: 6px;
+
+        @include light {
+            box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3);
+        }
+        @include dark {
+            background-color: $color-dark-dp6;
+        }
+
+
+        @include ltr {
+            margin-left: -4px;
+            @include theme-transition(" 
+                left 0.3s ease-out,
+                width 0.15s ease-out,
+            ");
+        }
+        @include rtl {
+            margin-right: -6px;
+            @include theme-transition(" 
+                right 0.3s ease-out,
+                width 0.15s ease-out,
+            ");
+        }
+    }
+}
+@include breakpoint-md {
+    .category-menu {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+
+        &-list {
+            padding-top: 0.8rem;
+            padding-bottom: 1rem;
+
+            &-item {
+                margin: 0 2rem;
+                &-link {
+                    font-size: $typographic-base-font-size;
+                }
+            }
+        }
+
+        &-underline {
+            top: 0.5rem;
+            height: 2.3rem;
+            padding: 0px 12px;
+
+            @include ltr {
+                margin-left: -8px;
+            }
+            @include rtl {
+                margin-right: -10px;
+            }
+        }
+    }
+}

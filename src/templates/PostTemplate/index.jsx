@@ -6,7 +6,7 @@ import Utterences from '../../components/Utterances'
 import Page from '../../components/Page'
 import { Languages } from '../../consts/languages'
 import { SidebarLinks } from '../../consts/menuLinks'
-import CategoryTab from '../../components/CategoryTab'
+import CategoryMenu from '../../components/CategoryMenu'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
@@ -21,8 +21,8 @@ class PostTemplate extends React.Component {
     const readingTime = post.fields.readingTime
     const url = this.props.location.href
 
-    const categoryTab = (
-      <CategoryTab categoryId={category}/>
+    const categoryMenu = (
+      <CategoryMenu categoryId={category}/>
     )
 
     const titleBlock = (
@@ -120,7 +120,7 @@ class PostTemplate extends React.Component {
     return (
       <Page languageId={languageId} subtitle={title} sidebarLinkId={SidebarLinks[languageId].Blog.id}>
         <div className="post-single">
-          {categoryTab}
+          {categoryMenu}
           {header}
           {mobileShare}
           {seriesBox}

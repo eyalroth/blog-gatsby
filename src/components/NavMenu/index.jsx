@@ -83,8 +83,8 @@ class NavMenu extends React.Component {
       const underline = this.underline.current
 
       if (currentLink) {
-        if (this.getLastUnderlineLinkId() && this.getLastUnderlineLinkId() != currentLinkId) {
-          const lastLink = this.links[this.getLastUnderlineLinkId()]
+        const lastLink = this.links[this.getLastUnderlineLinkId()]
+        if (lastLink && lastLink.id != currentLinkId) {
           underline.shift({from: lastLink, to: currentLink})
         } else {
           underline.moveTo(currentLink)
