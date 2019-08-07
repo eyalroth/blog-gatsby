@@ -14,6 +14,8 @@ $shadow-height: 4px;
 
 $button-size: $img-size-base * 1.5;
 
+$base-zindex: 3;
+
 @mixin button {
     height: $button-size;
     width: $button-size;
@@ -34,7 +36,7 @@ $button-size: $img-size-base * 1.5;
     position: fixed;
     display: flex;
     
-    z-index: 1;
+    z-index: $base-zindex;
     top: 0;
     height: $topbar-height - $shadow-height;
 
@@ -141,7 +143,7 @@ $button-size: $img-size-base * 1.5;
 
         &.visible {
             @include enabled {
-                z-index: 1;
+                z-index: $base-zindex;
             }
             @include disabled {
                 width: 0;
@@ -174,7 +176,7 @@ $button-size: $img-size-base * 1.5;
             }
         }
 
-        &-underline {
+        &-slider {
             &.visible {
                 visibility: hidden;
             }
@@ -355,7 +357,7 @@ $button-size: $img-size-base * 1.5;
                 }
             }
 
-            &-underline {
+            &-slider {
                 &.visible {
                     visibility: unset;
                 }

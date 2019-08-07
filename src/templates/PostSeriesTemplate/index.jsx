@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import PostList from '../../components/PostList'
-import CategoryTab from '../../components/CategoryTab'
+import CategoryMenu from '../../components/CategoryMenu'
 import './style.scss'
 
 class PostSeriesTemplate extends React.Component {
@@ -18,7 +18,7 @@ class PostSeriesTemplate extends React.Component {
 
       return (
         <PostList languageId={languageId} subtitle={seriesName} data={this.props.data}>
-          <CategoryTab categoryId={category}/>
+          <CategoryMenu categoryId={category}/>
           {title}
         </PostList>
       )
