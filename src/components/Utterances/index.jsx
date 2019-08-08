@@ -9,34 +9,25 @@ const branch = 'master'
 class Utterances extends React.Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      theme: null,
-      loadingScript: true,
-    }
-
+    
     this.rootElm = React.createRef()
+    this.theme = null
     this.scripts = {}
+
+    this.updateClassName = this.updateClassName.bind(this)
   }
 
   render() {
-    let status = "loading"
-    if (!this.state.loadingScript) {
-      status = (this.scripts[this.state.theme.id]) ? "success" : "fail"
-    }
-
     return (
       <ContextConsumer>
         {context => {
-          const _this = this
           const theme = context.theme.get()
-          if(this.state.theme != theme) {
-            setTimeout(() => _this.setState({theme}), 0)
+          if (theme != this.theme) {
+            this.theme = theme
+            setTimeout(() => this.forceUpdate(), 0)
           }
           return (
-            <div className="utterances" ref={this.rootElm}>
-              <div className={`utterances-status ${status}`}/>
-            </div>
+            <div ref={this.rootElm}/>
           )
         }}
       </ContextConsumer>
@@ -51,28 +42,26 @@ class Utterances extends React.Component {
     this.loadScript()
   }
 
+  updateClassName(status) {
+    this.rootElm.current.className = `utterances ${status}`
+  }
+
   loadScript() {
     const { repo } = this.props
-    const theme = this.state.theme
 
-    if (theme) {
-      if (!(theme.id in this.scripts)) {
-        if (!this.state.loadingScript) {
-          this.setState({loadingScript: true})
-        } else {
-          const script = this.createScript(repo, theme)
-          const existingScript = Array.from(this.rootElm.current.children).find(elem => elem.id == script.id)
-          if (existingScript) {
-            this.rootElm.current.removeChild(existingScript)
-          }
-          this.rootElm.current.appendChild(script)
+    if (this.theme) {
+      if (!(this.theme.id in this.scripts)) {
+        this.updateClassName("loading")
+        const script = this.createScript(repo, this.theme)
+        const existingScript = Array.from(this.rootElm.current.children).find(elem => elem.id == script.id)
+        if (existingScript) {
+          this.rootElm.current.removeChild(existingScript)
         }
+        this.rootElm.current.appendChild(script)
       }
 
       Array.from(this.rootElm.current.children).forEach(elem => {
-        if (elem.id in this.scripts) {
-          elem.style.display = (elem.id == theme.id) ? 'block' : 'none'
-        }
+        elem.style.display = (elem.id == this.theme.id) ? 'block' : 'none'
       });
     }
   }
@@ -110,9 +99,7 @@ class Utterances extends React.Component {
 
   scriptLoaded(themeId, success) {
     this.scripts[themeId] = success
-    this.setState({
-      loadingScript: false,
-    })
+    this.updateClassName(success ? "success" : "fail")
   }
 }
 
