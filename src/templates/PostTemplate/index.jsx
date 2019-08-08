@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
-import Utterences from '../../components/Utterances'
+import Utterances from '../../components/Utterances'
 import Page from '../../components/Page'
 import { Languages } from '../../consts/languages'
 import { SidebarLinks } from '../../consts/menuLinks'
@@ -108,7 +108,7 @@ class PostTemplate extends React.Component {
     const seriesBox = <PostSeriesBox series={series}/>
 
     const commentsBlock = (
-        <Utterences repo={utterances} />
+        <Utterances repo={utterances} />
     )
 
     const footer = (

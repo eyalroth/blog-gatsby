@@ -6,7 +6,7 @@ import './style.scss'
 const src = 'https://utteranc.es/client.js'
 const branch = 'master'
 
-class Utterences extends React.Component {
+class Utterances extends React.Component {
   constructor(props) {
     super(props)
 
@@ -34,8 +34,8 @@ class Utterences extends React.Component {
             setTimeout(() => _this.setState({theme}), 0)
           }
           return (
-            <div className="utterences" ref={this.rootElm}>
-              <div className={`utterences-status ${status}`}/>
+            <div className="utterances" ref={this.rootElm}>
+              <div className={`utterances-status ${status}`}/>
             </div>
           )
         }}
@@ -60,7 +60,12 @@ class Utterences extends React.Component {
         if (!this.state.loadingScript) {
           this.setState({loadingScript: true})
         } else {
-          this.rootElm.current.appendChild(this.createScript(repo, theme))
+          const script = this.createScript(repo, theme)
+          const existingScript = Array.from(this.rootElm.current.children).find(elem => elem.id == script.id)
+          if (existingScript) {
+            this.rootElm.current.removeChild(existingScript)
+          }
+          this.rootElm.current.appendChild(script)
         }
       }
 
@@ -111,4 +116,4 @@ class Utterences extends React.Component {
   }
 }
 
-export default Utterences
+export default Utterances
