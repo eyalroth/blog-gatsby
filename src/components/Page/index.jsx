@@ -32,10 +32,6 @@ class Page extends React.Component {
             </ContextConsumer>
         ])
     }
-
-    componentDidMount() {
-        
-    }
 }
 
 export default Page
