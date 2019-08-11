@@ -15,7 +15,7 @@ class NavMenu extends React.Component {
 
     render() {
       const _this = this
-      const { linkDescriptions, classNamePrefix } = this.props
+      const { currentLinkId, linkDescriptions, classNamePrefix } = this.props
 
       return (
         <UpdatedOnResize onRerender={this.updateSlider} onAnyResize={this.updateSlider}>
@@ -40,21 +40,23 @@ class NavMenu extends React.Component {
       )
 
       function createLink(linkDescription) {
-          return (
-            <Link
-              id={`${classNamePrefix}-${linkDescription.id}`}
-              ref={em => {
-                _this.links[linkDescription.id] = em
-              }}
-              to={linkDescription.path}
-              className={`${classNamePrefix}-list-item-link`}
-            >
-              {(linkDescription.icon) ? <i className={linkDescription.icon} /> : null}
-              {(linkDescription.icon) ? <span>{" "}</span> : null}
-              {linkDescription.label}
-            </Link>
-          )
-        }
+        const selectClass = (linkDescription.id == currentLinkId) ? "selected" : "unselected"
+
+        return (
+          <Link
+            id={`${classNamePrefix}-${linkDescription.id}`}
+            ref={em => {
+              _this.links[linkDescription.id] = em
+            }}
+            to={linkDescription.path}
+            className={`${classNamePrefix}-list-item-link ${selectClass}`}
+          >
+            {(linkDescription.icon) ? <i className={linkDescription.icon} /> : null}
+            {(linkDescription.icon) ? <span>{" "}</span> : null}
+            {linkDescription.label}
+          </Link>
+        )
+      }
     }
 
     componentDidMount() {
