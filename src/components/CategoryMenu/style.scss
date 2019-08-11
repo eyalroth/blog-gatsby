@@ -1,12 +1,23 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
+@mixin shift($shift) {
+    @include ltr {
+        left: $shift;
+    }
+    @include rtl {
+        right: $shift;
+    }
+}
+
 .category-menu {
     position: relative;
     width: 100vw;
-    left: calc((100vw - #{$content-width-base}) / -2);
+    
     margin-top: 0.7rem;
     margin-bottom: 1rem;
+
+    left: calc((100vw - #{$content-width-base}) / -2);
     
     &-list {
         display: flex;
@@ -57,12 +68,20 @@
     }
 }
 
+@include breakpoint($max-content-width) {
+    .category-menu {
+        left: calc((100vw - #{$max-content-width}) / -2);
+    }
+}
+
 @include breakpoint-md {
     .category-menu {
+        width: $sidebar-side-margin-md;
+
         margin-top: 1.5rem;
         margin-bottom: 1rem;
-        left: -$content-side-padding-md;
-        width: $sidebar-side-margin-md;
+
+        @include shift(-$content-side-padding-md);
 
         &-list {
             padding: 1rem 0;
@@ -79,16 +98,16 @@
 
 @include breakpoint-xmd {
     .category-menu {
-        $bg-margin-left: calc((100vw - #{$bg-width}) / 2);
-        left: calc(#{$content-side-padding-xmd} * -1 + #{$bg-margin-left});
-        width: calc(#{$sidebar-side-margin-xmd} - #{$bg-margin-left});
+        $bg-side-margin: calc((100vw - #{$bg-width}) / 2);
+        width: calc(#{$sidebar-side-margin-xmd} - #{$bg-side-margin});
+        @include shift(calc(#{$content-side-padding-xmd} * -1 + #{$bg-side-margin}));
     }
 }
 
 @include breakpoint-lg {
     .category-menu {
-        $bg-margin-left: round(($max-layout-width - $bg-width) / 2);
-        left: $content-side-padding-lg * -1 + $bg-margin-left;
-        width: $sidebar-side-margin-lg - $bg-margin-left;
+        $bg-side-margin: round(($max-layout-width - $bg-width) / 2);
+        width: $sidebar-side-margin-lg - $bg-side-margin;
+        @include shift($content-side-padding-lg * -1 + $bg-side-margin);
     }
 }
