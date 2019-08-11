@@ -2,26 +2,18 @@ import React from 'react'
 import { Link } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
-import ContextConsumer from '../../components/Context'
+import Context from '../../components/Context'
 import Toggle from '../Toggle'
 import { Languages } from '../../consts/languages'
 import './style.scss'
 
 class PostListItem extends React.Component {
   render() {
-    return (
-      <ContextConsumer>
-        {({page}) => this.renderWithLanguage(page.language.get())}
-      </ContextConsumer>
-    )
-  }
-
-  renderWithLanguage(language) {
-
     const { showYear } = this.props
     const { title, date, tags, } = this.props.data.node.frontmatter
     const { slug, readingTime } = this.props.data.node.fields
-
+    const language = this.context.page.language.get()
+    
     const readingTimeText = (function(lang) {
       switch(lang) {
           case Languages.English:
@@ -110,5 +102,7 @@ class PostListItem extends React.Component {
     )
   }
 }
+
+PostListItem.contextType = Context
 
 export default PostListItem

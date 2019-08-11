@@ -1,6 +1,6 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import ContextConsumer from '../../components/Context'
+import Context from '../../components/Context'
 import { Languages } from '../../consts/languages'
 import { Author } from '../../consts/author'
 
@@ -21,17 +21,15 @@ class Page extends React.Component {
 
         const language = Object.values(Languages).find(lang => lang.id ==  this.props.languageId)
 
+        this.context.page.set(language, this.props.sidebarLinkId)
         
         return ([
             helmet,
-            <ContextConsumer key="content">
-                {({page}) => {
-                    page.set(language, this.props.sidebarLinkId)
-                    return this.props.children
-                }}
-            </ContextConsumer>
+            this.props.children
         ])
     }
 }
+
+Page.contextType = Context
 
 export default Page

@@ -1,5 +1,5 @@
 import React from 'react'
-import ContextConsumer from '../Context'
+import Context from '../Context'
 import { Themes } from '../../consts/themes'
 import './style.scss'
 
@@ -18,19 +18,15 @@ class Utterances extends React.Component {
   }
 
   render() {
+    const theme = this.context.theme.get()
+
+    if (theme != this.theme) {
+      this.theme = theme
+      setTimeout(() => this.forceUpdate(), 0)
+    }
+
     return (
-      <ContextConsumer>
-        {context => {
-          const theme = context.theme.get()
-          if (theme != this.theme) {
-            this.theme = theme
-            setTimeout(() => this.forceUpdate(), 0)
-          }
-          return (
-            <div ref={this.rootElm}/>
-          )
-        }}
-      </ContextConsumer>
+      <div ref={this.rootElm}/>
     )
   }
 
@@ -102,5 +98,7 @@ class Utterances extends React.Component {
     this.updateClassName(success ? "success" : "fail")
   }
 }
+
+Utterances.contextType = Context
 
 export default Utterances

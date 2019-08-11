@@ -1,5 +1,5 @@
 import React from 'react'
-import ContextConsumer, { ContextProvider } from '../../Context'
+import Context from '../../Context'
 import DefaultLayout from '../DefaultLayout'
 import StaticPageLayout from '../StaticPageLayout'
 import { Languages } from '../../../consts/languages'
@@ -12,45 +12,33 @@ class Layout extends React.Component {
     super(props)
 
     this.divRef = React.createRef()
-    this.theme = null
-    this.language = null
   }
 
   render() {
     const { children } = this.props
+    const { page } = this.context
+
+    if (!page.language.get()) {
+      page.set(Languages.English, null)
+    }
+
+    let childrenWithLayout = (
+      <DefaultLayout>
+        {children}
+      </DefaultLayout>
+    )
+    if (this.props.isStaticPage) {
+      childrenWithLayout = (
+        <StaticPageLayout>
+          {children}
+        </StaticPageLayout>
+      )
+    }
 
     return (
-      <ContextProvider>
-          <ContextConsumer>
-            {({page, theme}) => {
-              let childrenWithLayout = (
-                <DefaultLayout>
-                  {children}
-                </DefaultLayout>
-              )
-              if (this.props.isStaticPage) {
-                childrenWithLayout = (
-                  <StaticPageLayout>
-                    {children}
-                  </StaticPageLayout>
-                )
-              }
-
-              if (!page.language.get()) {
-                page.set(Languages.English, null)
-              }
-
-              this.theme = theme.get()
-              this.language = page.language.get()
-
-              return (
-                <div ref={this.divRef} className={this.className()}>
-                  {childrenWithLayout}
-                </div>
-              )
-            }}
-          </ContextConsumer>
-      </ContextProvider>
+      <div ref={this.divRef} className={this.className()}>
+        {childrenWithLayout}
+      </div>
     )
   }
 
@@ -59,9 +47,14 @@ class Layout extends React.Component {
   }
 
   className() {
-    return `global-container ${this.theme.cssClass} ${this.language.cssClass}`
+    const theme = this.context.theme.get()
+    const language = this.context.page.language.get()
+
+    return `global-container ${theme.cssClass} ${language.cssClass}`
   }
 }
   
+Layout.contextType = Context
+
 export default Layout
   
