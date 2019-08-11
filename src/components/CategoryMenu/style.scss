@@ -3,7 +3,10 @@
 
 .category-menu {
     position: relative;
-    margin-top: 5px;
+    width: 100vw;
+    left: calc((100vw - #{$content-width-base}) / -2);
+    margin-top: 0.7rem;
+    margin-bottom: 1rem;
     
     &-list {
         display: flex;
@@ -12,7 +15,6 @@
         list-style: none;
         padding: 0;
         margin: 0;
-        margin-bottom: 5px;
 
         @include light {
             border-top: 1px solid rgba(0,0,0,0.15);
@@ -74,10 +76,19 @@
         }
     }
 }
+
+@include breakpoint-sm {
+    .category-menu {
+        left: calc((100vw - #{$content-width-sm}) / -2);
+    }
+}
+
 @include breakpoint-md {
     .category-menu {
-        margin-top: 1rem;
+        margin-top: 1.5rem;
         margin-bottom: 1rem;
+        left: -$content-side-padding-md;
+        width: $sidebar-side-margin-md;
 
         &-list {
             padding-top: 0.8rem;
@@ -103,5 +114,21 @@
                 margin-right: -10px;
             }
         }
+    }
+}
+
+@include breakpoint-xmd {
+    .category-menu {
+        $bg-margin-left: calc((100vw - #{$bg-width}) / 2);
+        left: calc(#{$content-side-padding-xmd} * -1 + #{$bg-margin-left});
+        width: calc(#{$sidebar-side-margin-xmd} - #{$bg-margin-left});
+    }
+}
+
+@include breakpoint-lg {
+    .category-menu {
+        $bg-margin-left: round(($max-layout-width - $bg-width) / 2);
+        left: $content-side-padding-lg * -1 + $bg-margin-left;
+        width: $sidebar-side-margin-lg - $bg-margin-left;
     }
 }

@@ -10,14 +10,12 @@ class CategoryMenu extends React.Component {
     const { page } = this.context
 
     return (
-        <div className="category-menu">
-            <NavMenu
-                id="category"
-                linkDescriptions={CategoryLinks[page.language.get().id]}
-                classNamePrefix="category-menu"
-                currentLinkId={categoryId}
-            />
-        </div>
+      <NavMenu
+          id="category"
+          linkDescriptions={CategoryLinks[page.language.get().id]}
+          classNamePrefix="category-menu"
+          currentLinkId={categoryId}
+      />
     )
   }
 }
