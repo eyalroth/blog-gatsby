@@ -38,13 +38,14 @@
         @include text-medium;
     }
     &__tags {
-        @include text-color(darken(#5d93ff, 10%), darken(#5d93ff, 7%));
+        opacity: 0.9;
+        @include text-color(darken(#5d93ff, 10%), darken(#5d93ff, 5%));
         @include rtl {
             margin-left: auto;
             margin-right: 0;
         }
         &-list {
-            @include margin-top(0.15);
+            @include margin-top(0.2);
             @include margin-bottom(0.15);
             padding: 0;
             @include ltr {
@@ -83,9 +84,6 @@
                     @include line-height(1.5);
                 }
             }
-        }
-        & a {
-            text-decoration: underline;
         }
         & .gatsby-highlight {
             direction: ltr;

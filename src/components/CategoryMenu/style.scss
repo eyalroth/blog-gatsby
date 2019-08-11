@@ -1,9 +1,23 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
+@mixin shift($shift) {
+    @include ltr {
+        left: $shift;
+    }
+    @include rtl {
+        right: $shift;
+    }
+}
+
 .category-menu {
     position: relative;
-    margin-top: 5px;
+    width: 100vw;
+    
+    margin-top: 0.7rem;
+    margin-bottom: 1rem;
+
+    left: calc((100vw - #{$content-width-base}) / -2);
     
     &-list {
         display: flex;
@@ -12,7 +26,6 @@
         list-style: none;
         padding: 0;
         margin: 0;
-        margin-bottom: 5px;
 
         @include light {
             border-top: 1px solid rgba(0,0,0,0.15);
@@ -24,7 +37,7 @@
         }
 
         padding-top: 4px;
-        padding-bottom: 10px;
+        padding-bottom: 7px;
         
         &-item {
             z-index: 2;
@@ -35,53 +48,43 @@
                 border: 0;
                 text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
 
-                @include text-normal;
+                @include text-icon-inactive;
+
+                &.selected {
+                    @include text-icon-active;
+                }
             }
         }
     }
 
     &-slider {
-        display: block;
-        position: absolute;
-        z-index: 1;
-
-        top: 0.4rem;
-        height: 1.7rem;
-        padding: 0px 6px;
-        border-radius: 6px;
-
-        @include light {
-            box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3);
-        }
-        @include dark {
-            background-color: $color-dark-dp6;
-        }
-
-
-        @include ltr {
-            margin-left: -4px;
-            @include theme-transition(" 
-                left 0.3s ease-out,
-                width 0.15s ease-out,
-            ");
-        }
-        @include rtl {
-            margin-right: -6px;
-            @include theme-transition(" 
-                right 0.3s ease-out,
-                width 0.15s ease-out,
-            ");
-        }
+        display: none;
     }
 }
+
+@include breakpoint-sm {
+    .category-menu {
+        left: calc((100vw - #{$content-width-sm}) / -2);
+    }
+}
+
+@include breakpoint($max-content-width) {
+    .category-menu {
+        left: calc((100vw - #{$max-content-width}) / -2);
+    }
+}
+
 @include breakpoint-md {
     .category-menu {
-        margin-top: 1rem;
+        width: $sidebar-side-margin-md;
+
+        margin-top: 1.5rem;
         margin-bottom: 1rem;
 
+        @include shift(-$content-side-padding-md);
+
         &-list {
-            padding-top: 0.8rem;
-            padding-bottom: 1rem;
+            padding: 1rem 0;
 
             &-item {
                 margin: 0 2rem;
@@ -90,18 +93,21 @@
                 }
             }
         }
+    }
+}
 
-        &-slider {
-            top: 0.5rem;
-            height: 2.3rem;
-            padding: 0px 12px;
+@include breakpoint-xmd {
+    .category-menu {
+        $bg-side-margin: calc((100vw - #{$bg-width}) / 2);
+        width: calc(#{$sidebar-side-margin-xmd} - #{$bg-side-margin});
+        @include shift(calc(#{$content-side-padding-xmd} * -1 + #{$bg-side-margin}));
+    }
+}
 
-            @include ltr {
-                margin-left: -8px;
-            }
-            @include rtl {
-                margin-right: -10px;
-            }
-        }
+@include breakpoint-lg {
+    .category-menu {
+        $bg-side-margin: round(($max-layout-width - $bg-width) / 2);
+        width: $sidebar-side-margin-lg - $bg-side-margin;
+        @include shift($content-side-padding-lg * -1 + $bg-side-margin);
     }
 }

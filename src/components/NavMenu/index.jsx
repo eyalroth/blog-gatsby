@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import ContextConsumer from '../Context'
+import Context from '../Context'
 import UpdatedOnResize from '../UpdatedOnResize'
 
 class NavMenu extends React.Component {
@@ -11,61 +11,52 @@ class NavMenu extends React.Component {
         this.links = {}
 
         this.updateSlider = this.updateSlider.bind(this)
-        this.context = null
     }
 
     render() {
+      const _this = this
+      const { currentLinkId, linkDescriptions, classNamePrefix } = this.props
+
       return (
         <UpdatedOnResize onRerender={this.updateSlider} onAnyResize={this.updateSlider}>
-          <ContextConsumer>
-            {context => this.renderWithContext(context)}
-          </ContextConsumer>
+          <nav className={classNamePrefix}>
+              <ul className={`${classNamePrefix}-list`}>
+                  {Object.values(linkDescriptions).map(description => (
+                      <li 
+                          className={`${classNamePrefix}-list-item`}
+                          key={description.id}
+                      >
+                          {createLink(description)} 
+                      </li>
+                  ))}
+              </ul>
+              <Slider
+                ref={this.slider}
+                className={`${classNamePrefix}-slider`}
+                language={this.context.page.language.get()}
+              />
+          </nav>
         </UpdatedOnResize>
-      )
-    }
-
-    renderWithContext(context) {
-      this.context = context
-
-      const _this = this
-      const { linkDescriptions, classNamePrefix } = this.props
-
-      return (
-        <nav className={classNamePrefix}>
-            <ul className={`${classNamePrefix}-list`}>
-                {Object.values(linkDescriptions).map(description => (
-                    <li 
-                        className={`${classNamePrefix}-list-item`}
-                        key={description.id}
-                    >
-                        {createLink(description)} 
-                    </li>
-                ))}
-            </ul>
-            <Slider
-              ref={this.slider}
-              className={`${classNamePrefix}-slider`}
-              language={context.page.language.get()}
-            />
-        </nav>
       )
 
       function createLink(linkDescription) {
-          return (
-            <Link
-              id={`${classNamePrefix}-${linkDescription.id}`}
-              ref={em => {
-                _this.links[linkDescription.id] = em
-              }}
-              to={linkDescription.path}
-              className={`${classNamePrefix}-list-item-link`}
-            >
-              {(linkDescription.icon) ? <i className={linkDescription.icon} /> : null}
-              {(linkDescription.icon) ? <span>{" "}</span> : null}
-              {linkDescription.label}
-            </Link>
-          )
-        }
+        const selectClass = (linkDescription.id == currentLinkId) ? "selected" : "unselected"
+
+        return (
+          <Link
+            id={`${classNamePrefix}-${linkDescription.id}`}
+            ref={em => {
+              _this.links[linkDescription.id] = em
+            }}
+            to={linkDescription.path}
+            className={`${classNamePrefix}-list-item-link ${selectClass}`}
+          >
+            {(linkDescription.icon) ? <i className={linkDescription.icon} /> : null}
+            {(linkDescription.icon) ? <span>{" "}</span> : null}
+            {linkDescription.label}
+          </Link>
+        )
+      }
     }
 
     componentDidMount() {
@@ -102,6 +93,8 @@ class NavMenu extends React.Component {
       this.context.navMenu.setLastSliderLinkId(this.props.id, id)
     }
 }
+
+NavMenu.contextType = Context
 
 export default NavMenu
 

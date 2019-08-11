@@ -150,10 +150,6 @@ $base-zindex: 3;
             }
         }
 
-        &.hidden {
-            z-index: 0;
-        }
-        
         &-list {
             &.hidden {
                 visibility: hidden;
@@ -214,6 +210,7 @@ $base-zindex: 3;
         right: 0;
         font-size: $typographic-base-font-size * 0.9;
         transform: translate(0, 1px);
+        z-index: $base-zindex;
 
         @include enabled {
             @include theme-transition("
@@ -379,6 +376,7 @@ $base-zindex: 3;
             padding-bottom: unset;
             right: unset;
             transform: unset;
+            z-index: unset;
 
             &-button {
                 display: none;

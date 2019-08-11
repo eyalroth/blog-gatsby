@@ -1,21 +1,19 @@
 import React from 'react'
-import ContextConsumer from '../Context'
+import Context from '../Context'
 import { Themes } from '../../consts/themes'
 
 class ThemeButton extends React.Component {
 
     render() {
+        const { theme } = this.context
+
         return (
-            <ContextConsumer>
-                {({theme}) => (
-                    <button className={this.props.className} onClick={() => toggleTheme(theme)}>
-                        <i title="Toggle theme" className="icon-moon-inv" />
-                    </button>
-                )}
-            </ContextConsumer>
+            <button className={this.props.className} onClick={toggleTheme}>
+                <i title="Toggle theme" className="icon-moon-inv" />
+            </button>
         )
 
-        function toggleTheme(theme) {
+        function toggleTheme() {
             const newTheme = (function(theme) {
                 switch(theme) {
                     case Themes.Light:
@@ -29,5 +27,7 @@ class ThemeButton extends React.Component {
         }
     }
 }
+
+ThemeButton.contextType = Context
 
 export default ThemeButton

@@ -2,30 +2,32 @@
  * Breakpoints
  */
 
-@mixin breakpoint-xs {
-    @content;
+@mixin breakpoint($min-width) {
+    @media screen and (min-width: $min-width) {
+        @content;
+    }
 }
 
 @mixin breakpoint-sm {
-    @media screen and (min-width: $layout-breakpoint-sm) {
+    @include breakpoint($layout-breakpoint-sm) {
         @content;
     }
 }
 
 @mixin breakpoint-md {
-    @media screen and (min-width: $layout-breakpoint-md) {
+    @include breakpoint($layout-breakpoint-md) {
         @content;
     }
 }
 
 @mixin breakpoint-xmd {
-    @media screen and (min-width: $layout-breakpoint-xmd) {
+    @include breakpoint($layout-breakpoint-xmd) {
         @content;
     }
 }
 
 @mixin breakpoint-lg {
-    @media screen and (min-width: $layout-breakpoint-lg) {
-        @content
+    @include breakpoint($layout-breakpoint-lg) {
+        @content;
     }
 }

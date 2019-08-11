@@ -10,7 +10,7 @@ import CategoryMenu from '../../components/CategoryMenu'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
-import ContextConsumer from '../../components/Context'
+import Context from '../../components/Context'
 import './style.scss'
 
 class PostTemplate extends React.Component {
@@ -20,6 +20,7 @@ class PostTemplate extends React.Component {
     const { category, title, tags, series, language: languageId } = post.frontmatter
     const readingTime = post.fields.readingTime
     const url = this.props.location.href
+    const language = this.context.page.language.get()
 
     const categoryMenu = (
       <CategoryMenu categoryId={category}/>
@@ -30,35 +31,27 @@ class PostTemplate extends React.Component {
     )
 
     const dateBlock = (
-      <ContextConsumer>
-        {({page}) => (
-          <span className="post-single__date">
-              {moment(post.frontmatter.date).locale(page.language.get().locale).format('MMMM D, YYYY')}
-          </span>
-        )}
-      </ContextConsumer>
+      <span className="post-single__date">
+          {moment(post.frontmatter.date).locale(language.locale).format('MMMM D, YYYY')}
+      </span>
     )
     
     const readTimeBlock = (
-      <ContextConsumer>
-        {({page}) => (
-          <span className="post-single__reading-time">
-            {(function(lang) {
-              switch(lang) {
-                  case Languages.English:
-                      return readingTime.text
-                  case Languages.Hebrew:
-                    const minutes = Math.round(readingTime.minutes)
-                    if (minutes < 2) {
-                      return "דקת קריאה אחת"
-                    } else {
-                      return `${minutes} דקות קריאה`
-                    }
-              }
-            })(page.language.get())}
-          </span>
-        )}
-      </ContextConsumer>
+      <span className="post-single__reading-time">
+        {(function(lang) {
+          switch(lang) {
+              case Languages.English:
+                  return readingTime.text
+              case Languages.Hebrew:
+                const minutes = Math.round(readingTime.minutes)
+                if (minutes < 2) {
+                  return "דקת קריאה אחת"
+                } else {
+                  return `${minutes} דקות קריאה`
+                }
+          }
+        })(language)}
+      </span>
     )
     
     const tagsBlock = (
@@ -132,6 +125,8 @@ class PostTemplate extends React.Component {
     )
   }
 }
+
+PostTemplate.contextType = Context
 
 export default PostTemplate
 

@@ -4,7 +4,7 @@ import PageContextProvider from '../PageContextProvider'
 import ThemeContextProvider from '../ThemeContextProvider'
 import NavMenuContextProvider from '../NavMenuContextProvider'
 
-const { Provider, Consumer } = React.createContext({})
+const Context = React.createContext({})
 
 class ContextProvider extends React.Component {
   constructor(props) {
@@ -20,12 +20,16 @@ class ContextProvider extends React.Component {
   }
 
   render() {
-    return <Provider value={{...this.provided}}>{this.props.children}</Provider>
+    return (
+      <Context.Provider value={{...this.provided}}>
+        {this.props.children}
+      </Context.Provider>
+    )
   }
 
 }
 
-export { Consumer as default, ContextProvider }
+export { Context as default, ContextProvider }
 
 class StateManager {
   constructor(provider) {

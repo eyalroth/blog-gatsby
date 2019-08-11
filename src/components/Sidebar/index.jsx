@@ -1,5 +1,5 @@
 import React from 'react'
-import ContextConsumer from '../Context'
+import Context from '../Context'
 import AuthorLinks from '../AuthorLinks'
 import ProfileImg from '../ProfileImg'
 import NavMenu from '../NavMenu'
@@ -130,42 +130,33 @@ class Sidebar extends React.Component {
   }
 
   renderAuthorTitle() {
+    const language = this.context.page.language.get()
+
     return (
       <SidebarToggle main={true} menu={false} contact={false} {...this.state}>
-        <ContextConsumer>
-          {({page}) => (
-            <span className="sidebar__author-title">
-              {Author.name[page.language.get().id]}
-            </span>
-          )}
-        </ContextConsumer>
-        <ContextConsumer>
-          {({page}) => (
-            <p className="sidebar__author-subtitle">
-              {Author.subtitle[page.language.get().id]}
-            </p>
-          )}
-        </ContextConsumer>
+        <span className="sidebar__author-title">
+          {Author.name[language.id]}
+        </span>
+        <p className="sidebar__author-subtitle">
+          {Author.subtitle[language.id]}
+        </p>
       </SidebarToggle>
     )
   }
 
   renderMenu() {
+    const { page } = this.context
 
     function navMenu(className) {
       const classNamePrefix = `${className} sidebar__menu`
 
       return (
-        <ContextConsumer>
-          {({page}) => (
-              <NavMenu
-                id={classNamePrefix}
-                linkDescriptions={SidebarLinks[page.language.get().id]}
-                classNamePrefix={classNamePrefix}
-                currentLinkId={page.sidebarLinkId.get()}
-              />
-          )}
-        </ContextConsumer>
+        <NavMenu
+          id={classNamePrefix}
+          linkDescriptions={SidebarLinks[page.language.get().id]}
+          classNamePrefix={classNamePrefix}
+          currentLinkId={page.sidebarLinkId.get()}
+        />
       )
     }
 
@@ -221,6 +212,8 @@ class Sidebar extends React.Component {
     )
   }
 }
+
+Sidebar.contextType = Context
 
 export default Sidebar
 
