@@ -21,7 +21,7 @@ class Footer extends React.Component {
           </div> 
           <div className="footer__feed-box">
             <a className="footer__feed" href={Feeds[page.language.get().id].outputPath}>
-              <i className="icon-rss" />
+              <i title="RSS Feed" className="icon-rss" />
             </a>
           </div>
       </footer>
