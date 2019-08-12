@@ -123,9 +123,30 @@ module.exports = {
       options: { trackingId: process.env.GOOGLE_ANALYTICS },
     },
     {
-      resolve: 'gatsby-plugin-google-fonts',
+      resolve: 'gatsby-plugin-prefetch-google-fonts',
       options: {
-        fonts: ['roboto:400,400i,500,700'],
+        fonts: [
+          {
+            family: 'Roboto',
+            variants: ['400', '400i', '500', '700'],
+          },
+          {
+            family: 'Lato',
+            variants: ['400', '400i', '500', '700'],
+          },
+          {
+            family: 'Raleway',
+            variants: ['400', '400i', '500', '700'],
+          },
+          {
+            family: 'Oswald',
+            variants: ['400', '400i', '500', '700'],
+          },
+          {
+            family: 'Arimo',
+            variants: ['400', '400i', '500', '700'],
+          },
+        ],
       },
     },
     'gatsby-plugin-sitemap',
