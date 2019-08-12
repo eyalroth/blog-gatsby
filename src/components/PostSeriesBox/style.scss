@@ -29,10 +29,10 @@
          text-align: center;
 
          @include font-family($font-family-roboto, $font-family-arimo);
-         font-size: $typographic-base-font-size;
+         @include font-size(1);
          font-weight: 300;
          font-style: italic;
-         @include line-height(1);
+         line-height: 1.8rem;
     }
 
     &__nav {
@@ -60,7 +60,7 @@
         &-item {
             margin: 0;
             padding: 0;
-            font-size: $typographic-base-font-size * 0.9;
+            @include font-size(0.9);
             font-style: italic;
 
             width: 20%;

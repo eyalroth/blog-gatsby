@@ -1,0 +1,7 @@
+/**
+ * Font size mixin
+ */
+
+ @mixin font-size($ratio) {
+    font-size: round($typographic-base-font-size * $ratio);
+ }

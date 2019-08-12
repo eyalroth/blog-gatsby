@@ -7,7 +7,7 @@
     padding-top: 20vh;
     padding-bottom: 150px;
 
-    @include font-family($font-family-lato, $font-family-arimo);
+    @include font-family($font-family-segoe, $font-family-arimo);
 
     &__author {
         &-img {
@@ -16,24 +16,23 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            @include margin-bottom(.5);
+            margin-bottom: 1rem;
         }
         &-title {
-            @include font-family($font-family-roboto, $font-family-arimo);
-            font-size: $typographic-base-font-size * 1.125;
+            @include font-family($font-family-segoe, $font-family-arimo);
+            @include font-size(1.125);
             font-weight: 500;
             @include text-normal;
-            @include line-height(1.125);
-            @include margin(0, 0, 0, 0);
+            margin: 0;
         }
         &-subtitle {
-            font-size: $typographic-base-font-size * 0.8;
+            @include font-size(0.8);
             @include text-medium;
-            @include margin(0, 0, 0, 0);
-            @include line-height(1.5);
+            margin: 0;
+            margin-bottom: 0.5rem;
         }
         &-icons {
-            font-size: $typographic-base-font-size * 0.9;
+            @include font-size(0.9);
         }
     }
 
@@ -46,7 +45,7 @@
         &-item {
             &-link {
                 text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
-                font-size: $typographic-base-font-size * 0.9;
+                @include font-size(0.9);
                 font-weight: 500;
                 border: 0;
                 @include text-normal;
@@ -69,14 +68,14 @@
                 width: 115px;
             }
             &-title {
-                font-size: $typographic-base-font-size * 1.4;
+                @include font-size(1.4);
             }
             &-subtitle {
-                font-size: $typographic-base-font-size * 1;
-                @include line-height(2);
+                @include font-size(1);
+                margin-bottom: 1rem;
             }
             &-icons {
-                font-size: $typographic-base-font-size * 1;
+                @include font-size(1);
             }
         }
     }

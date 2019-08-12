@@ -13,7 +13,7 @@
 .category-menu {
     position: relative;
     width: 100vw;
-    @include font-family($font-family-lato, $font-family-arimo);
+    @include font-family($font-family-segoe, $font-family-arimo);
     
     margin-top: 0.7rem;
     margin-bottom: 1rem;
@@ -44,7 +44,7 @@
             z-index: 2;
             margin: 0 0.2rem;
             &-link {
-                font-size: $typographic-base-font-size * 0.8;
+                @include font-size(0.8);
                 font-weight: 400;
                 border: 0;
                 text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
@@ -90,7 +90,7 @@
             &-item {
                 margin: 0 2rem;
                 &-link {
-                    font-size: $typographic-base-font-size;
+                    @include font-size(1);
                 }
             }
         }

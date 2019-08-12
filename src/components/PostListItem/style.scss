@@ -4,7 +4,7 @@
 .post-item {
     margin-top: 0.8rem;
     min-height: 2.5rem;
-    @include font-family($font-family-roboto, $font-family-arimo);
+    @include font-family($font-family-segoe, $font-family-arimo);
     @include rtl {
         text-align: right;
     }
@@ -15,7 +15,7 @@
     &__time {
         position: absolute;
         margin-top: 0.2rem;
-        font-size: $typographic-small-font-size * 0.9;
+        @include font-size(0.8);
         @include ltr {
             right: (100vw - $content-width-base) / 2;
         }
@@ -44,7 +44,7 @@
         &.mobile {
             position: absolute;
             margin-top: 1.5rem;
-            font-size:  $typographic-base-font-size * 0.8;
+            @include font-size(0.8);
 
             @include ltr {
                 right: (100vw - $content-width-base) / 2;
@@ -61,12 +61,12 @@
         @include text-normal;
 
         &-header {
-            font-size: $typographic-base-font-size * 1;
+            @include font-size(1);
             max-width: 70%;
             margin-bottom: 0.2rem;
         }
         &-footer {
-            font-size: $typographic-small-font-size * 0.9;
+            @include font-size(0.8);
             list-style: none;
             max-width: 75%;
 
@@ -96,7 +96,7 @@
         }
     }
     &:last-child {
-        @include margin-bottom(2.5);
+        margin-bottom: 2.5rem;
     }
 }
 
@@ -111,9 +111,9 @@
             width: 3rem;
             margin-top: 0;
             
-            font-size: $typographic-base-font-size * 1.2;
+            @include font-size(1.2);
             font-weight: 300;
-            padding-top: 1rem;
+            padding-top: 1.5rem;
 
             @include text-normal;
 
@@ -126,7 +126,7 @@
         }
         
         &__time {
-            font-size: $typographic-base-font-size * 1.1;
+            @include font-size(1.1);
             padding-top: 1.1rem;
             display: flex;
             position: unset;
@@ -182,12 +182,12 @@
 
             &-header {
                 margin-bottom: 0.2rem;
-                font-size: $typographic-base-font-size * 1.3;
+                @include font-size(1.3);
                 max-width: unset;
             }
             &-footer {
                 max-width: unset;
-                font-size: $typographic-small-font-size;
+                @include font-size(0.875);
 
                 &-tags-divider {
                     display: unset;
@@ -206,7 +206,7 @@
         }
 
         &:last-child {
-            @include margin-bottom(3.5);
+            margin-bottom: 3.5rem;
         }
     }
 }
