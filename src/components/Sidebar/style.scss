@@ -32,6 +32,7 @@ $base-zindex: 3;
 
 .sidebar {
     width: $sidebar-width-base;
+    font-family: $font-family-roboto;
     
     position: fixed;
     display: flex;

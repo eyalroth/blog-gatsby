@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    font-family: $typographic-font-family;
+    font-family: $font-family-lora;
     line-height: $typographic-base-line-height;
     font-size: $typographic-base-font-size;
     -ms-text-size-adjust: 100%;
@@ -23,8 +23,8 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: $typographic-font-family;
-    font-weight: 500;
+    font-family: $font-family-oswald;
+    font-weight: 700;
 }
 
 h1 {

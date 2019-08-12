@@ -4,6 +4,7 @@
 .post-item {
     margin-top: 0.8rem;
     min-height: 2.5rem;
+    font-family: $font-family-roboto;
     @include rtl {
         text-align: right;
     }
