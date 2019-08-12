@@ -9,7 +9,7 @@ export const squareImage = graphql`
   fragment squareImage on File {
     childImageSharp {
         fluid(maxWidth: 145, maxHeight: 145, quality: 100) {
-            ...GatsbyImageSharpFluid_noBase64
+            ...GatsbyImageSharpFluid_withWebp_noBase64
         }
     }
   }
