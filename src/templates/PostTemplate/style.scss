@@ -3,7 +3,7 @@
 
 .post-single {
     &__header {
-        @include font-family($font-family-roboto, $font-family-arimo);
+        @include font-family($font-family-lato, $font-family-arimo);
         margin-top: 1rem;
         @include line-height(1);
         &-bottom {

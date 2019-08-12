@@ -32,7 +32,7 @@ $base-zindex: 3;
 
 .sidebar {
     width: $sidebar-width-base;
-    @include font-family($font-family-roboto, $font-family-arimo);
+    @include font-family($font-family-lato, $font-family-arimo);
     
     position: fixed;
     display: flex;
@@ -79,6 +79,8 @@ $base-zindex: 3;
         }
         &-title {
             height: $topbar-height;
+
+            @include font-family($font-family-roboto, $font-family-arimo);
 
             display: flex;
             flex-direction: column;

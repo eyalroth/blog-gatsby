@@ -131,7 +131,11 @@ module.exports = {
             variants: ['400', '400i', '500', '700'],
           },
           {
-            family: 'Lora',
+            family: 'Lato',
+            variants: ['400', '400i', '500', '700'],
+          },
+          {
+            family: 'Raleway',
             variants: ['400', '400i', '500', '700'],
           },
           {

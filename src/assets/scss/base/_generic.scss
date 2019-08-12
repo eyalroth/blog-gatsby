@@ -22,7 +22,7 @@ h3,
 h4,
 h5,
 h6 {
-    @include font-family($font-family-oswald, $font-family-arimo);
+    @include font-family($font-family-roboto, $font-family-arimo);
     font-weight: 700;
 }
 

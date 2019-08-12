@@ -7,7 +7,7 @@
     padding-top: 20vh;
     padding-bottom: 150px;
 
-    @include font-family($font-family-roboto, $font-family-arimo);
+    @include font-family($font-family-lato, $font-family-arimo);
 
     &__author {
         &-img {
