@@ -10,6 +10,14 @@ const pxtorem = require('postcss-pxtorem')
 const path = require(`path`)
 const { Feeds } = require('./src/consts/rss.jsx')
 
+function verifyEnvVar(variable) {
+  if (activeEnv == "production" && !process.env[variable]) {
+    throw `Missing envrionment variable ${variable}`
+  }
+}
+verifyEnvVar("URL")
+verifyEnvVar("GOOGLE_ANALYTICS")
+
 function rssQuery(languageId) {
   return `
     {

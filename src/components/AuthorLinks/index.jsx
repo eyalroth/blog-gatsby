@@ -12,7 +12,7 @@ class AuthorLinks extends React.Component {
             target="_blank"
             rel="noopener noreferrer"
             >
-            <i className="icon-github-circled" />
+            <i title="Github Profile" className="icon-github-circled" />
           </a>
         </li>
         <li key="linkedin">
@@ -21,12 +21,12 @@ class AuthorLinks extends React.Component {
             target="_blank"
             rel="noopener noreferrer"
             >
-            <i className="icon-linkedin" />
+            <i title="Linkedin Profile" className="icon-linkedin" />
           </a>
         </li>
         <li key="email">
           <a href={`mailto:${Author.links.email}`}>
-            <i className="icon-mail" />
+            <i title="Email" className="icon-mail" />
           </a>
         </li>
       </ul>

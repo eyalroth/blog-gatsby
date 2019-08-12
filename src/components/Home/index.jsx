@@ -12,7 +12,7 @@ class Home extends React.Component {
     const { languageId } = this.props
 
     return (
-      <Page languageId={languageId}>
+      <Page languageId={languageId} description={`Home page - ${languageId}`}>
         {this.renderContent()}
       </Page>
     )

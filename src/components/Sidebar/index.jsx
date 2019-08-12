@@ -190,7 +190,7 @@ class Sidebar extends React.Component {
           className="sidebar__menu-button"
           onClick={() => this.changeMode(newMode)}
         >
-          <i className="icon-menu" />
+          <i title="Menu" className="icon-menu" />
         </button>
       </Toggle>
     )
@@ -206,7 +206,7 @@ class Sidebar extends React.Component {
           className="sidebar__contact-button"
           onClick={() => this.changeMode(newMode)}
         >
-          <i className="icon-info-circled" />
+          <i title="Contact" className="icon-info-circled" />
         </button>
       </Toggle>
     )

@@ -9,7 +9,7 @@ export const squareImage = graphql`
   fragment squareImage on File {
     childImageSharp {
         fluid(maxWidth: 145, maxHeight: 145, quality: 100) {
-            ...GatsbyImageSharpFluid_noBase64
+            ...GatsbyImageSharpFluid_withWebp_noBase64
         }
     }
   }
@@ -72,7 +72,7 @@ class ProfileImg extends React.Component {
         const { language } = this.context.page
         const _this = this
 
-        function setupMove(div, eventType, extractCoordinates) {
+        function setupMove(div, eventType, extractCoordinates, params = {}) {
             if (div) {
                 div.addEventListener(eventType, (event) => {
                     const container = div.parentElement
@@ -80,7 +80,7 @@ class ProfileImg extends React.Component {
                     const { left } = container.getBoundingClientRect()
                     const newWidth = x - left
                     _this.setBackWidth(Math.max(newWidth, 0))
-                }, {once: true})
+                }, {once: true, ...params})
             }
         }
 
@@ -114,7 +114,7 @@ class ProfileImg extends React.Component {
             setupMove(div, 'touchmove', (event) => {
                 const { clientX: x, clientY: y } = event.changedTouches[0]
                 return {x, y}
-            })
+            }, {passive: true})
         }
 
         const authorName = Author.name[language.get().id]
