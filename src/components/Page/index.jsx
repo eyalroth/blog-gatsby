@@ -15,11 +15,18 @@ class Page extends React.Component {
             subtitle = ""
         }
 
-        const helmet = (
-            <Helmet key="helmet" title={`${subtitle}${title}`} defer={false} />
-        )
-
         const language = Object.values(Languages).find(lang => lang.id ==  this.props.languageId)
+
+        const helmet = (
+            <Helmet 
+                key="helmet"
+                title={`${subtitle}${title}`}
+                defer={false}
+                htmlAttributes={{
+                    lang: language.htmlLang
+                }}
+            />
+        )
 
         this.context.page.set(language, this.props.sidebarLinkId)
         
