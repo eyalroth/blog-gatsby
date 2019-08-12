@@ -48,6 +48,8 @@
     max-width: $max-content-width;
     width: $content-width-base;
     margin: 0 auto;
+
+    @include font-family($font-family-lora, $font-family-arimo);
 }
 
 @include breakpoint-sm {

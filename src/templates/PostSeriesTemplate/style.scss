@@ -2,7 +2,7 @@
 @import "../../assets/scss/mixins";
 
 .series-title {
-    font-family: $font-family-oswald;
+    @include font-family($font-family-oswald, $font-family-arimo);
     margin-top: 1rem;
     @include line-height(1);
     @include rtl {

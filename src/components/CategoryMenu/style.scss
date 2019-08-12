@@ -13,7 +13,7 @@
 .category-menu {
     position: relative;
     width: 100vw;
-    font-family: $font-family-roboto;
+    @include font-family($font-family-roboto, $font-family-arimo);
     
     margin-top: 0.7rem;
     margin-bottom: 1rem;

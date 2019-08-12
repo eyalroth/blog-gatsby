@@ -3,7 +3,7 @@
 
 .post-single {
     &__header {
-        font-family: $font-family-roboto;
+        @include font-family($font-family-roboto, $font-family-arimo);
         margin-top: 1rem;
         @include line-height(1);
         &-bottom {
@@ -11,7 +11,7 @@
         }        
     }
     &__title {
-        font-family: $font-family-oswald;
+        @include font-family($font-family-oswald, $font-family-arimo);
         font-size: $typographic-base-font-size * 1.275;
         font-weight: 700;
         margin: 0;

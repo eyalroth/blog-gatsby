@@ -18,14 +18,21 @@
 
 @mixin english {
     .english & {
-        direction: ltr;
         @content;
     }
 }
 
 @mixin hebrew {
     .hebrew & {
-        direction: rtl;
         @content;
+    }
+}
+
+@mixin font-family($english, $hebrew) {
+    @include english {
+        font-family: $english;
+    }
+    @include hebrew {
+        font-family: $hebrew;
     }
 }

@@ -7,7 +7,7 @@
     padding-top: 20vh;
     padding-bottom: 150px;
 
-    font-family: $font-family-roboto;
+    @include font-family($font-family-roboto, $font-family-arimo);
 
     &__author {
         &-img {
@@ -19,7 +19,7 @@
             @include margin-bottom(.5);
         }
         &-title {
-            font-family: $font-family-roboto;
+            @include font-family($font-family-roboto, $font-family-arimo);
             font-size: $typographic-base-font-size * 1.125;
             font-weight: 500;
             @include text-normal;

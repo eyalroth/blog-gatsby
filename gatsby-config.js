@@ -138,6 +138,10 @@ module.exports = {
             family: 'Oswald',
             variants: ['400', '400i', '500', '700'],
           },
+          {
+            family: 'Arimo',
+            variants: ['400', '400i', '500', '700'],
+          },
         ],
       },
     },
