@@ -58,7 +58,7 @@ class Utterances extends React.Component {
 
       Array.from(this.rootElm.current.children).forEach(elem => {
         elem.style.display = (elem.id == this.theme.id) ? 'block' : 'none'
-      });
+      })
     }
   }
 
