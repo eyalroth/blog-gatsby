@@ -3,7 +3,6 @@ import { Link } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
 import Context from '../../components/Context'
-import Toggle from '../Toggle'
 import { Languages } from '../../consts/languages'
 import './style.scss'
 
@@ -30,31 +29,25 @@ class PostListItem extends React.Component {
 
     const itemDate = moment(date).locale(language.locale)
 
-    const yearHeader = (
-      <Toggle isEnabled={showYear}>
-        <h2 className="post-item__year">
-          {(showYear) ? itemDate.format('YYYY') : "    "}
-        </h2>
-      </Toggle>
-    )
-
     const time = (
       <time 
         className="post-item__time"
         dateTime={itemDate.format('MM DD, YYYY')}
         pubdate=""
       >
+        <span className="year nonmobile">
+          {(showYear) ? itemDate.format('YYYY') : "    "}
+        </span>
         <span className="day mobile">{itemDate.format('DD')}</span>
         <span className="month mobile">{itemDate.format('MMM')}</span>
         <span className="year mobile">{itemDate.format(' YYYY')}</span>
         <span className="month nonmobile">{itemDate.format('MMM')}</span>
         <span className="day nonmobile">{itemDate.format('DD')}</span>
-        <span className="year nonmobile">{itemDate.format(', YYYY')}</span>
       </time>
     )
 
-    const detailsHeader = (
-      <div className="post-item__details-header">
+    const titleHtml = (
+      <div className="post-item__details-title">
         <Link to={slug}>
           {title}
         </Link>
@@ -62,23 +55,23 @@ class PostListItem extends React.Component {
     )
 
     const readingTimeMobile =(
-      <span className="post-item__reading-time mobile">
+      <span className="post-item__details-meta-reading-time mobile">
         {readingTimeText}
       </span>
     )
 
     const readingTimeNonMobile = (
-      <li className="post-item__reading-time nonmobile" key="readingTime">
+      <li className="post-item__details-meta-reading-time nonmobile" key="readingTime">
         {readingTimeText}
       </li>
     )
 
-    const detailsFooter = (
-      <ul className="post-item__details-footer">
+    const meta = (
+      <ul className="post-item__details-meta">
         {readingTimeNonMobile}
-        {tags && <li className="post-item__details-footer-tags-divider" key="divider"/>}
+        {tags && <li className="post-item__details-meta-tags-divider" key="divider"/>}
         {tags && tags.map(tag => (
-          <li className="post-item__details-footer-tags-item" key={tag}>
+          <li className="post-item__details-meta-tags-item" key={tag}>
             {tag}
           </li>
         ))}
@@ -87,14 +80,13 @@ class PostListItem extends React.Component {
 
     const details = (
       <div className="post-item__details">
-        {detailsHeader}
-        {detailsFooter}
+        {titleHtml}
+        {meta}
       </div>
     )
 
     return (
       <article className="post-item">
-        {yearHeader}
         {time}
         {readingTimeMobile}
         {details}

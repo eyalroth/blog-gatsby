@@ -7,32 +7,35 @@
     margin-top: 15px;
     margin-bottom: 20px;
     @include font-family($font-family-roboto, $font-family-roboto);
-
+    
     &__content {
+        width: 100%;
+        max-width: round($max-content-width * 0.5);
         overflow: hidden;
         display: inline-block;
-        border-radius: 5px;
-        
-        @include light {
-            box-shadow: 0px 1px 4px -3px rgba(0,0,0,0.6);
-            background-color: darken($color-light-dp0, 1%);
-        }
-        @include dark {
-            background-color: $color-dark-dp2;
-        }
-        @include text-normal;
+        border-radius: 10px;
+        @include bg-color(rgba(0, 0, 0, 0.02), $color-dark-dp2);
     }
     
     &__title {
          margin: 0;
-         padding: 5px 40px 15px 40px;
+         padding: 5px 0px 5px 0px;
          text-align: center;
 
+        @include light {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+        }
+        @include dark {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        @include text-normal;
+         
+
          @include font-family($font-family-roboto, $font-family-arimo);
-         font-size: $typographic-base-font-size;
+         @include font-size(1);
          font-weight: 300;
          font-style: italic;
-         @include line-height(1);
+         line-height: 1.8rem;
     }
 
     &__nav {
@@ -41,17 +44,10 @@
         margin: 0;
         padding: 5px 0 5px 0;
 
-        @include light {
-            background-color: $color-light-dp0;
-        }
-        @include dark {
-            background-color: $color-dark-dp3;
-        }
         @include text-normal;
 
         &-link {
             border-radius: 3px;
-            box-shadow: 0px 2px 6px -3px rgba(0,0,0,0.2);
             padding: 1px 5px;
             &:active {
                 box-shadow: inset 0px 2px 6px -3px rgba(0,0,0,0.2);
@@ -60,7 +56,7 @@
         &-item {
             margin: 0;
             padding: 0;
-            font-size: $typographic-base-font-size * 0.9;
+            @include font-size(0.9);
             font-style: italic;
 
             width: 20%;

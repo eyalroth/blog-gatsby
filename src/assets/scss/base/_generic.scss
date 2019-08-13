@@ -3,12 +3,12 @@
  */
 
 html {
-    font-size: $typographic-root-font-size;
+    font-size: 100;
 }
 
 body {
-    line-height: $typographic-base-line-height;
-    font-size: $typographic-base-font-size;
+    line-height: 1.625;
+    @include font-size(1);
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
@@ -22,50 +22,44 @@ h3,
 h4,
 h5,
 h6 {
-    @include font-family($font-family-roboto, $font-family-arimo);
+    @include font-family($font-family-lora, $font-family-arimo);
     font-weight: 700;
 }
 
 h1 {
-    font-size: $typographic-base-font-size * 2.5;
-    @include line-height(2);
-    @include margin-top(4);
-    @include margin-bottom(1);
+    @include font-size(2.5);
+    line-height: 2rem;
+    margin-top: 4rem;
+    margin-bottom: 1rem;
 }
 
 h2 {
-    font-size: $typographic-base-font-size * 1.6875;
-    @include line-height(1.5);
-    @include margin-top(2);
-    @include margin-bottom(.5);
+    @include font-size(1.6875);
+    line-height: 2.3rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 h3 {
-    font-size: $typographic-base-font-size * 1.375;
-    @include line-height(1);
-    @include margin-top(2);
-    @include margin-bottom(.5);
+    @include font-size(1.375);
+    line-height: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 h4 {
-    font-size: $typographic-base-font-size * 1.2;
-    @include line-height(1);
-    @include margin-top(1.5);
-    @include margin-bottom(.5);
+    @include font-size(1.2);
+    line-height: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
-h5 {
-    font-size: $typographic-base-font-size;
-    @include line-height(1);
-    @include margin-top(2.5);
-    @include margin-bottom(.5);
-}
-
+h5,
 h6 {
-    font-size: $typographic-base-font-size;
-    @include line-height(1);
-    @include margin-top(2.5);
-    @include margin-bottom(.5);
+    @include font-size(1);
+    line-height: 1rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
 }
 
 img {
@@ -106,7 +100,7 @@ strong {
 
 ul {
     list-style: square;
-    @include margin-bottom(1);
+    margin-bottom: 1rem;
     & li {
         padding: 0 5px;
         margin-bottom: 10px;
@@ -114,8 +108,8 @@ ul {
 }
 
 p {
-    @include line-height(1);
-    @include margin-bottom(1);
+    line-height: 1.8rem;
+    margin-bottom: 1rem;
 }
 
 blockquote {
@@ -131,10 +125,10 @@ figure {
 }
 
 figcaption {
-    @include line-height(.75);
-    @include margin-top(.25);
+    line-height: 0.75rem;
+    margin-top: 0.25rem;
     @include text-normal;
-    font-size: $typographic-small-font-size;
+    @include font-size(0.875);
     font-style: italic;
     margin-bottom: 0;
     text-align: center;
@@ -144,7 +138,6 @@ figcaption {
     figure.float-left,
     figure.float-right {
         max-width: 310px;
-        @include padding(0, 1, 0, 1);
     }
     .float-right {
         float: right;

@@ -7,17 +7,17 @@
     max-width: 90vw;
     margin: 0 auto;
     &__title {
-        font-size: $typographic-base-font-size * 2;
+        @include font-size(2);
         margin: 0;
         margin-bottom: 1rem;
     }
     &__subtitle {
-        font-size: $typographic-base-font-size * 1;
+        @include font-size(1);
         margin: 0;
         margin-bottom: 1rem;
     }
     &__link {
-        font-size: $typographic-base-font-size * 1;
+        @include font-size(1);
         margin: 0;
     }
 }
@@ -28,11 +28,11 @@
             margin-bottom: 1.5rem;
         }
         &__subtitle {
-            font-size: $typographic-base-font-size * 1.2;
+            @include font-size(1.2);
             margin-bottom: 1.5rem;
         }
         &__link {
-            font-size: $typographic-base-font-size * 1.2;
+            @include font-size(1.2);
         }
     }
 }

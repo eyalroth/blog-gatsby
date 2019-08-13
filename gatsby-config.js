@@ -41,6 +41,8 @@ function rssQuery(languageId) {
   `
 }
 
+const fontVariants = ['300', '300i', '400', '400i', '500', '700']
+
 module.exports = {
   siteMetadata: {
     url: process.env.URL,
@@ -136,23 +138,15 @@ module.exports = {
         fonts: [
           {
             family: 'Roboto',
-            variants: ['400', '400i', '500', '700'],
+            variants: fontVariants,
           },
           {
-            family: 'Lato',
-            variants: ['400', '400i', '500', '700'],
-          },
-          {
-            family: 'Raleway',
-            variants: ['400', '400i', '500', '700'],
-          },
-          {
-            family: 'Oswald',
-            variants: ['400', '400i', '500', '700'],
+            family: 'Lora',
+            variants: fontVariants,
           },
           {
             family: 'Arimo',
-            variants: ['400', '400i', '500', '700'],
+            variants: fontVariants,
           },
         ],
       },
