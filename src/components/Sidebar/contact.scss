@@ -1,0 +1,81 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+@import "./common.scss";
+
+.sidebar {
+    &__contact {
+        overflow: hidden;
+        position: absolute;
+        padding-top: $top-padding;
+        padding-bottom: $bottom-padding;
+
+        right: 0;
+        @include font-size(0.9);
+        transform: translate(0, 1px);
+        z-index: $base-zindex;
+
+        @include enabled {
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} cubic-bezier(0,0,1,0),
+            ");
+            opacity: 1;
+            width: 80vw;
+        }
+        @include disabled {
+            @include theme-transition("
+                width #{$transition-timing} ease-out,
+                opacity #{$transition-timing} / 2 cubic-bezier(0,1,1,1),
+            ");
+            opacity: 0;
+            width: 0;
+        }
+    
+        &-button {
+            @include button;
+
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: $base-zindex;
+        }
+    }
+}
+
+@include breakpoint-md {
+    .sidebar {
+        &__contact {
+            overflow: unset;
+            position: unset;
+            padding-top: unset;
+            padding-bottom: unset;
+            right: unset;
+            transform: unset;
+            z-index: unset;
+
+            @include font-size(0.8);
+            padding-top: 0.3rem;
+            padding-bottom: 0.2rem;
+
+            &-button {
+                display: none;
+            }
+            @include enabled {
+                width: unset;
+            }
+            @include disabled {
+                opacity: unset;
+                width: unset;
+            }
+        }
+    }
+}
+
+@include breakpoint-lg {
+    .sidebar {
+        &__contact {
+            @include font-size(0.9);
+        }
+    }
+}
