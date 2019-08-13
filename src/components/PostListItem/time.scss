@@ -1,0 +1,93 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.post-item {
+    &__time {
+        position: absolute;
+        margin-top: 0.2rem;
+        @include font-size(0.8);
+        @include ltr {
+            right: (100vw - $content-width-base) / 2;
+        }
+        @include rtl {
+            left: (100vw - $content-width-base) / 2;
+        }
+
+        .nonmobile {
+            display: none;
+        }
+
+        .month {
+            @include ltr {
+                margin-right: 0.1rem;
+                margin-left: 0.3rem;
+            }
+            @include rtl {
+                margin-right: 0.3rem;
+                margin-left: 0.1rem;
+            }
+        }
+    }
+}
+
+@include breakpoint-md {
+    .post-item {
+        &__time {
+            @include font-size(1.1);
+            padding-top: 1rem;
+            display: flex;
+            position: unset;
+
+            @include text-medium;
+
+            @include ltr {
+                right: unset;
+            }
+            @include rtl {
+                left: unset;
+            }
+
+            .year {
+                display: block;
+                width: 3rem;
+                margin-top: -1px;
+                
+                @include font-size(1.2);
+                @include font-family($font-family-segoe, $font-family-arimo);
+                font-weight: 400;
+
+                @include text-normal;
+
+                @include ltr {
+                    margin-right: 2rem;
+                }
+                @include rtl {
+                    margin-left: 2rem;
+                }
+            }
+
+            .month {
+                width: 2.2rem;
+                margin-left: unset;
+                margin-right: unset;
+            }
+
+            .day {
+                width: 1rem;
+                @include ltr {
+                    margin-right: 3rem;
+                }
+                @include rtl {
+                    margin-left: 3rem;
+                }
+            }
+
+            .nonmobile {
+                display: unset;
+            }
+            .mobile {
+                display: none;
+            }
+        }
+    }
+}
