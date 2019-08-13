@@ -47,12 +47,12 @@
                 @include font-size(0.8);
                 font-weight: 400;
                 border: 0;
-                text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
 
                 @include text-icon-inactive;
 
                 &.selected {
                     @include text-icon-active;
+                    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2); 
                 }
             }
         }
