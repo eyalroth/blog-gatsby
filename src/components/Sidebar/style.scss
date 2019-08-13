@@ -238,6 +238,7 @@ $base-zindex: 3;
             position: absolute;
             top: 0;
             right: 0;
+            z-index: $base-zindex;
         }
     }
 
