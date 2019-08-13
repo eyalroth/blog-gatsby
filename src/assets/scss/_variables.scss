@@ -63,11 +63,14 @@ $max-content-width: 660px;
 $bg-width: round($max-layout-width * 0.9);
 
 
-// breakpoint - base - handset (portrait)
+// breakpoint - base - small handset (portrait)
 $sidebar-width-base: 100vw;
 $content-width-base: 90vw;
 
 $topbar-height: 48px;
+
+// breakpoint - sm - handset (portrait)
+$layout-breakpoint-xsm: 360px;
 
 // breakpoint - sm - tablet (portrait), handset (landscape)
 $layout-breakpoint-sm: 600px;

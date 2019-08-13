@@ -8,6 +8,12 @@
     }
 }
 
+@mixin breakpoint-xsm {
+    @include breakpoint($layout-breakpoint-xsm) {
+        @content;
+    }
+}
+
 @mixin breakpoint-sm {
     @include breakpoint($layout-breakpoint-sm) {
         @content;
