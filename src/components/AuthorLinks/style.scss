@@ -25,3 +25,12 @@
         }
     }
 }
+
+@include breakpoint-md {
+    .author-links {
+        & a {
+            padding: 0 0.3rem;
+        }
+            
+    }
+}
