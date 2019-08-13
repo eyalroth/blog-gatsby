@@ -32,9 +32,9 @@ class PostListItem extends React.Component {
 
     const yearHeader = (
       <Toggle isEnabled={showYear}>
-        <h2 className="post-item__year">
+        <span className="post-item__year">
           {(showYear) ? itemDate.format('YYYY') : "    "}
-        </h2>
+        </span>
       </Toggle>
     )
 

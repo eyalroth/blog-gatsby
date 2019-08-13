@@ -69,11 +69,12 @@
             @include font-size(0.8);
             list-style: none;
             max-width: 75%;
+            display: flex;
+            flex-wrap: wrap;
 
             margin: 0;
             padding: 0;
             &>* {
-                display: inline;
                 margin: 0;
                 padding: 0;
             }
@@ -112,8 +113,9 @@
             margin-top: 0;
             
             @include font-size(1.2);
-            font-weight: 300;
-            padding-top: 1.5rem;
+            @include font-family($font-family-segoe, $font-family-arimo);
+            font-weight: 400;
+            padding-top: 1.1rem;
 
             @include text-normal;
 
@@ -127,7 +129,7 @@
         
         &__time {
             @include font-size(1.1);
-            padding-top: 1.1rem;
+            padding-top: 1rem;
             display: flex;
             position: unset;
 
