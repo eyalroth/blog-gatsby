@@ -1,0 +1,118 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+@import "./common.scss";
+
+.sidebar {
+    &__author {
+        &-img {
+            height: $img-size-base;
+            width: $img-size-base;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: absolute;
+            top: ($topbar-height - $img-size-base) / 2 - 1;
+            left: calc(46vw - #{$img-size-base} - 20px);
+
+            @include enabled {
+                @include theme-transition("
+                    opacity #{$transition-timing} ease-in,
+                ");
+                opacity: 1;
+            }
+            @include disabled {
+                opacity: 0;
+            }
+        }
+        &-title {
+            height: $topbar-height;
+
+            @include font-family($font-family-segoe, $font-family-arimo);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: absolute;
+            top: -2px;
+            left: 47vw;
+
+            @include font-size(1);
+            font-weight: 500;
+
+            @include text-normal;
+
+            @include enabled {
+                @include theme-transition("
+                    opacity #{$transition-timing} ease-in
+                ");
+                opacity: 1;
+            }
+            @include disabled {
+                opacity: 0;
+            }
+        }
+        &-subtitle {
+            display: none;
+        }
+    }
+}
+
+@include breakpoint-md {
+    .sidebar {
+        &__author {
+            &-img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 0.5rem;
+
+                height: $img-size-md;
+                width: $img-size-md;
+
+                position: unset;
+                transform: unset;
+                @include disabled {
+                    opacity: unset;
+                }
+            }
+            &-title {
+                display: inherit;
+                position: unset;
+                height: unset;
+                transform: unset;
+                @include disabled {
+                    opacity: unset;
+                }
+
+                @include font-size(1.2);
+            }
+            &-subtitle {
+                display: unset;
+                @include font-size(0.8);
+                @include text-medium;
+            }
+        }
+    }
+}
+
+@include breakpoint-lg {
+    .sidebar {
+        &__author {
+            &-img {
+                height: $img-size-lg;
+                width: $img-size-lg;
+            }
+            &-title {
+                @include font-size(1.3);
+            }
+            &-subtitle {
+                @include font-size(0.9);
+                line-height: 2.2rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+$img-size-base: 30px;
+$img-size-md: 85px;
+$img-size-lg: 115px;
+
+$top-padding: $img-size-base / 3;
+$bottom-padding: 10px;
+$transition-timing: 0.2s;
+
+$shadow-height: 4px;
+
+$button-size: $img-size-base * 1.5;
+
+$base-zindex: 3;
+
+@mixin button {
+    height: $button-size;
+    width: $button-size;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    @include text-icon-unfocused;
+    @include enabled {
+        @include text-icon-active;
+    }
+}
