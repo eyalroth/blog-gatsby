@@ -32,9 +32,6 @@ class Home extends React.Component {
             <p className="home__author-subtitle">
               {Author.subtitle[languageId]}
             </p>
-            <div className="home__author-icons">
-                <AuthorLinks/>
-            </div>
             <nav className="home__site-links">
               <ul className="home__site-links-list">
                 {siteLinks.map(item => (
