@@ -27,5 +27,17 @@
         &__body {
             @include font-size(1);
         }
+        h1 {
+            margin-bottom: unset;
+            margin: 0;
+        }
+        h2 {
+            margin: unset;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            margin-top: 1rem;
+        }
     }
 }
