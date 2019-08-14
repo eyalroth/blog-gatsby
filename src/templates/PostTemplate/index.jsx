@@ -27,7 +27,7 @@ class PostTemplate extends React.Component {
     )
 
     const titleBlock = (
-      <h2 className="post-single__title">{post.frontmatter.title}</h2>
+      <h1 className="post-single__title">{post.frontmatter.title}</h1>
     )
 
     const dateBlock = (
