@@ -131,6 +131,7 @@ The design and structure of this site draw much inspiration from many other site
 + [tinney.dev](https://tinney.dev/)
 + [unbackend.pro](https://www.unbackend.pro/)
 + [szafranek.net](https://szafranek.net/)
++ [waitbutwhy.com](https://waitbutwhy.com/)
 + [joelonsoftware.com](https://www.joelonsoftware.com)
 + [webmasters.googleblog.com](https://webmasters.googleblog.com/)
 + [blog.google](https://www.blog.google/)
