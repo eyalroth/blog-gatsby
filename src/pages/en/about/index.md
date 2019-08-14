@@ -8,7 +8,7 @@ language: english
 
 Hi, my name is Eyal and this is my personal website and blog.
 
-I am a software developer by day and an insomaniac by night.
+I am a software developer by day and an insomniac by night.
 I live in Tel Aviv, the (unofficial) capital of Israel -- my home country.
 I love coffee, video games and dogs (though I do not have any).
 I do also (very) occasionally play the piano.
@@ -22,7 +22,7 @@ If you do not own a GitHub user - that's fine, just email me the good old way :)
 
 ## Data I'm collecting on YOU
 
-This site utlizies [Google Analytics](https://en.wikipedia.org/wiki/Google_Analytics)
+This site utilizes [Google Analytics](https://en.wikipedia.org/wiki/Google_Analytics)
 to gather statistics which help me better understand your usage of this site so I could make it better.
 There are no ads on this site.
 
@@ -31,8 +31,8 @@ Other than that, the site stores a cookie on your browser to remember your prefe
 ## Comments
 
 Commenting on posts is powered by [utteranc.es](https://utteranc.es/),
-which is an open source tool that uses GitHub repository issues as comments.
-It requires a GitHub user in order to post comments (viewing them is public).
+which is an open-source tool that uses GitHub repository issues as comments.
+It requires a GitHub user to post comments (viewing them is public).
 
 ## Behind the scenes
 
