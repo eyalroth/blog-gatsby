@@ -86,7 +86,7 @@ class Sidebar extends React.Component {
     const isInTopOfPage = scrollY <= window.innerHeight
     const isEnabled = isInTopOfPage || isFastScrollUp || (this.state.isEnabled && isScrollUp)
 
-    if (isEnabled != this.state.isEnabled) {
+    if (isEnabled !== this.state.isEnabled) {
       this.setState({isEnabled})
     }
   }
@@ -181,7 +181,7 @@ class Sidebar extends React.Component {
   }
 
   renderMenuButton() {
-    const isEnabled = this.state.mode == SidebarMode.Menu
+    const isEnabled = this.state.mode === SidebarMode.Menu
     const newMode = (isEnabled) ? SidebarMode.Main : SidebarMode.Menu
 
     return (
@@ -197,7 +197,7 @@ class Sidebar extends React.Component {
   }
 
   renderContactButton() {
-    const isEnabled = this.state.mode == SidebarMode.Contact
+    const isEnabled = this.state.mode === SidebarMode.Contact
     const newMode = (isEnabled) ? SidebarMode.Main : SidebarMode.Contact
 
     return (
@@ -227,6 +227,7 @@ class SidebarToggle extends React.Component {
   }
 
   isEnabled(mode) {
+    // eslint-disable-next-line
     switch (mode) {
       case SidebarMode.Main:
         return this.props.main

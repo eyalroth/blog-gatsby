@@ -20,7 +20,7 @@ class Utterances extends React.Component {
   render() {
     const theme = this.context.theme.get()
 
-    if (theme != this.theme) {
+    if (theme !== this.theme) {
       this.theme = theme
       setTimeout(() => this.forceUpdate(), 0)
     }
@@ -49,7 +49,7 @@ class Utterances extends React.Component {
       if (!(this.theme.id in this.scripts)) {
         this.updateClassName("loading")
         const script = this.createScript(repo, this.theme)
-        const existingScript = Array.from(this.rootElm.current.children).find(elem => elem.id == script.id)
+        const existingScript = Array.from(this.rootElm.current.children).find(elem => elem.id === script.id)
         if (existingScript) {
           this.rootElm.current.removeChild(existingScript)
         }
@@ -57,13 +57,14 @@ class Utterances extends React.Component {
       }
 
       Array.from(this.rootElm.current.children).forEach(elem => {
-        elem.style.display = (elem.id == this.theme.id) ? 'block' : 'none'
+        elem.style.display = (elem.id === this.theme.id) ? 'block' : 'none'
       })
     }
   }
 
   createScript(repo, theme) {
     const githubTheme  = (function(theme) {
+      // eslint-disable-next-line
       switch(theme) {
         case Themes.Light:
           return 'github-light'

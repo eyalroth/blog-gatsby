@@ -18,7 +18,7 @@ class Page extends React.Component {
         const finalTitle = `${subtitle}${title}`
         const finalDescription = description || subtitle
 
-        const language = Object.values(Languages).find(lang => lang.id ==  this.props.languageId)
+        const language = Object.values(Languages).find(lang => lang.id === this.props.languageId)
 
         const helmet = (
             <Helmet 
