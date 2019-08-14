@@ -3,42 +3,18 @@
 
 .page {
     padding-top: 15px;
-    
-    &__title {
-        @include font-family($font-family-lora, $font-family-arimo);
-        @include font-size(1.25);
-        font-weight: 700;
-        margin: 0;
-        line-height: 1.3rem;
-        margin-bottom: 0.15rem;
 
-        @include rtl {
-            text-align: right;
-        }
-    }
-    
     &__body {
         line-height: 1rem;
         margin-bottom: 1rem;
         padding-bottom: 1rem;
-
-        @include rtl {
-            text-align: right;
-        }
-    }
-}
-
-@include breakpoint-sm {
-    .page {
-        &__title {
-            @include font-size(1.5);
-        }
     }
 }
 
 @include breakpoint-md {
     .page {
         padding-top: 5vh;
+        
         &__body {
             @include font-size(1);
         }

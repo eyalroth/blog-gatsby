@@ -27,14 +27,14 @@ h6 {
 }
 
 h1 {
-    @include font-size(2.5);
-    line-height: 2rem;
-    margin-top: 4rem;
-    margin-bottom: 1rem;
+    @include font-size(2);
+    line-height: 2.8rem;
+    margin: 0;
+    padding-bottom: 0.5rem;
 }
 
 h2 {
-    @include font-size(1.6875);
+    @include font-size(1.6);
     line-height: 2.3rem;
     margin-top: 2rem;
     margin-bottom: 0.5rem;
@@ -135,6 +135,10 @@ figcaption {
 }
 
 @include breakpoint-sm {
+    h1 {
+        padding-bottom: unset;
+    }
+
     figure.float-left,
     figure.float-right {
         max-width: 310px;

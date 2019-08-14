@@ -5,9 +5,6 @@
     @include font-family($font-family-roboto, $font-family-arimo);
     margin-top: 1rem;
     line-height: 1rem;
-    @include rtl {
-        text-align: right;
-    }
     &__text {
         @include font-size(1.25);
         font-weight: 700;

@@ -5,9 +5,6 @@
     margin-top: 0.8rem;
     min-height: 2.5rem;
     @include font-family($font-family-segoe, $font-family-arimo);
-    @include rtl {
-        text-align: right;
-    }
     &:last-child {
         margin-bottom: 2.5rem;
     }
