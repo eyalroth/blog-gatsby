@@ -18,7 +18,7 @@
     margin-top: 0.7rem;
     margin-bottom: 1rem;
 
-    left: calc((100vw - #{$content-width-base}) / -2);
+    @include shift(calc((100vw - #{$content-width-base}) / -2));
     
     &-list {
         display: flex;
@@ -65,13 +65,13 @@
 
 @include breakpoint-sm {
     .category-menu {
-        left: calc((100vw - #{$content-width-sm}) / -2);
+        @include shift(calc((100vw - #{$content-width-sm}) / -2));
     }
 }
 
 @include breakpoint($max-content-width) {
     .category-menu {
-        left: calc((100vw - #{$max-content-width}) / -2);
+        @include shift(calc((100vw - #{$max-content-width}) / -2));
     }
 }
 
