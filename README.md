@@ -1,5 +1,4 @@
 <p align="center">
-  <br>
   <a href="https://eyalroth.com">
     <img alt="Eyal Roth" src="src/images/icon2.png" width="125" />
   </a>
