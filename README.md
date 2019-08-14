@@ -1,109 +1,135 @@
-[![GitHub release](https://img.shields.io/github/release/GatsbyCentral/gatsby-v2-starter-lumen.svg)](https://github.com/GatsbyCentral/gatsby-v2-starter-lumen) [![Code Climate](https://img.shields.io/codeclimate/maintainability/GatsbyCentral/gatsby-v2-starter-lumen.svg)](https://codeclimate.com/github/GatsbyCentral/gatsby-v2-starter-lumen) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/GatsbyCentral/gatsby-v2-starter-lumen/master/LICENSE) [![Twitter](https://img.shields.io/twitter/url/https/github.com/GatsbyCentral/gatsby-v2-starter-lumen.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https://github.com/GatsbyCentral/gatsby-v2-starter-lumen)
+[![Maintainability](https://api.codeclimate.com/v1/badges/bf2409966a6163ad2b9e/maintainability)](https://codeclimate.com/github/eyalroth/blog-gatsby/maintainability) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/eyalroth/blog-gatsby/blob/master/LICENSE) [![CC license](https://i.creativecommons.org/l/by/4.0/80x15.png)](http://creativecommons.org/licenses/by/4.0/)
 
-# Lumen
+# Eyal Roth's blog
 
-Lumen is a minimal, lightweight and mobile-first starter for creating blogs uses
-[Gatsby](https://github.com/gatsbyjs/gatsby).
+This is the repository for my blog at [eyalroth.com](https://eyalroth.com), containing both the code and content of the website.
 
-This is a fork of
-[gatsby-starter-lumen](https://github.com/alxshelepenok/gatsby-starter-lumen)
-updated for Gatsby v2 by the team at
-[GatsbyCentral](https://www.gatsbycentral.com/).
+ It is built with [GatsbyJS](https://github.com/gatsbyjs/gatsby), based on the starter site [Lumen 2](https://github.com/GatsbyCentral/gatsby-v2-starter-lumen), and hosted on [Netlify](https://www.netlify.com/).
 
 ## Features
-+ Lost Grid ([peterramsing/lost](https://github.com/peterramsing/lost)).
-+ Beautiful typography inspired by [matejlatin/Gutenberg](https://github.com/matejlatin/Gutenberg).
-+ [Mobile-First](https://medium.com/@mrmrs_/mobile-first-css-48bc4cc3f60f) approach in development.
-+ Stylesheet built using SASS and [BEM](http://getbem.com/naming/)-Style naming.
-+ Syntax highlighting in code blocks.
-+ Sidebar menu built using a configuration block.
-+ Archive organized by tags and categories.
-+ Automatic RSS generation.
-+ Automatic Sitemap generation.
-+ Offline support.
-+ Google Analytics support.
-+ Disqus Comments support.
 
-## Folder Structure
+### Structure
 
-```
-└── src
-    ├── assets
-    │   ├── fonts
-    │   │   └── fontello-771c82e0
-    │   │       ├── css
-    │   │       └── font
-    │   └── scss
-    │       ├── base
-    │       ├── mixins
-    │       └── pages
-    ├── components
-    │   ├── CategoryTemplateDetails
-    │   ├── Disqus
-    │   ├── Links
-    │   ├── Menu
-    │   ├── PageTemplateDetails
-    │   ├── Post
-    │   ├── PostTemplateDetails
-    │   ├── Sidebar
-    │   └── TagTemplateDetails
-    ├── layouts
-    ├── pages
-    │   ├── articles
-    │   │   ├── 2016-01-09---Perfecting-the-Art-of-Perfection
-    │   │   ├── 2016-01-12---The-Origins-of-Social-Stationery-Lettering
-    │   │   ├── 2016-02-02---A-Brief-History-of-Typography
-    │   │   ├── 2017-18-08---The-Birth-of-Movable-Type
-    │   │   └── 2017-19-08---Humane-Typography-in-the-Digital-Age
-    │   └── pages
-    │       ├── 2015-05-01---about
-    │       └── 2015-05-01---contact
-    └── templates
-```
++ Minimal homepage.
++ Simplistic 404 page.
++ About page.
++ Blog posts.
++ Multiple languages - English (left to right) and Hebrew (right to left).
 
-## Getting Started
-Install this starter (assuming Gatsby is installed) by running from your CLI:
-`gatsby new lumen https://github.com/GatsbyCentral/gatsby-v2-starter-lumen`
+### Layout
 
-#### Running in Development
-`gatsby develop`
++ Sidebar with author information (image, name, title and contact links); becomes a floating topbar with collapsible components on smaller screens (mobile).
++ Site navigation menu with an animated slider component (part of the sidebar).
++ Light / dark theme (toggle button in the sidebar, persisted via a cookie).
++ Reading progress bar / scroll indication at the top of the page.
++ Persistent footer across the entire site.
++ Well suited for desktop and mobile use alike; multiple breakpoints for multiple screen sizes.
++ Adjusted for window resizing and screen orientation switch.
 
-#### Building
-`gatsby build`
+### Posts
 
-#### Deploy with Netlify
++ Post list pages by category, ordered by time.
++ Comments via [utteranc.es](https://utteranc.es/) (hosted on [eyalroth/blog-gatsby-comments](https://github.com/eyalroth/blog-gatsby-comments)).
++ Code blocks syntax highlighting with [PrismJS](https://prismjs.com/).
++ Footnotes styling with [littlefoot.js](https://github.com/goblindegook/littlefoot).
++ Reading time estimation.
++ Metadata tags (*not* indexed, only for presentation).
++ Social sharing buttons / mobile share integration.
++ Series of posts - posts in a series can be navigated from one another and have their own unique post list page.
+ 
+### Technical
 
-Netlify CMS can run in any frontend web environment, but the quickest way to try it out is by running it on a pre-configured starter site with Netlify. Use the button below to build and deploy your own copy of the repository:
++ RSS feed (one for each language).
++ `sitemap.xml` and `robots.txt`.
++ Google analytics integration.
++ Offline support via [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
++ [WPA](https://en.wikipedia.org/wiki/Progressive_web_applications) integration via [manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest).
 
-<a href="https://app.netlify.com/start/deploy?repository=https://github.com/GatsbyCentral/gatsby-v2-starter-lumen" target="_blank"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a>
+### Easter eggs
 
-After clicking that button, you’ll authenticate with GitHub and choose a repository name. Netlify will then automatically create a repository in your GitHub account with a copy of the files from the template. Next, it will build and deploy the new site on Netlify, bringing you to the site dashboard when the build is complete. Next, you’ll need to set up Netlify’s Identity service to authorize users to log in to the CMS.
++ Dragging the author image reveals another image. 
 
-## Screenshot
+## Build
 
-![](http://i.imgur.com/422y5GV.png)
+### Local development
 
-## Ports
-[Statinamic port](https://github.com/thangngoc89/statinamic-theme-lumen) by [Khoa Nguyen](https://github.com/thangngoc89)
+The site is built with Gatsby which provides both a local development server (`gatsby develop`) and local serving capabilities (`gatsby build && gatsby serve`).
 
-## Contributors
-* https://github.com/alxshelepenok
-* https://github.com/abisz
-* https://github.com/mariolopjr
-* https://github.com/ihororlovskyi
-* https://github.com/marcelabomfim
-* https://github.com/vinnymac
-* https://github.com/axelclark
-* https://github.com/ybbarng
-* https://github.com/marktani
-* https://github.com/concreted
-* https://github.com/charandas
-* https://github.com/zollillo
-* https://github.com/codejet
-* https://github.com/reed-jones
-* https://github.com/swapnilmishra
-* https://github.com/vvasiloud
-* https://github.com/wichopy
-* https://github.com/chmac
-* https://github.com/YoruNoHikage
-* https://github.com/MartinRosenberg
+It should be possible to develop on any OS; I myself have been developing this site using [WSL on Windows 10](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux).
+
+### Deployment
+
+The site is not only hosted on Netlify, but is also built and deployed via Netlify's CI / CD, which is connected directly to this repository and uses Gatsby's tools to build the site.
+
+### Environment variables
+
+The site uses several environment variables during its build process:
+ + `URL` - the site's URL.
+ + `GOOGLE_ANALYTICS` - the Google Analytics site ID.
+ + `AUTO_RELOAD` - determines whether the service worker should automatically reload the browser's page upon detecting site updates; if set to `false`, the site will prompt a window asking the user for permission to reload the site (useful when testing a staging site and wanting to make sure updates have been deployed and served locally).
+
+Note the [`.env.development`](.env.development) file which sets these variables for development mode (`gatsby develop`). There is no such file for "production" mode (`gatsby build`) and they have to be set manually (via `export`).
+
+Also note the [`netlify.toml`](netlify.toml) file which configures some of these variables on Netlify CI (`URL` is automatically set by Netlify). 
+
+## Compatibility
+
+The site is compatible with all modern browsers. It is *not* compatible with Internet Explorer (the site will not load and instead will display a message saying just that).
+
+## Testing
+
+There are no automatic tests for the site.
+
+It was manually tested by me and mostly on:
++ Windows 10 + Chrome.
++ Android smartphone (Galaxy S7) + Chrome.
++ Android tablet (Samsung Tab S3) + Chrome.
+
+It was also partially tested on:
+* Windows 10 + Firefox.
+* Windows 10 + Edge.
+
+It was *not* tested on any Apple product (Mac / iPad / iPhone) as I do not own any of these. 
+
+## Link structure
+
+Language prefixes are either `en` (English) or `he` (Hebrew).
+
+### Home
++ `/{lang}` - home page for each language.
++ `/` redirects to `/en`.
+
+### Blog
++ `/blog/{year}/{month}/{name}` - blog post page (no language in the permalink). These links are intended to never change; hence, a permalink.
++ `/{lang}/blog/{category}` - post list page for every language's category.
++ `/blog` redirects to the main English category page.
++ `/blog/series/{series-name}` - post series list page. 
+
+### Other
++ `/{lang}/about`- about page for each language.
++ `/404` - 404 Page.
++ `/{lang}/rss.xml` - RSS feed for each language.
++ `/rss.xml` redirects to `/en/rss.xml`.
+
+## Inspiration
+
+The design and structure of this site draw much inspiration from many other sites out there, so here's a shout-out to them:
++ [danielwestheide.com](https://danielwestheide.com)
++ [knpw.rs](https://knpw.rs)
++ [sean.is](https://sean.is)
++ [ramonchancay.me](https://ramonchancay.me)
++ [theleakycauldronblog.com](https://theleakycauldronblog.com)
++ [chadly.net](https://chadly.net)
++ [starikov.dev](https://starikov.dev)
++ [tinney.dev](https://tinney.dev/)
++ [unbackend.pro](https://www.unbackend.pro/)
++ [szafranek.net](https://szafranek.net/)
++ [joelonsoftware.com](https://www.joelonsoftware.com)
++ [webmasters.googleblog.com](https://webmasters.googleblog.com/)
++ [blog.google](https://www.blog.google/)
++ [github.blog](https://github.blog/)
++ [newsroom.fb.com](https://newsroom.fb.com/)
+
+## License  
+
+The content of this project itself is licensed under the [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by/4.0/), and the underlying source code used to format and display that content is licensed under the [MIT license](LICENSE).

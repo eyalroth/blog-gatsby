@@ -1,27 +1,22 @@
 {
-  "version": "3.0.0",
-  "name": "gatsby-v2-starter-lumen",
-  "description": "Simple starter for Gatsby",
+  "version": "1.0.0",
+  "name": "eyalroth-site",
+  "description": "Eyal Roth personal site",
   "main": "n/a",
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
     "clean:public": "rm -rf public",
     "clean": "npm run clean:public",
-    "lint": "./node_modules/.bin/eslint --cache --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write './*.js' 'src/**/*.js' 'src/**/*.jsx'",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+    "deploy": "gatsby build"
   },
-  "repository": "git+https://github.com/alxshelepenok/gatsby-starter-lumen.git",
+  "repository": "git+https://github.com/eyalroth/gatsby-blog.git",
   "keywords": [
     "gatsby",
-    "blog",
-    "react",
-    "theme",
-    "starter"
+    "blog"
   ],
-  "author": "Alexander Shelepenok <alxshelepenok@gmail.com>",
+  "author": "Eyal Roth <eyalroth1@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.5.1",
@@ -60,15 +55,6 @@
     "react-share": "^3.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "eslint": "^4.14.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.5.1",
-    "gh-pages": "^1.1.0",
-    "postcss-pxtorem": "^4.0.1",
-    "prettier": "^1.10.2"
+    "postcss-pxtorem": "^4.0.1"
   }
 }
