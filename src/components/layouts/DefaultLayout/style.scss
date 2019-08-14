@@ -50,6 +50,10 @@
     margin: 0 auto;
 
     @include font-family($font-family-segoe, $font-family-arimo);
+
+    @include rtl {
+        text-align: right;
+    }
 }
 
 @include breakpoint-sm {
@@ -74,6 +78,7 @@
             padding-left: $content-side-padding-md;
         }
         @include rtl {
+            text-align: unset;
             padding-right: $content-side-padding-md;
         }
     }
