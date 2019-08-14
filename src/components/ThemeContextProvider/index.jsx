@@ -14,7 +14,7 @@ class ThemeContextProvider {
         let theme = this.state.get(stateProperty)
         if (!theme) {
             const cookieThemeId = Cookies.get(cookieName)
-            theme = Object.values(Themes).find(theme => theme.id == cookieThemeId)
+            theme = Object.values(Themes).find(theme => theme.id === cookieThemeId)
             if (!theme) {
                 theme = defaultTheme
             }

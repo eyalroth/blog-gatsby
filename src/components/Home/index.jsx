@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import Page from '../Page'
-import AuthorLinks from '../AuthorLinks'
 import ProfileImg from '../ProfileImg'
 import { Author } from '../../consts/author'
 import { SidebarLinks } from '../../consts/menuLinks'
@@ -21,7 +20,7 @@ class Home extends React.Component {
   renderContent() {
     const { languageId } = this.props
 
-    const siteLinks = Object.values(SidebarLinks[languageId]).filter(link => link.id != "home")
+    const siteLinks = Object.values(SidebarLinks[languageId]).filter(link => link.id !== "home")
 
     return (
       <div className="home">

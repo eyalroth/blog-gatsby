@@ -40,7 +40,7 @@ class NavMenu extends React.Component {
       )
 
       function createLink(linkDescription) {
-        const selectClass = (linkDescription.id == currentLinkId) ? "selected" : "unselected"
+        const selectClass = (linkDescription.id === currentLinkId) ? "selected" : "unselected"
 
         return (
           <Link
@@ -75,7 +75,7 @@ class NavMenu extends React.Component {
 
       if (currentLink) {
         const lastLink = this.links[this.getLastSliderLinkId()]
-        if (lastLink && lastLink.id != currentLinkId) {
+        if (lastLink && lastLink.id !== currentLinkId) {
           slider.shift({from: lastLink, to: currentLink})
         } else {
           slider.moveTo(currentLink)

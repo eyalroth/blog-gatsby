@@ -14,6 +14,7 @@ class PostListItem extends React.Component {
     const language = this.context.page.language.get()
     
     const readingTimeText = (function(lang) {
+      // eslint-disable-next-line
       switch(lang) {
           case Languages.English:
               return readingTime.text

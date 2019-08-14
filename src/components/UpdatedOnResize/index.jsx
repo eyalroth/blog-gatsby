@@ -44,7 +44,7 @@ class UpdatedOnResize extends React.Component {
         const screenWidth = Math.max(window.innerWidth, 0)
         const currentBreakpoint = Breakpoints.find(bp => screenWidth > bp)
 
-        if (currentBreakpoint != this.state.breakpoint) {
+        if (currentBreakpoint !== this.state.breakpoint) {
             this.setState({
                 reRender: true,
                 breakpoint: currentBreakpoint,

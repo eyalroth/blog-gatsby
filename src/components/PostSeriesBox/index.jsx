@@ -26,7 +26,7 @@ class PostSeriesBox extends React.Component {
         const { name: seriesName, order: postOrder } = series
 
         const seriesEdges = data.allMarkdownRemark.edges.filter ( edge =>
-            edge.node.frontmatter.series.name == seriesName
+            edge.node.frontmatter.series.name === seriesName
         )
 
         const orderToSlug = new Map(seriesEdges.map(edge =>
@@ -36,6 +36,7 @@ class PostSeriesBox extends React.Component {
         const maxOrder = Math.max(...Array.from(orderToSlug.keys()))
 
         function titlePrefix(lang) {
+            // eslint-disable-next-line
             switch(lang) {
                 case Languages.English:
                     return "This post is part of a "
@@ -45,6 +46,7 @@ class PostSeriesBox extends React.Component {
         }
 
         function linkLabel(lang) {
+            // eslint-disable-next-line
             switch(lang) {
                 case Languages.English:
                     return "series"

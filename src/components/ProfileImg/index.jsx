@@ -42,7 +42,7 @@ class ProfileImg extends React.Component {
     }
     
     toggleMouse(event, isMouseUp) {
-        const isLeftClick = event.which == 1
+        const isLeftClick = event.which === 1
         if (isLeftClick) {
             this.setState({isMouseUp})
         }

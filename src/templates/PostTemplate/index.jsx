@@ -39,6 +39,7 @@ class PostTemplate extends React.Component {
     const readTimeBlock = (
       <span className="post-single__reading-time">
         {(function(lang) {
+          // eslint-disable-next-line
           switch(lang) {
               case Languages.English:
                   return readingTime.text

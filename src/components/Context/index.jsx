@@ -43,7 +43,7 @@ class StateManager {
   }
 
   set(property, value) {
-    if (this.get(property) != value) {
+    if (this.get(property) !== value) {
       this.state[property] = value
       this.forceUpdate()
     }

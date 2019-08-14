@@ -15,6 +15,7 @@ class ThemeButton extends React.Component {
 
         function toggleTheme() {
             const newTheme = (function(theme) {
+                // eslint-disable-next-line
                 switch(theme) {
                     case Themes.Light:
                         return Themes.Dark
