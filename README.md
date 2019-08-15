@@ -56,6 +56,22 @@ This is the repository for my blog at [eyalroth.com](https://eyalroth.com), cont
 
 + Dragging the author image reveals another image. 
 
+## Known issues
+
+### Comments
+
++ Right-to-left comments are directed and aligned to the left.
+This is caused due to [lack of builtin RTL support in GitHub comments](https://github.com/dear-github/dear-github/issues/1470).
+The workaround is to instruct users to use HTML tags in their comments.
+
+### Profile image
+
++ Dragging the profile image is sometimes glitchy, especially on desktop.
+I didn't make too much of an effort to correct that,
+seeing that even major websites such as YouTube and Twitch.tv exhibit a glitchy volume controller in their player.
++ Dragging the profile image doesn't work on tablets for some reason, only double-clicking does.
+
+
 ## Build
 
 ### Local development
@@ -73,6 +89,7 @@ The site is not only hosted on Netlify, but is also built and deployed via Netli
 The site uses several environment variables during its build process:
  + `URL` - the site's URL.
  + `GOOGLE_ANALYTICS` - the Google Analytics site ID.
+ + `UTTERANCES_REPO` - the path (not entire URL) of the GitHub repository containing the [utteranc.es](https://utteranc.es/) comments / issues (it is useful to use one for development purposes and one for production).
  + `AUTO_RELOAD` - determines whether the service worker should automatically reload the browser's page upon detecting site updates; if set to `false`, the site will prompt a window asking the user for permission to reload the site (useful when testing a staging site and wanting to make sure updates have been deployed and served locally).
 
 Note the [`.env.development`](.env.development) file which sets these variables for development mode (`gatsby develop`). There is no such file for "production" mode (`gatsby build`) and they have to be set manually (via `export`).

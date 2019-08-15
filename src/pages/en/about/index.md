@@ -9,22 +9,23 @@ language: english
 Hi, my name is Eyal and this is my personal website and blog.
 
 I am a software developer by day and an insomniac by night.
-I live in Tel Aviv, the (unofficial) capital of Israel -- my home country.
-I love coffee, video games and dogs (though I do not have any).
-I do also (very) occasionally play the piano.
+I live in Tel Aviv, the *unofficial* capital of Israel, my home country.
+I love coffee, video games and dogs (although I never had one).
+I do also very occasionally play the piano.
 
 ## Contact
 
-Feel free contacting me regarding *anything* via [my personal email](mailto:eyalroth1@gmail.com).
+Feel free contacting me via [my personal email](mailto:eyalroth1@gmail.com).
 
-If you've encountered a technical problem I would appreciate it if you'd [report a ticket](https://github.com/eyalroth/blog-gatsby/issues/new/choose) on the site GitHub repository.
-If you do not own a GitHub user - that's fine, just email me the good old way :)
+If you've encountered a technical problem I would appreciate it if you'd [report a ticket](https://github.com/eyalroth/blog-gatsby/issues/new/choose) on the site's GitHub repository.
+If you do not own a GitHub user that is fine, just email me the good old fashioned way :)
 
 ## Data I'm collecting on YOU
 
 This site utilizes [Google Analytics](https://en.wikipedia.org/wiki/Google_Analytics)
-to gather statistics which help me better understand your usage of this site so I could make it better.
-There are no ads on this site.
+to help me better understand your usage of this site, and ultimately,
+to help me make the best site possible.
+There are no ads on here.
 
 Other than that, the site stores a cookie on your browser to remember your preferred theme -- light or dark (yeah, that's a thing, try it out).
 
@@ -32,7 +33,8 @@ Other than that, the site stores a cookie on your browser to remember your prefe
 
 Commenting on posts is powered by [utteranc.es](https://utteranc.es/),
 which is an open-source tool that uses GitHub repository issues as comments.
-It requires a GitHub user to post comments (viewing them is public).
+It requires a GitHub user to post and react to comments,
+although viewing them is open to anyone.
 
 ## Behind the scenes
 
@@ -45,5 +47,5 @@ where the code and content are stored and maintained.
 ## Credits
 
 I would like to give credit to [firmansaifuddin](https://www.fiverr.com/firmansaifuddin)
-who drew my profile image based on a real photo of mine (revealed when dragging the profile image),
-and allowed me to use it on my site for a (very) fair price.
+who drew my profile image from a photo of mine (revealed when the profile image is dragged),
+and allowed me to use it on my site for a very fair price.

@@ -4,10 +4,12 @@
 
 [build.environment]
   GOOGLE_ANALYTICS = "UA-141926834-2"
+  UTTERANCES_REPO="eyalroth/blog-gatsby-comments-dev"
   AUTO_RELOAD = "false"
 
 [context.production]
 
 [context.production.environment]
   GOOGLE_ANALYTICS = "UA-141926834-1"
+  UTTERANCES_REPO="eyalroth/blog-gatsby-comments"
   AUTO_RELOAD = "true"

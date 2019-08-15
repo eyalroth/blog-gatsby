@@ -17,6 +17,7 @@ function verifyEnvVar(variable) {
 }
 verifyEnvVar("URL")
 verifyEnvVar("GOOGLE_ANALYTICS")
+verifyEnvVar("UTTERANCES_REPO")
 
 function rssQuery(languageId) {
   return `
@@ -49,7 +50,7 @@ module.exports = {
     siteUrl: process.env.URL,
     title: 'Eyal Roth',
     description: '',
-    utterances: 'eyalroth/blog-gatsby-comments',
+    utterances: process.env.UTTERANCES_REPO,
   },
   plugins: [
     {
