@@ -69,7 +69,7 @@ class Utterances extends React.Component {
         case Themes.Light:
           return 'github-light'
         case Themes.Dark:
-          return 'github-dark'
+          return 'photon-dark'
       }
     })(theme)
 
