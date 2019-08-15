@@ -56,6 +56,22 @@ This is the repository for my blog at [eyalroth.com](https://eyalroth.com), cont
 
 + Dragging the author image reveals another image. 
 
+## Known issues
+
+### Comments
+
++ Right-to-left comments are directed and aligned to the left.
+This is caused due to [lack of builtin RTL support in GitHub comments](https://github.com/dear-github/dear-github/issues/1470).
+The workaround is to instruct users to use HTML tags in their comments.
+
+### Profile image
+
++ Dragging the profile image is sometimes glitchy, especially on desktop.
+I didn't make too much of an effort to correct that,
+seeing that even major websites such as YouTube and Twitch.tv exhibit a glitchy volume controller in their player.
++ Dragging the profile image doesn't work on tablets for some reason, only double-clicking does.
+
+
 ## Build
 
 ### Local development
