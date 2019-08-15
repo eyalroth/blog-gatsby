@@ -73,6 +73,7 @@ The site is not only hosted on Netlify, but is also built and deployed via Netli
 The site uses several environment variables during its build process:
  + `URL` - the site's URL.
  + `GOOGLE_ANALYTICS` - the Google Analytics site ID.
+ + `UTTERANCES_REPO` - the path (not entire URL) of the GitHub repository containing the [utteranc.es](https://utteranc.es/) comments / issues (it is useful to use one for development purposes and one for production).
  + `AUTO_RELOAD` - determines whether the service worker should automatically reload the browser's page upon detecting site updates; if set to `false`, the site will prompt a window asking the user for permission to reload the site (useful when testing a staging site and wanting to make sure updates have been deployed and served locally).
 
 Note the [`.env.development`](.env.development) file which sets these variables for development mode (`gatsby develop`). There is no such file for "production" mode (`gatsby build`) and they have to be set manually (via `export`).
