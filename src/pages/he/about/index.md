@@ -34,6 +34,31 @@ language: hebrew
 כלי קוד-פתוח שמשתמש בGitHub repository issues כתגובות.
 כתיבת תגובות ואינטרקציה עימן דורשות משתמש GitHub, אך הצפייה בהן פתוחה לכולם.
 
+שימו לב, כתיבת תגובות בעברית מיושרת לצד שמאל ועלולה ליצור בעיות כשמשלבים בתגובה גם אנגלית.
+זוהי [בעיה ידועה](https://github.com/dear-github/dear-github/issues/147)
+ בתגובות של GitHub, ויש לה פתרון.
+
+כדי לכתוב טקסט מיושר לימין ומוצג  כראוי בשילוב עם אנגלית, הקיפו את הטקסט בצורה זו:
+<pre dir="ltr" align="left" style="background-color: rgba(39,40,34, 1); color: white;">
+<code>
+&lt;div dir="rtl"&gt;
+זוהי תגובה בעברית שמשלבת גם english בתוכה.
+אפשר לכתוב כאן כמה שורות שרוצים.
+&lt;/div&gt;
+
+and then type english as usual.
+</code>
+</pre>
+
+ותקבלו תגובה שנראית כך:
+<pre style="background-color: rgba(39,40,34, 1); color: white;">
+<code>
+זוהי תגובה בעברית שמשלבת גם english בתוכה.
+אפשר לכתוב כאן כמה שורות שרוצים.
+</code>
+<div dir="ltr" align="left">and then type english as usual.</div>
+</pre>
+
 ## מאחורי הקלעים
 
 אתר זה נבנה באמצעות [GatsbyJS](https://github.com/gatsbyjs/gatsby)
