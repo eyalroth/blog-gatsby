@@ -35,61 +35,53 @@ class PostSeriesBox extends React.Component {
 
         const maxOrder = Math.max(...Array.from(orderToSlug.keys()))
 
-        function titlePrefix(lang) {
+        function switchLanguage(english, hebrew) {
             // eslint-disable-next-line
-            switch(lang) {
+            switch(language) {
                 case Languages.English:
-                    return "This post is part of a "
+                    return english
                 case Languages.Hebrew:
-                    return "פוסט זה הוא חלק מ"
+                    return hebrew
             }
         }
 
-        function linkLabel(lang) {
-            // eslint-disable-next-line
-            switch(lang) {
-                case Languages.English:
-                    return "series"
-                case Languages.Hebrew:
-                    return "סדרה"
-            }
+        function linkLabel() {
+            return switchLanguage("series", "סדרה")
         }
 
         const title = (
             <h2 className="post-series-box__title">
-                {titlePrefix(language)}
+                {switchLanguage("This post is part of a ", "פוסט זה הוא חלק מ")}
                 <Link
                     className="post-series-box__series-link" 
                     to={`/blog/series/${_.kebabCase(seriesName)}`}
-                    title={linkLabel(language)}
+                    title={linkLabel()}
                 >
-                    {linkLabel(language)}
+                    {linkLabel()}
                 </Link>
             </h2>
         )
 
-        const ltr = language.ltr
-
         const firstLink = this.createLink(postOrder > 1, orderToSlug, 1, 
-            new Map([[Languages.English, "First"], [Languages.Hebrew, "ראשון"]]),
-            (ltr) ? "<<" : ">>")
+            switchLanguage("First", "ראשון"),
+            "<<")
         const previousLink = this.createLink(postOrder > 1, orderToSlug, postOrder - 1,
-            new Map([[Languages.English, "Previous"], [Languages.Hebrew, "קודם"]]),
-            (ltr) ? "<" : ">")
+            switchLanguage("Previous", "קודם"),
+            "<")
         const nextLink = this.createLink(postOrder < maxOrder, orderToSlug, postOrder + 1, 
-            new Map([[Languages.English, "Next"], [Languages.Hebrew, "הבא"]]),
-            (ltr) ? ">" : "<")
+            switchLanguage("Next", "הבא"),
+            ">")
         const lastLink = this.createLink(postOrder < maxOrder, orderToSlug, maxOrder, 
-            new Map([[Languages.English, "Last"], [Languages.Hebrew, "אחרון"]]),
-            (ltr) ? ">>" : "<<")
+            switchLanguage("Last", "אחרון"),
+            ">>")
 
         const navMenu =  (
             <ul className="post-series-box__nav">
-                {(ltr) ? firstLink : lastLink}
-                {(ltr) ? previousLink : nextLink}
+                {firstLink}
+                {previousLink}
                 <li className="post-series-box__nav-item current">{postOrder}</li>
-                {(ltr) ? nextLink : previousLink}
-                {(ltr) ? lastLink : firstLink}
+                {nextLink}
+                {lastLink}
             </ul>
         )
 
@@ -104,7 +96,6 @@ class PostSeriesBox extends React.Component {
     }
 
     createLink(shouldDisplay, orderToSlug, order, title, symbol) {
-        const { language } = this.props
         return (
             <li className="post-series-box__nav-item">
                 {
@@ -112,7 +103,7 @@ class PostSeriesBox extends React.Component {
                         <Link
                             className="post-series-box__nav-link" 
                             to={orderToSlug.get(order)}
-                            title={title.get(language)}
+                            title={title}
                         >
                             {symbol}
                         </Link>
