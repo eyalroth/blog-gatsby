@@ -13,7 +13,7 @@ language: hebrew
 
 ## יצירת קשר
 
-אתם מוזמנים לפנות אליי [במייל הפרטי שלי](mailto:eyalroth1@gmail.com).
+אתם מוזמנים לפנות אליי [במייל הפרטי שלי](mailto:contact@eyalroth.com).
 
 אם נתקלתם בבעיה טכנית אני אעריך אם תוכלו לדווח לי עליה באמצעות
 [GitHub ticket](https://github.com/eyalroth/blog-gatsby/issues/new/choose).

@@ -16,7 +16,7 @@
     "gatsby",
     "blog"
   ],
-  "author": "Eyal Roth <eyalroth1@gmail.com>",
+  "author": "Eyal Roth <contact@eyalroth.com>",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.5.1",

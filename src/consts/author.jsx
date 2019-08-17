@@ -14,6 +14,6 @@ module.exports.Author = Object.freeze({
     links: {
         linkedin: "https://linkedin.com/in/eyal-roth",
         github: 'https://github.com/eyalroth',
-        email: 'eyalroth1@gmail.com',
+        email: 'contact@eyalroth.com',
     }
 })
