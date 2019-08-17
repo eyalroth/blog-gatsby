@@ -44,10 +44,16 @@ function rssQuery(languageId) {
 
 const fontVariants = ['300', '300i', '400', '400i', '500', '700']
 
+let deployUrl = process.env.DEPLOY_PRIME_URL
+if (!deployUrl) {
+  deployUrl = process.env.URL 
+}
+
 module.exports = {
   siteMetadata: {
     url: process.env.URL,
     siteUrl: process.env.URL,
+    deployUrl,
     title: 'Eyal Roth',
     description: '',
     utterances: process.env.UTTERANCES_REPO,
