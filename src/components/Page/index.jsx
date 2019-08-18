@@ -7,6 +7,49 @@ import { Author } from '../../consts/author'
 
 class Page extends React.Component {
     render() {
+        const language = Object.values(Languages).find(lang => lang.id === this.props.languageId)
+
+        this.context.page.set(language, this.props.sidebarLinkId)
+
+        const helmet = <PageHelmet key="helmet" language={language} {...this.props}/>
+        
+        return ([
+            helmet,
+            this.props.children
+        ])
+    }
+
+    componentDidMount() {
+        this.addLittlefoot()
+    }
+
+    addLittlefoot() {
+        if (typeof window !== 'undefined') {
+            const bt = `
+            <button
+                aria-controls="fncontent:<%= id %>"
+                aria-expanded="false"
+                aria-label="Footnote <%= number %>"
+                class="littlefoot-footnote__button"
+                id="<%= reference %>"
+                rel="footnote"
+                title="See Footnote <%= number %>"
+            />
+                <%= number %>
+            </button>
+            `
+            const littlefoot = require('littlefoot').default
+            littlefoot({buttonTemplate: bt})
+        }
+    }
+}
+
+Page.contextType = Context
+
+export default Page
+
+class PageHelmet extends React.Component {
+    render() {
         return (
             <StaticQuery
                 query={graphql`
@@ -44,18 +87,14 @@ class Page extends React.Component {
         const finalTitle = `${subtitle}${title}`
         const finalDescription = description || this.props.subtitle
 
-        const language = Object.values(Languages).find(lang => lang.id === this.props.languageId)
-
-        
         const featuredImage = (this.props.featuredImage || data.defaultImage)
         const featuredImageUrl = new URL(featuredImage.childImageSharp.fluid.src, data.site.siteMetadata.deployUrl)
 
-        const helmet = (
+        return (
             <Helmet 
-                key="helmet"
                 defer={false}
                 htmlAttributes={{
-                    lang: language.htmlLang
+                    lang: this.props.language.htmlLang
                 }}
             >
                 <title>{finalTitle}</title>
@@ -68,40 +107,5 @@ class Page extends React.Component {
                 <meta name="twitter:title" content={finalTitle}/>
             </Helmet>
         )
-
-        this.context.page.set(language, this.props.sidebarLinkId)
-        
-        return ([
-            helmet,
-            this.props.children
-        ])
-    }
-
-    componentDidMount() {
-        this.addLittlefoot()
-    }
-
-    addLittlefoot() {
-        if (typeof window !== 'undefined') {
-            const bt = `
-            <button
-                aria-controls="fncontent:<%= id %>"
-                aria-expanded="false"
-                aria-label="Footnote <%= number %>"
-                class="littlefoot-footnote__button"
-                id="<%= reference %>"
-                rel="footnote"
-                title="See Footnote <%= number %>"
-            />
-                <%= number %>
-            </button>
-            `
-            const littlefoot = require('littlefoot').default
-            littlefoot({buttonTemplate: bt})
-        }
     }
 }
-
-Page.contextType = Context
-
-export default Page
