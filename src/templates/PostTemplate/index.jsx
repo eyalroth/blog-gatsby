@@ -22,6 +22,8 @@ class PostTemplate extends React.Component {
     const url = this.props.location.href
     const language = this.context.page.language.get()
 
+    let featuredImage = post.frontmatter.featuredImage
+
     const categoryMenu = (
       <CategoryMenu categoryId={category}/>
     )
@@ -112,7 +114,12 @@ class PostTemplate extends React.Component {
     )
 
     return (
-      <Page languageId={languageId} subtitle={title} sidebarLinkId={SidebarLinks[languageId].Blog.id}>
+      <Page
+        languageId={languageId}
+        subtitle={title}
+        sidebarLinkId={SidebarLinks[languageId].Blog.id}
+        featuredImage={featuredImage}
+      >
         <div className="post-single">
           {categoryMenu}
           {header}
@@ -159,6 +166,13 @@ export const pageQuery = graphql`
           order
         }
         language
+        featuredImage {
+          childImageSharp {
+            fluid(quality: 100) {
+              src
+            }
+          }
+        }
       }
     }
   }

@@ -105,10 +105,6 @@
 
 @include breakpoint-sm {
     .post-single {
-        // &__title {
-        //     @include font-size(2);
-        //     line-height: 2.5rem;
-        // }
         &__subtitle {
             margin-top: 1.5rem;
         }

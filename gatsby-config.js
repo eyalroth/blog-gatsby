@@ -44,10 +44,16 @@ function rssQuery(languageId) {
 
 const fontVariants = ['300', '300i', '400', '400i', '500', '700']
 
+let deployUrl = process.env.DEPLOY_PRIME_URL
+if (!deployUrl) {
+  deployUrl = process.env.URL 
+}
+
 module.exports = {
   siteMetadata: {
     url: process.env.URL,
     siteUrl: process.env.URL,
+    deployUrl,
     title: 'Eyal Roth',
     description: '',
     utterances: process.env.UTTERANCES_REPO,
@@ -196,8 +202,6 @@ module.exports = {
         name: `Eyal Roth`,
         short_name: `Eyal Roth`,
         start_url: `/`,
-        background_color: `#f7f0eb`,
-        theme_color: `#a2466c`,
         display: `standalone`,
         icon: `src/images/icon2.png`
       },

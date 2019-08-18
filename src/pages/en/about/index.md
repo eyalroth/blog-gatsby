@@ -10,12 +10,12 @@ Hi, my name is Eyal and this is my personal website and blog.
 
 I am a software developer by day and an insomniac by night.
 I live in Tel Aviv, the *unofficial* capital of Israel, my home country.
-I love coffee, video games and dogs (although I never had one).
+I love coffee, video games and dogs (although I've never had one).
 I do also very occasionally play the piano.
 
 ## Contact
 
-Feel free contacting me via [my personal email](mailto:eyalroth1@gmail.com).
+Feel free contacting me via [my personal email](mailto:contact@eyalroth.com).
 
 If you've encountered a technical problem I would appreciate it if you'd [report a ticket](https://github.com/eyalroth/blog-gatsby/issues/new/choose) on the site's GitHub repository.
 If you do not own a GitHub user that is fine, just email me the good old fashioned way :)

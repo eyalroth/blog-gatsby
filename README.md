@@ -71,6 +71,15 @@ I didn't make too much of an effort to correct that,
 seeing that even major websites such as YouTube and Twitch.tv exhibit a glitchy volume controller in their player.
 + Dragging the profile image doesn't work on tablets for some reason, only double-clicking does.
 
+### Unicode
+
++ Pages with unicode in their URL fail to load properly in Edge browser.
+
+
+### Featured post image
+
++ You must have at least one markdown file with the `featuredImage` metadata field, otherwise post pages will fail to compile.
+See [this Gatsby issue](https://github.com/gatsbyjs/gatsby/issues/2392) for more information.
 
 ## Build
 
