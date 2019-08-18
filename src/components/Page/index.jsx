@@ -59,10 +59,10 @@ class PageHelmet extends React.Component {
                                 deployUrl
                             }
                         }
-                        defaultImage: file(relativePath: { eq: "default-featured-image.jpg" }) {
+                        defaultImage: file(relativePath: { eq: "icon2.png" }) {
                             childImageSharp {
-                                fluid(maxHeight: 630, quality: 100) {
-                                    ...GatsbyImageSharpFluid_noBase64
+                                fluid(quality: 100, maxWidth: 1315, maxHeight: 690, fit: CONTAIN, background: "rgba(0,0,0,0)") {
+                                    src
                                 }
                             }
                         }
@@ -89,6 +89,7 @@ class PageHelmet extends React.Component {
 
         const featuredImage = (this.props.featuredImage || data.defaultImage)
         const featuredImageUrl = new URL(featuredImage.childImageSharp.fluid.src, data.site.siteMetadata.deployUrl)
+        const featuredImageType = featuredImageUrl.toString().endsWith("png") ? "png" : "jpeg"
 
         return (
             <Helmet 
@@ -102,6 +103,7 @@ class PageHelmet extends React.Component {
                 <meta name="image" content={featuredImageUrl}/>
                 <meta property="og:title" content={finalTitle}/>
                 <meta property="og:image" content={featuredImageUrl}/>
+                <meta property="og:image:type" content={`image/${featuredImageType}`}/>
                 <meta name="twitter:card" content="summary_large_image"/>
                 <meta name="twitter:image" content={featuredImageUrl}/>
                 <meta name="twitter:title" content={finalTitle}/>
