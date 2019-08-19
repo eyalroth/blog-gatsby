@@ -3,7 +3,7 @@ language: hebrew
 title: "שר הטבעות - חלק III: שיבת המלך"
 date: "2019-02-21T16:51:00.000Z"
 layout: post
-draft: true
+demo: true
 path: "שרהט-3"
 category: "hebrew"
 series:

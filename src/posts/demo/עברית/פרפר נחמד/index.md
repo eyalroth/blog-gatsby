@@ -3,7 +3,7 @@ language: hebrew
 title: פרפר נחמד
 date: "2019-02-12T16:51:00.000Z"
 layout: post
-draft: true
+demo: true
 path: "פרפר-נחמד"
 category: "hebrew"
 tags:

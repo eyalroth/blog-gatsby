@@ -3,7 +3,7 @@ language: english
 title: "A Brief History of Typography"
 date: "2016-02-02T22:40:32.169Z"
 layout: post
-draft: true
+demo: true
 path: "a-brief-history-of-typography"
 category: "software"
 tags:

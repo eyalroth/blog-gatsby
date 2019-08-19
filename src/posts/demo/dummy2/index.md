@@ -3,7 +3,7 @@ language: english
 title: Dummy2
 date: "2000-06-14T16:51:00.000Z"
 layout: post
-draft: true
+demo: true
 path: "dummy2"
 category: "software"
 description: "Dummy 2"

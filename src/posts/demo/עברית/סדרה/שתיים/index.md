@@ -3,7 +3,7 @@ language: hebrew
 title: "שר הטבעות - חלק II: שני הצריחים"
 date: "2019-02-01T16:51:00.000Z"
 layout: post
-draft: true
+demo: true
 path: "שרהט-2"
 category: "hebrew"
 series:

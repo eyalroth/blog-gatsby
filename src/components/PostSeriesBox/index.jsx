@@ -122,7 +122,7 @@ const allSeriesPostsQuery = graphql`
     query PostSeriesBoxQuery {
         allMarkdownRemark(
             filter: { frontmatter: { 
-                draft: { ne: true }
+                demo: { ne: true }
                 series: { name: { ne: null }}
             }}
         ) {

@@ -3,7 +3,7 @@ language: english
 title: Perfecting the Art of Perfection
 date: "2016-09-01T23:46:37.121Z"
 layout: post
-draft: true
+demo: true
 path: "perfecting-the-art-of-perfection"
 category: "software"
 tags:

@@ -25,7 +25,7 @@ export const pageQuery = graphql`
         frontmatter: {
           category: { eq: $categoryId }
           layout: { eq: "post" }
-          draft: { ne: true }
+          demo: { ne: true }
         }
       }
       sort: { order: DESC, fields: [frontmatter___date] }

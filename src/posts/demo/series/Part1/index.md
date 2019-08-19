@@ -3,7 +3,7 @@ language: english
 title: "The Death of Love and Robots - Part I: Death"
 date: "2019-01-01T16:51:00.000Z"
 layout: post
-draft: true
+demo: true
 path: "death-love-robots-1"
 category: "social"
 series:

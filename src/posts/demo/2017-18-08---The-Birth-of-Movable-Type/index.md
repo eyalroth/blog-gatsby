@@ -3,7 +3,7 @@ language: english
 title: "Johannes Gutenberg: The Birth of Movable Type"
 date: "2017-08-18T22:12:03.284Z"
 layout: post
-draft: true
+demo: true
 path: "the-birth-of-movable-type"
 category: "software"
 tags:

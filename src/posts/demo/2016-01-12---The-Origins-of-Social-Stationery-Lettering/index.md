@@ -3,7 +3,7 @@ language: english
 title: The Origins of Social Stationery Lettering
 date: "2016-12-01T22:40:32.169Z"
 layout: post
-draft: true
+demo: true
 path: "the-origins-of-social-stationery-lettering"
 category: "software"
 tags:

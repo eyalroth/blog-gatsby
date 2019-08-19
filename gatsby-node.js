@@ -72,7 +72,7 @@ exports.createPages = ({ graphql, actions }) => {
       {
         allMarkdownRemark(
           limit: 1000
-          filter: { frontmatter: { layout: { eq: "page" }, draft: { ne: true } } }
+          filter: { frontmatter: { layout: { eq: "page" }, demo: { ne: true } } }
         ) {
           edges {
             node {
@@ -106,7 +106,7 @@ exports.createPages = ({ graphql, actions }) => {
       {
         allMarkdownRemark(
           limit: 1000
-          filter: { frontmatter: { layout: { eq: "post" }, draft: { ne: true } } }
+          filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
         ) {
           edges {
             node {
@@ -138,7 +138,9 @@ exports.createPages = ({ graphql, actions }) => {
 
     graphql(`
       {
-        allMarkdownRemark {
+        allMarkdownRemark(
+          filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
+        ) {
           distinct(field: frontmatter___series___name)
         }
       }
