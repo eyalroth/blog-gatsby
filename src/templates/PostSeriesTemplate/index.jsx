@@ -31,7 +31,7 @@ export const pageQuery = graphql`
   query PostSeriesTemplateQuery($seriesName: String) {
       allMarkdownRemark(
           filter: { frontmatter: { 
-              demo: { ne: true }
+              demo: { ne: false }
               series: { name: { eq: $seriesName }}
           }}
           sort: { order: ASC, fields: [frontmatter___series___order] }
