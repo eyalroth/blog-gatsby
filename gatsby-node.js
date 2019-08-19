@@ -30,18 +30,6 @@ exports.createPages = ({ graphql, actions }) => {
       redirectInBrowser: true,
     })
   
-    createRedirect({
-      fromPath: SidebarLinks[Languages.English.id].Blog.path,
-      toPath: CategoryLinks[Languages.English.id].Software.path,
-      redirectInBrowser: true,
-    })
-  
-    createRedirect({
-      fromPath: SidebarLinks[Languages.Hebrew.id].Blog.path,
-      toPath: CategoryLinks[Languages.Hebrew.id].Hebrew.path,
-      redirectInBrowser: true,
-    })
-
     resolve()
   })
 

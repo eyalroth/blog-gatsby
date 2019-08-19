@@ -27,12 +27,10 @@ module.exports.SidebarLinks = SidebarLinks
 
 const categoryLinks = {}
 categoryLinks[Languages.English.id] = {
-    Software: new MenuLink("software", "Software", "/en/blog/software", "icon-cd"),
-    Entertainment: new MenuLink("entertainment", "Entertainment", "/en/blog/entertainment", "icon-gamepad"),
-    Social: new MenuLink("social", "Social", "/en/blog/social", "icon-group"),
+    Articles: new MenuLink("articles-en", "Articles", "/en/blog"),
 }
 categoryLinks[Languages.Hebrew.id] = {
-    Hebrew: new MenuLink("hebrew", "עברית", "/he/blog/hebrew"),
+    Articles: new MenuLink("articles-he", "מאמרים", "/he/blog"),
 }
 const CategoryLinks = Object.freeze(categoryLinks)
 module.exports.CategoryLinks = CategoryLinks
