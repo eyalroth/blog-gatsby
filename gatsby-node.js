@@ -4,8 +4,8 @@ const path = require('path')
 const slash = require('slash')
 const moment = require('moment')
 
-const { Languages } = require('./src/consts/languages.jsx')
-const { SidebarLinks, CategoryLinks } = require('./src/consts/menuLinks.jsx')
+const { Languages, findById } = require('./src/consts/languages.jsx')
+const { SidebarLinks, CategoryLinks, seriesLink } = require('./src/consts/menuLinks.jsx')
 const { Feeds } = require('./src/consts/rss.jsx')
 
 exports.createPages = ({ graphql, actions }) => {
@@ -129,7 +129,18 @@ exports.createPages = ({ graphql, actions }) => {
         allMarkdownRemark(
           filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
         ) {
-          distinct(field: frontmatter___series___name)
+          group(field: frontmatter___series___name) {
+            edges {
+              node {
+                frontmatter {
+                  language
+                  series {
+                    name
+                  }
+                }
+              }
+            }
+          }
         }
       }
     `).then(result => {
@@ -137,11 +148,20 @@ exports.createPages = ({ graphql, actions }) => {
         console.log(result.errors)
         reject(result.errors)
       }
-      _.each(result.data.allMarkdownRemark.distinct, seriesName => {
+
+      const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
+        const { language: languageId, series } = group.edges[0].node.frontmatter
+        return {
+          language: findById(languageId),
+          name: series.name,
+        }
+      })
+
+      _.each(seriesItems, series => {
         createPage({
-          path: `/blog/series/${_.kebabCase(seriesName)}`,
+          path: seriesLink(series.name, series.language),
           component: template,
-          context: { seriesName },
+          context: { seriesName: series.name },
         })
       })
       resolve()
@@ -163,6 +183,8 @@ exports.onCreateNode = ({ node, actions }) => {
       const postMonth = postDate.format('MM')
       slug = `/blog/${postYear}/${postMonth}/${slug}/`
     }
+
+    slug = `/${findById(node.frontmatter.language).urlPart}${slug}`
 
     createNodeField({
       node,
