@@ -1,5 +1,4 @@
 const { Languages } = require('./languages.jsx')
-const _ = require('lodash')
 
 class MenuLink {
     constructor(id, label, path, icon) {
@@ -36,6 +35,6 @@ categoryLinks[Languages.Hebrew.id] = {
 const CategoryLinks = Object.freeze(categoryLinks)
 module.exports.CategoryLinks = CategoryLinks
 
-module.exports.seriesLink = (name, language) => {
-    return `/${language.urlPart}/blog/series/${_.kebabCase(name)}`
+module.exports.seriesLink = (path, language) => {
+    return `/${language.urlPart}/blog/series/${path}`
 }

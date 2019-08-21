@@ -4,6 +4,6 @@ title: שלום עולם
 date: "2019-08-19"
 layout: post
 demo: false
-path: "שלום-עולם"
+path: "hello-world"
 category: "articles-he"
 ---

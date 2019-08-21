@@ -135,13 +135,13 @@ exports.createPages = ({ graphql, actions }) => {
         allMarkdownRemark(
           filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
         ) {
-          group(field: frontmatter___series___name) {
+          group(field: frontmatter___series___path) {
             edges {
               node {
                 frontmatter {
                   language
                   series {
-                    name
+                    path
                   }
                 }
               }
@@ -156,18 +156,21 @@ exports.createPages = ({ graphql, actions }) => {
       }
 
       const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
-        const { language: languageId, series } = group.edges[0].node.frontmatter
+        const { series, language: languageId } = group.edges[0].node.frontmatter
         return {
+          path: series.path,
           language: findById(languageId),
-          name: series.name,
         }
       })
 
       _.each(seriesItems, series => {
         createPage({
-          path: seriesLink(series.name, series.language),
+          path: seriesLink(series.path, series.language),
           component: template,
-          context: { seriesName: series.name },
+          context: { 
+            seriesName: series.name,
+            seriesPath: series.path,
+          },
         })
       })
       resolve()

@@ -4,7 +4,7 @@ title: פרפר נחמד
 date: "2019-02-12T16:51:00.000Z"
 layout: post
 demo: true
-path: "פרפר-נחמד"
+path: "nice-butterfly"
 category: "hebrew"
 tags:
   - "טלוויזיה"

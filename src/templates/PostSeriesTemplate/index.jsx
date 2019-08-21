@@ -28,11 +28,11 @@ class PostSeriesTemplate extends React.Component {
 export default PostSeriesTemplate
 
 export const pageQuery = graphql`
-  query PostSeriesTemplateQuery($seriesName: String) {
+  query PostSeriesTemplateQuery($seriesPath: String) {
       allMarkdownRemark(
           filter: { frontmatter: { 
               demo: { ne: true }
-              series: { name: { eq: $seriesName }}
+              series: { path: { eq: $seriesPath }}
           }}
           sort: { order: ASC, fields: [frontmatter___series___order] }
       ) {

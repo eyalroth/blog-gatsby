@@ -22,10 +22,10 @@ class PostSeriesBox extends React.Component {
     renderWithQueryData(data) {
         const { series } = this.props
         const language = this.context.page.language.get()
-        const { name: seriesName, order: postOrder } = series
+        const { path: seriesPath, order: postOrder } = series
 
         const seriesEdges = data.allMarkdownRemark.edges.filter ( edge =>
-            edge.node.frontmatter.series.name === seriesName
+            edge.node.frontmatter.series.path === seriesPath
         )
 
         const orderToSlug = new Map(seriesEdges.map(edge =>
@@ -53,7 +53,7 @@ class PostSeriesBox extends React.Component {
                 {switchLanguage("This post is part of a ", "פוסט זה הוא חלק מ")}
                 <Link
                     className="post-series-box__series-link" 
-                    to={seriesLink(seriesName, language)}
+                    to={seriesLink(seriesPath, language)}
                     title={linkLabel()}
                 >
                     {linkLabel()}
@@ -122,7 +122,7 @@ const allSeriesPostsQuery = graphql`
         allMarkdownRemark(
             filter: { frontmatter: { 
                 demo: { ne: true }
-                series: { name: { ne: null }}
+                series: { path: { ne: null }}
             }}
         ) {
             edges {
@@ -132,7 +132,7 @@ const allSeriesPostsQuery = graphql`
                     }
                     frontmatter {
                         series {
-                            name
+                            path
                             order
                         }
                     }

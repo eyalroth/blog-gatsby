@@ -4,9 +4,10 @@ title: "שר הטבעות - חלק II: שני הצריחים"
 date: "2019-02-01T16:51:00.000Z"
 layout: post
 demo: true
-path: "שרהט-2"
+path: "lotr-2"
 category: "hebrew"
 series:
+  path: "lotr"
   name: "שר הטבעות"
   order: 2
 tags:
