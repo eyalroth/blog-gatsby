@@ -73,7 +73,7 @@ seeing that even major websites such as YouTube and Twitch.tv exhibit a glitchy 
 
 ### Unicode
 
-+ Pages with unicode in their URL fail to load properly in Edge browser.
++ Pages with unicode in their URL fail to load properly in Edge browser; encoding these with URLs with `encodeURI` [doesn't work properly in Gatsby](https://github.com/gatsbyjs/gatsby/issues/16765).
 
 
 ### Featured post image
@@ -133,13 +133,14 @@ Language prefixes are either `en` (English) or `he` (Hebrew).
 + `/` redirects to `/en`.
 
 ### Blog
-+ `/blog/{year}/{month}/{name}` - blog post page (no language in the permalink). These links are intended to never change; hence, a permalink.
++ `/{lang}/blog/{year}/{month}/{name}` - blog post page. These links are intended to never change; hence, a permalink.
 + `/{lang}/blog/{category}` - post list page for every language's category.
++ `/{lang}/blog/series/{series-name}` - post series list page. 
 + `/blog` redirects to the main English category page.
-+ `/blog/series/{series-name}` - post series list page. 
 
 ### Other
 + `/{lang}/about`- about page for each language.
++ `/about` redirects to the main English about page.
 + `/404` - 404 Page.
 + `/{lang}/rss.xml` - RSS feed for each language.
 + `/rss.xml` redirects to `/en/rss.xml`.
