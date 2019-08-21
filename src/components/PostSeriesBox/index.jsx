@@ -2,9 +2,8 @@ import React from 'react'
 import { Link, StaticQuery, graphql } from 'gatsby'
 import Context from '../Context'
 import { Languages } from '../../consts/languages'
+import { seriesLink } from '../../consts/menuLinks'
 import './style.scss'
-
-const _ = require('lodash')
 
 class PostSeriesBox extends React.Component {
     render() {
@@ -54,7 +53,7 @@ class PostSeriesBox extends React.Component {
                 {switchLanguage("This post is part of a ", "פוסט זה הוא חלק מ")}
                 <Link
                     className="post-series-box__series-link" 
-                    to={`/blog/series/${_.kebabCase(seriesName)}`}
+                    to={seriesLink(seriesName, language)}
                     title={linkLabel()}
                 >
                     {linkLabel()}

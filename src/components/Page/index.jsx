@@ -2,12 +2,12 @@ import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import Context from '../../components/Context'
-import { Languages } from '../../consts/languages'
+import { findById } from '../../consts/languages'
 import { Author } from '../../consts/author'
 
 class Page extends React.Component {
     render() {
-        const language = Object.values(Languages).find(lang => lang.id === this.props.languageId)
+        const language = findById(this.props.languageId)
 
         this.context.page.set(language, this.props.sidebarLinkId)
 

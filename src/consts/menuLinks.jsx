@@ -1,4 +1,5 @@
 const { Languages } = require('./languages.jsx')
+const _ = require('lodash')
 
 class MenuLink {
     constructor(id, label, path, icon) {
@@ -11,28 +12,32 @@ class MenuLink {
 
 const sidebarLinks = {}
 sidebarLinks[Languages.English.id] = {
-    Home: new MenuLink("home", "Home", "/en"),
-    Blog: new MenuLink("blog", "Blog", "/en/blog"),
-    About: new MenuLink("about", "About", "/en/about"),
-    Hebrew: new MenuLink("hebrew", "עברית", "/he"),
+    Home: new MenuLink("home", "Home", `/${Languages.English.urlPart}`),
+    Blog: new MenuLink("blog", "Blog", `/${Languages.English.urlPart}/blog`),
+    About: new MenuLink("about", "About", `/${Languages.English.urlPart}/about`),
+    Hebrew: new MenuLink("hebrew", "עברית", `/${Languages.Hebrew.urlPart}`),
 }
 sidebarLinks[Languages.Hebrew.id] = {
-    Home: new MenuLink("home", "בית", "/he"),
-    Blog: new MenuLink("blog", "בלוג", "/he/blog"),
-    About: new MenuLink("about", "אודות", "/he/about"),
-    English: new MenuLink("english", "English", "/en"),
+    Home: new MenuLink("home", "בית", `/${Languages.Hebrew.urlPart}`),
+    Blog: new MenuLink("blog", "בלוג", `/${Languages.Hebrew.urlPart}/blog`),
+    About: new MenuLink("about", "אודות", `/${Languages.Hebrew.urlPart}/about`),
+    English: new MenuLink("english", "English", `/${Languages.English.urlPart}`),
 }
 const SidebarLinks = Object.freeze(sidebarLinks)
 module.exports.SidebarLinks = SidebarLinks
 
 const categoryLinks = {}
 categoryLinks[Languages.English.id] = {
-    Software: new MenuLink("software", "Software", "/en/blog/software", "icon-cd"),
-    Entertainment: new MenuLink("entertainment", "Entertainment", "/en/blog/entertainment", "icon-gamepad"),
-    Social: new MenuLink("social", "Social", "/en/blog/social", "icon-group"),
+    Software: new MenuLink("software", "Software", `/${Languages.English.urlPart}/blog/software`, "icon-cd"),
+    Entertainment: new MenuLink("entertainment", "Entertainment", `/${Languages.English.urlPart}/blog/entertainment`, "icon-gamepad"),
+    Social: new MenuLink("social", "Social", `/${Languages.English.urlPart}/blog/social`, "icon-group"),
 }
 categoryLinks[Languages.Hebrew.id] = {
-    Hebrew: new MenuLink("hebrew", "עברית", "/he/blog/hebrew"),
+    Hebrew: new MenuLink("hebrew", "עברית", `/${Languages.Hebrew.urlPart}/blog/hebrew`),
 }
 const CategoryLinks = Object.freeze(categoryLinks)
 module.exports.CategoryLinks = CategoryLinks
+
+module.exports.seriesLink = (name, language) => {
+    return `/${language.urlPart}/blog/series/${_.kebabCase(name)}`
+}
