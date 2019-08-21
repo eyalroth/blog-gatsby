@@ -7,6 +7,7 @@ demo: true
 path: "death-love-robots-1"
 category: "social"
 series:
+  path: "death-love-robots"
   name: "The Death of Love and Robots"
   order: 1
 tags:

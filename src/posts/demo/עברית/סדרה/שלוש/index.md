@@ -4,9 +4,10 @@ title: "שר הטבעות - חלק III: שיבת המלך"
 date: "2019-02-21T16:51:00.000Z"
 layout: post
 demo: true
-path: "שרהט-3"
+path: "lotr-3"
 category: "hebrew"
 series:
+  path: "lotr"
   name: "שר הטבעות"
   order: 3
 tags:

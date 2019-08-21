@@ -4,9 +4,10 @@ title: "שר הטבעות - חלק I: אחוות הטבעת"
 date: "2018-12-23T16:51:00.000Z"
 layout: post
 demo: true
-path: "שרהט-1"
+path: "lotr-1"
 category: "hebrew"
 series:
+  path: "lotr"
   name: "שר הטבעות"
   order: 1
 tags:
