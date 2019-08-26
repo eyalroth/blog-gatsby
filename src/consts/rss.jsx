@@ -14,14 +14,14 @@ class RssFeed {
 const feeds = {}
 feeds[Languages.English.id] = new RssFeed(
     "Eyal Roth",
-    "/en/rss.xml",
+    `/${Languages.English.urlPart}/rss.xml`,
     SidebarLinks[Languages.English.id].Home.path,
     Languages.English.id,
     "en"
 )
 feeds[Languages.Hebrew.id] = new RssFeed(
     "אייל רוט",
-    "/he/rss.xml",
+    `/${Languages.Hebrew.urlPart}/rss.xml`,
     SidebarLinks[Languages.Hebrew.id].Home.path,
     Languages.Hebrew.id,
     "he"

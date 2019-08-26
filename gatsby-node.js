@@ -4,8 +4,8 @@ const path = require('path')
 const slash = require('slash')
 const moment = require('moment')
 
-const { Languages } = require('./src/consts/languages.jsx')
-const { SidebarLinks, CategoryLinks } = require('./src/consts/menuLinks.jsx')
+const { Languages, findById } = require('./src/consts/languages.jsx')
+const { SidebarLinks, CategoryLinks, seriesLink } = require('./src/consts/menuLinks.jsx')
 const { Feeds } = require('./src/consts/rss.jsx')
 
 exports.createPages = ({ graphql, actions }) => {
@@ -23,6 +23,12 @@ exports.createPages = ({ graphql, actions }) => {
       toPath: SidebarLinks[Languages.English.id].Blog.path,
       redirectInBrowser: true,
     })
+
+    createRedirect({
+      fromPath: '/about',
+      toPath: `/${Languages.English.urlPart}/about`,
+      redirectInBrowser: true,
+    })
   
     createRedirect({
       fromPath: '/rss.xml',
@@ -30,18 +36,6 @@ exports.createPages = ({ graphql, actions }) => {
       redirectInBrowser: true,
     })
   
-    createRedirect({
-      fromPath: SidebarLinks[Languages.English.id].Blog.path,
-      toPath: CategoryLinks[Languages.English.id].Software.path,
-      redirectInBrowser: true,
-    })
-  
-    createRedirect({
-      fromPath: SidebarLinks[Languages.Hebrew.id].Blog.path,
-      toPath: CategoryLinks[Languages.Hebrew.id].Hebrew.path,
-      redirectInBrowser: true,
-    })
-
     resolve()
   })
 
@@ -72,7 +66,7 @@ exports.createPages = ({ graphql, actions }) => {
       {
         allMarkdownRemark(
           limit: 1000
-          filter: { frontmatter: { layout: { eq: "page" }, draft: { ne: true } } }
+          filter: { frontmatter: { layout: { eq: "page" }, demo: { ne: true } } }
         ) {
           edges {
             node {
@@ -106,7 +100,7 @@ exports.createPages = ({ graphql, actions }) => {
       {
         allMarkdownRemark(
           limit: 1000
-          filter: { frontmatter: { layout: { eq: "post" }, draft: { ne: true } } }
+          filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
         ) {
           edges {
             node {
@@ -138,8 +132,21 @@ exports.createPages = ({ graphql, actions }) => {
 
     graphql(`
       {
-        allMarkdownRemark {
-          distinct(field: frontmatter___series___name)
+        allMarkdownRemark(
+          filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
+        ) {
+          group(field: frontmatter___series___path) {
+            edges {
+              node {
+                frontmatter {
+                  language
+                  series {
+                    path
+                  }
+                }
+              }
+            }
+          }
         }
       }
     `).then(result => {
@@ -147,11 +154,23 @@ exports.createPages = ({ graphql, actions }) => {
         console.log(result.errors)
         reject(result.errors)
       }
-      _.each(result.data.allMarkdownRemark.distinct, seriesName => {
+
+      const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
+        const { series, language: languageId } = group.edges[0].node.frontmatter
+        return {
+          path: series.path,
+          language: findById(languageId),
+        }
+      })
+
+      _.each(seriesItems, series => {
         createPage({
-          path: `/blog/series/${_.kebabCase(seriesName)}`,
+          path: seriesLink(series.path, series.language),
           component: template,
-          context: { seriesName },
+          context: { 
+            seriesName: series.name,
+            seriesPath: series.path,
+          },
         })
       })
       resolve()
@@ -173,6 +192,8 @@ exports.onCreateNode = ({ node, actions }) => {
       const postMonth = postDate.format('MM')
       slug = `/blog/${postYear}/${postMonth}/${slug}/`
     }
+
+    slug = `/${findById(node.frontmatter.language).urlPart}${slug}`
 
     createNodeField({
       node,

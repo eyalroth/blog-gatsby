@@ -1,7 +1,7 @@
 ---
 title: "אודות"
 layout: page
-path: "/he/about"
+path: "/about"
 sidebarLinkId: "about"
 language: hebrew
 ---

@@ -162,7 +162,7 @@ export const pageQuery = graphql`
         date
         description
         series {
-          name
+          path
           order
         }
         language
