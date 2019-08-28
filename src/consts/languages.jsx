@@ -1,18 +1,17 @@
 class Language {
-    constructor(id, label, urlPart, locale, htmlLang, ltr, cssClass) {
+    constructor(id, urlPart, locale, htmlLang, ltr, cssClass) {
         this.id = id
-        this.label = label
         this.urlPart = urlPart
         this.locale = locale
         this.htmlLang = htmlLang
         this.ltr = ltr
-        this.cssClass = cssClass
+        this.cssClass = `${cssClass} ${(ltr) ? "ltr" : "rtl"}`
     }
 }
 
 const Languages = Object.freeze({
-    English: new Language("english", "English", 'en', 'en', 'en', true, "english ltr"),
-    Hebrew: new Language("hebrew", "Hnglish", 'he', 'he', 'he', false, "hebrew rtl"),
+    English: new Language("english", 'en', 'en', 'en', true, "english"),
+    Hebrew: new Language("hebrew", 'he', 'he', 'he', false, "hebrew"),
 })
 
 module.exports.Languages = Languages
