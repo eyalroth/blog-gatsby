@@ -13,8 +13,6 @@ class Utterances extends React.Component {
     this.rootElm = React.createRef()
     this.theme = null
     this.scripts = {}
-
-    this.updateClassName = this.updateClassName.bind(this)
   }
 
   render() {

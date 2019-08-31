@@ -73,6 +73,7 @@
             margin-left: 15px;
             margin-right: 15px;
             margin-bottom: 1rem;
+            @include font-size(0.8);
         }
         & :not(div) {
             margin-left: auto;
@@ -143,6 +144,9 @@
         }
         &__body {
             @include font-size(1);
+            & .gatsby-highlight {
+                @include font-size(0.9);
+            }
         }
     }
 }
