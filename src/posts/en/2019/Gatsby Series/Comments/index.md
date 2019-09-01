@@ -34,7 +34,7 @@ A caveat though - I had no experience with Gatsby nor with React prior to buildi
 
 It's no surprise that comments are a core feature of any blogging platform out there -- WordPress, Blogger, Medium, etc -- as that is an integral part of any website with published content; be it a blog, an online newspaper, a social network (Facebook, Twitter), a video platform (YouTube) or an online forum (Reddit).
 
-Gatsby on the other hand is a static site generator, which means it does not have builtin support for dynamic concent, and comments are dynamic by nature. Not all is lost though; Gatsby is able to integrate with several tools [listed in the official documentation](https://www.gatsbyjs.org/docs/adding-comments/), but the majority of them either require payment or include ads (Disqus I'm looking at you). The only tool on the list that is both free and has no ads is [Staticman](https://staticman.net/), but it's a bit cumbersome as it introduces a new PR and build per comment, and it leaves the visual design of the comments to the developer.
+Gatsby on the other hand is a static site generator, which means it does not have builtin support for dynamic concent, and comments are dynamic by nature. Not all is lost though; Gatsby is able to integrate with several tools [listed in the documentation](https://www.gatsbyjs.org/docs/adding-comments/), but the majority of them either require payment or include ads (Disqus I'm looking at you). The only tool on the list that is both free and has no ads is [Staticman](https://staticman.net/), but it's a bit cumbersome as it introduces a new PR and build per comment, and it leaves the visual design of the comments to the developer.
 
 This is actually the reason I dismissed Gatsby when I first searched for a blogging platform, but then I stumbled upon [utterances](https://utteranc.es/). It is free of both payment and ads, much like Staticman, but unlike the latter, it is much less cumbersome as it relies on GitHub issues, which means it doesn't pollute your repository with PRs, doesn't require a build to generate comments, comes with the builtin design of GitHub issues (including theme support!) and gives users the ability to write *and edit* comments using the GitHub editor. The only downside is that it requires a GitHub user, unlike other services that allow for authentication via social networks, but that should be enough as a start for a blog focusing on content for technical readers.
 
@@ -68,20 +68,23 @@ export const pageQuery = graphql`
 `
 ```
 
-This code is taken from an example in [the official guide on querying with GraphQL](https://www.gatsbyjs.org/docs/querying-with-graphql), with the addition of a custom `Utterances` component which requires a link to the GitHub repository where the comments are hosted. The link is configured in the site metadata (more on than later).
+This code is taken from an example in [the guide on querying with GraphQL](https://www.gatsbyjs.org/docs/querying-with-graphql), with the addition of a custom `Utterances` component which requires a link to the GitHub repository where the comments are hosted. The link is configured in the site metadata:
 
-### Staging
-// TODO
-- repo per env
+```js:title=gatsby-config.js
+module.exports = {
+  siteMetadata: {
+    utterances: process.env.UTTERANCES_REPO,
+  }
+}
+```
+
+You'll notice the link is configured via an environment variable named `UTTERANCES_REPO`. This will allow us to set a different repository per environment (development, staging, production, etc). See [the documentation](https://www.gatsbyjs.org/docs/environment-variables/) on how to do that.
 
 ### React Component
 
 Now let's see about the `Utterances` component itself:
-```jsx
+```jsx:title=Utterances/index.jsx
 import React from 'react'
-
-const src = 'https://utteranc.es/client.js'
-const branch = 'master'
 
 class Utterances extends React.Component {
   constructor(props) {
@@ -106,9 +109,8 @@ class Utterances extends React.Component {
 
   createScript() {
     const script = document.createElement('script')
-    script.setAttribute('src', src)
+    script.setAttribute('src', 'https://utteranc.es/client.js')
     script.setAttribute('repo', this.props.repository)
-    script.setAttribute('branch', branch)
     script.setAttribute('async', true)
     script.setAttribute('issue-term', 'pathname')
     script.setAttribute('crossOrigin', 'anonymous')
@@ -119,30 +121,29 @@ class Utterances extends React.Component {
 export default Utterances
 ```
 
-// TODO
-- explain
-- note we only load the script once
-  - it doesn't update comments automatically, need to reload the script (by refreshing the page)
+What we have here is a React component class which renders an empty `div` and, once mounted, appends the Utterances `script` as its child via [a Ref](https://reactjs.org/docs/refs-and-the-dom.html). The arguments for the script are as instructed in [the tool's site](https://utteranc.es).
+
+This is possibly the simplest way to load any script with React, which also makes sure to only load the script once when the component is first mounted. As of its current version, the script does not query for updates on its own, so in order to view new comments one must reload the script by refreshing the page.
 
 ### Loading Indicator
 
-// TODO
-- why even add an indicator?
-  - cuz loading the script might fail
-    - especially if there's no internet connection (the site is cached, the script is not)
+Even though the script is quite light, it may take a few moments until it fully loads. More importantly, the script might sometimes fail to load, and you want your users to be aware of that when that happens (and not by checking the console). Since most gatsby websites make use of a [service worker to cache their content](https://www.gatsbyjs.org/packages/gatsby-plugin-offline/), your page may very well still load without an internet connection, but in such case the script will not load.
 
-```jsx
+So let's add a loading indicator to our `Utterances` component:
+```jsx:title=Utterances/index.jsx
 // same as before
 import './style.scss'
 
 class Utterances extends React.Component {
-  updateClassName(status) {
-    this.rootElm.current.className = `utterances ${status}`
+  constructor(props) {
+    // same as before
+    this.state = {status: "loading"}
   }
 
-  loadScript() {
-    this.updateClassName("loading")
-    // same as before
+  render() {
+    return (
+      <div ref={this.rootElm} className={`utterances ${this.state.status}`}/>
+    )
   }
 
   createScript() {
@@ -153,12 +154,13 @@ class Utterances extends React.Component {
   }
 
   scriptLoaded(success) {
-    this.updateClassName(success ? "success" : "fail")
+    this.setState({status: success ? "success" : "fail"})
   }
 }
 ```
 
-```scss
+And accompany it with a new SCSS file:
+```scss:title=Utterances/style.scss
 .utterances {
     text-align: center;
     &.loading::before {
@@ -171,14 +173,13 @@ class Utterances extends React.Component {
 }
 ```
 
-// TODO
-- why not update classname via state update? (react "bug")
+We are maintaining the status of the script with a CSS `class` attribute on the empty `div` tag. Since our indicator is fairly simple (only text), CSS is suffice to describe it. Furthermore, if you happen to have a multi-language site, you'd want the text to match the language of the page, which can be done with the help of SASS mixin (more on that in a later post).
 
 ### Theme Toggle
 
 // TODO intro
 
-```jsx
+```jsx:title=Utterances/index.jsx
 // same as before
 import Context from '../Context'
 import { Themes } from '../../consts/themes'
@@ -186,17 +187,8 @@ import { Themes } from '../../consts/themes'
 class Utterances extends React.Component {
   constructor(props) {
     // same as before
-    this.theme = null
-    this.scripts = {}
-  }
-
-  render() {
-    const theme = this.context.theme.get()
-    if (theme !== this.theme) {
-      this.theme = theme
-      setTimeout(() => this.forceUpdate(), 0)
-    }
-    // same as before
+    this.themeStatus = {}
+    this.state = {status: "loading", theme: null}
   }
 
   componentDidUpdate() {
@@ -204,20 +196,24 @@ class Utterances extends React.Component {
   }
 
   loadScript() {
-    if (this.theme) {
-      if (!(this.theme.id in this.scripts)) {
-        this.updateClassName("loading")
-        const script = this.createScript(this.theme)
-        const existingScript = Array.from(this.rootElm.current.children)
-          .find(elem => elem.id === script.id)
+    const theme = this.context.theme.get().id
+
+    if (theme !== this.state.theme) {
+      this.setState({status: "loading", theme})
+    } else {
+      if (!(theme in this.themeStatus)) {
+        const script = this.createScript(theme)
+        const existingScript = Array.from(this.rootElm.current.children).find(elem => elem.id === script.id)
         if (existingScript) {
           this.rootElm.current.removeChild(existingScript)
         }
         this.rootElm.current.appendChild(script)
+      } else if (this.state.status !== this.themeStatus[theme]) {
+        this.setState({status: this.themeStatus[theme]})
       }
 
       Array.from(this.rootElm.current.children).forEach(elem => {
-        elem.style.display = (elem.id === this.theme.id) ? 'block' : 'none'
+        elem.style.display = (elem.id === theme) ? 'block' : 'none'
       })
     }
   }
@@ -228,9 +224,9 @@ class Utterances extends React.Component {
     const githubTheme  = (function(theme) {
       // eslint-disable-next-line
       switch(theme) {
-        case Themes.Light:
+        case Themes.Light.id:
           return 'github-light'
-        case Themes.Dark:
+        case Themes.Dark.id:
           return 'photon-dark'
       }
     })(theme)
@@ -244,9 +240,10 @@ class Utterances extends React.Component {
     return div
   }
 
-  scriptLoaded(themeId, success) {
-    this.scripts[themeId] = success
-    // same as before
+  scriptLoaded(theme, success) {
+    const status = success ? "success" : "fail"
+    this.themeStatus[theme] = status
+    this.setState({status})
   }
 }
 
@@ -268,31 +265,26 @@ Utterances.contextType = Context
 
 Let's see how this all comes together:
 
-```jsx
+```jsx:title=Utterances/index.jsx
 import React from 'react'
 import Context from '../Context'
 import { Themes } from '../../consts/themes'
 import './style.scss'
 
-const src = 'https://utteranc.es/client.js'
-const branch = 'master'
-
 class Utterances extends React.Component {
   constructor(props) {
     super(props)
     this.rootElm = React.createRef()
-    this.theme = null
-    this.scripts = {}
+    this.themeStatus = {}
+    this.state = {
+      status: "loading",
+      theme: null,
+    }
   }
 
   render() {
-    const theme = this.context.theme.get()
-    if (theme !== this.theme) {
-      this.theme = theme
-      setTimeout(() => this.forceUpdate(), 0)
-    }
     return (
-      <div ref={this.rootElm}/>
+      <div ref={this.rootElm} className={`utterances ${this.state.status}`}/>
     )
   }
 
@@ -309,20 +301,24 @@ class Utterances extends React.Component {
   }
 
   loadScript() {
-    if (this.theme) {
-      if (!(this.theme.id in this.scripts)) {
-        this.updateClassName("loading")
-        const script = this.createScript(this.theme)
-        const existingScript = Array.from(this.rootElm.current.children)
-          .find(elem => elem.id === script.id)
+    const theme = this.context.theme.get().id
+
+    if (theme !== this.state.theme) {
+      this.setState({status: "loading", theme})
+    } else {
+      if (!(theme in this.themeStatus)) {
+        const script = this.createScript(theme)
+        const existingScript = Array.from(this.rootElm.current.children).find(elem => elem.id === script.id)
         if (existingScript) {
           this.rootElm.current.removeChild(existingScript)
         }
         this.rootElm.current.appendChild(script)
+      } else if (this.state.status !== this.themeStatus[theme]) {
+        this.setState({status: this.themeStatus[theme]})
       }
 
       Array.from(this.rootElm.current.children).forEach(elem => {
-        elem.style.display = (elem.id === this.theme.id) ? 'block' : 'none'
+        elem.style.display = (elem.id === theme) ? 'block' : 'none'
       })
     }
   }
@@ -331,35 +327,37 @@ class Utterances extends React.Component {
     const githubTheme  = (function(theme) {
       // eslint-disable-next-line
       switch(theme) {
-        case Themes.Light:
+        case Themes.Light.id:
           return 'github-light'
-        case Themes.Dark:
+        case Themes.Dark.id:
           return 'photon-dark'
       }
     })(theme)
 
     const div = document.createElement('div')
-    div.id = theme.id
+    div.id = theme
 
     const script = document.createElement('script')
-    script.setAttribute('src', src)
+
+    script.setAttribute('src', 'https://utteranc.es/client.js')
     script.setAttribute('repo', this.props.repository)
-    script.setAttribute('branch', branch)
     script.setAttribute('async', true)
     script.setAttribute('issue-term', 'pathname')
     script.setAttribute('crossOrigin', 'anonymous')
     script.setAttribute('theme', githubTheme)
 
-    script.addEventListener("load", () => this.scriptLoaded(theme.id, true), {once: true})
-    script.addEventListener("error", () => this.scriptLoaded(theme.id, false), {once: true})
+    script.addEventListener("load", () => this.scriptLoaded(theme, true), {once: true})
+    script.addEventListener("error", () => this.scriptLoaded(theme, false), {once: true})
 
     div.appendChild(script)
+
     return div
   }
 
-  scriptLoaded(themeId, success) {
-    this.scripts[themeId] = success
-    this.updateClassName(success ? "success" : "fail")
+  scriptLoaded(theme, success) {
+    const status = success ? "success" : "fail"
+    this.themeStatus[theme] = status
+    this.setState({status})
   }
 }
 
