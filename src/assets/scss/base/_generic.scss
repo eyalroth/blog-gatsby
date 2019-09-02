@@ -134,6 +134,22 @@ figcaption {
     text-align: center;
 }
 
+p>code {
+    font-family: monospace;
+    @include text-normal;
+    
+    border-radius: 3px;
+    padding: .2em .4em;
+    margin: 0;
+    
+    @include light {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    @include dark {
+        background-color: #272822;
+    }
+}
+
 @include breakpoint-sm {
     h1 {
         padding-bottom: unset;
