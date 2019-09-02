@@ -86,6 +86,8 @@ Now let's see about the `Utterances` component itself:
 ```jsx:title=Utterances/index.jsx
 import React from 'react'
 
+const src = 'https://utteranc.es/client.js'
+
 class Utterances extends React.Component {
   constructor(props) {
     super(props)
@@ -109,11 +111,12 @@ class Utterances extends React.Component {
 
   createScript() {
     const script = document.createElement('script')
-    script.setAttribute('src', 'https://utteranc.es/client.js')
+    script.setAttribute('src', src)
     script.setAttribute('repo', this.props.repository)
     script.setAttribute('async', true)
     script.setAttribute('issue-term', 'pathname')
     script.setAttribute('crossOrigin', 'anonymous')
+    script.setAttribute('theme', 'github-light')
     return script
   }
 }
@@ -147,7 +150,9 @@ class Utterances extends React.Component {
   }
 
   createScript() {
-    // same as before
+    // same as before (except for the src attribute)
+    
+    script.setAttribute('src', `${src}?v=${new Date().getTime()}`)
     script.addEventListener("load", () => this.scriptLoaded(true), {once: true})
     script.addEventListener("error", () => this.scriptLoaded(false), {once: true})
     return script
@@ -175,20 +180,27 @@ And accompany it with a new SCSS file:
 
 We are maintaining the status of the script with a CSS `class` attribute on the empty `div` tag. Since our indicator is fairly simple (only text), CSS is suffice to describe it. Furthermore, if you happen to have a multi-language site, you'd want the text to match the language of the page, which can be done with the help of SASS mixin (more on that in a later post).
 
-### Theme Toggle
+Note that now we also add a "fake" query to the source script with the current timestamp. The purpose of this query is to make sure the script is never cached; otherwise, in case the internet connection breaks, the initial script will load successfully (since it's cached), but it will fail loading any other resource (since there's no internet connection), and you won't get an event for that, eventually preventing you from alerting your users about the failure.
 
-// TODO intro
+### Theme Change
+
+As seen before, the utterances script supports multiple themes by accepting a theme parameter. If your website has only one design, you may simply choose the utterances theme that best suits you. On the other hand, if your website allows for choosing a theme -- for instance, a light theme and a dark theme -- you'd might want to have a different utterances theme for each of your site's themes. There are multiple ways of implementing a theme change, but I believe the best way is to make sure the theme changes without reloading the entire page.
+
+I will be examining the full theme-change solution in a later post. For now, I'll be focusing on integrating your website's theme change with the utterances script. What you need to know for now is that the theme change is controlled via a [React context](https://reactjs.org/docs/context.html): Every time the user changes the theme, the context will get updated with the new theme, and the `Utterances` component will be invoked with `componentDidUpdate`, even though neither its `state` nor its `props` have changed.
+
+The idea is to load a new script once per _utterances_ theme (not per site theme), and only when that theme has been switched to. When the user switches between the themes, we will keep the previously loaded script(s), but will hide them with `display: none` and only show the script for the current theme.
+
+The `Utterances` component state will now keep both the current loading status and the current (utterances) theme. Whenever the (site) theme changes, the component will check whether its current theme matches the new theme. If they don't match, the component will proceed to check whether the new theme script was loaded before. If it did, then it will simply update the current state; otherwise, it will also create the new script just as before.
 
 ```jsx:title=Utterances/index.jsx
 // same as before
-import Context from '../Context'
-import { Themes } from '../../consts/themes'
+import Context from '../Context' // the react context; more on that in a later post
 
 class Utterances extends React.Component {
   constructor(props) {
     // same as before
     this.themeStatus = {}
-    this.state = {status: "loading", theme: null}
+    this.state = {status: "", theme: null}
   }
 
   componentDidUpdate() {
@@ -196,22 +208,24 @@ class Utterances extends React.Component {
   }
 
   loadScript() {
-    const theme = this.context.theme.get().id
+    const theme = this.context.theme.get().utterances // get the current theme from the context
 
     if (theme !== this.state.theme) {
-      this.setState({status: "loading", theme})
-    } else {
-      if (!(theme in this.themeStatus)) {
+      let status = "loading"
+
+      if (theme in this.themeStatus) {
+        status = this.themeStatus[theme]
+      } else {
+        this.themeStatus[theme] = status
         const script = this.createScript(theme)
-        const existingScript = Array.from(this.rootElm.current.children).find(elem => elem.id === script.id)
-        if (existingScript) {
-          this.rootElm.current.removeChild(existingScript)
-        }
         this.rootElm.current.appendChild(script)
-      } else if (this.state.status !== this.themeStatus[theme]) {
-        this.setState({status: this.themeStatus[theme]})
       }
 
+      this.setState({
+        status,
+        theme,
+      })
+      // only display current theme's script element
       Array.from(this.rootElm.current.children).forEach(elem => {
         elem.style.display = (elem.id === theme) ? 'block' : 'none'
       })
@@ -219,23 +233,14 @@ class Utterances extends React.Component {
   }
 
   createScript(theme) {
-    // same as before (except for the event listeners)
+    // same as before (except for the event listeners and theme attribute)
 
-    const githubTheme  = (function(theme) {
-      // eslint-disable-next-line
-      switch(theme) {
-        case Themes.Light.id:
-          return 'github-light'
-        case Themes.Dark.id:
-          return 'photon-dark'
-      }
-    })(theme)
-    script.setAttribute('theme', githubTheme)
-    script.addEventListener("load", () => this.scriptLoaded(theme.id, true), {once: true})
-    script.addEventListener("error", () => this.scriptLoaded(theme.id, false), {once: true})
+    script.setAttribute('theme', theme.utterances)
+    script.addEventListener("load", () => this.scriptLoaded(theme, true), {once: true})
+    script.addEventListener("error", () => this.scriptLoaded(theme, false), {once: true})
 
     const div = document.createElement('div')
-    div.id = theme.id
+    div.id = theme
     div.appendChild(script)
     return div
   }
@@ -243,23 +248,35 @@ class Utterances extends React.Component {
   scriptLoaded(theme, success) {
     const status = success ? "success" : "fail"
     this.themeStatus[theme] = status
-    this.setState({status})
+    this.setState({
+      status,
+      theme,
+    })
   }
 }
 
-Utterances.contextType = Context
+Utterances.contextType = Context // "hook" the Utterances component to the context
 ```
 
-// TODO
-- eslint
-  - i don't want a default case
-  - could add the utterances theme to the Theme object instead of a switch
-- imagine we get context updates on theme change
-  - more on that in a different post
-- awkward to use react "state"
-  - loading a the script is pure javascript, no react rendering
-- writing in one theme and then swapping "forgets" the changes
-  - but switching back remembers them
+And this is how the themes look like:
+```jsx:title=themes.jsx
+class Theme {
+    constructor(id, utterances) {
+        this.id = id
+        this.utterancesTheme = utterances
+    }
+}
+
+const Themes = Object.freeze({
+    Light: new Theme('light', 'github-light'),
+    Dark: new Theme('dark', 'photon-dark'),
+})
+module.exports.Themes = Themes
+``` 
+
+You'll note that the theme status "history" is _not_ kept in the component state, but rather in the `this.themeStatus` map. This is because it's a bit cumbersome to update a map nested within the state map, but it's definitely do-able.
+
+One small caveat is that any interaction the user is making with the script will be "forgotten" when a theme changes. For instance, if the user started writing a comment in the editor and then switched to another theme, the comment will disappear. This is because there are two different scripts in place which do not share data. Switching back to the previous theme will bring back the changes.
 
 ### Full Example
 
@@ -268,16 +285,18 @@ Let's see how this all comes together:
 ```jsx:title=Utterances/index.jsx
 import React from 'react'
 import Context from '../Context'
-import { Themes } from '../../consts/themes'
 import './style.scss'
+
+const src = 'https://utteranc.es/client.js'
 
 class Utterances extends React.Component {
   constructor(props) {
     super(props)
+
     this.rootElm = React.createRef()
     this.themeStatus = {}
     this.state = {
-      status: "loading",
+      status: "",
       theme: null,
     }
   }
@@ -296,68 +315,57 @@ class Utterances extends React.Component {
     this.loadScript()
   }
 
-  updateClassName(status) {
-    this.rootElm.current.className = `utterances ${status}`
-  }
-
   loadScript() {
-    const theme = this.context.theme.get().id
+    const theme = this.context.theme.get().utterances
 
     if (theme !== this.state.theme) {
-      this.setState({status: "loading", theme})
-    } else {
-      if (!(theme in this.themeStatus)) {
+      let status = "loading"
+      
+      if (theme in this.themeStatus) {
+        status = this.themeStatus[theme]
+      } else {
+        this.themeStatus[theme] = status
         const script = this.createScript(theme)
-        const existingScript = Array.from(this.rootElm.current.children).find(elem => elem.id === script.id)
-        if (existingScript) {
-          this.rootElm.current.removeChild(existingScript)
-        }
         this.rootElm.current.appendChild(script)
-      } else if (this.state.status !== this.themeStatus[theme]) {
-        this.setState({status: this.themeStatus[theme]})
       }
 
+      this.setState({
+        status,
+        theme,
+      })
       Array.from(this.rootElm.current.children).forEach(elem => {
         elem.style.display = (elem.id === theme) ? 'block' : 'none'
       })
     }
+
   }
 
   createScript(theme) {
-    const githubTheme  = (function(theme) {
-      // eslint-disable-next-line
-      switch(theme) {
-        case Themes.Light.id:
-          return 'github-light'
-        case Themes.Dark.id:
-          return 'photon-dark'
-      }
-    })(theme)
-
-    const div = document.createElement('div')
-    div.id = theme
-
     const script = document.createElement('script')
 
-    script.setAttribute('src', 'https://utteranc.es/client.js')
+    script.setAttribute('src', `${src}?v=${new Date().getTime()}`)
     script.setAttribute('repo', this.props.repository)
     script.setAttribute('async', true)
     script.setAttribute('issue-term', 'pathname')
     script.setAttribute('crossOrigin', 'anonymous')
-    script.setAttribute('theme', githubTheme)
+    script.setAttribute('theme', theme)
 
     script.addEventListener("load", () => this.scriptLoaded(theme, true), {once: true})
     script.addEventListener("error", () => this.scriptLoaded(theme, false), {once: true})
 
+    const div = document.createElement('div')
+    div.id = theme
     div.appendChild(script)
-
     return div
   }
 
   scriptLoaded(theme, success) {
     const status = success ? "success" : "fail"
     this.themeStatus[theme] = status
-    this.setState({status})
+    this.setState({
+      status,
+      theme,
+    })
   }
 }
 
@@ -365,6 +373,4 @@ Utterances.contextType = Context
 export default Utterances
 ```
 
-// TODO
-- don't forget the SCSS file
-- stay tuned for more
+Don't forget the SCSS file from earlier (`Utterances/style.scss`), and stay tuned for the next posts in the series which will elaborate and further examine the theme change feature via React context.
