@@ -22,8 +22,9 @@ Throughout the development process of this website I've encountered several prob
 
 In this series of posts I will be examining problems with Gatsby and React, and how to overcome them. Among these topics are: 
 + Integration of readers comments (covered in this post).
++ Permanent sidebar adjusted for both mobile and desktop screens.
 + Site layout with multi-language and color theme support.
-+ Sidebar with navigation menu.
++ Navigation menu with a moving slider.
 + Tricks with images - dragging and featuring on social media platforms.
 
 I believe this series should be relevant to anyone developing a website using Gatsby, and perhaps it would be even more relevant to those who are developing a blog or a personal site, as that was my goal when developing this website.
@@ -43,6 +44,7 @@ This is actually the reason I dismissed Gatsby when I first searched for a blogg
 Gatsby heavily relies on React, therefore it's best to encapsulate the comments functionality via Utterances in a React component.
 
 First, let's examine how we will be using this component:
+
 ```jsx
 import React from 'react'
 import { graphql } from 'gatsby'
@@ -133,6 +135,7 @@ This is possibly the simplest way to load any script with React, which also make
 Even though the script is quite light, it may take a few moments until it fully loads. More importantly, the script might sometimes fail to load, and you want your users to be aware of that when that happens (and not by checking the console). Since most gatsby websites make use of a [service worker to cache their content](https://www.gatsbyjs.org/packages/gatsby-plugin-offline/), your page may very well still load without an internet connection, but in such case the script will not load.
 
 So let's add a loading indicator to our `Utterances` component:
+
 ```jsx:title=Utterances/index.jsx
 // same as before
 import './style.scss'
@@ -165,6 +168,7 @@ class Utterances extends React.Component {
 ```
 
 And accompany it with a new SCSS file:
+
 ```scss:title=Utterances/style.scss
 .utterances {
     text-align: center;
@@ -259,11 +263,12 @@ Utterances.contextType = Context // "hook" the Utterances component to the conte
 ```
 
 And this is how the themes look like:
+
 ```jsx:title=themes.jsx
 class Theme {
     constructor(id, utterances) {
         this.id = id
-        this.utterancesTheme = utterances
+        this.utterances = utterances
     }
 }
 

@@ -34,7 +34,6 @@
 }
 
 .content-wrap {
-    padding-top: $topbar-height;
     padding-bottom: 4rem;
     
     max-width: $max-layout-width;
@@ -48,7 +47,8 @@
     max-width: $max-content-width;
     width: $content-width-base;
     margin: 0 auto;
-
+    
+    padding-top: $topbar-height;
     @include font-family($font-family-segoe, $font-family-arimo);
 
     @include rtl {
@@ -65,13 +65,13 @@
 
 @include breakpoint-md {
     .content-wrap {
-        padding-top: 0;
         @include rtl {
             text-align: right;
         }
     }
 
     .content {
+        padding-top: 0;
         width: $content-width-md;
         margin: unset;
         @include ltr {

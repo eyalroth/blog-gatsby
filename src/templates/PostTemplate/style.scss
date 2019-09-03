@@ -53,6 +53,9 @@
         }
     }
     &__body {
+        ::-webkit-scrollbar {
+            height: 0.7em
+        }
         & figure {
             margin-bottom: 1rem;
             & blockquote {

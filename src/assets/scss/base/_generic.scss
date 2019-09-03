@@ -99,7 +99,7 @@ strong {
 }
 
 ul {
-    list-style: square;
+    list-style-type: disc;
     margin-bottom: 1rem;
     & li {
         padding: 0 5px;
@@ -134,7 +134,7 @@ figcaption {
     text-align: center;
 }
 
-p>code {
+code {
     font-family: monospace;
     @include text-normal;
     
