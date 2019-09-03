@@ -11,7 +11,7 @@ This is the repository for my blog at [eyalroth.com](https://eyalroth.com), cont
 
  It is built with [GatsbyJS](https://github.com/gatsbyjs/gatsby), based on the starter site [Lumen 2](https://github.com/GatsbyCentral/gatsby-v2-starter-lumen), and hosted on [Netlify](https://www.netlify.com/).
 
- [![Maintainability](https://api.codeclimate.com/v1/badges/bf2409966a6163ad2b9e/maintainability)](https://codeclimate.com/github/eyalroth/blog-gatsby/maintainability) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/eyalroth/blog-gatsby/blob/master/LICENSE) [![CC license](https://i.creativecommons.org/l/by/4.0/80x15.png)](http://creativecommons.org/licenses/by/4.0/)
+ [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/eyalroth/blog-gatsby/blob/master/LICENSE) [![CC license](https://i.creativecommons.org/l/by/4.0/80x15.png)](http://creativecommons.org/licenses/by/4.0/)
 
 ## Features
 
