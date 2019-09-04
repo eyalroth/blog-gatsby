@@ -134,7 +134,7 @@ figcaption {
     text-align: center;
 }
 
-code {
+:not(pre)>code {
     font-family: monospace;
     @include text-normal;
     
