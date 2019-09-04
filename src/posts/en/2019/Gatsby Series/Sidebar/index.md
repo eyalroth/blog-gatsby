@@ -18,7 +18,7 @@ series:
   order: 2
 ---
 
-This is the second post in the series about creating a website with Gatsby, in which I'll be examining a technique for building a "sidebar".
+This is the second post in the series about creating a website with Gatsby, in which I'll be examining a technique for building a sidebar.
 
 As I've mentioned earlier [in my first post](/en/blog/2019/08/hello-world/), I wanted my blog to have a strong visual signature. I figured one way to achieve this is by having a permanent component across all pages with a visual item unique to me; say, my profile image. Moreover, it is probably a good idea to give quick access to all of the site's sections from any given page. It also happened that one of the Gatsby starter sites -- [Lumen v2](https://github.com/GatsbyCentral/gatsby-v2-starter-lumen), the one I eventually used -- featured what seemed to me as a nice looking sidebar. That how I knew I wanted to have a permanent sidebar in my blog.
 
@@ -31,7 +31,7 @@ After playing around with several layouts for the sidebar, I've decided to go wi
 + A theme toggle button.
 + A menu to navigate the different sections of the website.
 
-Creating a design for a sidebar with all of these components becomes a bit of a problem when considering mobile screens. Mobile screens are just not wide enough to contain both the content of a page and the components of the sidebar next to it. The solution, as some of you mobile readers have probably noticed, is to make the sidebar a "topbar" on smaller screens, hovering at the top of the screen. This is hardly a new concept, and might even say it is a standard in mobile design.
+Creating a design for a sidebar with all of these components becomes a bit of a problem when considering mobile screens. Mobile screens are just not wide enough to contain both the content of a page and the components of the sidebar next to it. The solution, as some of you mobile readers have probably noticed, is to make the sidebar a "topbar" on smaller screens, hovering at the top of the screen. This is hardly a new concept, and some might say it is a standard in mobile design.
 
 That wasn't enough though, as one "line" at the top of a narrow screen wasn't enough to contain all of the components. Another modification was due then, and this time I chose to make both of the lists in the bar -- the contact links and the navigation menu -- collapsible; i.e, hidden at first but able to come into view with the click of a button.
 
@@ -59,9 +59,9 @@ export default Sidebar
 
 Since we're coding with React, which already has a different use for the term "state", I'll be referring to these collapsing states as "modes" from now on.
 
-In each mode, some components are shown and some are hidden. Well, how do you hide components? You can do that by changing the `display` or `visibility` CSS properties of the components, but sometimes you want to have a more elaborate design of visibility; hence, it is best to assign a custom CSS class which indicates whether a component is enabled or disabled, and control each component behavior individually via CSS.
+In each mode, some components are shown and some are hidden. Well, how do you hide components? You can do that by changing the `display` or `visibility` CSS properties of the components, but sometimes you want to have a more elaborate design; hence, it is best to assign a custom CSS class which indicates whether a component is enabled or disabled, and control each component behavior individually via CSS.
 
-Let's create a generic component to control the "appearance" CSS class for our individual components:
+Let's create a generic component to control the CSS class determining whether our individual components are enabled or disabled:
 
 ```jsx:title=Toggle/index.jsx
 import React from 'react'
@@ -104,7 +104,7 @@ const title = (
 ```
 
 ```scss
-@import "scss/mixins/toggle";
+@import "mixins/toggle";
 
 title {
   @include enabled {
@@ -117,9 +117,9 @@ title {
 }
 ```
 
-Changing the CSS class of a component, or any other attribute for that matter, is impossible once the component has been created. Sure, it is possible to modify the DOM after the `render` method in either `componentDidMount` or `componentDidUpdate`, but that is rather cumbersome and prone to error. This is why the `Toggle` component doesn't add the CSS class to the given components' `class` attribute, but rather wraps them with a `div` element annotated with said class.
+Changing the CSS class of a component, or any other attribute for that matter, is impossible once the component has been created. Sure, it is possible to modify the DOM after the `render` method in either `componentDidMount` or `componentDidUpdate`, but that is rather cumbersome and prone to error. This is why the `Toggle` component doesn't add the CSS class to the individual components' `class` attribute, but rather wraps them with a `div` element annotated with said class.
 
-The SASS mixins make sure to apply the styling only to direct descendants (`>`) of the toggle `div`s, making it possible to nest `Toggle` components without then interfering with one another.
+The SASS mixins make sure to apply the styling only to direct descendants (`>`) of the toggle `div`s, making it possible to nest `Toggle` components without them interfering with one another.
 
 Back to the sidebar components, each of them is either enabled or disabled according to the sidebar mode. Let's create a generic component to toggle our sidebar components according to each mode:
 
@@ -173,6 +173,8 @@ And now we can render all kind of different components in the sidebar:
 The title will be enabled for the `Main` mode, and disabled for the other two modes, while the menu will be enabled only for the `Menu` mode. The mode itself is passed from the `Sidebar`'s own state to the `SidebarToggle`. To make the menu collapsible, we need to make use of some (S)CSS:
 
 ```scss:title=Sidebar/style.scss
+@import "mixins/toggle";
+
 $z-index: 1;
 
 sidebar {
@@ -239,7 +241,7 @@ And this is how our sidebar component `render` method would look like:
 
 The ordering of the components should mostly reflect their order on larger screens, since with the smaller screens -- where the sidebar is a topbar -- we're controlling the components with `absolute` CSS positions.
 
-Speaking of larger screens, we need to make sure that all of the work we've done for mobile screens won't reflect in the design of the bar-on-the-side. A common approach to designing a website is the "mobile first" approach - by default, you style the design for smaller screens, and then you add styling modifications to adjust the design to larger screens:
+Speaking of larger screens, we need to make sure that all of the work we've done for mobile screens won't reflect in the design of the bar-on-the-side. A common approach to designing a website is the "mobile first" approach: By default, you style the website for smaller screens, and then you add modifications to adjust the design for larger screens:
 
 ```scss:title=Sidebar/style.scss
 @media screen and (min-width: 900px) { // this should be encapsulated in a mixin
@@ -318,9 +320,9 @@ sidebar { // actually located at Sidebar/style.scss
 }
 ```
 
-This is the most bare-bone styling needed to make the sidebar appear at the top of the page on smaller screens and to the side of the page on larger screens. There are actually multiple ways of achieving this behavior, as CSS is rather flexible, but I've found this technique to be simple and intuitive. Note that on smaller screens, the content is "shifted" down just enough so the topbar will not hide the top of the content. 
+This is the most bare-bone styling needed to make the sidebar appear at the top of the page on smaller screens and to the side of the page on larger screens. There are actually multiple ways of achieving this behavior, as CSS is rather flexible, but I've found this technique to be simple and intuitive. Note that on smaller screens, the content is "shifted" down just enough so the topbar will not cover the top of the content. 
 
-One important thing to note here is that this styling will behave the same for all screens larger than the "md" breakpoint (900px), and it's rather hard to find the exact styling that would fit this large variety of screens. Instead, you should add more "breakpoints" to adjust the styling according to sub-set of screen sizes. For my websites, I've been using the breakpoints in my styling sheets:
+One important thing to note here is that this styling will behave the same for all screens larger than the "md" breakpoint (900px), and it's rather hard to find the exact styling that would fit this large variety of screens. Instead, you should add more breakpoints to adjust the styling according to sub-set of screen sizes. For my website, I've been using these breakpoints in my stylesheets:
 * `xsm: 360px;` - handsets in portrait mode.
 * `sm: 600px;` - handsets in landscape mode, tablets in portrait mode. 
 * `md: 900px;` - large handsets (landscape), tables (landscape), large tablets (portrait).
@@ -349,9 +351,9 @@ sidebar {
 }
 ```
 
-We only need to define the disabled mode since the sidebar is enabled by default. Note that we're using `transform: translateY()` instead of `top`. The reason for this is because we want to disable this disappearance behavior on larger screens -- even when scrolling down a page -- but we don't want to accidentally disable any other `top` styling that might be declared.
+We only need to define the disabled mode since the sidebar is enabled by default. Note that we're using `transform: translateY()` instead of `top`. The reason for this is because we want to disable this disappearance behavior on larger screens -- even when scrolling down a page -- but we don't want to accidentally disable any other `top` styling that we might choose to set for larger screens.
 
-Now that we have the styling in mind, we'll need to control when the sidebar is enabled or not. Since object-oriented design is nice and [composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance) is a nice a good principle, we'll encapsulate the "peeking" functionality in a new component:
+Now that we have the styling in mind, we'll need to determine when the sidebar is enabled or not. Since the object-oriented paradigm is nice and [composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance) is a good principle, we'll encapsulate the "peeking" functionality in a new component:
 
 ```jsx:title=Sidebar/index.jsx
 class Sidebar extends React.Component {
@@ -445,6 +447,6 @@ class PeekingToggle extends React.Component {
 }
 ```
 
-This is all just some fancy code to make sure the topbar is disabled when the page has been scrolled down at least one "screen height" (`100vh`), and that it reappears only if it's scrolled up "fast enough" (go ahead and adjust the numbers to your liking).
+This is all just some "fancy" code to make sure the topbar is disabled when the page has been scrolled down at least one "screen height" (`100vh`), and that it reappears only if it's scrolled up "fast enough" (go ahead and adjust the numbers to your liking).
 
 That's it for the sidebar. Stay tuned for the next posts in the series!
