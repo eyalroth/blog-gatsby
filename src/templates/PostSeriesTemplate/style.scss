@@ -3,7 +3,6 @@
 
 .series-title {
     @include font-family($font-family-roboto, $font-family-arimo);
-    margin-top: 1rem;
     line-height: 1rem;
     &__text {
         @include font-size(1.25);
@@ -23,7 +22,7 @@
 }
 @include breakpoint-md {
     .series-title {
-        margin-top: 2rem;
+        margin-top: 1rem;
         margin-bottom: 0.7rem;
     }
 }

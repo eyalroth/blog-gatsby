@@ -5,7 +5,7 @@ import './style.scss'
 class StaticPageLayout extends React.Component {
   render() {
     return (
-      <div className="page-container">
+      <div className="static-page-container">
         {this.props.children}
         <Footer />
       </div>

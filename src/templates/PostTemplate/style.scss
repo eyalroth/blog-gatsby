@@ -4,7 +4,7 @@
 .post-single {
     &__header {
         @include font-family($font-family-segoe, $font-family-arimo);
-        margin-top: 1rem;
+        margin-top: 0.8rem;
         line-height: 1rem;
         &-bottom {
             position: relative;
@@ -168,7 +168,7 @@
 @include breakpoint-md {
     .post-single {
         &__header {
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
         &__tags {
             max-width: calc(100% - 230px);
