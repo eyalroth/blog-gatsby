@@ -69,7 +69,7 @@ $content-width-base: 90vw;
 
 $topbar-height: 48px;
 
-// breakpoint - sm - handset (portrait)
+// breakpoint - xsm - handset (portrait)
 $layout-breakpoint-xsm: 360px;
 
 // breakpoint - sm - tablet (portrait), handset (landscape)
@@ -111,7 +111,7 @@ $content-gap-lg: $max-layout-width - $content-outer-position-lg;
 $sidebar-side-margin-lg: $content-outer-position-lg + round(($content-gap-lg - $sidebar-width-lg) / 2.5);
 
 :export {
-    xsm: 480px; // small handset (landscape)
+    xsm: $layout-breakpoint-xsm;
     sm: $layout-breakpoint-sm;
     md: $layout-breakpoint-md;
     xmd: $layout-breakpoint-xmd;

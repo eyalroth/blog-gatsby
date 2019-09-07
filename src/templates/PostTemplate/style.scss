@@ -4,7 +4,7 @@
 .post-single {
     &__header {
         @include font-family($font-family-segoe, $font-family-arimo);
-        margin-top: 1rem;
+        margin-top: 0.8rem;
         line-height: 1rem;
         &-bottom {
             position: relative;
@@ -53,6 +53,9 @@
         }
     }
     &__body {
+        ::-webkit-scrollbar {
+            height: 0.7em
+        }
         & figure {
             margin-bottom: 1rem;
             & blockquote {
@@ -73,6 +76,7 @@
             margin-left: 15px;
             margin-right: 15px;
             margin-bottom: 1rem;
+            @include font-size(0.8);
         }
         & :not(div) {
             margin-left: auto;
@@ -87,6 +91,30 @@
             padding-right: 1em;
             padding-left: 0.75em;
             border-left: 0.25em solid #f99;
+        }
+        & .gatsby-code-title {
+            direction: ltr;
+            margin-left: 15px;
+            margin-right: 15px;
+            @include font-size(0.8);
+            display: block;
+            position: relative;
+            background: #272822;
+            border-top-left-radius: 0.3em;
+            border-top-right-radius: 0.3em;
+            top: 0.8rem;
+            margin-top: -0.8rem;
+        }
+        & .gatsby-code-title span {
+            display: inline;
+            position: relative;
+            font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+            color: rgba(255,255,255,0.9);
+            background-color: rgba(255,255,255,0.25);
+            border-top-left-radius: 0.3em;
+            border-bottom-right-radius: 0.3em;
+            padding: 3px 10px;
+            top: -1px;
         }
     }
     &__footer {
@@ -129,6 +157,10 @@
                 margin-left: auto;
                 margin-right: auto;
             }
+            & .gatsby-code-title {
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
     }
 }
@@ -136,13 +168,19 @@
 @include breakpoint-md {
     .post-single {
         &__header {
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
         &__tags {
             max-width: calc(100% - 230px);
         }
         &__body {
             @include font-size(1);
+            & .gatsby-highlight {
+                @include font-size(0.9);
+            }
+            & .gatsby-code-title {
+                @include font-size(0.9);
+            }
         }
     }
 }

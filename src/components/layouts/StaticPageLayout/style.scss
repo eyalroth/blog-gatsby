@@ -1,7 +1,9 @@
 @import "../../../assets/scss/variables";
 @import "../../../assets/scss/mixins";
 
-.page-container {
+.static-page-container {
+    position: relative;
+    min-height: 100vh;
     @include dark {
         background-color: $color-dark-dp0;
     }

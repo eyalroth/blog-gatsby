@@ -99,7 +99,7 @@ strong {
 }
 
 ul {
-    list-style: square;
+    list-style-type: disc;
     margin-bottom: 1rem;
     & li {
         padding: 0 5px;
@@ -132,6 +132,22 @@ figcaption {
     font-style: italic;
     margin-bottom: 0;
     text-align: center;
+}
+
+:not(pre)>code {
+    font-family: monospace;
+    @include text-normal;
+    
+    border-radius: 3px;
+    padding: .2em .4em;
+    margin: 0;
+    
+    @include light {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    @include dark {
+        background-color: #272822;
+    }
 }
 
 @include breakpoint-sm {
