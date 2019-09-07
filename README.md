@@ -69,7 +69,6 @@ The workaround is to instruct users to use HTML tags in their comments.
 + Dragging the profile image is sometimes glitchy, especially on desktop.
 I didn't make too much of an effort to correct that,
 seeing that even major websites such as YouTube and Twitch.tv exhibit a glitchy volume controller in their player.
-+ Dragging the profile image doesn't work on tablets for some reason, only double-clicking does.
 
 ### Unicode
 
