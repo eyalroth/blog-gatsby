@@ -1,7 +1,7 @@
 import React from "react"
 import isMatch from 'lodash/isMatch'
-import LayoutContextProvider from '../LayoutContextProvider'
-import ThemeContextProvider from '../ThemeContextProvider'
+import LayoutContextProvider from './LayoutContextProvider'
+import ThemeContextProvider from './ThemeContextProvider'
 
 const Context = React.createContext({})
 
