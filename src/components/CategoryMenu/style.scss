@@ -15,8 +15,8 @@
     width: 100vw;
     @include font-family($font-family-segoe, $font-family-arimo);
     
+    top: $topbar-height;
     
-    @include shift(calc((100vw - #{$content-width-base}) / -2));
     padding-top: 0.7rem;
     padding-bottom: 0.2rem;
     
@@ -63,26 +63,13 @@
     }
 }
 
-@include breakpoint-sm {
-    .category-menu {
-        @include shift(calc((100vw - #{$content-width-sm}) / -2));
-    }
-}
-
-@include breakpoint($max-content-width) {
-    .category-menu {
-        @include shift(calc((100vw - #{$max-content-width}) / -2));
-    }
-}
-
 @include breakpoint-md {
     .category-menu {
+        top: 0;
         width: $sidebar-side-margin-md;
 
         padding-top: 1.5rem;
         padding-bottom: 1rem;
-
-        @include shift(-$content-side-padding-md);
 
         &-list {
             padding: 1rem 0;
@@ -101,14 +88,14 @@
     .category-menu {
         $bg-side-margin: calc((100vw - #{$bg-width}) / 2);
         width: calc(#{$sidebar-side-margin-xmd} - #{$bg-side-margin});
-        @include shift(calc(#{$content-side-padding-xmd} * -1 + #{$bg-side-margin}));
+        @include shift($bg-side-margin);
     }
 }
 
 @include breakpoint-lg {
     .category-menu {
         $bg-side-margin: round(($max-layout-width - $bg-width) / 2);
-        width: $sidebar-side-margin-lg - $bg-side-margin;
-        @include shift($content-side-padding-lg * -1 + $bg-side-margin);
+        width: calc(#{$sidebar-side-margin-lg} - #{$bg-side-margin});
+        @include shift($bg-side-margin);
     }
 }

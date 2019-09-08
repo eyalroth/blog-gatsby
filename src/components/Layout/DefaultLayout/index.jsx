@@ -16,8 +16,8 @@ class DefaultLayout extends React.Component {
         <div className="surface1"/>
         <div className="content-wrap">
           <Sidebar />
+          {(categoryId) ? <CategoryMenu categoryId={categoryId}/> : null}
           <div className="content">
-            {(categoryId) ? <CategoryMenu categoryId={categoryId}/> : null}
             {this.props.children}
           </div>
         </div>
