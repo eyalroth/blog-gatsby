@@ -1,4 +1,4 @@
-const { Languages } = require('./languages.jsx')
+const { Languages } = require('./languages')
 
 class MenuLink {
     constructor(id, label, path, icon) {

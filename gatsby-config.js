@@ -8,11 +8,11 @@ require("dotenv").config({
 
 const pxtorem = require('postcss-pxtorem')
 const path = require(`path`)
-const { Feeds } = require('./src/consts/rss.jsx')
+const { Feeds } = require('./src/consts/rss')
 
 function verifyEnvVar(variable) {
   if (activeEnv == "production" && !process.env[variable]) {
-    throw `Missing envrionment variable ${variable}`
+    throw new Error(`Missing envrionment variable ${variable}`)
   }
 }
 verifyEnvVar("URL")
@@ -213,7 +213,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-layout`,
       options: {
-          component: require.resolve(`./src/components/layouts/index.jsx`)
+          component: require.resolve(`./src/components/Layout/index.jsx`)
       }
     },
     {

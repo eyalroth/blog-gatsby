@@ -2,51 +2,7 @@ import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import Context from '../../components/Context'
-import { findById } from '../../consts/languages'
 import { Author } from '../../consts/author'
-
-class Page extends React.Component {
-    render() {
-        const language = findById(this.props.languageId)
-
-        this.context.page.set(language, this.props.sidebarLinkId)
-
-        const helmet = <PageHelmet key="helmet" language={language} {...this.props}/>
-        
-        return ([
-            helmet,
-            this.props.children
-        ])
-    }
-
-    componentDidMount() {
-        this.addLittlefoot()
-    }
-
-    addLittlefoot() {
-        if (typeof window !== 'undefined') {
-            const bt = `
-            <button
-                aria-controls="fncontent:<%= id %>"
-                aria-expanded="false"
-                aria-label="Footnote <%= number %>"
-                class="littlefoot-footnote__button"
-                id="<%= reference %>"
-                rel="footnote"
-                title="See Footnote <%= number %>"
-            />
-                <%= number %>
-            </button>
-            `
-            const littlefoot = require('littlefoot').default
-            littlefoot({buttonTemplate: bt})
-        }
-    }
-}
-
-Page.contextType = Context
-
-export default Page
 
 class PageHelmet extends React.Component {
     render() {
@@ -75,7 +31,8 @@ class PageHelmet extends React.Component {
 
     renderWithQueryData(data) {
 
-        const title = Author.name[this.props.languageId]
+        const language = this.context.layout.language.get()
+        const title = Author.name[language.id]
 
         let { subtitle, description } = this.props
         if (subtitle) {
@@ -95,7 +52,7 @@ class PageHelmet extends React.Component {
             <Helmet 
                 defer={false}
                 htmlAttributes={{
-                    lang: this.props.language.htmlLang
+                    lang: language.htmlLang
                 }}
             >
                 <title>{finalTitle}</title>
@@ -111,3 +68,7 @@ class PageHelmet extends React.Component {
         )
     }
 }
+
+PageHelmet.contextType = Context
+
+export default PageHelmet

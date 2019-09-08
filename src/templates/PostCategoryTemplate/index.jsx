@@ -4,10 +4,10 @@ import PostList from '../../components/PostList'
 
 class PostCategoryTemplate extends React.Component {
   render() {
-    const { languageId, categoryLabel } = this.props.pageContext
+    const { categoryLabel } = this.props.pageContext
 
     return (
-      <PostList languageId={languageId} subtitle={categoryLabel} data={this.props.data} />
+      <PostList subtitle={categoryLabel} data={this.props.data} />
     )
   }
 }

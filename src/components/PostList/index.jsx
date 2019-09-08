@@ -1,12 +1,11 @@
 import React from 'react'
 import moment from 'moment'
-import Page from '../../components/Page'
+import PageHelmet from '../PageHelmet'
 import PostListItem from '../../components/PostListItem'
-import { SidebarLinks } from '../../consts/menuLinks'
 
 class PostList extends React.Component {
     render() {
-      const { languageId, subtitle, children } = this.props
+      const { subtitle, children } = this.props
       const posts = this.props.data.allMarkdownRemark.edges
   
       const years = new Set()
@@ -28,14 +27,13 @@ class PostList extends React.Component {
       })
 
       return (
-        <Page languageId={languageId} subtitle={subtitle} sidebarLinkId={SidebarLinks[languageId].Blog.id}>
-          <div className="posts">
-            {children}
-            {items}
-          </div>
-        </Page>
+        <div className="posts">
+          <PageHelmet subtitle={subtitle}/>
+          {children}
+          {items}
+        </div>
       )
     }
 }
-  
+
 export default PostList

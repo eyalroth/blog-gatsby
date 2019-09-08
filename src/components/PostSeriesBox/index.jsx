@@ -21,7 +21,7 @@ class PostSeriesBox extends React.Component {
             
     renderWithQueryData(data) {
         const { series } = this.props
-        const language = this.context.page.language.get()
+        const language = this.context.layout.language.get()
         const { path: seriesPath, order: postOrder } = series
 
         const seriesEdges = data.allMarkdownRemark.edges.filter ( edge =>

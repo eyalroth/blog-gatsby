@@ -1,27 +1,33 @@
 import React from 'react'
-import Context from '../../Context'
-import DefaultLayout from '../DefaultLayout'
-import StaticPageLayout from '../StaticPageLayout'
-import CategoryLayout from '../CategoryLayout'
-import { Languages } from '../../../consts/languages'
+import Context, { ContextProvider } from '../Context'
+import DefaultLayout from './DefaultLayout'
+import StaticPageLayout from './StaticPageLayout'
+import { Languages, findById } from '../../consts/languages'
 
-import '../../../assets/scss/init.scss'
+import '../../assets/scss/init.scss'
 import './style.scss'
+
+export default ({ children, pageContext }) => {
+  return (
+    <ContextProvider>
+        <Layout {...pageContext}>
+            {children}
+        </Layout>
+    </ContextProvider>
+  )
+}
 
 class Layout extends React.Component {
   constructor(props) {
     super(props)
-
     this.divRef = React.createRef()
   }
 
   render() {
     const { children } = this.props
-    const { page } = this.context
 
-    if (!page.language.get()) {
-      page.set(Languages.English, null)
-    }
+    const language = (this.props.languageId) ? findById(this.props.languageId) : Languages.English
+    this.context.layout.set(language, this.props.sidebarLinkId)
 
     let childrenWithLayout = null
 
@@ -31,15 +37,9 @@ class Layout extends React.Component {
           {children}
         </StaticPageLayout>
       )
-    } else if (this.props.categoryId) {
+    } else  {
       childrenWithLayout = (
-        <CategoryLayout {...this.props}>
-          {children}
-        </CategoryLayout>
-      )
-    } else {
-      childrenWithLayout = (
-        <DefaultLayout>
+        <DefaultLayout {...this.props}>
           {children}
         </DefaultLayout>
       )
@@ -58,13 +58,10 @@ class Layout extends React.Component {
 
   className() {
     const theme = this.context.theme.get()
-    const language = this.context.page.language.get()
+    const language = this.context.layout.language.get()
 
     return `global-container ${theme.cssClass} ${language.cssClass}`
   }
 }
   
 Layout.contextType = Context
-
-export default Layout
-  

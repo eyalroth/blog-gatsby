@@ -1,23 +1,25 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Page from '../../components/Page'
+import PageHelmet from '../../components/PageHelmet'
+import LittleFoot from '../../components/Littlefoot'
 import './style.scss'
 
 class PageTemplate extends React.Component {
   render() {
     const page = this.props.data.markdownRemark
-    const { title, sidebarLinkId, language: languageId } = page.frontmatter
+    const { title } = page.frontmatter
 
     return (
-      <Page languageId={languageId} subtitle={title} sidebarLinkId={sidebarLinkId}>
-        <div className="page">
-            <h1 className="page__title">{title}</h1>
-            <div
-              className="page__body"
-              dangerouslySetInnerHTML={{ __html: page.html }}
-            />
-        </div>
-      </Page>
+      <div className="page">
+        <PageHelmet subtitle={title} />
+        <h1 className="page__title">{title}</h1>
+        <LittleFoot>
+          <div
+            className="page__body"
+            dangerouslySetInnerHTML={{ __html: page.html }}
+          />
+        </LittleFoot>
+      </div>
     )
   }
 }
@@ -33,8 +35,6 @@ export const pageQuery = graphql`
         title
         date
         description
-        sidebarLinkId
-        language
       }
     }
   }

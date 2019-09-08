@@ -7,11 +7,11 @@ import './style.scss'
 class CategoryMenu extends React.Component {
   render() {
     const { categoryId } = this.props
-    const { page } = this.context
+    const languageId = this.context.layout.language.get().id
 
     return (
       <NavMenu
-          linkDescriptions={CategoryLinks[page.language.get().id]}
+          linkDescriptions={CategoryLinks[languageId]}
           classNamePrefix="category-menu"
           currentLinkId={categoryId}
       />

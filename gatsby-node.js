@@ -1,12 +1,16 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
-const path = require('path')
-const slash = require('slash')
 const moment = require('moment')
 
-const { Languages, findById } = require('./src/consts/languages.jsx')
-const { SidebarLinks, CategoryLinks, seriesLink } = require('./src/consts/menuLinks.jsx')
-const { Feeds } = require('./src/consts/rss.jsx')
+const { Languages, findById } = require('./src/consts/languages')
+const { CategoryLinks, SidebarLinks } = require('./src/consts/menuLinks')
+const { Feeds } = require('./src/consts/rss')
+
+const createHomeTemplate = require('./src/templates/HomeTemplate/createPages')
+const createCategoryTemplate = require('./src/templates/PostCategoryTemplate/createPages')
+const createPageTemplate = require('./src/templates/PageTemplate/createPages')
+const createPostTemplate = require('./src/templates/PostTemplate/createPages')
+const createSeriesTemplate = require('./src/templates/PostSeriesTemplate/createPages')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
@@ -51,156 +55,13 @@ exports.createPages = ({ graphql, actions }) => {
     resolve()
   })
 
-  const categoryLists = new Promise((resolve, reject) => {
-    const template = path.resolve('./src/templates/PostCategoryTemplate/index.jsx')
+  const homes = new Promise(createHomeTemplate(graphql, createPage))
+  const categoryLists = new Promise(createCategoryTemplate(graphql, createPage))
+  const pages = new Promise(createPageTemplate(graphql, createPage))
+  const posts = new Promise(createPostTemplate(graphql, createPage))
+  const seriesLists = new Promise(createSeriesTemplate(graphql, createPage))
 
-    _.forOwn(CategoryLinks, function(links, languageId) {
-      _.each(links, categoryLink => {
-        createPage({
-          path: categoryLink.path,
-          component: template,
-          context: {
-            languageId,
-            categoryId: categoryLink.id,
-            categoryLabel: categoryLink.label
-          },
-        })
-      })
-    })
-
-    resolve()
-  })
-
-  const pages = new Promise((resolve, reject) => {
-    const template = path.resolve('./src/templates/PageTemplate/index.jsx')
-
-    graphql(`
-      {
-        allMarkdownRemark(
-          limit: 1000
-          filter: { frontmatter: { layout: { eq: "page" }, demo: { ne: false } } }
-        ) {
-          edges {
-            node {
-              fields {
-                slug
-              }
-            }
-          }
-        }
-      }
-    `).then(result => {
-      if (result.errors) {
-        console.log(result.errors)
-        reject(result.errors)
-      }
-      _.each(result.data.allMarkdownRemark.edges, edge => {
-        createPage({
-          path: edge.node.fields.slug,
-          component: slash(template),
-          context: { slug: edge.node.fields.slug },
-        })
-      })
-      resolve()
-    })
-  })
-
-  const posts = new Promise((resolve, reject) => {
-    const template = path.resolve('./src/templates/PostTemplate/index.jsx')
-
-    graphql(`
-      {
-        allMarkdownRemark(
-          limit: 1000
-          filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: false } } }
-        ) {
-          edges {
-            node {
-              fields {
-                slug
-              }
-              frontmatter {
-                category
-              }
-            }
-          }
-        }
-      }
-    `).then(result => {
-      if (result.errors) {
-        console.log(result.errors)
-        reject(result.errors)
-      }
-      _.each(result.data.allMarkdownRemark.edges, edge => {
-        const slug = edge.node.fields.slug
-        createPage({
-          path: slug,
-          component: slash(template),
-          context: { 
-            slug,
-            categoryId: edge.node.frontmatter.category
-          },
-        })
-      })
-      resolve()
-    })
-  })
-
-  const seriesLists = new Promise((resolve, reject) => {
-    const template = path.resolve('./src/templates/PostSeriesTemplate/index.jsx')
-
-    graphql(`
-      {
-        allMarkdownRemark(
-          filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: false } } }
-        ) {
-          group(field: frontmatter___series___path) {
-            edges {
-              node {
-                frontmatter {
-                  language
-                  series {
-                    name
-                    path
-                  }
-                  category
-                }
-              }
-            }
-          }
-        }
-      }
-    `).then(result => {
-      if (result.errors) {
-        console.log(result.errors)
-        reject(result.errors)
-      }
-
-      const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
-        const { series, language: languageId, category } = group.edges[0].node.frontmatter
-        return {
-          ...series,
-          categoryId: category,
-          language: findById(languageId),
-        }
-      })
-
-      _.each(seriesItems, series => {
-        createPage({
-          path: seriesLink(series.path, series.language),
-          component: template,
-          context: { 
-            seriesName: series.name,
-            seriesPath: series.path,
-            categoryId: series.categoryId,
-          },
-        })
-      })
-      resolve()
-    })
-  })
-
-  return Promise.all([redirects, categoryLists, pages, posts, seriesLists])
+  return Promise.all([redirects, homes, categoryLists, pages, posts, seriesLists])
 }
 
 exports.onCreateNode = ({ node, actions }) => {

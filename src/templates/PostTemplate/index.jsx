@@ -2,10 +2,10 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
+import LittleFoot from '../../components/Littlefoot'
 import Utterances from '../../components/Utterances'
-import Page from '../../components/Page'
+import PageHelmet from '../../components/PageHelmet'
 import { Languages } from '../../consts/languages'
-import { SidebarLinks } from '../../consts/menuLinks'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
@@ -16,10 +16,10 @@ class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
-    const { title, tags, series, language: languageId } = post.frontmatter
+    const { title, tags, series } = post.frontmatter
     const readingTime = post.fields.readingTime
     const url = this.props.location.href
-    const language = this.context.page.language.get()
+    const language = this.context.layout.language.get()
 
     let featuredImage = post.frontmatter.featuredImage
 
@@ -87,11 +87,13 @@ class PostTemplate extends React.Component {
     )
 
     const body = (
-      <div
-        className="post-single__body"
-        /* eslint-disable-next-line react/no-danger */
-        dangerouslySetInnerHTML={{ __html: post.html }}
-      />
+      <LittleFoot>
+        <div
+          className="post-single__body"
+          /* eslint-disable-next-line react/no-danger */
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
+      </LittleFoot>
     )
 
     const mobileShare = <MobileShareButton url={url}/>
@@ -109,21 +111,15 @@ class PostTemplate extends React.Component {
     )
 
     return (
-      <Page
-        languageId={languageId}
-        subtitle={title}
-        sidebarLinkId={SidebarLinks[languageId].Blog.id}
-        featuredImage={featuredImage}
-      >
-        <div className="post-single">
-          {header}
-          {mobileShare}
-          {seriesBox}
-          {body}
-          <hr />
-          {footer}
-        </div>
-      </Page>
+      <div className="post-single">
+        <PageHelmet subtitle={title} featuredImage={featuredImage} />
+        {header}
+        {mobileShare}
+        {seriesBox}
+        {body}
+        <hr />
+        {footer}
+      </div>
     )
   }
 }
@@ -158,7 +154,6 @@ export const pageQuery = graphql`
           path
           order
         }
-        language
         featuredImage {
           childImageSharp {
             fluid(quality: 100) {

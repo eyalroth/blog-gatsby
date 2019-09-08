@@ -68,7 +68,7 @@ class Sidebar extends React.Component {
   }
 
   renderAuthorTitle() {
-    const language = this.context.page.language.get()
+    const language = this.context.layout.language.get()
 
     return (
       <SidebarToggle main={true} menu={false} contact={false} {...this.state}>
@@ -83,14 +83,14 @@ class Sidebar extends React.Component {
   }
 
   renderMenu() {
-    const { page } = this.context
+    const { layout } = this.context
 
     function navMenu(className) {
       return (
         <NavMenu
-          linkDescriptions={SidebarLinks[page.language.get().id]}
+          linkDescriptions={SidebarLinks[layout.language.get().id]}
           classNamePrefix={`${className} sidebar__menu`}
-          currentLinkId={page.sidebarLinkId.get()}
+          currentLinkId={layout.sidebarLinkId.get()}
         />
       )
     }

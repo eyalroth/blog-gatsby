@@ -6,8 +6,6 @@ import './style.scss'
 class PostSeriesTemplate extends React.Component {
     render() {
       const { seriesName } = this.props.pageContext
-      const firstNode = this.props.data.allMarkdownRemark.edges[0].node
-      const { language: languageId } = firstNode.frontmatter
 
       const title = (
         <div className="series-title">
@@ -16,7 +14,7 @@ class PostSeriesTemplate extends React.Component {
       )
 
       return (
-        <PostList languageId={languageId} subtitle={seriesName} data={this.props.data}>
+        <PostList subtitle={seriesName} data={this.props.data}>
           {title}
         </PostList>
       )
@@ -47,7 +45,6 @@ export const pageQuery = graphql`
               title
               date
               tags
-              language
             }
           }
         }

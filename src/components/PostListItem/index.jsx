@@ -11,7 +11,7 @@ class PostListItem extends React.Component {
     const { showYear } = this.props
     const { title, date, tags, } = this.props.data.node.frontmatter
     const { slug, readingTime } = this.props.data.node.fields
-    const language = this.context.page.language.get()
+    const language = this.context.layout.language.get()
     
     const readingTimeText = (function(lang) {
       // eslint-disable-next-line
