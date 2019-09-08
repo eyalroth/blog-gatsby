@@ -12,7 +12,7 @@ const { Feeds } = require('./src/consts/rss')
 
 function verifyEnvVar(variable) {
   if (activeEnv == "production" && !process.env[variable]) {
-    throw `Missing envrionment variable ${variable}`
+    throw new Error(`Missing envrionment variable ${variable}`)
   }
 }
 verifyEnvVar("URL")
