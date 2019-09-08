@@ -2,7 +2,6 @@ import React from "react"
 import isMatch from 'lodash/isMatch'
 import PageContextProvider from '../PageContextProvider'
 import ThemeContextProvider from '../ThemeContextProvider'
-import NavMenuContextProvider from '../NavMenuContextProvider'
 
 const Context = React.createContext({})
 
@@ -15,7 +14,6 @@ class ContextProvider extends React.Component {
     this.provided = {
       page: new PageContextProvider(new StateManager(this)),
       theme: new ThemeContextProvider(new StateManager(this)),
-      navMenu: new NavMenuContextProvider(),
     }
   }
 

@@ -6,7 +6,6 @@ import Utterances from '../../components/Utterances'
 import Page from '../../components/Page'
 import { Languages } from '../../consts/languages'
 import { SidebarLinks } from '../../consts/menuLinks'
-import CategoryMenu from '../../components/CategoryMenu'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
@@ -17,16 +16,12 @@ class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
-    const { category, title, tags, series, language: languageId } = post.frontmatter
+    const { title, tags, series, language: languageId } = post.frontmatter
     const readingTime = post.fields.readingTime
     const url = this.props.location.href
     const language = this.context.page.language.get()
 
     let featuredImage = post.frontmatter.featuredImage
-
-    const categoryMenu = (
-      <CategoryMenu categoryId={category}/>
-    )
 
     const titleBlock = (
       <h1 className="post-single__title">{post.frontmatter.title}</h1>
@@ -121,7 +116,6 @@ class PostTemplate extends React.Component {
         featuredImage={featuredImage}
       >
         <div className="post-single">
-          {categoryMenu}
           {header}
           {mobileShare}
           {seriesBox}
@@ -156,7 +150,6 @@ export const pageQuery = graphql`
         }
       }
       frontmatter {
-        category
         title
         tags
         date

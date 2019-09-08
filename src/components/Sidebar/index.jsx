@@ -86,13 +86,10 @@ class Sidebar extends React.Component {
     const { page } = this.context
 
     function navMenu(className) {
-      const classNamePrefix = `${className} sidebar__menu`
-
       return (
         <NavMenu
-          id={classNamePrefix}
           linkDescriptions={SidebarLinks[page.language.get().id]}
-          classNamePrefix={classNamePrefix}
+          classNamePrefix={`${className} sidebar__menu`}
           currentLinkId={page.sidebarLinkId.get()}
         />
       )

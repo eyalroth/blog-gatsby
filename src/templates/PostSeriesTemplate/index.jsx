@@ -1,14 +1,13 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import PostList from '../../components/PostList'
-import CategoryMenu from '../../components/CategoryMenu'
 import './style.scss'
 
 class PostSeriesTemplate extends React.Component {
     render() {
       const { seriesName } = this.props.pageContext
       const firstNode = this.props.data.allMarkdownRemark.edges[0].node
-      const { language: languageId, category } = firstNode.frontmatter
+      const { language: languageId } = firstNode.frontmatter
 
       const title = (
         <div className="series-title">
@@ -18,7 +17,6 @@ class PostSeriesTemplate extends React.Component {
 
       return (
         <PostList languageId={languageId} subtitle={seriesName} data={this.props.data}>
-          <CategoryMenu categoryId={category}/>
           {title}
         </PostList>
       )
@@ -50,7 +48,6 @@ export const pageQuery = graphql`
               date
               tags
               language
-              category
             }
           }
         }

@@ -1,16 +1,13 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import PostList from '../../components/PostList'
-import CategoryMenu from '../../components/CategoryMenu'
 
 class PostCategoryTemplate extends React.Component {
   render() {
-    const { languageId, categoryId, categoryLabel } = this.props.pageContext
+    const { languageId, categoryLabel } = this.props.pageContext
 
     return (
-      <PostList languageId={languageId} subtitle={categoryLabel} data={this.props.data}>
-        <CategoryMenu categoryId={categoryId} />
-      </PostList>
+      <PostList languageId={languageId} subtitle={categoryLabel} data={this.props.data} />
     )
   }
 }
