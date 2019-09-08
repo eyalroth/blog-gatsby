@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const path = require('path')
 
-const { CategoryLinks } = require('../../consts/menuLinks')
+const { SidebarLinks, CategoryLinks } = require('../../consts/menuLinks')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
     _.forOwn(CategoryLinks, function(links, languageId) {
@@ -12,7 +12,8 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
           context: {
             languageId,
             categoryId: categoryLink.id,
-            categoryLabel: categoryLink.label
+            categoryLabel: categoryLink.label,
+            sidebarLinkId: SidebarLinks[languageId].Blog.id,
           },
         })
       })

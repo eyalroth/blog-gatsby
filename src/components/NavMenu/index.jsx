@@ -34,7 +34,7 @@ class NavMenu extends React.Component {
               <Slider
                 ref={this.slider}
                 className={`${classNamePrefix}-slider`}
-                language={this.context.page.language.get()}
+                language={this.context.layout.language.get()}
               />
           </nav>
         </UpdatedOnResize>

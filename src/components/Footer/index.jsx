@@ -5,7 +5,7 @@ import './style.scss'
 
 class Footer extends React.Component {
   render() {
-    const { page } = this.context
+    const languageId = this.context.layout.language.get().id
 
     return (
       <footer className="footer">
@@ -20,7 +20,7 @@ class Footer extends React.Component {
             </div>
           </div> 
           <div className="footer__feed-box">
-            <a className="footer__feed" href={Feeds[page.language.get().id].outputPath}>
+            <a className="footer__feed" href={Feeds[languageId].outputPath}>
               <i title="RSS Feed" className="icon-rss" />
             </a>
           </div>

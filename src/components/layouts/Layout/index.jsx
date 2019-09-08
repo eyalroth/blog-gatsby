@@ -3,7 +3,7 @@ import Context from '../../Context'
 import DefaultLayout from '../DefaultLayout'
 import StaticPageLayout from '../StaticPageLayout'
 import CategoryLayout from '../CategoryLayout'
-import { Languages } from '../../../consts/languages'
+import { Languages, findById } from '../../../consts/languages'
 
 import '../../../assets/scss/init.scss'
 import './style.scss'
@@ -17,11 +17,9 @@ class Layout extends React.Component {
 
   render() {
     const { children } = this.props
-    const { page } = this.context
 
-    if (!page.language.get()) {
-      page.set(Languages.English, null)
-    }
+    const language = (this.props.languageId) ? findById(this.props.languageId) : Languages.English
+    this.context.layout.set(language, this.props.sidebarLinkId)
 
     let childrenWithLayout = null
 
@@ -58,7 +56,7 @@ class Layout extends React.Component {
 
   className() {
     const theme = this.context.theme.get()
-    const language = this.context.page.language.get()
+    const language = this.context.layout.language.get()
 
     return `global-container ${theme.cssClass} ${language.cssClass}`
   }

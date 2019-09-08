@@ -6,10 +6,10 @@ import './style.scss'
 class PageTemplate extends React.Component {
   render() {
     const page = this.props.data.markdownRemark
-    const { title, sidebarLinkId, language: languageId } = page.frontmatter
+    const { title } = page.frontmatter
 
     return (
-      <Page languageId={languageId} subtitle={title} sidebarLinkId={sidebarLinkId}>
+      <Page subtitle={title}>
         <div className="page">
             <h1 className="page__title">{title}</h1>
             <div
@@ -33,8 +33,6 @@ export const pageQuery = graphql`
         title
         date
         description
-        sidebarLinkId
-        language
       }
     }
   }

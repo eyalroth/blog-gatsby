@@ -5,7 +5,6 @@ import 'moment/locale/he'
 import Utterances from '../../components/Utterances'
 import Page from '../../components/Page'
 import { Languages } from '../../consts/languages'
-import { SidebarLinks } from '../../consts/menuLinks'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
@@ -16,10 +15,10 @@ class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
-    const { title, tags, series, language: languageId } = post.frontmatter
+    const { title, tags, series } = post.frontmatter
     const readingTime = post.fields.readingTime
     const url = this.props.location.href
-    const language = this.context.page.language.get()
+    const language = this.context.layout.language.get()
 
     let featuredImage = post.frontmatter.featuredImage
 
@@ -110,9 +109,7 @@ class PostTemplate extends React.Component {
 
     return (
       <Page
-        languageId={languageId}
         subtitle={title}
-        sidebarLinkId={SidebarLinks[languageId].Blog.id}
         featuredImage={featuredImage}
       >
         <div className="post-single">
@@ -158,7 +155,6 @@ export const pageQuery = graphql`
           path
           order
         }
-        language
         featuredImage {
           childImageSharp {
             fluid(quality: 100) {

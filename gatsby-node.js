@@ -6,6 +6,7 @@ const { Languages, findById } = require('./src/consts/languages')
 const { SidebarLinks } = require('./src/consts/menuLinks')
 const { Feeds } = require('./src/consts/rss')
 
+const createHomeTemplate = require('./src/templates/HomeTemplate/createPages')
 const createCategoryTemplate = require('./src/templates/PostCategoryTemplate/createPages')
 const createPageTemplate = require('./src/templates/PageTemplate/createPages')
 const createPostTemplate = require('./src/templates/PostTemplate/createPages')
@@ -42,12 +43,13 @@ exports.createPages = ({ graphql, actions }) => {
     resolve()
   })
 
+  const homes = new Promise(createHomeTemplate(graphql, createPage))
   const categoryLists = new Promise(createCategoryTemplate(graphql, createPage))
   const pages = new Promise(createPageTemplate(graphql, createPage))
   const posts = new Promise(createPostTemplate(graphql, createPage))
   const seriesLists = new Promise(createSeriesTemplate(graphql, createPage))
 
-  return Promise.all([redirects, categoryLists, pages, posts, seriesLists])
+  return Promise.all([redirects, homes, categoryLists, pages, posts, seriesLists])
 }
 
 exports.onCreateNode = ({ node, actions }) => {

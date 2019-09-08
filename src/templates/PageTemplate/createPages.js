@@ -13,6 +13,10 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
             fields {
               slug
             }
+            frontmatter {
+              language
+              sidebarLinkId
+            }
           }
         }
       }
@@ -23,10 +27,16 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
       reject(result.errors)
     }
     _.each(result.data.allMarkdownRemark.edges, edge => {
+      const slug = edge.node.fields.slug
+      const {language: languageId, sidebarLinkId} = edge.node.frontmatter
       createPage({
-        path: edge.node.fields.slug,
+        path: slug,
         component: path.join(__dirname, 'index.jsx'),
-        context: { slug: edge.node.fields.slug },
+        context: { 
+          slug,
+          languageId,
+          sidebarLinkId,
+         },
       })
     })
     resolve()

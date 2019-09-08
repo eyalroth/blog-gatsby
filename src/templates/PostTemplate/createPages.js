@@ -1,6 +1,8 @@
 const _ = require('lodash')
 const path = require('path')
 
+const { SidebarLinks } = require('../../consts/menuLinks')
+
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
     {
@@ -14,6 +16,7 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
               slug
             }
             frontmatter {
+              language
               category
             }
           }
@@ -27,12 +30,17 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
     }
     _.each(result.data.allMarkdownRemark.edges, edge => {
       const slug = edge.node.fields.slug
+      const { language: languageId , category: categoryId } = edge.node.frontmatter
+      const sidebarLinkId = SidebarLinks[languageId].Blog.id
+
       createPage({
         path: slug,
         component: path.join(__dirname, 'index.jsx'),
         context: { 
           slug,
-          categoryId: edge.node.frontmatter.category
+          languageId,
+          categoryId,
+          sidebarLinkId,
         },
       })
     })

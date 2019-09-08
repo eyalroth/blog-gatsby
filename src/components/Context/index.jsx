@@ -1,6 +1,6 @@
 import React from "react"
 import isMatch from 'lodash/isMatch'
-import PageContextProvider from '../PageContextProvider'
+import LayoutContextProvider from '../LayoutContextProvider'
 import ThemeContextProvider from '../ThemeContextProvider'
 
 const Context = React.createContext({})
@@ -12,7 +12,7 @@ class ContextProvider extends React.Component {
     this.state = {}
 
     this.provided = {
-      page: new PageContextProvider(new StateManager(this)),
+      layout: new LayoutContextProvider(new StateManager(this)),
       theme: new ThemeContextProvider(new StateManager(this)),
     }
   }

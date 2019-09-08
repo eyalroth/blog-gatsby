@@ -1,9 +1,9 @@
-class PageContextProvider {
+class LayoutContextProvider {
     constructor(state) {
       this.state = state
 
-      this.language = new SimpleProvider(state, "page.language")
-      this.sidebarLinkId = new SimpleProvider(state, "page.sidebarLinkId")
+      this.language = new SimpleProvider(state, "layout.language")
+      this.sidebarLinkId = new SimpleProvider(state, "layout.sidebarLinkId")
     }
 
     set(language, sidebarLinkId) {
@@ -14,7 +14,7 @@ class PageContextProvider {
     }
 }
 
-export default PageContextProvider
+export default LayoutContextProvider
 
 class SimpleProvider {
     constructor(state, property, defaultValue = null) {

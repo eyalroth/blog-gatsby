@@ -2,7 +2,7 @@ const _ = require('lodash')
 const path = require('path')
 
 const { findById } = require('../../consts/languages')
-const { seriesLink } = require('../../consts/menuLinks')
+const { SidebarLinks, seriesLink } = require('../../consts/menuLinks')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
@@ -33,22 +33,24 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
     }
 
     const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
-      const { series, language: languageId, category } = group.edges[0].node.frontmatter
+      const { series, language, category } = group.edges[0].node.frontmatter
       return {
         ...series,
         categoryId: category,
-        language: findById(languageId),
+        languageId: language,
       }
     })
 
     _.each(seriesItems, series => {
       createPage({
-        path: seriesLink(series.path, series.language),
+        path: seriesLink(series.path, findById(series.languageId)),
         component: path.join(__dirname, 'index.jsx'),
         context: { 
           seriesName: series.name,
           seriesPath: series.path,
+          languageId: series.languageId,
           categoryId: series.categoryId,
+          sidebarLinkId: SidebarLinks[series.languageId].Blog.id,
         },
       })
     })

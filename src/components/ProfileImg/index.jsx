@@ -52,7 +52,7 @@ class ProfileImg extends React.Component {
 
     renderWithQueryData(data) {
         const { className } = this.props
-        const { language } = this.context.page
+        const { language } = this.context.layout
 
         const authorName = Author.name[language.get().id]
         return (
