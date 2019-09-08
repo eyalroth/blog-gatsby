@@ -2,8 +2,9 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
+import LittleFoot from '../../components/Littlefoot'
 import Utterances from '../../components/Utterances'
-import Page from '../../components/Page'
+import PageHelmet from '../../components/PageHelmet'
 import { Languages } from '../../consts/languages'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
@@ -86,11 +87,13 @@ class PostTemplate extends React.Component {
     )
 
     const body = (
-      <div
-        className="post-single__body"
-        /* eslint-disable-next-line react/no-danger */
-        dangerouslySetInnerHTML={{ __html: post.html }}
-      />
+      <LittleFoot>
+        <div
+          className="post-single__body"
+          /* eslint-disable-next-line react/no-danger */
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
+      </LittleFoot>
     )
 
     const mobileShare = <MobileShareButton url={url}/>
@@ -108,19 +111,15 @@ class PostTemplate extends React.Component {
     )
 
     return (
-      <Page
-        subtitle={title}
-        featuredImage={featuredImage}
-      >
-        <div className="post-single">
-          {header}
-          {mobileShare}
-          {seriesBox}
-          {body}
-          <hr />
-          {footer}
-        </div>
-      </Page>
+      <div className="post-single">
+        <PageHelmet subtitle={title} featuredImage={featuredImage} />
+        {header}
+        {mobileShare}
+        {seriesBox}
+        {body}
+        <hr />
+        {footer}
+      </div>
     )
   }
 }

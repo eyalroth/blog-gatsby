@@ -4,43 +4,6 @@ import Helmet from 'react-helmet'
 import Context from '../../components/Context'
 import { Author } from '../../consts/author'
 
-class Page extends React.Component {
-    render() {
-        const helmet = <PageHelmet key="helmet" {...this.props}/>
-        
-        return ([
-            helmet,
-            this.props.children
-        ])
-    }
-
-    componentDidMount() {
-        this.addLittlefoot()
-    }
-
-    addLittlefoot() {
-        if (typeof window !== 'undefined') {
-            const bt = `
-            <button
-                aria-controls="fncontent:<%= id %>"
-                aria-expanded="false"
-                aria-label="Footnote <%= number %>"
-                class="littlefoot-footnote__button"
-                id="<%= reference %>"
-                rel="footnote"
-                title="See Footnote <%= number %>"
-            />
-                <%= number %>
-            </button>
-            `
-            const littlefoot = require('littlefoot').default
-            littlefoot({buttonTemplate: bt})
-        }
-    }
-}
-
-export default Page
-
 class PageHelmet extends React.Component {
     render() {
         return (
@@ -105,4 +68,7 @@ class PageHelmet extends React.Component {
         )
     }
 }
+
 PageHelmet.contextType = Context
+
+export default PageHelmet

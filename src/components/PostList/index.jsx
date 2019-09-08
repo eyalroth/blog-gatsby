@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import Page from '../../components/Page'
+import PageHelmet from '../PageHelmet'
 import PostListItem from '../../components/PostListItem'
 
 class PostList extends React.Component {
@@ -27,12 +27,11 @@ class PostList extends React.Component {
       })
 
       return (
-        <Page subtitle={subtitle}>
-          <div className="posts">
-            {children}
-            {items}
-          </div>
-        </Page>
+        <div className="posts">
+          <PageHelmet subtitle={subtitle}/>
+          {children}
+          {items}
+        </div>
       )
     }
 }

@@ -1,5 +1,4 @@
 import './src/assets/fonts/fontello/css/fontello.css'
-import './src/assets/scss/littlefoot.scss'
 
 require("prismjs/themes/prism-okaidia.css")
 require("prismjs/plugins/line-numbers/prism-line-numbers.css")
