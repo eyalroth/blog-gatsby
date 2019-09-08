@@ -11,7 +11,6 @@ class CategoryMenu extends React.Component {
 
     return (
       <NavMenu
-          id="category"
           linkDescriptions={CategoryLinks[page.language.get().id]}
           classNamePrefix="category-menu"
           currentLinkId={categoryId}

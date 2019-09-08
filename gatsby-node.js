@@ -107,6 +107,9 @@ exports.createPages = ({ graphql, actions }) => {
               fields {
                 slug
               }
+              frontmatter {
+                category
+              }
             }
           }
         }
@@ -117,10 +120,14 @@ exports.createPages = ({ graphql, actions }) => {
         reject(result.errors)
       }
       _.each(result.data.allMarkdownRemark.edges, edge => {
+        const slug = edge.node.fields.slug
         createPage({
-          path: edge.node.fields.slug,
+          path: slug,
           component: slash(template),
-          context: { slug: edge.node.fields.slug },
+          context: { 
+            slug,
+            categoryId: edge.node.frontmatter.category
+          },
         })
       })
       resolve()
@@ -144,6 +151,7 @@ exports.createPages = ({ graphql, actions }) => {
                     name
                     path
                   }
+                  category
                 }
               }
             }
@@ -157,9 +165,10 @@ exports.createPages = ({ graphql, actions }) => {
       }
 
       const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
-        const { series, language: languageId } = group.edges[0].node.frontmatter
+        const { series, language: languageId, category } = group.edges[0].node.frontmatter
         return {
           ...series,
+          categoryId: category,
           language: findById(languageId),
         }
       })
@@ -171,6 +180,7 @@ exports.createPages = ({ graphql, actions }) => {
           context: { 
             seriesName: series.name,
             seriesPath: series.path,
+            categoryId: series.categoryId,
           },
         })
       })
@@ -205,5 +215,5 @@ exports.onCreateNode = ({ node, actions }) => {
 }
 
 exports.onCreatePage = ({ page }) => {
-  page.context.staticPage = true
+  page.context.isStaticPage = true
 }

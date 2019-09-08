@@ -2,6 +2,7 @@ import React from 'react'
 import Context from '../../Context'
 import DefaultLayout from '../DefaultLayout'
 import StaticPageLayout from '../StaticPageLayout'
+import CategoryLayout from '../CategoryLayout'
 import { Languages } from '../../../consts/languages'
 
 import '../../../assets/scss/init.scss'
@@ -22,16 +23,25 @@ class Layout extends React.Component {
       page.set(Languages.English, null)
     }
 
-    let childrenWithLayout = (
-      <DefaultLayout>
-        {children}
-      </DefaultLayout>
-    )
+    let childrenWithLayout = null
+
     if (this.props.isStaticPage) {
       childrenWithLayout = (
         <StaticPageLayout>
           {children}
         </StaticPageLayout>
+      )
+    } else if (this.props.categoryId) {
+      childrenWithLayout = (
+        <CategoryLayout {...this.props}>
+          {children}
+        </CategoryLayout>
+      )
+    } else {
+      childrenWithLayout = (
+        <DefaultLayout>
+          {children}
+        </DefaultLayout>
       )
     }
 

@@ -5,7 +5,7 @@ import Layout from './Layout'
 export default ({ children, pageContext }) => {
     return (
         <ContextProvider>
-            <Layout isStaticPage={pageContext.staticPage}>
+            <Layout {...pageContext}>
                 {children}
             </Layout>
         </ContextProvider>

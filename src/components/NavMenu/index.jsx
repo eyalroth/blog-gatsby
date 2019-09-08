@@ -11,6 +11,7 @@ class NavMenu extends React.Component {
         this.links = {}
 
         this.updateSlider = this.updateSlider.bind(this)
+        this.lastSliderLinkId = null
     }
 
     render() {
@@ -74,7 +75,7 @@ class NavMenu extends React.Component {
       const slider = this.slider.current
 
       if (currentLink) {
-        const lastLink = this.links[this.getLastSliderLinkId()]
+        const lastLink = this.links[this.lastSliderLinkId]
         if (lastLink && lastLink.id !== currentLinkId) {
           slider.shift({from: lastLink, to: currentLink})
         } else {
@@ -82,15 +83,7 @@ class NavMenu extends React.Component {
         }
       }
 
-      this.setLastSliderLinkId(currentLinkId)
-    }
-
-    getLastSliderLinkId() {
-      return this.context.navMenu.getLastSliderLinkId(this.props.id)
-    }
-    
-    setLastSliderLinkId(id) {
-      this.context.navMenu.setLastSliderLinkId(this.props.id, id)
+      this.lastSliderLinkId = currentLinkId
     }
 }
 
