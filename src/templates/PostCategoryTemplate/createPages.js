@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const path = require('path')
 
-const { CategoryLinks } = require('../../consts/menuLinks.jsx')
+const { CategoryLinks } = require('../../consts/menuLinks')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
     _.forOwn(CategoryLinks, function(links, languageId) {

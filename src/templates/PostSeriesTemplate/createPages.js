@@ -1,8 +1,8 @@
 const _ = require('lodash')
 const path = require('path')
 
-const { findById } = require('../../consts/languages.jsx')
-const { seriesLink } = require('../../consts/menuLinks.jsx')
+const { findById } = require('../../consts/languages')
+const { seriesLink } = require('../../consts/menuLinks')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`

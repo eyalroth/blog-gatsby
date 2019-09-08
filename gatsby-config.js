@@ -8,7 +8,7 @@ require("dotenv").config({
 
 const pxtorem = require('postcss-pxtorem')
 const path = require(`path`)
-const { Feeds } = require('./src/consts/rss.jsx')
+const { Feeds } = require('./src/consts/rss')
 
 function verifyEnvVar(variable) {
   if (activeEnv == "production" && !process.env[variable]) {

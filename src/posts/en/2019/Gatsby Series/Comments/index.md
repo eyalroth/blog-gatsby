@@ -264,7 +264,7 @@ Utterances.contextType = Context // "hook" the Utterances component to the conte
 
 And this is how the themes look like:
 
-```jsx:title=themes.jsx
+```jsx:title=themes.js
 class Theme {
     constructor(id, utterances) {
         this.id = id

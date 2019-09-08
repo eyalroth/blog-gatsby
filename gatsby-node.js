@@ -2,14 +2,14 @@ const _ = require('lodash')
 const Promise = require('bluebird')
 const moment = require('moment')
 
-const { Languages, findById } = require('./src/consts/languages.jsx')
-const { SidebarLinks } = require('./src/consts/menuLinks.jsx')
-const { Feeds } = require('./src/consts/rss.jsx')
+const { Languages, findById } = require('./src/consts/languages')
+const { SidebarLinks } = require('./src/consts/menuLinks')
+const { Feeds } = require('./src/consts/rss')
 
-const createCategoryTemplate = require('./src/templates/PostCategoryTemplate/createPages.js')
-const createPageTemplate = require('./src/templates/PageTemplate/createPages.js')
-const createPostTemplate = require('./src/templates/PostTemplate/createPages.js')
-const createSeriesTemplate = require('./src/templates/PostSeriesTemplate/createPages.js')
+const createCategoryTemplate = require('./src/templates/PostCategoryTemplate/createPages')
+const createPageTemplate = require('./src/templates/PageTemplate/createPages')
+const createPostTemplate = require('./src/templates/PostTemplate/createPages')
+const createSeriesTemplate = require('./src/templates/PostSeriesTemplate/createPages')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions

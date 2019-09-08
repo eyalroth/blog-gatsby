@@ -1,5 +1,5 @@
-const { Languages } = require('./languages.jsx')
-const { SidebarLinks } = require('./menuLinks.jsx')
+const { Languages } = require('./languages')
+const { SidebarLinks } = require('./menuLinks')
 
 class RssFeed {
     constructor(title, outputPath, homePath, languageId, languageShort) {
