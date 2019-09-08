@@ -2,10 +2,13 @@ import React from 'react'
 import Sidebar from '../../Sidebar'
 import Footer from '../../Footer'
 import ProgressBar from '../../ProgressBar'
+import CategoryMenu from '../../CategoryMenu'
 import './style.scss'
 
 class DefaultLayout extends React.Component {
   render() {
+    const { categoryId } = this.props
+
     return (
       <div className="page-container">
         <ProgressBar />
@@ -14,6 +17,7 @@ class DefaultLayout extends React.Component {
         <div className="content-wrap">
           <Sidebar />
           <div className="content">
+            {(categoryId) ? <CategoryMenu categoryId={categoryId}/> : null}
             {this.props.children}
           </div>
         </div>

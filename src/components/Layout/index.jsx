@@ -1,17 +1,25 @@
 import React from 'react'
-import Context from '../../Context'
-import DefaultLayout from '../DefaultLayout'
-import StaticPageLayout from '../StaticPageLayout'
-import CategoryLayout from '../CategoryLayout'
-import { Languages, findById } from '../../../consts/languages'
+import Context, { ContextProvider } from '../Context'
+import DefaultLayout from './DefaultLayout'
+import StaticPageLayout from './StaticPageLayout'
+import { Languages, findById } from '../../consts/languages'
 
-import '../../../assets/scss/init.scss'
+import '../../assets/scss/init.scss'
 import './style.scss'
+
+export default ({ children, pageContext }) => {
+  return (
+    <ContextProvider>
+        <Layout {...pageContext}>
+            {children}
+        </Layout>
+    </ContextProvider>
+  )
+}
 
 class Layout extends React.Component {
   constructor(props) {
     super(props)
-
     this.divRef = React.createRef()
   }
 
@@ -29,15 +37,9 @@ class Layout extends React.Component {
           {children}
         </StaticPageLayout>
       )
-    } else if (this.props.categoryId) {
+    } else  {
       childrenWithLayout = (
-        <CategoryLayout {...this.props}>
-          {children}
-        </CategoryLayout>
-      )
-    } else {
-      childrenWithLayout = (
-        <DefaultLayout>
+        <DefaultLayout {...this.props}>
           {children}
         </DefaultLayout>
       )
@@ -63,6 +65,3 @@ class Layout extends React.Component {
 }
   
 Layout.contextType = Context
-
-export default Layout
-  
