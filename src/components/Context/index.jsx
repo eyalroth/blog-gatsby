@@ -38,26 +38,28 @@ class StateManager {
     return this.state[property]
   }
 
-  set(property, value) {
+  set(property, value, updateComponents = false) {
     if (this.get(property) !== value) {
       this.state[property] = value
-      this.forceUpdate()
+      this.updateComponents(updateComponents)
     }
   }
 
-  setBatch(newState) {
+  setBatch(newState, updateComponents = false) {
     if (!isMatch(this.state, newState)) {
       this.state = {
         ...this.state,
         ...newState
       }
-      this.forceUpdate()
+      this.updateComponents(updateComponents)
     }
   }
 
-  forceUpdate() {
-    // timeout since we don't want to update while in render
-    // we want an anonymous function so the update will be invoked for each set action
-    setTimeout(() => this.provider.forceUpdate(), 0)
+  updateComponents(shouldUpdate) {
+    if (shouldUpdate) {
+      // timeout since we don't want to update while in render
+      // we want an anonymous function so the update will be invoked for each set action
+      setTimeout(() => this.provider.forceUpdate(), 0)
+    }
   }
 }

@@ -25,7 +25,7 @@ class ThemeContextProvider {
 
     set(newTheme) {
         Cookies.set(cookieName, newTheme.id, { path: '/' })
-        this.state.set(stateProperty, newTheme)
+        this.state.set(stateProperty, newTheme, true)
     }
 }
 
