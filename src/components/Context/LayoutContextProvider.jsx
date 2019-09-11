@@ -17,13 +17,12 @@ class LayoutContextProvider {
 export default LayoutContextProvider
 
 class SimpleProvider {
-    constructor(state, property, defaultValue = null) {
+    constructor(state, property) {
       this.state = state
       this.property = property
-      this.defaultValue = defaultValue
     }
   
     get() {
-      return this.state.get(this.property) || this.defaultValue
+      return this.state.get(this.property)
     }
 }

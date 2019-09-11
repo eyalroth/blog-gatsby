@@ -9,8 +9,6 @@ class ContextProvider extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
-
     this.provided = {
       layout: new LayoutContextProvider(new StateManager(this)),
       theme: new ThemeContextProvider(new StateManager(this)),
