@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
 const moment = require('moment')
+const readingTime = require("reading-time")
 
 const { Languages, findById } = require('./src/consts/languages')
 const { CategoryLinks, SidebarLinks } = require('./src/consts/menuLinks')
@@ -67,7 +68,8 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === 'MarkdownRemark') {
+  if (node.internal.type === 'Mdx') {
+    const language = findById(node.frontmatter.language)
     let slug = node.frontmatter.path
 
     if (node.frontmatter.layout == 'post') {
@@ -77,12 +79,23 @@ exports.onCreateNode = ({ node, actions }) => {
       slug = `/blog/${postYear}/${postMonth}/${slug}/`
     }
 
-    slug = `/${findById(node.frontmatter.language).urlPart}${slug}`
+    slug = `/${language.urlPart}${slug}`
 
     createNodeField({
       node,
       name: 'slug',
       value: slug,
+    })
+
+    const readingMinutes = Math.max(Math.round(readingTime(node.rawBody).minutes), 1)
+
+    createNodeField({
+      node,
+      name: 'readingTime',
+      value: {
+        minutes: readingMinutes,
+        text: readingMinutes && language.timeToRead(readingMinutes),
+      }
     })
   }
 }

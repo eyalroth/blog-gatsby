@@ -22,7 +22,7 @@ verifyEnvVar("UTTERANCES_REPO")
 function rssQuery(languageId) {
   return `
     {
-      allMarkdownRemark(
+      allMdx(
         filter: {frontmatter: {language: {eq: "${languageId}"}}}
         sort: { order: DESC, fields: [frontmatter___date] },
       ) {
@@ -108,9 +108,10 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-transformer-remark',
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        plugins: [
+        extensions: ['.md'],
+        gatsbyRemarkPlugins: [
           {
             resolve: 'gatsby-remark-images',
             options: {
@@ -130,7 +131,6 @@ module.exports = {
           },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
-          `gatsby-remark-reading-time`,
         ],
       },
     },

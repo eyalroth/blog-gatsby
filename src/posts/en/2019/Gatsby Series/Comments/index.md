@@ -239,7 +239,7 @@ class Utterances extends React.Component {
   createScript(theme) {
     // same as before (except for the event listeners and theme attribute)
 
-    script.setAttribute('theme', theme.utterances)
+    script.setAttribute('theme', theme)
     script.addEventListener("load", () => this.scriptLoaded(theme, true), {once: true})
     script.addEventListener("error", () => this.scriptLoaded(theme, false), {once: true})
 
