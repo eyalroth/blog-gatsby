@@ -4,7 +4,7 @@ const path = require('path')
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
     {
-      allMarkdownRemark(
+      allMdx(
         limit: 1000
         filter: { frontmatter: { layout: { eq: "page" }, demo: { ne: true } } }
       ) {
@@ -26,7 +26,7 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
       console.log(result.errors)
       reject(result.errors)
     }
-    _.each(result.data.allMarkdownRemark.edges, edge => {
+    _.each(result.data.allMdx.edges, edge => {
       const slug = edge.node.fields.slug
       const {language: languageId, sidebarLinkId} = edge.node.frontmatter
       createPage({

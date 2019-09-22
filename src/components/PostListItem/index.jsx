@@ -3,7 +3,6 @@ import { Link } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
 import Context from '../../components/Context'
-import { Languages } from '../../consts/languages'
 import './style.scss'
 
 class PostListItem extends React.Component {
@@ -13,21 +12,6 @@ class PostListItem extends React.Component {
     const { slug, readingTime } = this.props.data.node.fields
     const language = this.context.layout.language.get()
     
-    const readingTimeText = (function(lang) {
-      // eslint-disable-next-line
-      switch(lang) {
-          case Languages.English:
-              return readingTime.text
-          case Languages.Hebrew:
-            const minutes = Math.round(readingTime.minutes)
-            if (minutes < 2) {
-              return "דקת קריאה אחת"
-            } else {
-              return `${minutes} דקות קריאה`
-            }
-      }
-    })(language)
-
     const itemDate = moment(date).locale(language.locale)
 
     const time = (
@@ -57,13 +41,13 @@ class PostListItem extends React.Component {
 
     const readingTimeMobile =(
       <span className="post-item__details-meta-reading-time mobile">
-        {readingTimeText}
+        {readingTime.text}
       </span>
     )
 
     const readingTimeNonMobile = (
       <li className="post-item__details-meta-reading-time nonmobile" key="readingTime">
-        {readingTimeText}
+        {readingTime.text}
       </li>
     )
 

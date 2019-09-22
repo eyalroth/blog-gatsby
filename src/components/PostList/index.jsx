@@ -6,7 +6,7 @@ import PostListItem from '../../components/PostListItem'
 class PostList extends React.Component {
     render() {
       const { subtitle, children } = this.props
-      const posts = this.props.data.allMarkdownRemark.edges
+      const posts = this.props.data.allMdx.edges
   
       const years = new Set()
 

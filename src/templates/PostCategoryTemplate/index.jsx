@@ -16,7 +16,7 @@ export default PostCategoryTemplate
 
 export const pageQuery = graphql`
   query PostCategoryTemplateQuery($categoryId: String) {
-    allMarkdownRemark(
+    allMdx(
       limit: 1000
       filter: {
         frontmatter: {

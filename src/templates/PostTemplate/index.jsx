@@ -2,10 +2,10 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
+import MDX from '../../components/MDX'
 import LittleFoot from '../../components/Littlefoot'
 import Utterances from '../../components/Utterances'
 import PageHelmet from '../../components/PageHelmet'
-import { Languages } from '../../consts/languages'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
@@ -15,7 +15,7 @@ import './style.scss'
 class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
-    const post = this.props.data.markdownRemark
+    const post = this.props.data.mdx
     const { title, tags, series } = post.frontmatter
     const readingTime = post.fields.readingTime
     const url = this.props.location.href
@@ -35,20 +35,7 @@ class PostTemplate extends React.Component {
     
     const readTimeBlock = (
       <span className="post-single__reading-time">
-        {(function(lang) {
-          // eslint-disable-next-line
-          switch(lang) {
-              case Languages.English:
-                  return readingTime.text
-              case Languages.Hebrew:
-                const minutes = Math.round(readingTime.minutes)
-                if (minutes < 2) {
-                  return "דקת קריאה אחת"
-                } else {
-                  return `${minutes} דקות קריאה`
-                }
-          }
-        })(language)}
+        {readingTime.text}
       </span>
     )
     
@@ -88,11 +75,9 @@ class PostTemplate extends React.Component {
 
     const body = (
       <LittleFoot>
-        <div
-          className="post-single__body"
-          /* eslint-disable-next-line react/no-danger */
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
+        <div className="post-single__body">
+          <MDX body={post.body}/>
+        </div>
       </LittleFoot>
     )
 
@@ -135,9 +120,9 @@ export const pageQuery = graphql`
         utterances
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx(fields: { slug: { eq: $slug } }) {
       id
-      html
+      body
       fields {
         slug
         readingTime {
