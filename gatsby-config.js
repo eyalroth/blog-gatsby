@@ -131,6 +131,21 @@ module.exports = {
           },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
+          {
+            resolve: require.resolve("./plugins/gatsby-remark-external-links-fork"),
+            options: {
+              target: "_blank",
+              rel: "noopener noreferrer",
+              content: {
+                type: 'element',
+                tagName: 'i',
+                properties: {
+                  title: "Open in a new window",
+                  className: "icon-link-ext"
+                }
+              },
+            }
+          },
         ],
       },
     },

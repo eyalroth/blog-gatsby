@@ -55,7 +55,8 @@
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.0",
     "react-share": "^3.0.0",
-    "reading-time": "^1.2.0"
+    "reading-time": "^1.2.0",
+    "remark-external-links": "^5.0.0"
   },
   "devDependencies": {
     "gatsby-remark-prismjs-title": "^1.0.0",
