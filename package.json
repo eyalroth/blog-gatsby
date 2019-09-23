@@ -59,7 +59,6 @@
     "remark-external-links": "^5.0.0"
   },
   "devDependencies": {
-    "gatsby-remark-prismjs-title": "^1.0.0",
     "postcss-pxtorem": "^4.0.1"
   }
 }

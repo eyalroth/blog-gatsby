@@ -132,7 +132,7 @@ module.exports = {
             resolve: 'gatsby-remark-responsive-iframe',
             options: { wrapperStyle: 'margin-bottom: 1.0725rem' },
           },
-          'gatsby-remark-prismjs-title',
+          require.resolve("./plugins/gatsby-remark-prismjs-title-fork"),
           {
             resolve: 'gatsby-remark-prismjs',
             options: {

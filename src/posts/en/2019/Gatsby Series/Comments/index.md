@@ -72,7 +72,7 @@ export const pageQuery = graphql`
 
 This code is taken from an example in [the guide on querying with GraphQL](https://www.gatsbyjs.org/docs/querying-with-graphql), with the addition of a custom `Utterances` component which requires a link to the GitHub repository where the comments are hosted. The link is configured in the site metadata:
 
-```js:title=gatsby-config.js
+```js title=gatsby-config.js
 module.exports = {
   siteMetadata: {
     utterances: process.env.UTTERANCES_REPO,
@@ -85,7 +85,7 @@ You'll notice the link is configured via an environment variable named `UTTERANC
 ### React Component
 
 Now let's see about the `Utterances` component itself:
-```jsx:title=Utterances/index.jsx
+```jsx title=Utterances/index.jsx
 import React from 'react'
 
 const src = 'https://utteranc.es/client.js'
@@ -136,7 +136,7 @@ Even though the script is quite light, it may take a few moments until it fully 
 
 So let's add a loading indicator to our `Utterances` component:
 
-```jsx:title=Utterances/index.jsx
+```jsx title=Utterances/index.jsx
 // same as before
 import './style.scss'
 
@@ -169,7 +169,7 @@ class Utterances extends React.Component {
 
 And accompany it with a new SCSS file:
 
-```scss:title=Utterances/style.scss
+```scss title=Utterances/style.scss
 .utterances {
     text-align: center;
     &.loading::before {
@@ -196,7 +196,7 @@ The idea is to load a new script once per _utterances_ theme (not per site theme
 
 The `Utterances` component state will now keep both the current loading status and the current (utterances) theme. Whenever the (site) theme changes, the component will check whether its current theme matches the new theme. If they don't match, the component will proceed to check whether the new theme script was loaded before. If it did, then it will simply update the current state; otherwise, it will also create the new script just as before.
 
-```jsx:title=Utterances/index.jsx
+```jsx title=Utterances/index.jsx
 // same as before
 import Context from '../Context' // the react context; more on that in a later post
 
@@ -264,7 +264,7 @@ Utterances.contextType = Context // "hook" the Utterances component to the conte
 
 And this is how the themes look like:
 
-```jsx:title=themes.js
+```jsx title=themes.js
 class Theme {
     constructor(id, utterances) {
         this.id = id
@@ -287,7 +287,7 @@ One small caveat is that any interaction the user is making with the script will
 
 Let's see how this all comes together:
 
-```jsx:title=Utterances/index.jsx
+```jsx title=Utterances/index.jsx
 import React from 'react'
 import Context from '../Context'
 import './style.scss'
