@@ -39,7 +39,7 @@ That wasn't enough though, as one "line" at the top of a narrow screen wasn't en
 
 One approach to collapsible components is to think of each "collapsing state" individually. In the case of my sidebar, there are 3 states - the initial "main" state with all the lists hidden, the state in which the navigation menu is shown and the contact links are hidden, and lastly the opposite state where the contact links are shown and the navigation menu is hidden:
 
-```jsx:title=Sidebar/index.jsx
+```jsx title=Sidebar/index.jsx
 import React from 'react'
 
 const SidebarMode = Object.freeze({
@@ -63,7 +63,7 @@ In each mode, some components are shown and some are hidden. Well, how do you hi
 
 Let's create a generic component to control the CSS class determining whether our individual components are enabled or disabled:
 
-```jsx:title=Toggle/index.jsx
+```jsx title=Toggle/index.jsx
 import React from 'react'
 
 class Toggle extends React.Component {
@@ -80,7 +80,7 @@ export default Toggle
 
 Let's also accompany it with some SASS mixins:
 
-```scss:title=mixins/toggle.scss
+```scss title=mixins/toggle.scss
 @mixin enabled {
   .enabled > & {
     @content;
@@ -123,7 +123,7 @@ The SASS mixins make sure to apply the styling only to direct descendants (`>`) 
 
 Back to the sidebar components, each of them is either enabled or disabled according to the sidebar mode. Let's create a generic component to toggle our sidebar components according to each mode:
 
-```jsx:title=Sidebar/index.jsx
+```jsx title=Sidebar/index.jsx
 import Toggle from '../Toggle'
 
 class SidebarToggle extends React.Component {
@@ -150,7 +150,7 @@ class SidebarToggle extends React.Component {
 
 And now we can render all kind of different components in the sidebar:
 
-```jsx:title=Sidebar/index.jsx
+```jsx title=Sidebar/index.jsx
   renderTitle() {
     return (
       <SidebarToggle main={true} menu={false} contact={false} {...this.state}>
@@ -172,7 +172,7 @@ And now we can render all kind of different components in the sidebar:
 
 The title will be enabled for the `Main` mode, and disabled for the other two modes, while the menu will be enabled only for the `Menu` mode. The mode itself is passed from the `Sidebar`'s own state to the `SidebarToggle`. To make the menu collapsible, we need to make use of some (S)CSS:
 
-```scss:title=Sidebar/style.scss
+```scss title=Sidebar/style.scss
 @import "mixins/toggle";
 
 $z-index: 1;
@@ -201,7 +201,7 @@ sidebar {
 
 Also, let's not forget the buttons that will allow the user to toggle between the different modes:
 
-```jsx:title=Sidebar/index.jsx
+```jsx title=Sidebar/index.jsx
   renderMenuButton() {
     const isEnabled = this.state.mode === SidebarMode.Menu
     const newMode = (isEnabled) ? SidebarMode.Main : SidebarMode.Menu
@@ -223,7 +223,7 @@ Remember that the buttons might also have different styling when they are either
 
 And this is how our sidebar component `render` method would look like:
 
-```jsx:title=Sidebar/index.jsx
+```jsx title=Sidebar/index.jsx
   render() {
     return (
       <div className="sidebar">
@@ -243,7 +243,7 @@ The ordering of the components should mostly reflect their order on larger scree
 
 Speaking of larger screens, we need to make sure that all of the work we've done for mobile screens won't reflect in the design of the bar-on-the-side. A common approach to designing a website is the "mobile first" approach: By default, you style the website for smaller screens, and then you add modifications to adjust the design for larger screens:
 
-```scss:title=Sidebar/style.scss
+```scss title=Sidebar/style.scss
 @media screen and (min-width: 900px) { // this should be encapsulated in a mixin
   sidebar {
     z-index: unset;
@@ -270,7 +270,7 @@ Here, we are undoing all of the styling we previously declared which will interf
 
 Up until now we've been dealing with the lack of space on mobile screens via collapsing components and multiple modes, but we have yet to position the sidebar on either small or large screens. In order to control the positioning of the sidebar, we first have to consider the general layout of a page in the site. For the purpose of this post we'll be using a simple page layout. I will be examining a more elaborate layout on a later post in this series.
 
-```jsx:title=Layout/index.jsx
+```jsx title=Layout/index.jsx
 import React from 'react'
 import Sidebar from '../Sidebar'
 import './style.scss'
@@ -291,7 +291,7 @@ class Layout extends React.Component {
 
 Every page in the website will render the `Layout` component as its top-most component, which will enforce the following styling:
 
-```scss:title=Layout/style.scss
+```scss title=Layout/style.scss
 $topbar-height: 50px;
 content {
   width: 90vw;
@@ -334,7 +334,7 @@ Remember, it's not just about different devices, but it's also relevant for desk
 
 For the last part of this post, we'll slightly improve the behavior of the topbar by making it disappear when scrolling down a page, and reappearing on scroll up; hence, a "peeking topbar". Once again we will be using the toggle technique to style the appearance and disappearance of the topbar:
 
-```scss:title=Sidebar/style.scss
+```scss title=Sidebar/style.scss
 sidebar {
   transition: transform 0.5s ease-out;
   @include disabled {
@@ -355,7 +355,7 @@ We only need to define the disabled mode since the sidebar is enabled by default
 
 Now that we have the styling in mind, we'll need to determine when the sidebar is enabled or not. Since the object-oriented paradigm is nice and [composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance) is a good principle, we'll encapsulate the "peeking" functionality in a new component:
 
-```jsx:title=Sidebar/index.jsx
+```jsx title=Sidebar/index.jsx
 class Sidebar extends React.Component {
   render() {
     return (

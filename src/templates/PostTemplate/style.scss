@@ -92,7 +92,7 @@
             padding-left: 0.75em;
             border-left: 0.25em solid #f99;
         }
-        & .gatsby-code-title {
+        & .gatsby-code-header {
             direction: ltr;
             margin-left: 15px;
             margin-right: 15px;
@@ -102,19 +102,30 @@
             background: #272822;
             border-top-left-radius: 0.3em;
             border-top-right-radius: 0.3em;
-            top: 0.8rem;
-            margin-top: -0.8rem;
-        }
-        & .gatsby-code-title span {
-            display: inline;
-            position: relative;
-            font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-            color: rgba(255,255,255,0.9);
-            background-color: rgba(255,255,255,0.25);
-            border-top-left-radius: 0.3em;
-            border-bottom-right-radius: 0.3em;
-            padding: 3px 10px;
-            top: -1px;
+            &.with-title {
+                top: 0.8rem;
+                margin-top: -0.8rem;
+                height: 1.6rem;
+            }
+
+            & span {
+                font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+                color: rgba(255,255,255,0.9);
+                background-color: rgba(255,255,255,0.25);
+                padding: 1px 10px;
+            }
+            & .gatsby-code-title {
+                position: absolute;
+                left: 0;
+                border-bottom-right-radius: 0.3em;
+            }
+            & .gatsby-code-language {
+                position: absolute;
+                right: 1rem;
+                border-bottom-left-radius: 0.3em;
+                border-bottom-right-radius: 0.3em;
+                text-transform: uppercase;
+            }
         }
     }
     &__footer {
@@ -157,7 +168,7 @@
                 margin-left: auto;
                 margin-right: auto;
             }
-            & .gatsby-code-title {
+            & .gatsby-code-header {
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -178,7 +189,7 @@
             & .gatsby-highlight {
                 @include font-size(0.9);
             }
-            & .gatsby-code-title {
+            & .gatsby-code-header {
                 @include font-size(0.9);
             }
         }
