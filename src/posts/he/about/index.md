@@ -39,24 +39,28 @@ language: hebrew
  בתגובות של GitHub, ויש לה פתרון.
 
 כדי לכתוב טקסט מיושר לימין ומוצג  כראוי בשילוב עם אנגלית, הקיפו את הטקסט בצורה זו:
-<pre dir="ltr" align="left" style="background-color: rgba(39,40,34, 1); color: white;">
+<pre dir="ltr" align="left" style="background-color: rgba(39,40,34, 1); color: white; overflow-x: scroll;">
 <code>
-&lt;div dir="rtl"&gt;
-זוהי תגובה בעברית שמשלבת גם english בתוכה.
-אפשר לכתוב כאן כמה שורות שרוצים.
-&lt;/div&gt;
-
+<br/>
+&lt;div dir="rtl"&gt;<br/>
+זוהי תגובה בעברית שמשלבת גם english בתוכה.<br/>
+אפשר לכתוב כאן כמה שורות שרוצים.<br/>
+&lt;/div&gt;<br/>
+<br/>
 and then type english as usual.
 </code>
+<br/><br/>
 </pre>
 
 ותקבלו תגובה שנראית כך:
-<pre style="background-color: rgba(39,40,34, 1); color: white;">
+<pre style="background-color: rgba(39,40,34, 1); color: white; overflow-x: scroll;">
 <code>
-זוהי תגובה בעברית שמשלבת גם english בתוכה.
-אפשר לכתוב כאן כמה שורות שרוצים.
+<br/>
+זוהי תגובה בעברית שמשלבת גם english בתוכה.<br/>
+אפשר לכתוב כאן כמה שורות שרוצים.<br/>
 </code>
 <div dir="ltr" align="left">and then type english as usual.</div>
+<br/>
 </pre>
 
 ## מאחורי הקלעים

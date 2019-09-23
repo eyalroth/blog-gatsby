@@ -69,7 +69,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'pages',
+        name: 'posts',
         path: path.join(__dirname, `src`, `posts`),
       },
     },
@@ -90,6 +90,16 @@ module.exports = {
             query: rssQuery(feed.languageId),
             language: feed.languageShort,
             'site_url': `${process.env.URL}${feed.homePath}`,
+            serialize: ({ query: { site, allMdx } }) =>
+            allMdx.edges.map(edge => {
+              return {
+                ...edge.node.frontmatter,
+                description: edge.node.excerpt,
+                url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                custom_elements: [{ "content:encoded": edge.node.html }],
+              }
+            }),
           }
         )),
         setup: // see https://github.com/gatsbyjs/gatsby/issues/16177
@@ -110,7 +120,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        extensions: ['.md'],
+        extensions: ['.md', '.mdx'],
         gatsbyRemarkPlugins: [
           {
             resolve: 'gatsby-remark-images',

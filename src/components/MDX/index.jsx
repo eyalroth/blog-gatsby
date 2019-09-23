@@ -1,21 +1,15 @@
 import React from 'react'
 import { Link, StaticQuery, graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
-import { MDXProvider } from '@mdx-js/react'
 
 
 class MDX extends React.Component {
   render() {
-    const shortcodes = {LocalLink}
     return (
-      <MDXProvider components={shortcodes}>
-        <MDXRenderer>{this.props.body}</MDXRenderer>
-      </MDXProvider>
+      <MDXRenderer>{this.props.body}</MDXRenderer>
     )
   }
 }
-
-export default MDX
 
 class LocalLink extends React.Component {
   render() {
@@ -62,3 +56,5 @@ const allMdxQuery = graphql`
         }
     }
 `
+
+export { MDX as default, LocalLink }
