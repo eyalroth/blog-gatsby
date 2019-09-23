@@ -1,31 +1,32 @@
-"use strict";
+"use strict"
 
-const visit = require("unist-util-visit");
+const visit = require("unist-util-visit")
 
 const titlePrefix = "title="
 
-module.exports = ({ markdownAST }, pluginOptions = {}) => {
-  const customClassName = pluginOptions.className;
+module.exports = ({ markdownAST }, pluginOptions) => {
   visit(markdownAST, "code", (node, index) => {
-    const meta = node.meta || "";
-    const separatorIndex = meta.lastIndexOf(titlePrefix);
-    if (separatorIndex === -1) {
-      return;
+    if (!node.codeHeader) {
+      const language = node.lang
+      
+      const splitted = (node.meta || "").split(titlePrefix)
+      node.meta = splitted[0]
+      const title = splitted[1]
+
+      const languageJsx = (language) ? `language="${language}"` : ""
+      const titleJsx = (title) ? `title="${title}"` : ""
+
+      const jsx = `<CodeHeader ${languageJsx} ${titleJsx}/>`
+
+      const codeHeaderNode = {
+        type: "jsx",
+        value: jsx,
+      }
+
+      markdownAST.children.splice(index, 0, codeHeaderNode)
+      node.codeHeader = true
     }
-
-    const newMeta = meta.slice(0, separatorIndex);
-    const title = meta.slice(separatorIndex + titlePrefix.length);
-
-    const className = ["gatsby-code-title"].concat(customClassName || []);
-    const titleNode = {
-      type: "html",
-      value: `<div class="${className.join(" ").trim()}">
-          <span>${title}</span>
-        </div>`
-    };
-
-    markdownAST.children.splice(index, 0, titleNode);
-    node.meta = newMeta
-  });
-  return markdownAST;
-};
+  })
+  
+  return markdownAST
+}
