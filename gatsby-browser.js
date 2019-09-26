@@ -1,7 +1,7 @@
-import './src/assets/fonts/fontello/css/fontello.css'
-
+require('./src/assets/fonts/fontello/css/fontello.css')
 require("prismjs/themes/prism-okaidia.css")
 require("prismjs/plugins/line-numbers/prism-line-numbers.css")
+
 const React = require("react")
 const { withMdx } = require('./mdx')
 
