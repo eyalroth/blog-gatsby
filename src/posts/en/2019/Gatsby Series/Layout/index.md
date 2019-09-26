@@ -164,7 +164,7 @@ class ThemeButton extends React.Component {
 ThemeButton.contextType = Context
 ```
 
-This is the standard pattern for using a context - the entire layout (and thereby the entire page) is wrapped with a provider, and the two components are registered to the context via `.contextType = Context`, and so they are able to access it via `this.context`. You might recognize this pattern from <LocalLink language="english" path="gatsby-comments">the first post in the series</LocalLink>, where we examined how to "listen" to theme changes in the `Utterances` component. However, there are two oddities here.
+This is the standard pattern for using a context - the entire layout (and thereby the entire page) is wrapped with a provider, and the two components are registered to the context via `.contextType = Context`, and so they are able to access it via `this.context`. You might recognize this pattern from [the first post in the series](local::english/gatsby-comments), where we examined how to "listen" to theme changes in the `Utterances` component. However, there are two oddities here.
 
 #### Hydration
 

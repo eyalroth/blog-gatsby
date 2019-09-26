@@ -1,8 +1,9 @@
-let activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+let activeEnv =
+  process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development'
 
 console.log(`Using environment config: '${activeEnv}'`)
 
-require("dotenv").config({
+require('dotenv').config({
   path: `.env.${activeEnv}`,
 })
 
@@ -11,13 +12,13 @@ const path = require(`path`)
 const { Feeds } = require('./src/consts/rss')
 
 function verifyEnvVar(variable) {
-  if (activeEnv == "production" && !process.env[variable]) {
-    throw new Error(`Missing envrionment variable ${variable}`)
+  if (activeEnv == 'production' && !process.env[variable]) {
+    throw new Error(`Missing environment variable ${variable}`)
   }
 }
-verifyEnvVar("URL")
-verifyEnvVar("GOOGLE_ANALYTICS")
-verifyEnvVar("UTTERANCES_REPO")
+verifyEnvVar('URL')
+verifyEnvVar('GOOGLE_ANALYTICS')
+verifyEnvVar('UTTERANCES_REPO')
 
 function rssQuery(languageId) {
   return `
@@ -30,8 +31,8 @@ function rssQuery(languageId) {
           node {
             excerpt
             html
-            fields { slug }
             frontmatter {
+              slug
               title
               date
             }
@@ -46,7 +47,7 @@ const fontVariants = ['300', '300i', '400', '400i', '500', '700']
 
 let deployUrl = process.env.DEPLOY_PRIME_URL
 if (!deployUrl) {
-  deployUrl = process.env.URL 
+  deployUrl = process.env.URL
 }
 
 module.exports = {
@@ -83,39 +84,36 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-feed',
       options: {
-        feeds: Object.values(Feeds).map(feed => (
-          {
-            output: feed.outputPath,
-            title: feed.title,
-            query: rssQuery(feed.languageId),
-            language: feed.languageShort,
-            'site_url': `${process.env.URL}${feed.homePath}`,
-            serialize: ({ query: { site, allMdx } }) =>
+        feeds: Object.values(Feeds).map(feed => ({
+          output: feed.outputPath,
+          title: feed.title,
+          query: rssQuery(feed.languageId),
+          language: feed.languageShort,
+          site_url: `${process.env.URL}${feed.homePath}`,
+          serialize: ({ query: { site, allMdx } }) =>
             allMdx.edges.map(edge => {
               return {
                 ...edge.node.frontmatter,
                 description: edge.node.excerpt,
-                url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                custom_elements: [{ "content:encoded": edge.node.html }],
+                url: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,
+                guid: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,
+                custom_elements: [{ 'content:encoded': edge.node.html }],
               }
             }),
+        })),
+        // see https://github.com/gatsbyjs/gatsby/issues/16177
+        setup: ({
+          query: {
+            site: { siteMetadata },
+          },
+          ...rest
+        }) => {
+          return {
+            ...siteMetadata,
+            ...rest,
           }
-        )),
-        setup: // see https://github.com/gatsbyjs/gatsby/issues/16177
-          ({
-            query: {
-              site: { siteMetadata },
-            },
-            ...rest
-          }) => {
-            return {
-              ...siteMetadata,
-              ...rest,
-            }
-          }
-        ,
-      }
+        },
+      },
     },
     {
       resolve: `gatsby-plugin-mdx`,
@@ -132,29 +130,33 @@ module.exports = {
             resolve: 'gatsby-remark-responsive-iframe',
             options: { wrapperStyle: 'margin-bottom: 1.0725rem' },
           },
-          require.resolve("./plugins/gatsby-remark-prismjs-title-fork"),
+          require.resolve('./plugins/gatsby-remark-prismjs-title-fork'),
           {
             resolve: 'gatsby-remark-prismjs',
             options: {
-              noInlineHighlight: true
-            }
+              noInlineHighlight: true,
+            },
           },
+          require.resolve('./plugins/gatsby-remark-local-links/store-slug.js'),
+          require.resolve('./plugins/gatsby-remark-local-links/resolve-local-links.js'),
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
           {
-            resolve: require.resolve("./plugins/gatsby-remark-external-links-fork"),
+            resolve: require.resolve(
+              './plugins/gatsby-remark-external-links-fork'
+            ),
             options: {
-              target: "_blank",
-              rel: "noopener noreferrer",
+              target: '_blank',
+              rel: 'noopener noreferrer',
               content: {
                 type: 'element',
                 tagName: 'i',
                 properties: {
-                  title: "Open in a new window",
-                  className: "icon-link-ext"
-                }
+                  title: 'Open in a new window',
+                  className: 'icon-link-ext',
+                },
               },
-            }
+            },
           },
         ],
       },
@@ -229,7 +231,7 @@ module.exports = {
         short_name: `Eyal Roth`,
         start_url: `/`,
         display: `standalone`,
-        icon: `src/images/icon2.png`
+        icon: `src/images/icon2.png`,
       },
     },
     `gatsby-plugin-offline`,
@@ -238,14 +240,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-layout`,
       options: {
-          component: require.resolve(`./src/components/Layout/index.jsx`)
-      }
+        component: require.resolve(`./src/components/Layout/index.jsx`),
+      },
     },
     {
       resolve: `gatsby-plugin-browser-reload`,
       options: {
-          autoReload: process.env.AUTO_RELOAD
-      }
+        autoReload: process.env.AUTO_RELOAD,
+      },
     },
   ],
 }

@@ -1,11 +1,11 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
-const moment = require('moment')
 const readingTime = require("reading-time")
 
 const { Languages, findById } = require('./src/consts/languages')
 const { SidebarLinks } = require('./src/consts/menuLinks')
 const { Feeds } = require('./src/consts/rss')
+const { formatSlug } = require('./slug')
 
 const createHomeTemplate = require('./src/templates/HomeTemplate/createPages')
 const createCategoryTemplate = require('./src/templates/PostCategoryTemplate/createPages')
@@ -57,17 +57,7 @@ exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === 'Mdx') {
-    const language = findById(node.frontmatter.language)
-    let slug = node.frontmatter.path
-
-    if (node.frontmatter.layout == 'post') {
-      const postDate = moment(node.frontmatter.date) 
-      const postYear = postDate.format('YYYY')
-      const postMonth = postDate.format('MM')
-      slug = `/blog/${postYear}/${postMonth}/${slug}/`
-    }
-
-    slug = `/${language.urlPart}${slug}`
+    const slug = formatSlug(node.frontmatter)
 
     createNodeField({
       node,
@@ -75,6 +65,7 @@ exports.onCreateNode = ({ node, actions }) => {
       value: slug,
     })
 
+    const language = findById(node.frontmatter.language)
     const readingMinutes = Math.max(Math.round(readingTime(node.rawBody).minutes), 1)
 
     createNodeField({
