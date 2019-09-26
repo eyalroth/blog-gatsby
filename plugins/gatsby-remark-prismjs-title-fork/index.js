@@ -4,7 +4,7 @@ const visit = require("unist-util-visit")
 
 const titlePrefix = "title="
 
-module.exports = ({ markdownAST }, pluginOptions) => {
+module.exports = ({ markdownAST }) => {
   visit(markdownAST, "code", (node, index) => {
     if (!node.codeHeader) {
       const language = node.lang || "txt"

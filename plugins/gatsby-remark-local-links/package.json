@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-slug",
+  "name": "gatsby-remark-local-links",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "unist-util-visit": "~1.4.0"
+    "unist-util-visit": "^1.4.0",
+    "gray-matter": "^4.0.2",
+    "lodash": "^4.17.15"
   }
 }

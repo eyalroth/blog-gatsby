@@ -56,7 +56,7 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === 'Mdx') {
+  if (node.internal.type === 'MarkdownRemark') {
     const slug = formatSlug(node.frontmatter)
 
     createNodeField({
@@ -66,7 +66,7 @@ exports.onCreateNode = ({ node, actions }) => {
     })
 
     const language = findById(node.frontmatter.language)
-    const readingMinutes = Math.max(Math.round(readingTime(node.rawBody).minutes), 1)
+    const readingMinutes = Math.max(Math.round(readingTime(node.rawMarkdownBody).minutes), 1)
 
     createNodeField({
       node,

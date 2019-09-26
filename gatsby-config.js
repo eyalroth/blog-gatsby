@@ -23,7 +23,7 @@ verifyEnvVar('UTTERANCES_REPO')
 function rssQuery(languageId) {
   return `
     {
-      allMdx(
+      allMarkdownRemark(
         filter: {frontmatter: {language: {eq: "${languageId}"}}}
         sort: { order: DESC, fields: [frontmatter___date] },
       ) {
@@ -31,8 +31,10 @@ function rssQuery(languageId) {
           node {
             excerpt
             html
-            frontmatter {
+            fields {
               slug
+            }
+            frontmatter {
               title
               date
             }
@@ -90,16 +92,6 @@ module.exports = {
           query: rssQuery(feed.languageId),
           language: feed.languageShort,
           site_url: `${process.env.URL}${feed.homePath}`,
-          serialize: ({ query: { site, allMdx } }) =>
-            allMdx.edges.map(edge => {
-              return {
-                ...edge.node.frontmatter,
-                description: edge.node.excerpt,
-                url: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,
-                guid: site.siteMetadata.siteUrl + edge.node.frontmatter.slug,
-                custom_elements: [{ 'content:encoded': edge.node.html }],
-              }
-            }),
         })),
         // see https://github.com/gatsbyjs/gatsby/issues/16177
         setup: ({
@@ -115,11 +107,11 @@ module.exports = {
         },
       },
     },
+    'gatsby-remark-local-links',
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: `gatsby-transformer-remark`,
       options: {
-        extensions: ['.md', '.mdx'],
-        gatsbyRemarkPlugins: [
+        plugins: [
           {
             resolve: 'gatsby-remark-images',
             options: {
@@ -130,21 +122,18 @@ module.exports = {
             resolve: 'gatsby-remark-responsive-iframe',
             options: { wrapperStyle: 'margin-bottom: 1.0725rem' },
           },
-          require.resolve('./plugins/gatsby-remark-prismjs-title-fork'),
+          'gatsby-remark-prismjs-title-fork',
           {
             resolve: 'gatsby-remark-prismjs',
             options: {
               noInlineHighlight: true,
             },
           },
-          require.resolve('./plugins/gatsby-remark-local-links/store-slug.js'),
-          require.resolve('./plugins/gatsby-remark-local-links/resolve-local-links.js'),
+          'gatsby-remark-local-links',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
           {
-            resolve: require.resolve(
-              './plugins/gatsby-remark-external-links-fork'
-            ),
+            resolve: '/gatsby-remark-external-links-fork',
             options: {
               target: '_blank',
               rel: 'noopener noreferrer',

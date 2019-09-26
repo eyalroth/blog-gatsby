@@ -24,7 +24,7 @@ class PostSeriesBox extends React.Component {
         const language = this.context.layout.language.get()
         const { path: seriesPath, order: postOrder } = series
 
-        const seriesEdges = data.allMdx.edges.filter ( edge =>
+        const seriesEdges = data.allMarkdownRemark.edges.filter ( edge =>
             edge.node.frontmatter.series.path === seriesPath
         )
 
@@ -119,7 +119,7 @@ export default PostSeriesBox
 
 const allSeriesPostsQuery = graphql`
     query PostSeriesBoxQuery {
-        allMdx(
+        allMarkdownRemark(
             filter: { frontmatter: { 
                 demo: { ne: true }
                 series: { path: { ne: null }}

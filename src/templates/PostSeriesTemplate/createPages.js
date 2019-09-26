@@ -7,7 +7,7 @@ const { SidebarLinks, seriesLink } = require('../../consts/menuLinks')
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
     {
-      allMdx(
+      allMarkdownRemark(
         filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
       ) {
         group(field: frontmatter___series___path) {
@@ -32,7 +32,7 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
       reject(result.errors)
     }
 
-    const seriesItems = _.map(result.data.allMdx.group, group => {
+    const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
       const { series, language, category } = group.edges[0].node.frontmatter
       return {
         ...series,

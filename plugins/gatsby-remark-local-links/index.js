@@ -1,17 +1,14 @@
 'use strict'
 
 const visit = require('unist-util-visit')
-
-const slugDb = require('./slug-db.js')
+const { localLinksStore } = require('./store')
 const localLinkPrefix = 'local::'
-const localLinkSeparator = '/'
 
 module.exports = ({ markdownAST }) => {
   visit(markdownAST, 'link', node => {
     const [_, localLink] = node.url.split(localLinkPrefix)
     if (localLink) {
-      const [language, path] = localLink.split(localLinkSeparator)
-      const slug = slugDb.get(language, path)
+      const slug = localLinksStore[localLink]
       if (!slug) {
         throw new Error(`Can't resolve local link: ${localLink}`)
       }
