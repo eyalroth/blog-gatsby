@@ -7,20 +7,19 @@ const titlePrefix = "title="
 module.exports = ({ markdownAST }, pluginOptions) => {
   visit(markdownAST, "code", (node, index) => {
     if (!node.codeHeader) {
-      const language = node.lang
+      const language = node.lang || "txt"
       
-      const splitted = (node.meta || "").split(titlePrefix)
-      node.meta = splitted[0]
-      const title = splitted[1]
+      const [metaWithoutTitle, title] = (node.meta || "").split(titlePrefix)
+      node.meta = metaWithoutTitle
 
-      const languageJsx = (language) ? `language="${language}"` : ""
-      const titleJsx = (title) ? `title="${title}"` : ""
-
-      const jsx = `<CodeHeader ${languageJsx} ${titleJsx}/>`
-
+      const titleHtml = (title) ? `<span class="gatsby-code-title">${title}</span>` : ""
+      const languageHtml = `<span class="gatsby-code-language">${language}</span>`
+      const globalCss = (title) ? "with-title" : "solo"
+      const html = `<div class="gatsby-code-header ${globalCss}">${titleHtml}${languageHtml}</div>`
+      
       const codeHeaderNode = {
-        type: "jsx",
-        value: jsx,
+        type: "html",
+        value: html,
       }
 
       markdownAST.children.splice(index, 0, codeHeaderNode)
