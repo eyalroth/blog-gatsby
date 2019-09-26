@@ -102,7 +102,7 @@ we can fit the styling of different components to each theme:
 }
 ```
 
-### Wait a moment...
+### Context
 
 You may have noticed that the `Layout` component expects the value of the current theme in the variable `theme`, but this variable is not defined. Of course, we can just initiate it in the component with some value, but then how can the user control it? We will want some other component to be responsible for allowing the user to change the theme; say, by clicking a button -- aka a `ThemeButton` component -- which will be nested somewhere inside our page.
 
@@ -125,20 +125,20 @@ export default ({ children }) => {
 class Layout extends React.Component {
   constructor(props) {
     super(props)
-    this.divRef = React.createRef()
+    this.state = { isClient: false }
   }
   render() {
     return (
-      <div ref={this.divRef} className={this.className()}>
+      <div
+        key={this.state.isClient}
+        className={`global-container ${this.context.theme.get()}`}
+      >
         {this.props.children}
       </div>
     )
   }
   componentDidMount() {
-    this.divRef.current.className = this.className()
-  }
-  className() {
-    return `global-container ${this.context.theme.get()}`
+    this.setState({ isClient: true })
   }
 }
 Layout.contextType = Context
@@ -166,9 +166,15 @@ ThemeButton.contextType = Context
 
 This is the standard pattern for using a context - the entire layout (and thereby the entire page) is wrapped with a provider, and the two components are registered to the context via `.contextType = Context`, and so they are able to access it via `this.context`. You might recognize this pattern from <LocalLink language="english" path="gatsby-comments">the first post in the series</LocalLink>, where we examined how to "listen" to theme changes in the `Utterances` component. However, there are two oddities here.
 
-First, the `className` attribute of the `Layout` component is set both in the `render` method _and_ in `componentDidMount`. The sole purpose for this is to overcome [an issue with Gatsby / React](https://github.com/gatsbyjs/gatsby/issues/14601), which in fact has nothing to do with the context itself.
+#### Hydration
 
-Second, the `theme` context property has both `get` and `set` methods, granting access to query and modify the property in the context -- but how? Let's find out:
+The first notable oddity is the addition of the `isClient` property to the `Layout` state. It is completely unrelated to the context; rather, its sole purpose is to provide a workaround to a very common problem with Gatsby, where the attributes of HTML elements would sometimes not get updated appropriately. This is happening due to the nature of Gatby, being mostly a server-side rendering (SSR) framework and heavily relying on React's [hydration functionality](https://reactjs.org/docs/react-dom.html#hydrate).
+
+This problem will most likely affect any website adopting the pattern examined in this post, especially if the website is also using [the offline plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-offline/) (which is quite common), and will potentially creep into your website regardless if you choose to adopt this layout pattern. For more information on this, visit [this issue in the Gatsby repository](https://github.com/gatsbyjs/gatsby/issues/17914).
+
+#### Access Layer
+
+The second oddity, which is much less notable than the first, is how the `theme` context property has both `get` and `set` methods, granting access to query and modify the property in the context -- but how? Let's find out:
 
 ```jsx title=Context/index.jsx
 import React from 'react'
@@ -257,10 +263,14 @@ We would like to include the language in our layout just the same way we did wit
 
 ```jsx title=Layout/index.jsx
 class Layout extends React.Component {
-  className() {
+  render() {
     const theme = this.context.theme.get()
     const language = // ???
-    return `global-container ${theme} ${language}`
+    return (
+      <div key={this.state.isClient} className={`global-container ${theme} ${language}`}>
+        {this.props.children}
+      </div>
+    )
   }
 }
 ```
@@ -344,12 +354,14 @@ export default ({ children, pageContext }) => {
 
 class Layout extends React.component {
   render() {
-    this.context.language.set(this.props.language)
-    // ...
-  }
-  className() {
-    const language = this.context.language.get()
-    // ...
+    const theme = this.context.theme.get()
+    const language = this.props.language
+    this.context.language.set(language)
+    return (
+      <div key={this.state.isClient} className={`global-container ${theme} ${language}`}>
+        {this.props.children}
+      </div>
+    )
   }
 }
 ```
@@ -420,12 +432,12 @@ In the "singleton" model, multiple layouts are an illusion, as there is only the
 ```jsx title=Layout/index.jsx
 class Layout extends React.Component {
   render() {
-    const sidebar = (this.props.hasSidebar) ? <Sidebar/> : null
+    const sidebar = this.props.hasSidebar ? <Sidebar /> : null
     return (
-      <div ref={this.divRef} className={this.className()}>
+      <div key={this.state.isClient} className={/* ... */}>
         {sidebar}
         {this.props.children}
-        <Footer/>
+        <Footer />
       </div>
     )
   }
@@ -458,7 +470,7 @@ class SidebarLayout extends React.Component {
   render() {
     return (
       <div>
-        <Sidebar/>
+        <Sidebar />
         {this.props.children}
       </div>
     )
