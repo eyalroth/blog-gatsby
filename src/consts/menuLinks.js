@@ -1,13 +1,26 @@
 const { Languages } = require('./languages')
 
+function normalizePath(path) {
+    let normalized = path
+    if (!normalized.startsWith('/')) {
+        normalized = `/${normalized}`
+    }
+    if (!normalized.endsWith('/')) {
+        normalized = `${normalized}/`
+    }
+    return normalized
+}
+
 class MenuLink {
     constructor(id, label, path, icon) {
         this.id = id
         this.label = label
-        this.path = path
+        this.path = normalizePath(path)
         this.icon = icon
     }
 }
+
+
 
 const sidebarLinks = {}
 sidebarLinks[Languages.English.id] = {
@@ -36,5 +49,5 @@ const CategoryLinks = Object.freeze(categoryLinks)
 module.exports.CategoryLinks = CategoryLinks
 
 module.exports.seriesLink = (path, language) => {
-    return `/${language.urlPart}/blog/series/${path}`
+    return normalizePath(`/${language.urlPart}/blog/series/${path}`)
 }

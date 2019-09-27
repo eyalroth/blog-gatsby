@@ -122,6 +122,7 @@ module.exports = {
             resolve: 'gatsby-remark-responsive-iframe',
             options: { wrapperStyle: 'margin-bottom: 1.0725rem' },
           },
+          `gatsby-remark-autolink-headers`,
           'gatsby-remark-prismjs-title-fork',
           {
             resolve: 'gatsby-remark-prismjs',

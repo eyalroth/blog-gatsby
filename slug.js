@@ -10,8 +10,8 @@ module.exports.formatSlug = (frontmatter) => {
     const postDate = moment(date)
     const postYear = postDate.format('YYYY')
     const postMonth = postDate.format('MM')
-    slug = `/blog/${postYear}/${postMonth}/${slug}/`
+    slug = `blog/${postYear}/${postMonth}/${slug}`
   }
 
-  return `/${language.urlPart}${slug}`
+  return `/${language.urlPart}/${slug}/`
 }

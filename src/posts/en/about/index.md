@@ -1,7 +1,7 @@
 ---
 title: "About"
 layout: page
-path: "/about"
+path: "about"
 sidebarLinkId: "about"
 language: english
 ---
