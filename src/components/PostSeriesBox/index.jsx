@@ -63,16 +63,16 @@ class PostSeriesBox extends React.Component {
 
         const firstLink = this.createLink(postOrder > 1, orderToSlug, 1, 
             switchLanguage("First", "ראשון"),
-            "<<")
+            "icon-fast-fw backwards")
         const previousLink = this.createLink(postOrder > 1, orderToSlug, postOrder - 1,
             switchLanguage("Previous", "קודם"),
-            "<")
+            "icon-play backwards")
         const nextLink = this.createLink(postOrder < maxOrder, orderToSlug, postOrder + 1, 
             switchLanguage("Next", "הבא"),
-            ">")
+            "icon-play forwards")
         const lastLink = this.createLink(postOrder < maxOrder, orderToSlug, maxOrder, 
             switchLanguage("Last", "אחרון"),
-            ">>")
+            "icon-fast-fw forwards")
 
         const navMenu =  (
             <ul className="post-series-box__nav">
@@ -94,7 +94,7 @@ class PostSeriesBox extends React.Component {
         )
     }
 
-    createLink(shouldDisplay, orderToSlug, order, title, symbol) {
+    createLink(shouldDisplay, orderToSlug, order, title, iconClass) {
         return (
             <li className="post-series-box__nav-item">
                 {
@@ -104,7 +104,7 @@ class PostSeriesBox extends React.Component {
                             to={orderToSlug.get(order)}
                             title={title}
                         >
-                            {symbol}
+                            <i title={title} className={iconClass} />
                         </Link>
                     ) : null
                 }
