@@ -69,6 +69,7 @@ class PostTemplate extends React.Component {
             {sharePanel}
           </div>
         </div>
+        <div className="post-single__header-separator"/>
       </div>
     )
 
