@@ -8,7 +8,20 @@
         line-height: 1rem;
         &-bottom {
             position: relative;
-        }        
+        }
+        &-separator {
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            @include light {
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+            @include dark {
+                border-bottom: 1px solid rgba(255,255,255,0.25);
+            }
+        }
     }
     &__subtitle {
         margin-top: 0.8rem;
@@ -20,18 +33,14 @@
             margin: 0 0.3rem;
         }
     }
-    &__reading-time {
-        @include text-medium;
-    }
     &__tags {
-        opacity: 0.9;
-        @include text-color(darken(#5d93ff, 10%), darken(#5d93ff, 5%));
+        @include text-medium;
         @include rtl {
             margin-left: auto;
             margin-right: 0;
         }
         &-list {
-            margin-top: 0.8rem;
+            margin-top: 1rem;
             margin-bottom: 0.15rem;
             padding: 0;
             @include ltr {
@@ -176,6 +185,9 @@
     .post-single {
         &__header {
             margin-top: 1rem;
+            &-separator {
+                padding-bottom: 2rem;
+            }
         }
         &__tags {
             max-width: calc(100% - 230px);

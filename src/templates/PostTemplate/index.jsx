@@ -69,6 +69,8 @@ class PostTemplate extends React.Component {
             {sharePanel}
           </div>
         </div>
+        <PostSeriesBox series={series}/>
+        <div className="post-single__header-separator"/>
       </div>
     )
 
@@ -82,8 +84,6 @@ class PostTemplate extends React.Component {
     )
 
     const mobileShare = <MobileShareButton url={url}/>
-
-    const seriesBox = <PostSeriesBox series={series}/>
 
     const commentsBlock = (
         <Utterances repo={utterances} />
@@ -100,7 +100,6 @@ class PostTemplate extends React.Component {
         <PageHelmet subtitle={title} featuredImage={featuredImage} />
         {header}
         {mobileShare}
-        {seriesBox}
         {body}
         <hr />
         {footer}
@@ -136,6 +135,7 @@ export const pageQuery = graphql`
         date
         description
         series {
+          name
           path
           order
         }

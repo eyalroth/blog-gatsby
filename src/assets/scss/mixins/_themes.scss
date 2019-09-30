@@ -41,7 +41,7 @@
     @include text-color($color-light-text, $color-dark-text);
 }
 @mixin text-strong {
-    @include text-color($color-light-strong, $color-dark-text-strong);
+    @include text-color($color-light-text-strong, $color-dark-text-strong);
 }
 @mixin text-medium {
     @include text-color($color-light-text-medium, $color-dark-text-medium);
