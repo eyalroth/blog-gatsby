@@ -1,5 +1,5 @@
 const { Languages } = require('./languages')
-const { SidebarLinks } = require('./menuLinks')
+const { SiteLinks } = require('./menuLinks')
 
 class RssFeed {
     constructor(title, outputPath, homePath, languageId, languageShort) {
@@ -15,14 +15,14 @@ const feeds = {}
 feeds[Languages.English.id] = new RssFeed(
     "Eyal Roth",
     `/${Languages.English.urlPart}/rss.xml`,
-    SidebarLinks[Languages.English.id].Home.path,
+    SiteLinks[Languages.English.id].Home.path,
     Languages.English.id,
     "en"
 )
 feeds[Languages.Hebrew.id] = new RssFeed(
     "אייל רוט",
     `/${Languages.Hebrew.urlPart}/rss.xml`,
-    SidebarLinks[Languages.Hebrew.id].Home.path,
+    SiteLinks[Languages.Hebrew.id].Home.path,
     Languages.Hebrew.id,
     "he"
 )

@@ -3,7 +3,7 @@ const Promise = require('bluebird')
 const readingTime = require("reading-time")
 
 const { Languages, findById } = require('./src/consts/languages')
-const { SidebarLinks } = require('./src/consts/menuLinks')
+const { SiteLinks } = require('./src/consts/menuLinks')
 const { Feeds } = require('./src/consts/rss')
 const { formatSlug } = require('./slug')
 
@@ -19,18 +19,18 @@ exports.createPages = ({ graphql, actions }) => {
   const redirects = new Promise((resolve, reject) => {
     createRedirect({
       fromPath: '/',
-      toPath: SidebarLinks[Languages.English.id].Home.path,
+      toPath: SiteLinks[Languages.English.id].Home.path,
       redirectInBrowser: true,
     })
 
     createRedirect({
       fromPath: '/blog',
-      toPath: SidebarLinks[Languages.English.id].Blog.path,
+      toPath: SiteLinks[Languages.English.id].Blog.path,
       redirectInBrowser: true,
     })
     createRedirect({
       fromPath: '/blog/',
-      toPath: SidebarLinks[Languages.English.id].Blog.path,
+      toPath: SiteLinks[Languages.English.id].Blog.path,
       redirectInBrowser: true,
     })
 

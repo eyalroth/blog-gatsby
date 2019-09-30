@@ -1,6 +1,7 @@
 import React from "react"
-import { StaticQuery, graphql } from "gatsby"
+import { navigate, StaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
+import { SiteLinks } from '../../consts/menuLinks'
 import Context from '../Context'
 import { Author } from '../../consts/author'
 
@@ -29,6 +30,7 @@ class ProfileImg extends React.Component {
         this.touchMove = this.touchMove.bind(this)
         this.setMouseUp = this.setMouseUp.bind(this)
         this.setMouseDown = this.setMouseDown.bind(this)
+        this.mouseClick = this.mouseClick.bind(this)
     }
 
     render() {
@@ -53,8 +55,9 @@ class ProfileImg extends React.Component {
     renderWithQueryData(data) {
         const { className } = this.props
         const { language } = this.context.layout
+        const languageId = language.get().id
 
-        const authorName = Author.name[language.get().id]
+        const authorName = Author.name[languageId]
         return (
             <div className={className}>
                 <div 
@@ -96,12 +99,14 @@ class ProfileImg extends React.Component {
                         fluid={data.front.childImageSharp.fluid}
                         title={authorName}
                         alt={authorName}
+                        draggable={false}
                     />
                     <Img 
                         className="profile-img-back"
                         fluid={data.back.childImageSharp.fluid}
                         title={authorName}
                         alt={authorName}
+                        draggable={false}
                         style={{
                             position: "absolute",
                             width: "100%",
@@ -124,6 +129,7 @@ class ProfileImg extends React.Component {
         this.moveElementRef.current.addEventListener('touchmove', this.touchMove, {passive: true})
         this.moveElementRef.current.addEventListener('mouseup', this.setMouseUp)
         this.moveElementRef.current.addEventListener('mousedown', this.setMouseDown)
+        this.moveElementRef.current.addEventListener('click', this.mouseClick)
         this.mouseUpElementRef.current.addEventListener('mouseup', this.setMouseUp)
     }
     
@@ -132,6 +138,7 @@ class ProfileImg extends React.Component {
         this.moveElementRef.current.removeEventListener('touchmove', this.touchMove)
         this.moveElementRef.current.removeEventListener('mouseup', this.setMouseUp)
         this.moveElementRef.current.removeEventListener('mousedown', this.setMouseDown)
+        this.moveElementRef.current.removeEventListener('click', this.mouseClick)
         this.mouseUpElementRef.current.removeEventListener('mouseup', this.setMouseUp)
     }
 
@@ -168,6 +175,11 @@ class ProfileImg extends React.Component {
         if (isLeftClick) {
             this.setState({isMouseUp})
         }
+    }
+
+    mouseClick(event) {
+        const languageId = this.context.layout.language.get().id
+        navigate(SiteLinks[languageId].Home.path)
     }
 }
 
