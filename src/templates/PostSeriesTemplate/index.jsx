@@ -25,7 +25,7 @@ export default PostSeriesTemplate
 
 export const pageQuery = graphql`
   query PostSeriesTemplateQuery($seriesPath: String) {
-      allMdx(
+      allMarkdownRemark(
           filter: { frontmatter: { 
               demo: { ne: false }
               series: { path: { eq: $seriesPath }}

@@ -2,7 +2,6 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
-import MDX from '../../components/MDX'
 import LittleFoot from '../../components/Littlefoot'
 import Utterances from '../../components/Utterances'
 import PageHelmet from '../../components/PageHelmet'
@@ -15,7 +14,7 @@ import './style.scss'
 class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
-    const post = this.props.data.mdx
+    const post = this.props.data.markdownRemark
     const { title, tags, series } = post.frontmatter
     const readingTime = post.fields.readingTime
     const url = this.props.location.href
@@ -75,9 +74,10 @@ class PostTemplate extends React.Component {
 
     const body = (
       <LittleFoot>
-        <div className="post-single__body">
-          <MDX body={post.body}/>
-        </div>
+        <div 
+          className="post-single__body"
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
       </LittleFoot>
     )
 
@@ -120,9 +120,9 @@ export const pageQuery = graphql`
         utterances
       }
     }
-    mdx(fields: { slug: { eq: $slug } }) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      body
+      html
       fields {
         slug
         readingTime {

@@ -20,7 +20,7 @@ series:
 
 This is the second post in the series about creating a website with Gatsby, in which I'll be examining a technique for building a sidebar.
 
-As I've mentioned earlier <LocalLink language="english" path="hello-world">in my first post</LocalLink>, I wanted my blog to have a strong visual signature. I figured one way to achieve this is by having a permanent component across all pages with a visual item unique to me; say, my profile image. Moreover, it is probably a good idea to give quick access to all of the site's sections from any given page. It also happened that one of the Gatsby starter sites -- [Lumen v2](https://github.com/GatsbyCentral/gatsby-v2-starter-lumen), the one I eventually used -- featured what seemed to me as a nice looking sidebar. That how I knew I wanted to have a permanent sidebar in my blog.
+As I've mentioned earlier [in my first post](local::english/hello-world), I wanted my blog to have a strong visual signature. I figured one way to achieve this is by having a permanent component across all pages with a visual item unique to me; say, my profile image. Moreover, it is probably a good idea to give quick access to all of the site's sections from any given page. It also happened that one of the Gatsby starter sites -- [Lumen v2](https://github.com/GatsbyCentral/gatsby-v2-starter-lumen), the one I eventually used -- featured what seemed to me as a nice looking sidebar. That how I knew I wanted to have a permanent sidebar in my blog.
 
 ## Mobile
 

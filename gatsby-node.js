@@ -1,11 +1,11 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
-const moment = require('moment')
 const readingTime = require("reading-time")
 
 const { Languages, findById } = require('./src/consts/languages')
 const { CategoryLinks, SidebarLinks } = require('./src/consts/menuLinks')
 const { Feeds } = require('./src/consts/rss')
+const { formatSlug } = require('./slug')
 
 const createHomeTemplate = require('./src/templates/HomeTemplate/createPages')
 const createCategoryTemplate = require('./src/templates/PostCategoryTemplate/createPages')
@@ -28,9 +28,19 @@ exports.createPages = ({ graphql, actions }) => {
       toPath: CategoryLinks[Languages.English.id].Software.path,
       redirectInBrowser: true,
     })
+    createRedirect({
+      fromPath: '/blog/',
+      toPath: SidebarLinks[Languages.English.id].Blog.path,
+      redirectInBrowser: true,
+    })
 
     createRedirect({
       fromPath: '/about',
+      toPath: `/${Languages.English.urlPart}/about`,
+      redirectInBrowser: true,
+    })
+    createRedirect({
+      fromPath: '/about/',
       toPath: `/${Languages.English.urlPart}/about`,
       redirectInBrowser: true,
     })
@@ -68,18 +78,8 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === 'Mdx') {
-    const language = findById(node.frontmatter.language)
-    let slug = node.frontmatter.path
-
-    if (node.frontmatter.layout == 'post') {
-      const postDate = moment(node.frontmatter.date) 
-      const postYear = postDate.format('YYYY')
-      const postMonth = postDate.format('MM')
-      slug = `/blog/${postYear}/${postMonth}/${slug}/`
-    }
-
-    slug = `/${language.urlPart}${slug}`
+  if (node.internal.type === 'MarkdownRemark') {
+    const slug = formatSlug(node.frontmatter)
 
     createNodeField({
       node,
@@ -87,7 +87,8 @@ exports.onCreateNode = ({ node, actions }) => {
       value: slug,
     })
 
-    const readingMinutes = Math.max(Math.round(readingTime(node.rawBody).minutes), 1)
+    const language = findById(node.frontmatter.language)
+    const readingMinutes = Math.max(Math.round(readingTime(node.rawMarkdownBody).minutes), 1)
 
     createNodeField({
       node,

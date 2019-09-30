@@ -10,9 +10,9 @@ import './style.scss'
 export default ({ children, pageContext }) => {
   return (
     <ContextProvider>
-        <Layout {...pageContext}>
-            {children}
-        </Layout>
+      <Layout {...pageContext}>
+        {children}
+      </Layout>
     </ContextProvider>
   )
 }
@@ -20,12 +20,13 @@ export default ({ children, pageContext }) => {
 class Layout extends React.Component {
   constructor(props) {
     super(props)
-    this.divRef = React.createRef()
+    this.state = {isClient: false}
   }
-
+  
   render() {
     const { children } = this.props
 
+    const theme = this.context.theme.get()
     const language = (this.props.languageId) ? findById(this.props.languageId) : Languages.English
     this.context.layout.set(language, this.props.sidebarLinkId)
 
@@ -46,21 +47,17 @@ class Layout extends React.Component {
     }
 
     return (
-      <div ref={this.divRef} className={this.className()}>
+      <div
+        key={this.state.isClient}
+        className={`global-container ${theme.cssClass} ${language.cssClass}`}
+      >
         {childrenWithLayout}
       </div>
     )
   }
 
   componentDidMount() {
-    this.divRef.current.className = this.className()
-  }
-
-  className() {
-    const theme = this.context.theme.get()
-    const language = this.context.layout.language.get()
-
-    return `global-container ${theme.cssClass} ${language.cssClass}`
+    this.setState({isClient: true})
   }
 }
   

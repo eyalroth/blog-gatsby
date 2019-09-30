@@ -15,6 +15,12 @@
         display: inline-block;
         border-radius: 10px;
         @include bg-color(rgba(0, 0, 0, 0.02), $color-dark-dp2);
+        @include light {
+            @include theme-transition("background-color 0s");
+        }
+        @include dark {
+            @include theme-transition("background-color 5s");
+        }
     }
     
     &__title {
@@ -47,10 +53,18 @@
         @include text-normal;
 
         &-link {
-            border-radius: 3px;
+            font-size: 0.8rem;
             padding: 1px 5px;
-            &:active {
-                box-shadow: inset 0px 2px 6px -3px rgba(0,0,0,0.2);
+            opacity: 0.6;
+            @include ltr {
+                .backwards::before {
+                    transform: scaleX(-1);
+                }
+            }
+            @include rtl {
+                .forwards::before {
+                    transform: scaleX(-1);
+                }
             }
         }
         &-item {
