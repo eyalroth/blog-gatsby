@@ -13,8 +13,8 @@
             width: 40%;
             margin-left: auto;
             margin-right: auto;
-            padding-bottom: 2.5rem;
-            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
             @include light {
                 border-bottom: 1px solid rgba(0,0,0,0.1);
             }
@@ -40,7 +40,7 @@
             margin-right: 0;
         }
         &-list {
-            margin-top: 0.8rem;
+            margin-top: 1rem;
             margin-bottom: 0.15rem;
             padding: 0;
             @include ltr {
@@ -185,6 +185,9 @@
     .post-single {
         &__header {
             margin-top: 1rem;
+            &-separator {
+                padding-bottom: 2rem;
+            }
         }
         &__tags {
             max-width: calc(100% - 230px);

@@ -22,7 +22,7 @@ class PostSeriesBox extends React.Component {
     renderWithQueryData(data) {
         const { series } = this.props
         const language = this.context.layout.language.get()
-        const { path: seriesPath, order: postOrder } = series
+        const { path: seriesPath, order: postOrder, name: seriesName } = series
 
         const seriesEdges = data.allMarkdownRemark.edges.filter ( edge =>
             edge.node.frontmatter.series.path === seriesPath
@@ -44,19 +44,14 @@ class PostSeriesBox extends React.Component {
             }
         }
 
-        function linkLabel() {
-            return switchLanguage("series", "סדרה")
-        }
-
         const title = (
             <h2 className="post-series-box__title">
-                {switchLanguage("This post is part of a ", "פוסט זה הוא חלק מ")}
                 <Link
                     className="post-series-box__series-link" 
                     to={seriesLink(seriesPath, language)}
-                    title={linkLabel()}
+                    title={seriesName}
                 >
-                    {linkLabel()}
+                    {seriesName}
                 </Link>
             </h2>
         )

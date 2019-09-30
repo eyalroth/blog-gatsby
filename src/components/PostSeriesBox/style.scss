@@ -4,17 +4,17 @@
 .post-series-box {
     text-align: center;
     text-shadow: 0px 2px 3px -1px rgba(0,0,0,0.1);
-    margin-top: 15px;
-    margin-bottom: 20px;
+    margin-top: 1rem;
     @include font-family($font-family-roboto, $font-family-roboto);
+    @include light {
+        opacity: 0.8;
+        @include theme-transition("opacity 0.4s");
+    }
     
     &__content {
         width: 100%;
-        max-width: round($max-content-width * 0.5);
-        overflow: hidden;
+        max-width: round($max-content-width * 0.8);
         display: inline-block;
-        border-radius: 10px;
-        @include bg-color(rgba(0, 0, 0, 0.02), $color-dark-dp2);
         @include light {
             @include theme-transition("background-color 0s");
         }
@@ -24,38 +24,32 @@
     }
     
     &__title {
-         margin: 0;
-         padding: 5px 0px 5px 0px;
-         text-align: center;
+        margin: 0;
+        padding: 5px 0px 5px 0px;
+        text-align: center;
 
-        @include light {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.02);
-        }
-        @include dark {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
         @include text-normal;
-         
 
-         @include font-family($font-family-roboto, $font-family-arimo);
-         @include font-size(1);
-         font-weight: 300;
-         font-style: italic;
-         line-height: 1.8rem;
+        @include font-family($font-family-roboto, $font-family-arimo);
+        @include font-size(1);
+        font-weight: 300;
+        font-style: italic;
+        line-height: 1.8rem;
     }
 
     &__nav {
         list-style: none;
         display: flex;
         margin: 0;
-        padding: 5px 0 5px 0;
+        padding: 0;
+        padding-top: 3px;
 
         @include text-normal;
 
         &-link {
-            @include font-size(0.8);
+            @include text-icon-unfocused;
+            @include font-size(0.7);
             padding: 1px 5px;
-            opacity: 0.6;
             @include ltr {
                 .backwards::before {
                     transform: scaleX(-1);
@@ -76,8 +70,13 @@
             width: 20%;
             text-align: center;
 
-            &:nth-child(3) {
-                text-shadow: 0px 2px 3px rgba(0,0,0,0.15);
+            &.current::before {
+                @include english {
+                    content: "Part "
+                }
+                @include hebrew {
+                    content: "חלק "
+                }
             }
         }
     }
@@ -85,7 +84,8 @@
 
 @include breakpoint-md {
     .post-series-box {
-        margin-top: 30px;
+        margin-top: 1.5rem;
+        margin-bottom: -0.5rem;
 
         &__nav {
             &-item {
