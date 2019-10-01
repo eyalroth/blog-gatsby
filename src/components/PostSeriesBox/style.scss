@@ -5,78 +5,71 @@
     text-align: center;
     text-shadow: 0px 2px 3px -1px rgba(0,0,0,0.1);
     margin-top: 1rem;
+    margin-bottom: -0.5rem;
+
     @include font-family($font-family-roboto, $font-family-roboto);
     @include light {
         opacity: 0.8;
         @include theme-transition("opacity 0.4s");
     }
-    
-    &__content {
-        width: 100%;
-        max-width: round($max-content-width * 0.8);
-        display: inline-block;
-        @include light {
-            @include theme-transition("background-color 0s");
-        }
-        @include dark {
-            @include theme-transition("background-color 5s");
-        }
-    }
+
+    line-height: 1.5rem;
     
     &__title {
         margin: 0;
         padding: 5px 0px 5px 0px;
         text-align: center;
 
-        @include text-normal;
-
-        @include font-family($font-family-roboto, $font-family-arimo);
         @include font-size(1);
         font-weight: 300;
-        font-style: italic;
-        line-height: 1.8rem;
     }
 
-    &__nav {
-        list-style: none;
-        display: flex;
+    &__subtitle {
         margin: 0;
         padding: 0;
-        padding-top: 3px;
+        text-align: center;
 
         @include text-normal;
+        @include font-size(0.9);
+        font-weight: 400;
 
-        &-link {
-            @include text-icon-unfocused;
-            @include font-size(0.7);
-            padding: 1px 5px;
-            @include ltr {
-                .backwards::before {
-                    transform: scaleX(-1);
-                }
+        &::before {
+            @include english {
+                content: "Part "
             }
-            @include rtl {
-                .forwards::before {
-                    transform: scaleX(-1);
-                }
+            @include hebrew {
+                content: "חלק "
             }
         }
+    }
+
+    &__list {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
         &-item {
-            margin: 0;
-            padding: 0;
-            @include font-size(0.9);
-            font-style: italic;
+            &:not(.middle) {
+                width: 7%;
+            }
+            &.middle {
+                width: 78%;
+            }
+        }   
+    }
 
-            width: 20%;
-            text-align: center;
-
-            &.current::before {
-                @include english {
-                    content: "Part "
-                }
-                @include hebrew {
-                    content: "חלק "
-                }
+    &__link {
+        @include text-icon-unfocused;
+        @include font-size(0.8);
+        @include ltr {
+            .backwards::before {
+                transform: scaleX(-1);
+            }
+        }
+        @include rtl {
+            .forwards::before {
+                transform: scaleX(-1);
             }
         }
     }
@@ -84,28 +77,6 @@
 
 @include breakpoint-md {
     .post-series-box {
-        margin-top: 1.5rem;
-        margin-bottom: -0.5rem;
-
-        &__nav {
-            &-item {
-                &:nth-child(2) {
-                    @include ltr {
-                        text-align: left;
-                    }
-                    @include rtl {
-                        text-align: right;
-                    }
-                }
-                &:nth-child(4) {
-                    @include ltr {
-                        text-align: right;
-                    }
-                    @include rtl {
-                        text-align: left;
-                    }
-                }
-            }
-        }
+        margin-bottom: -1rem;
     }
 }

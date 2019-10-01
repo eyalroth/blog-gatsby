@@ -45,7 +45,7 @@ class PostSeriesBox extends React.Component {
         }
 
         const title = (
-            <h2 className="post-series-box__title">
+            <span className="post-series-box__title">
                 <Link
                     className="post-series-box__series-link" 
                     to={seriesLink(seriesPath, language)}
@@ -53,7 +53,13 @@ class PostSeriesBox extends React.Component {
                 >
                     {seriesName}
                 </Link>
-            </h2>
+            </span>
+        )
+
+        const subtitle = (
+            <span className="post-series-box__subtitle">
+                {postOrder}
+            </span>
         )
 
         const firstLink = this.createLink(postOrder > 1, orderToSlug, 1, 
@@ -69,33 +75,30 @@ class PostSeriesBox extends React.Component {
             switchLanguage("Last", "אחרון"),
             "icon-fast-fw forwards")
 
-        const navMenu =  (
-            <ul className="post-series-box__nav">
-                {firstLink}
-                {previousLink}
-                <li className="post-series-box__nav-item current">{postOrder}</li>
-                {nextLink}
-                {lastLink}
-            </ul>
-        )
-
         return (
             <div className="post-series-box">
-                <div className="post-series-box__content">
-                    {title}
-                    {navMenu}
-                </div>
+                <ul className="post-series-box__list">
+                    {firstLink}
+                    {previousLink}
+                    <li className="post-series-box__list-item middle">
+                        {title}
+                        <br/>
+                        {subtitle}
+                    </li>
+                    {nextLink}
+                    {lastLink}
+                </ul>
             </div>
         )
     }
 
     createLink(shouldDisplay, orderToSlug, order, title, iconClass) {
         return (
-            <li className="post-series-box__nav-item">
+            <li className="post-series-box__list-item">
                 {
                     (shouldDisplay) ? (
                         <Link
-                            className="post-series-box__nav-link" 
+                            className="post-series-box__link" 
                             to={orderToSlug.get(order)}
                             title={title}
                         >
