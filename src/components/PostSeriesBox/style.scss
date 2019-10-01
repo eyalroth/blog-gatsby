@@ -51,10 +51,17 @@
         padding: 0;
         &-item {
             &:not(.middle) {
-                width: 7%;
+                width: 5%;
+                padding: 0 1%;
+                margin: 0 1%;
+                border-radius: 5px;
+                @include layer2;
+                @include light {
+                    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+                }
             }
             &.middle {
-                width: 78%;
+                width: 68%;
             }
         }   
     }
@@ -62,14 +69,20 @@
     &__link {
         @include text-icon-unfocused;
         @include font-size(0.8);
-        @include ltr {
-            .backwards::before {
-                transform: scaleX(-1);
+
+        &-icon {
+            &::before {
+                width: 95%;
             }
-        }
-        @include rtl {
-            .forwards::before {
-                transform: scaleX(-1);
+            @include ltr {
+                &.backwards::before {
+                    transform: scaleX(-1) translateX(2px);
+                }
+            }
+            @include rtl {
+                &.forwards::before {
+                    transform: scaleX(-1) translateX(2px);
+                }
             }
         }
     }

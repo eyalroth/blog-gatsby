@@ -102,7 +102,7 @@ class PostSeriesBox extends React.Component {
                             to={orderToSlug.get(order)}
                             title={title}
                         >
-                            <i title={title} className={iconClass} />
+                            <i title={title} className={`post-series-box__link-icon ${iconClass}`} />
                         </Link>
                     ) : null
                 }
