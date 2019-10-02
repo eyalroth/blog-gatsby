@@ -62,18 +62,24 @@ class PostSeriesBox extends React.Component {
             </span>
         )
 
+        const rightArrow = String.fromCharCode("0xe80a")
+
         const firstLink = this.createLink(postOrder > 1, orderToSlug, 1, 
             switchLanguage("First", "ראשון"),
-            "icon-fast-fw backwards")
+            "backwards",
+            `${rightArrow}${rightArrow}`)
         const previousLink = this.createLink(postOrder > 1, orderToSlug, postOrder - 1,
             switchLanguage("Previous", "קודם"),
-            "icon-play backwards")
+            "backwards",
+            rightArrow)
         const nextLink = this.createLink(postOrder < maxOrder, orderToSlug, postOrder + 1, 
             switchLanguage("Next", "הבא"),
-            "icon-play forwards")
+            "forwards",
+            rightArrow)
         const lastLink = this.createLink(postOrder < maxOrder, orderToSlug, maxOrder, 
             switchLanguage("Last", "אחרון"),
-            "icon-fast-fw forwards")
+            "forwards",
+            `${rightArrow}${rightArrow}`)
 
         return (
             <div className="post-series-box">
@@ -92,7 +98,7 @@ class PostSeriesBox extends React.Component {
         )
     }
 
-    createLink(shouldDisplay, orderToSlug, order, title, iconClass) {
+    createLink(shouldDisplay, orderToSlug, order, title, cssClass, content) {
         return (
             <li className="post-series-box__list-item">
                 {
@@ -102,7 +108,12 @@ class PostSeriesBox extends React.Component {
                             to={orderToSlug.get(order)}
                             title={title}
                         >
-                            <i title={title} className={`post-series-box__link-icon ${iconClass}`} />
+                            <span title={title}
+                                className={`post-series-box__link-icon ${cssClass}`}
+                                style={{fontFamily: "fontello"}}
+                            >
+                                {content}
+                            </span>
                         </Link>
                     ) : null
                 }

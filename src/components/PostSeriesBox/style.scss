@@ -52,7 +52,6 @@
         &-item {
             &:not(.middle) {
                 width: 5%;
-                padding: 0 1%;
                 margin: 0 1%;
                 border-radius: 5px;
                 @include layer2;
@@ -71,18 +70,29 @@
         @include font-size(0.8);
 
         &-icon {
-            &::before {
-                width: 95%;
-            }
+            display: inline-block;
+            font-family: "fontello";
+            padding: 1rem 1px;
+
             @include ltr {
-                &.backwards::before {
+                &.backwards {
                     transform: scaleX(-1) translateX(2px);
                 }
             }
             @include rtl {
-                &.forwards::before {
+                &.forwards {
                     transform: scaleX(-1) translateX(2px);
                 }
+            }
+        }
+    }
+}
+
+@include breakpoint-sm {
+    .post-series-box {
+        &__link {
+            &-icon {
+                padding: 1rem 11px;
             }
         }
     }
