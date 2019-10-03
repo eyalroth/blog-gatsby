@@ -173,16 +173,6 @@
                 left: 0;
             }
         }
-        &__body {
-            & .gatsby-highlight {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            & .gatsby-code-header {
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
     }
 }
 
