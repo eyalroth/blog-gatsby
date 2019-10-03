@@ -90,16 +90,12 @@
 
 @include breakpoint-sm {
     .post-series-box {
+        margin-top: 2rem;
+        
         &__link {
             &-icon {
-                padding: 1rem 11px;
+                padding: 0.5rem 11px;
             }
         }
-    }
-}
-
-@include breakpoint-md {
-    .post-series-box {
-        margin-bottom: -1rem;
     }
 }
