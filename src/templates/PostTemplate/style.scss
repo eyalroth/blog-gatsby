@@ -23,9 +23,10 @@
             }
         }
     }
+    &__title {
+        @include font-size(1.6);
+    }
     &__subtitle {
-        margin-top: 0.8rem;
-
         @include font-size(1);
         text-shadow: 0px 1px 0px rgba(0,0,0,0.05);
 
@@ -150,8 +151,11 @@
 
 @include breakpoint-sm {
     .post-single {
+        &__title {
+            @include font-size(1.8);
+        }
         &__subtitle {
-            margin-top: 1.5rem;
+            margin-top: 0.8rem;
         }
         &__tags {
             max-width: calc(100% - 210px);
