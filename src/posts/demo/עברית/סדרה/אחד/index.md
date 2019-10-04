@@ -3,9 +3,9 @@ language: hebrew
 title: "שר הטבעות - חלק I: אחוות הטבעת"
 date: "2018-12-23T16:51:00.000Z"
 layout: post
-demo: true
+demo: "true"
 path: "lotr-1"
-category: "hebrew"
+category: "articles-he"
 series:
   path: "lotr"
   name: "שר הטבעות"

@@ -1,7 +1,7 @@
 ---
 language: english
 layout: post
-demo: false
+demo: "false"
 date: "2019-08-29T02"
 title: "Gatsby - Part II: Sidebar"
 path: "gatsby-sidebar"

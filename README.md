@@ -99,6 +99,7 @@ The site uses several environment variables during its build process:
  + `GOOGLE_ANALYTICS` - the Google Analytics site ID.
  + `UTTERANCES_REPO` - the path (not entire URL) of the GitHub repository containing the [utteranc.es](https://utteranc.es/) comments / issues (it is useful to use one for development purposes and one for production).
  + `AUTO_RELOAD` - determines whether the service worker should automatically reload the browser's page upon detecting site updates; if set to `false`, the site will prompt a window asking the user for permission to reload the site (useful when testing a staging site and wanting to make sure updates have been deployed and served locally).
+ + `DEMO` - controls the "demo mode" of the site. If set to `true`, the site will only show demo posts and pages; otherwise, it will only show non-demo ones. The "demo type" of each markdown post/page is controlled via the `demo` metadata / frontmatter property - its value can be either `"true"` (demo only), `"false"` (non-demo only) or `"both"` (for appearing in both demo and non demo modes).
 
 Note the [`.env.development`](.env.development) file which sets these variables for development mode (`gatsby develop`). There is no such file for "production" mode (`gatsby build`) and they have to be set manually (via `export`).
 

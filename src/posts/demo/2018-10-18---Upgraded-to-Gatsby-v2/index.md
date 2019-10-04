@@ -3,7 +3,7 @@ language: english
 title: Upgraded to Gatsby v2
 date: "2018-10-18T16:51:00.000Z"
 layout: post
-demo: true
+demo: "true"
 path: "upgraded-to-gatsby-v2"
 category: "software"
 tags:

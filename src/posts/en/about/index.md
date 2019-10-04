@@ -4,6 +4,7 @@ layout: page
 path: "about"
 sidebarLinkId: "about"
 language: english
+demo: "both"
 ---
 
 Hi, my name is Eyal and this is my personal website and blog.

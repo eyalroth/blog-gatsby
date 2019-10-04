@@ -3,10 +3,17 @@ import moment from 'moment'
 import PageHelmet from '../PageHelmet'
 import PostListItem from '../../components/PostListItem'
 
+import { parseDemoType } from '../../consts/demo'
+
 class PostList extends React.Component {
     render() {
       const { subtitle, children } = this.props
-      const posts = this.props.data.allMarkdownRemark.edges
+      const demoMode = this.props.data.site.siteMetadata.demo 
+      
+      const posts = this.props.data.allMarkdownRemark.edges.filter(post => {
+        const rawDemoType = post.node.frontmatter.demo
+        return parseDemoType(rawDemoType).matchDemoMode(demoMode)
+      })
   
       const years = new Set()
 

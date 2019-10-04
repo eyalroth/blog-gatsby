@@ -3,9 +3,9 @@ language: hebrew
 title: פרפר נחמד
 date: "2019-02-12T16:51:00.000Z"
 layout: post
-demo: true
+demo: "true"
 path: "nice-butterfly"
-category: "hebrew"
+category: "articles-he"
 tags:
   - "טלוויזיה"
   - "תוכניות ילדים"

@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const { Languages } = require('./languages')
+const { DemoTypes } = require('./demo')
 
 function normalizePath(path) {
     let normalized = path
@@ -13,11 +14,12 @@ function normalizePath(path) {
 }
 
 class MenuLink {
-    constructor(id, label, path, icon) {
+    constructor(id, label, path, icon, demoType = DemoTypes.Both) {
         this.id = id
         this.label = label
         this.path = normalizePath(path)
         this.icon = icon
+        this.demoType = demoType
     }
 }
 
@@ -51,7 +53,12 @@ module.exports.SidebarLinks = SidebarLinks
 
 const categoryLinks = {}
 categoryLinks[Languages.English.id] = {
-    Articles: new MenuLink("articles-en", "Articles", SiteLinks[Languages.English.id].Blog.path),
+    // non demo
+    Articles: new MenuLink("articles-en", "Articles", SiteLinks[Languages.English.id].Blog.path, "", DemoTypes.NonDemoOnly),
+    // demo
+    Software: new MenuLink("software", "Software", SiteLinks[Languages.English.id].Blog.path, "icon-cd", DemoTypes.DemoOnly),
+    Entertainment: new MenuLink("entertainment", "Entertainment", `/${Languages.English.urlPart}/blog/entertainment`, "icon-gamepad", DemoTypes.DemoOnly),
+    Social: new MenuLink("social", "Social", `/${Languages.English.urlPart}/blog/social`, "icon-group", DemoTypes.DemoOnly),
 }
 categoryLinks[Languages.Hebrew.id] = {
     Articles: new MenuLink("articles-he", "מאמרים", SiteLinks[Languages.Hebrew.id].Blog.path),

@@ -25,9 +25,13 @@ export default PostSeriesTemplate
 
 export const pageQuery = graphql`
   query PostSeriesTemplateQuery($seriesPath: String) {
+      site {
+        siteMetadata {
+          demo
+        }
+      }
       allMarkdownRemark(
           filter: { frontmatter: { 
-              demo: { ne: true }
               series: { path: { eq: $seriesPath }}
           }}
           sort: { order: ASC, fields: [frontmatter___series___order] }
@@ -42,6 +46,7 @@ export const pageQuery = graphql`
               }
             }
             frontmatter {
+              demo
               title
               date
               tags

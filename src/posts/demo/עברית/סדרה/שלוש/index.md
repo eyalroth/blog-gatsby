@@ -3,9 +3,9 @@ language: hebrew
 title: "שר הטבעות - חלק III: שיבת המלך"
 date: "2019-02-21T16:51:00.000Z"
 layout: post
-demo: true
+demo: "true"
 path: "lotr-3"
-category: "hebrew"
+category: "articles-he"
 series:
   path: "lotr"
   name: "שר הטבעות"

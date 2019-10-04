@@ -75,6 +75,10 @@ exports.onCreateNode = ({ node, actions }) => {
       value: slug,
     })
 
+    if (typeof node.frontmatter.demo === "undefined") {
+      throw new Error(`Markdown node has no 'demo' metadata property: ${slug}`)
+    }
+
     const language = findById(node.frontmatter.language)
     const readingMinutes = Math.max(Math.round(readingTime(node.rawMarkdownBody).minutes), 1)
 

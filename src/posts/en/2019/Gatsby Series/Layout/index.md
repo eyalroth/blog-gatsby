@@ -1,7 +1,7 @@
 ---
 language: english
 layout: post
-demo: false
+demo: "false"
 date: '2019-08-29T03'
 title: 'Gatsby - Part III: Layout'
 path: 'gatsby-layout'

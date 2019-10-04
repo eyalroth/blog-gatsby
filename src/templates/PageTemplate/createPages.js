@@ -1,12 +1,18 @@
 const _ = require('lodash')
 const path = require('path')
+const { parseDemoType } = require('../../consts/demo')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
     {
+      site {
+        siteMetadata {
+          demo
+        }
+      }
       allMarkdownRemark(
         limit: 1000
-        filter: { frontmatter: { layout: { eq: "page" }, demo: { ne: true } } }
+        filter: { frontmatter: { layout: { eq: "page" } } }
       ) {
         edges {
           node {
@@ -14,6 +20,7 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
               slug
             }
             frontmatter {
+              demo
               language
               sidebarLinkId
             }
@@ -26,18 +33,23 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
       console.log(result.errors)
       reject(result.errors)
     }
+
+    const demoMode = result.data.site.siteMetadata.demo
+
     _.each(result.data.allMarkdownRemark.edges, edge => {
-      const slug = edge.node.fields.slug
-      const {language: languageId, sidebarLinkId} = edge.node.frontmatter
-      createPage({
-        path: slug,
-        component: path.join(__dirname, 'index.jsx'),
-        context: { 
-          slug,
-          languageId,
-          sidebarLinkId,
-         },
-      })
+      const { slug } = edge.node.fields
+      const { demo, language: languageId, sidebarLinkId } = edge.node.frontmatter
+      if (parseDemoType(demo).matchDemoMode(demoMode)) {
+        createPage({
+          path: slug,
+          component: path.join(__dirname, 'index.jsx'),
+          context: { 
+            slug,
+            languageId,
+            sidebarLinkId,
+          },
+        })
+      }
     })
     resolve()
   })

@@ -1,7 +1,7 @@
 ---
 language: english
 layout: post
-demo: false
+demo: "false"
 date: "2019-08-29T01"
 title: "Gatsby - Part I: Comments"
 path: "gatsby-comments"

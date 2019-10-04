@@ -3,17 +3,24 @@ const path = require('path')
 
 const { findById } = require('../../consts/languages')
 const { SidebarLinks, seriesLink } = require('../../consts/menuLinks')
+const { parseDemoType } = require('../../consts/demo')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
     {
+      site {
+        siteMetadata {
+          demo
+        }
+      }
       allMarkdownRemark(
-        filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
+        filter: { frontmatter: { layout: { eq: "post" } } }
       ) {
         group(field: frontmatter___series___path) {
           edges {
             node {
               frontmatter {
+                demo
                 language
                 series {
                   name
@@ -32,27 +39,32 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
       reject(result.errors)
     }
 
+    const demoMode = result.data.site.siteMetadata.demo
+
     const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
-      const { series, language, category } = group.edges[0].node.frontmatter
+      const { demo, series, language, category } = group.edges[0].node.frontmatter
       return {
         ...series,
+        demoType: parseDemoType(demo),
         categoryId: category,
         languageId: language,
       }
     })
 
     _.each(seriesItems, series => {
-      createPage({
-        path: seriesLink(series.path, findById(series.languageId)),
-        component: path.join(__dirname, 'index.jsx'),
-        context: { 
-          seriesName: series.name,
-          seriesPath: series.path,
-          languageId: series.languageId,
-          categoryId: series.categoryId,
-          sidebarLinkId: SidebarLinks[series.languageId].Blog.id,
-        },
-      })
+      if (series.demoType.matchDemoMode(demoMode)) {
+        createPage({
+          path: seriesLink(series.path, findById(series.languageId)),
+          component: path.join(__dirname, 'index.jsx'),
+          context: { 
+            seriesName: series.name,
+            seriesPath: series.path,
+            languageId: series.languageId,
+            categoryId: series.categoryId,
+            sidebarLinkId: SidebarLinks[series.languageId].Blog.id,
+          },
+        })
+      }
     })
     resolve()
   })

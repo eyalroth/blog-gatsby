@@ -20,37 +20,15 @@ verifyEnvVar('URL')
 verifyEnvVar('GOOGLE_ANALYTICS')
 verifyEnvVar('UTTERANCES_REPO')
 
-function rssQuery(languageId) {
-  return `
-    {
-      allMarkdownRemark(
-        filter: {frontmatter: {language: {eq: "${languageId}"}}}
-        sort: { order: DESC, fields: [frontmatter___date] },
-      ) {
-        edges {
-          node {
-            excerpt
-            html
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-              date
-            }
-          }
-        }
-      }
-    }
-  `
-}
-
 const fontVariants = ['300', '300i', '400', '400i', '500', '700']
 
 let deployUrl = process.env.DEPLOY_PRIME_URL
 if (!deployUrl) {
   deployUrl = process.env.URL
 }
+
+const demoMode = "true" == String(process.env.DEMO).trim().toLowerCase()
+console.log(`Running in demo mode? ${demoMode}`)
 
 module.exports = {
   siteMetadata: {
@@ -60,6 +38,7 @@ module.exports = {
     title: 'Eyal Roth',
     description: '',
     utterances: process.env.UTTERANCES_REPO,
+    demo: demoMode,
   },
   plugins: [
     {
@@ -86,13 +65,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-feed',
       options: {
-        feeds: Object.values(Feeds).map(feed => ({
-          output: feed.outputPath,
-          title: feed.title,
-          query: rssQuery(feed.languageId),
-          language: feed.languageShort,
-          site_url: `${process.env.URL}${feed.homePath}`,
-        })),
+        feeds: Object.values(Feeds).map(feed => feed.toPluginOptions(process.env.URL, demoMode)),
         // see https://github.com/gatsbyjs/gatsby/issues/16177
         setup: ({
           query: {

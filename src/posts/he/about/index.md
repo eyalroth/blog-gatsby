@@ -4,6 +4,7 @@ layout: page
 path: "about"
 sidebarLinkId: "about"
 language: hebrew
+demo: "both"
 ---
 
 היי, קוראים לי אייל וזהו האתר והבלוג הפרטי שלי.
