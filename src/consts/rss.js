@@ -57,15 +57,13 @@ class RssFeed {
         parseDemoType(edge.node.frontmatter.demo).matchDemoMode(demoMode)
       )
 
-      return filtered.map(edge => {
-        return Object.assign({}, edge.node.frontmatter, {
+      return filtered.map(edge => ({
           description: edge.node.excerpt,
           date: edge.node.frontmatter.date,
           url: site.siteMetadata.siteUrl + edge.node.fields.slug,
           guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
           custom_elements: [{ 'content:encoded': edge.node.html }],
-        })
-      })
+      }))
     }
   }
 }
