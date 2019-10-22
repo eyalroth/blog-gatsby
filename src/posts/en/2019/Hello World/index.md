@@ -36,7 +36,7 @@ I did, but not at first. There are plenty of other ways to create a blog that re
 
 ### Medium
 
-First there is [Medium](https://medium.com), a blogging platform that is very popular among technical writers. It features a simple WYSIWYG editor, integrates well with code-blocks, and -- perhaps most notably -- it already has a large reader base that can help new bloggers extend their reach. What Medium is missing, and what bothered me the most about it, is the lack of personalization.
+First there is [Medium](https://medium.com), a blogging platform that is very popular among technical writers. It features a simple WYSIWYG editor [^1], integrates well with code-blocks, and -- perhaps most notably -- it already has a large reader base that can help new bloggers extend their reach. What Medium is missing, and what bothered me the most about it, is the lack of personalization.
 
 When I read a post that I like I would often be able to recollect where I've read it; visually, that is. If I need to search that post again -- and I often do -- it's much easier to find it if I can also identify the site's visual signature. I may also stumble upon new posts from that website and then remember that I already liked a post on it, so I'll know that I am more likely to be interested in those new posts. I want my readers to have a similar experience with my posts, and that is why Medium was not very appealing to me.
 
@@ -63,3 +63,7 @@ The downside with Gatsby and other static site generators is that unless you wan
 That's it. I built my personal blog and it's what you're looking at right now. It took me about three months and quite some work, but I learned a lot and even had the chance to contribute to Gatsby (it is an open-source project after all). In fact I hope to share some of the more technical insights I gathered while building the website.
 
 So stay tuned, and of course, **welcome aboard!** I hope you'll enjoy the reading :)
+
+[^1]: "What You See Is What You Get" editor is any editor in which the edited version is almost identical to the final version -- whether printed or displayed online.
+
+  For example, Microsoft Word is such an editor.
