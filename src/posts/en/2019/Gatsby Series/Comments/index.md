@@ -31,7 +31,7 @@ I believe this series should be relevant to anyone developing a website using Ga
 
 A caveat though - I had no experience with Gatsby nor with React prior to building this website. In fact, this is my first ever web project. It might also be important to note that my website is not compatible with Internet Explorer, so it may very well be that some of what's shown in this series will not be compatible with that browser as well.
 
-## Readers Comments
+---
 
 It's no surprise that comments are a core feature of any blogging platform out there -- WordPress, Blogger, Medium, etc -- as that is an integral part of any website with published content; be it a blog, an online newspaper, a social network (Facebook, Twitter), a video platform (YouTube) or an online forum (Reddit).
 

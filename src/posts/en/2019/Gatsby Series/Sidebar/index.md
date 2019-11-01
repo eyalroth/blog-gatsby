@@ -22,8 +22,6 @@ This is the second post in the series about creating a website with Gatsby, in w
 
 As I've mentioned earlier [in my first post](local::english/hello-world), I wanted my blog to have a strong visual signature. I figured one way to achieve this is by having a permanent component across all pages with a visual item unique to me; say, my profile image. Moreover, it is probably a good idea to give quick access to all of the site's sections from any given page. It also happened that one of the Gatsby starter sites -- [Lumen v2](https://github.com/GatsbyCentral/gatsby-v2-starter-lumen), the one I eventually used -- featured what seemed to me as a nice looking sidebar. That how I knew I wanted to have a permanent sidebar in my blog.
 
-## Mobile
-
 After playing around with several layouts for the sidebar, I've decided to go with these components:
 + A profile image.
 + A title & a subtitle.
@@ -35,7 +33,7 @@ Creating a design for a sidebar with all of these components becomes a bit of a 
 
 That wasn't enough though, as one "line" at the top of a narrow screen wasn't enough to contain all of the components. Another modification was due then, and this time I chose to make both of the lists in the bar -- the contact links and the navigation menu -- collapsible; i.e, hidden at first but able to come into view with the click of a button.
 
-### Collapsing Modes
+## Collapsing Modes
 
 One approach to collapsible components is to think of each "collapsing state" individually. In the case of my sidebar, there are 3 states - the initial "main" state with all the lists hidden, the state in which the navigation menu is shown and the contact links are hidden, and lastly the opposite state where the contact links are shown and the navigation menu is hidden:
 

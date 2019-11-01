@@ -69,25 +69,6 @@ img {
     margin: inherit auto;
 }
 
-hr {
-    margin-top: 52px;
-    margin-bottom: 52px;
-    border: 0;
-    display: block;
-    height: 26px;
-    margin-right: auto;
-    margin-left: auto;
-    background-size: 100% 26px;
-    width: 100px;
-
-    @include light {
-        background-image: linear-gradient(to bottom, transparent 1px, transparent 11px, $color-light-text 11px, $color-light-text 15px, transparent 15px, transparent 26px);
-    }
-    @include dark {
-        background-image: linear-gradient(to bottom, transparent 1px, transparent 11px, $color-dark-text 11px, $color-dark-text 15px, transparent 15px, transparent 26px);
-    }
-}
-
 a {
     @include text-link;
     text-decoration: none;

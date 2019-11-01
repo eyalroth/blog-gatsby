@@ -136,15 +136,30 @@
         }
     }
     &__footer {
+        @include light {
+            border-top: solid 1px rgba(0,0,0,0.1);
+        }
+        @include dark {
+            border-top: solid 1px rgba(255,255,255,0.1);
+        }
         margin-left: 15px;
         margin-right: 15px;
-        line-height: 1rem;
-        margin-top: 1rem;
+        margin-top: 3rem;
         margin-bottom: 2rem;
-        &-text {
-            & a {
-                text-decoration: underline;
-            }
+        padding-top: 1rem;
+    }
+    & hr {
+        display: block;
+        border: none;
+        margin-top: 1.5rem;
+        margin-bottom: 3rem;
+        &:before {
+            content: "•••";
+            display: block;
+            text-align: center;
+            letter-spacing: 1.5rem;
+            @include font-size(1);
+            @include text-medium;
         }
     }
 }
@@ -196,6 +211,9 @@
             & .gatsby-code-header {
                 @include font-size(0.9);
             }
+        }
+        &__footer {
+            margin-top: 4rem;
         }
     }
 }

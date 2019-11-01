@@ -101,7 +101,6 @@ class PostTemplate extends React.Component {
         {header}
         {mobileShare}
         {body}
-        <hr />
         {footer}
       </div>
     )
