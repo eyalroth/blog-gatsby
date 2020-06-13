@@ -1,18 +1,18 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import Context from '../../components/Context'
 import PageHelmet from '../../components/PageHelmet'
 import ProfileImg from '../../components/ProfileImg'
+import NavMenu from '../../components/NavMenu'
 import { Author } from '../../consts/author'
 import { SidebarLinks } from '../../consts/menuLinks'
 import './style.scss'
 
-class Home extends React.Component {
+class HomeTemplate extends React.Component {
   render() {
     const language = this.context.layout.language.get()
     const languageId = language.id
     
-    const siteLinks = Object.values(SidebarLinks[languageId]).filter(link => link.id !== "home")
+    const siteLinks = Object.values(SidebarLinks[languageId])
     
     return (
       <div className="home">
@@ -24,25 +24,16 @@ class Home extends React.Component {
         <p className="home__author-subtitle">
           {Author.subtitle[languageId]}
         </p>
-        <nav className="home__site-links">
-          <ul className="home__site-links-list">
-            {siteLinks.map(item => (
-              <li className="home__site-links-item" key={item.path}>
-                <Link
-                  to={item.path}
-                  className="home__site-links-item-link"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <NavMenu
+          linkDescriptions={siteLinks}
+          classNamePrefix="home__menu"
+          currentLinkId={SidebarLinks[languageId].Blog.id}
+        />
       </div>
     )
   }
 }
 
-Home.contextType = Context
+HomeTemplate.contextType = Context
 
-export default Home
+export default HomeTemplate

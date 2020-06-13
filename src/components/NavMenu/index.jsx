@@ -7,11 +7,10 @@ class NavMenu extends React.Component {
     constructor(props) {
         super(props)
 
-        this.slider = React.createRef()
+        this.sliderRef = React.createRef()
         this.links = {}
 
         this.updateSlider = this.updateSlider.bind(this)
-        this.lastSliderLinkId = null
     }
 
     render() {
@@ -32,7 +31,7 @@ class NavMenu extends React.Component {
                   ))}
               </ul>
               <Slider
-                ref={this.slider}
+                ref={this.sliderRef}
                 className={`${classNamePrefix}-slider`}
                 language={this.context.layout.language.get()}
               />
@@ -67,23 +66,12 @@ class NavMenu extends React.Component {
     componentDidUpdate() {
       this.updateSlider()
     }
-
     
     updateSlider() {
-      const { currentLinkId } = this.props
-      const currentLink = this.links[currentLinkId]
-      const slider = this.slider.current
-
-      if (currentLink) {
-        const lastLink = this.links[this.lastSliderLinkId]
-        if (lastLink && lastLink.id !== currentLinkId) {
-          slider.shift({from: lastLink, to: currentLink})
-        } else {
-          slider.moveTo(currentLink)
-        }
+      const slider = this.sliderRef.current
+      if (slider) {
+        slider.moveTo(this.links[this.props.currentLinkId])
       }
-
-      this.lastSliderLinkId = currentLinkId
     }
 }
 
@@ -97,36 +85,19 @@ class Slider extends React.Component {
 
       this.state = {
         style: {},
-        callback: null
       }
-      this.slider = null
-
-      this.moveTo = this.moveTo.bind(this)
-      this.shift = this.shift.bind(this)
-      this.parentRect = this.parentRect.bind(this)
-      this.pctOfParent = this.pctOfParent.bind(this)
+      this.sliderRef = React.createRef()
     }
 
     render() {
-      const _this = this
-      function sliderRendered(slider) {
-        if (slider) {
-          _this.slider = slider
-          if (_this.state.callback) {
-            _this.state.callback()
-          }
-        }
-      }
-
       return (
-          <div ref={sliderRendered} className={this.props.className} style={this.state.style}/>
+          <div ref={this.sliderRef} className={this.props.className} style={this.state.style}/>
       )
     }
 
-    setStyle(style, callback) {
+    setStyle(style) {
       this.setState({
         style,
-        callback
       })
     }
 
@@ -134,59 +105,19 @@ class Slider extends React.Component {
       const { left: parentX, width: parentWidth } = this.parentRect()
       const { left: toX, width } = link.getBoundingClientRect()
 
-      const position = {}
+      const style = {}
       if (this.props.language.ltr) {
-        position.left = this.pctOfParent(toX - parentX)
+        style.left = this.pctOfParent(toX - parentX)
       } else {
-        position.right = this.pctOfParent(parentX + parentWidth - (toX + width))
+        style.right = this.pctOfParent(parentX + parentWidth - (toX + width))
       }
+      style.width = width
 
-      this.setStyle({
-        ...position,
-        width,
-      })
-    }
-    
-    shift({from, to}) {
-      const _this = this
-      const { left: parentX, width: parentWidth } = this.parentRect()
-      const { left: fromX, width: fromWidth  } = from.getBoundingClientRect()
-      const { left: toX, width: toWidth } = to.getBoundingClientRect()
-
-      const position = {}
-      if (this.props.language.ltr) {
-        position.initial = {
-          left: this.pctOfParent(fromX - parentX),
-        }
-        position.transitioned = {
-          left: this.pctOfParent(toX - parentX),
-        }
-      } else {
-        position.initial = {
-          right: this.pctOfParent(parentX + parentWidth - (fromX + fromWidth)),
-        }
-        position.transitioned = {
-          right: this.pctOfParent(parentX + parentWidth - (toX + toWidth)),
-        }
-      }
-
-      const initialStyle = {
-        ...position.initial,
-        width: fromWidth,
-      }
-      
-      const transitionedStyle = {
-        ...position.transitioned,
-        width: toWidth,
-      }
-
-      this.setStyle(initialStyle, () => {
-        setTimeout(() => _this.setStyle(transitionedStyle), 0)
-      })
+      this.setState({style})
     }
 
     parentRect() {
-      return this.slider.parentElement.getBoundingClientRect()
+      return this.sliderRef.current.parentElement.getBoundingClientRect()
     }
 
     pctOfParent(x) {
