@@ -5,7 +5,7 @@ $img-size-base: 30px;
 $img-size-md: 85px;
 $img-size-lg: 115px;
 
-$top-padding: $img-size-base / 3;
+$top-padding: calc($img-size-base / 3);
 $bottom-padding: 10px;
 $transition-timing: 0.2s;
 
