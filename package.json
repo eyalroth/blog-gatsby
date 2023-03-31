@@ -21,10 +21,10 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "gatsby": "^5.8.1",
-    "gatsby-image": "^3.11.0",
     "gatsby-plugin-catch-links": "^5.8.0",
     "gatsby-plugin-feed": "^5.8.0",
     "gatsby-plugin-google-analytics": "^5.8.0",
+    "gatsby-plugin-image": "^3.8.0",
     "gatsby-plugin-layout": "^4.8.0",
     "gatsby-plugin-manifest": "^5.8.0",
     "gatsby-plugin-netlify": "^5.1.0",

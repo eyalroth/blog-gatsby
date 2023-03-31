@@ -1,6 +1,6 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import Context from '../Context'
 import { Author } from '../../consts/author'
 import './style.scss'
@@ -8,9 +8,7 @@ import './style.scss'
 export const squareImage = graphql`
   fragment squareImage on File {
     childImageSharp {
-        fluid(maxWidth: 145, maxHeight: 145, quality: 100) {
-            ...GatsbyImageSharpFluid_withWebp_noBase64
-        }
+        gatsbyImageData(layout: CONSTRAINED, width: 145, height: 145, quality: 100)
     }
   }
 `
@@ -48,7 +46,6 @@ class ProfileImg extends React.Component {
         }
     }
 
-
     render() {
         return (
         <StaticQuery
@@ -77,9 +74,9 @@ class ProfileImg extends React.Component {
                 div.addEventListener(eventType, (event) => {
                     const container = div.parentElement
                     const { x } = extractCoordinates(event)
-                    const { left } = container.getBoundingClientRect()
+                    const { left, width } = container.getBoundingClientRect()
                     const newWidth = x - left
-                    _this.setBackWidth(Math.max(newWidth, 0))
+                    _this.setBackWidth(Math.min(Math.max(newWidth, 0), width))
                 }, {once: true, ...params})
             }
         }
@@ -120,14 +117,14 @@ class ProfileImg extends React.Component {
         const authorName = Author.name[language.get().id]
         return (
             <div className={className}>
-                <div 
+                <div
                     className="profile-img-container"
                     style={{
                         position: "relative",
                         height: "inherit"
                     }}
                 >
-                    <div 
+                    <div
                         ref={setupMouseMove}
                         className="profile-img-mousemove"
                         style={{
@@ -154,7 +151,7 @@ class ProfileImg extends React.Component {
                             display: (_this.state.isMouseUp) ? "none" : "inherit"
                         }}
                     />
-                    <div 
+                    <div
                         ref={setupTouchMove}
                         className="profile-img-touchmove"
                         style={{
@@ -166,26 +163,26 @@ class ProfileImg extends React.Component {
                             zIndex: 1
                         }}
                     />
-                    <Img
+                    <GatsbyImage
                         className="profile-img-front"
-                        fluid={data.front.childImageSharp.fluid}
+                        image={data.front.childImageSharp.gatsbyImageData}
                         title={authorName}
                         alt={authorName}
                     />
-                    <Img 
+                    <GatsbyImage
                         className="profile-img-back"
-                        fluid={data.back.childImageSharp.fluid}
+                        image={data.back.childImageSharp.gatsbyImageData}
                         title={authorName}
                         alt={authorName}
                         style={{
                             position: "absolute",
-                            width: "100%",
+                            width: `${this.state.backWidth}px`,
                             height: "100%",
                             top: 0,
+                            left: 0
                         }}
                         imgStyle={{
                             transition: "width 0.1s ease-out",
-                            width: `${this.state.backWidth}px`,
                             objectPosition: "left",
                         }}
                     />

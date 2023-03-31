@@ -135,8 +135,9 @@ module.exports = {
         ],
       },
     },
-    'gatsby-transformer-sharp',
+    'gatsby-plugin-image',
     'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: { trackingId: process.env.GOOGLE_ANALYTICS },
