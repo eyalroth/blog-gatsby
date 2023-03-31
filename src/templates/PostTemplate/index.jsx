@@ -165,9 +165,7 @@ export const pageQuery = graphql`
         language
         featuredImage {
           childImageSharp {
-            fluid(quality: 100) {
-              src
-            }
+            gatsbyImageData(quality: 100)
           }
         }
       }

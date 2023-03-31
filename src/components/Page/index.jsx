@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 import Context from '../../components/Context'
 import { findById } from '../../consts/languages'
 import { Author } from '../../consts/author'
+import { getSrc } from "gatsby-plugin-image"
 
 class Page extends React.Component {
     render() {
@@ -61,9 +62,8 @@ class PageHelmet extends React.Component {
                         }
                         defaultImage: file(relativePath: { eq: "icon2.png" }) {
                             childImageSharp {
-                                fluid(quality: 100, maxWidth: 1315, maxHeight: 690, fit: CONTAIN, background: "rgba(0,0,0,0)") {
-                                    src
-                                }
+                                gatsbyImageData(layout: CONSTRAINED, width: 1315, height: 690, quality: 100,
+                                    transformOptions: { fit: CONTAIN }, backgroundColor: "rgba(0,0,0,0)")
                             }
                         }
                     }
@@ -88,11 +88,11 @@ class PageHelmet extends React.Component {
         const finalDescription = description || this.props.subtitle
 
         const featuredImage = (this.props.featuredImage || data.defaultImage)
-        const featuredImageUrl = new URL(featuredImage.childImageSharp.fluid.src, data.site.siteMetadata.deployUrl)
+        const featuredImageUrl = new URL(getSrc(featuredImage.childImageSharp.gatsbyImageData), data.site.siteMetadata.deployUrl)
         const featuredImageType = featuredImageUrl.toString().endsWith("png") ? "png" : "jpeg"
 
         return (
-            <Helmet 
+            <Helmet
                 defer={false}
                 htmlAttributes={{
                     lang: this.props.language.htmlLang
