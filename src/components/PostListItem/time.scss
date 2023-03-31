@@ -7,10 +7,10 @@
         margin-top: 0.2rem;
         @include font-size(0.8);
         @include ltr {
-            right: (100vw - $content-width-base) / 2;
+            right: calc((100vw - $content-width-base) / 2);
         }
         @include rtl {
-            left: (100vw - $content-width-base) / 2;
+            left: calc((100vw - $content-width-base) / 2);
         }
 
         .nonmobile {
@@ -51,7 +51,7 @@
                 display: block;
                 width: 3rem;
                 margin-top: -1px;
-                
+
                 @include font-size(1.2);
                 @include font-family($font-family-segoe, $font-family-arimo);
                 font-weight: 400;

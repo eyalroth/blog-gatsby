@@ -23,14 +23,16 @@ function rssQuery(languageId) {
   return `
     {
       allMarkdownRemark(
-        filter: {frontmatter: {language: {eq: "${languageId}"}}}
-        sort: { order: DESC, fields: [frontmatter___date] },
+        filter: {frontmatter: {language: {eq: "english"}}}
+        sort: {frontmatter: {date: DESC}}
       ) {
         edges {
           node {
             excerpt
             html
-            fields { slug }
+            fields {
+              slug
+            }
             frontmatter {
               title
               date
