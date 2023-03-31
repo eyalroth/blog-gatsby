@@ -133,9 +133,9 @@ exports.createPages = async ({ graphql, actions }) => {
     graphql(`
       {
         allMarkdownRemark(
-          filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
+          filter: {frontmatter: {layout: {eq: "post"}, demo: {ne: true}}}
         ) {
-          group(field: frontmatter___series___path) {
+          group(field: {frontmatter: {series: {path: SELECT}}}) {
             edges {
               node {
                 frontmatter {

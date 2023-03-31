@@ -21,14 +21,8 @@ export const pageQuery = graphql`
   query PostCategoryTemplateQuery($categoryId: String) {
     allMarkdownRemark(
       limit: 1000
-      filter: {
-        frontmatter: {
-          category: { eq: $categoryId }
-          layout: { eq: "post" }
-          demo: { ne: true }
-        }
-      }
-      sort: { order: DESC, fields: [frontmatter___date] }
+      filter: {frontmatter: {category: {eq: $categoryId}, layout: {eq: "post"}, demo: {ne: true}}}
+      sort: {frontmatter: {date: DESC}}
     ) {
       edges {
         node {

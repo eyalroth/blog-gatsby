@@ -29,27 +29,24 @@ export default PostSeriesTemplate
 
 export const pageQuery = graphql`
   query PostSeriesTemplateQuery($seriesPath: String) {
-      allMarkdownRemark(
-          filter: { frontmatter: { 
-              demo: { ne: true }
-              series: { path: { eq: $seriesPath }}
-          }}
-          sort: { order: ASC, fields: [frontmatter___series___order] }
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-              date
-              tags
-              language
-              category
-            }
+    allMarkdownRemark(
+      filter: {frontmatter: {demo: {ne: true}, series: {path: {eq: $seriesPath}}}}
+      sort: {frontmatter: {series: {order: ASC}}}
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            date
+            tags
+            language
+            category
           }
         }
       }
+    }
   }
 `
