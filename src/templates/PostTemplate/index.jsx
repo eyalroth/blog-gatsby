@@ -18,7 +18,6 @@ class PostTemplate extends React.Component {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
     const { category, title, tags, series, language: languageId } = post.frontmatter
-    const readingTime = post.fields.readingTime
     const url = this.props.location.href
     const language = this.context.page.language.get()
 
@@ -37,16 +36,18 @@ class PostTemplate extends React.Component {
           {moment(post.frontmatter.date).locale(language.locale).format('MMMM D, YYYY')}
       </span>
     )
-    
+
     const readTimeBlock = (
       <span className="post-single__reading-time">
         {(function(lang) {
           // eslint-disable-next-line
           switch(lang) {
               case Languages.English:
-                  return readingTime.text
+                  // TODO fix reading time
+                  return 'reading time'
               case Languages.Hebrew:
-                const minutes = Math.round(readingTime.minutes)
+                // TODO fix reading time
+                const minutes = Math.round(1)
                 if (minutes < 2) {
                   return "דקת קריאה אחת"
                 } else {
@@ -56,7 +57,7 @@ class PostTemplate extends React.Component {
         })(language)}
       </span>
     )
-    
+
     const tagsBlock = (
       <div className="post-single__tags">
         <ul className="post-single__tags-list">
@@ -150,10 +151,6 @@ export const pageQuery = graphql`
       html
       fields {
         slug
-        readingTime {
-          text
-          minutes
-        }
       }
       frontmatter {
         category

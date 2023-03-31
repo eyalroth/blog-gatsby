@@ -11,8 +11,8 @@ const path = require(`path`)
 const { Feeds } = require('./src/consts/rss.jsx')
 
 function verifyEnvVar(variable) {
-  if (activeEnv == "production" && !process.env[variable]) {
-    throw `Missing envrionment variable ${variable}`
+  if (activeEnv === "production" && !process.env[variable]) {
+    throw new Error(`Missing environment variable ${variable}`)
   }
 }
 verifyEnvVar("URL")
@@ -46,7 +46,7 @@ const fontVariants = ['300', '300i', '400', '400i', '500', '700']
 
 let deployUrl = process.env.DEPLOY_PRIME_URL
 if (!deployUrl) {
-  deployUrl = process.env.URL 
+  deployUrl = process.env.URL
 }
 
 module.exports = {
@@ -83,6 +83,19 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-feed',
       options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        // TODO fix
         feeds: Object.values(Feeds).map(feed => (
           {
             output: feed.outputPath,
@@ -90,21 +103,11 @@ module.exports = {
             query: rssQuery(feed.languageId),
             language: feed.languageShort,
             'site_url': `${process.env.URL}${feed.homePath}`,
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return []
+            },
           }
         )),
-        setup: // see https://github.com/gatsbyjs/gatsby/issues/16177
-          ({
-            query: {
-              site: { siteMetadata },
-            },
-            ...rest
-          }) => {
-            return {
-              ...siteMetadata,
-              ...rest,
-            }
-          }
-        ,
       }
     },
     {
@@ -129,7 +132,6 @@ module.exports = {
           },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
-          `gatsby-remark-reading-time`,
         ],
       },
     },
@@ -138,25 +140,6 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: { trackingId: process.env.GOOGLE_ANALYTICS },
-    },
-    {
-      resolve: 'gatsby-plugin-prefetch-google-fonts',
-      options: {
-        fonts: [
-          {
-            family: 'Roboto',
-            variants: fontVariants,
-          },
-          {
-            family: 'Lora',
-            variants: fontVariants,
-          },
-          {
-            family: 'Arimo',
-            variants: fontVariants,
-          },
-        ],
-      },
     },
     'gatsby-plugin-sitemap',
     'gatsby-plugin-catch-links',
@@ -193,7 +176,6 @@ module.exports = {
             minPixelValue: 0,
           }),
         ],
-        precision: 8,
       },
     },
     {

@@ -29,7 +29,6 @@
     "gatsby-plugin-manifest": "^5.8.0",
     "gatsby-plugin-netlify": "^5.1.0",
     "gatsby-plugin-offline": "^6.8.0",
-    "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
     "gatsby-plugin-react-helmet": "^6.8.0",
     "gatsby-plugin-robots-txt": "^1.8.0",
     "gatsby-plugin-sass": "^6.8.0",
@@ -51,7 +50,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "react-share": "^4.4.1"
+    "react-share": "^4.4.1",
+    "slash": "^5.0.0"
   },
   "devDependencies": {
     "postcss-pxtorem": "^6.0.0"

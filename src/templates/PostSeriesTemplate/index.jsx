@@ -24,7 +24,7 @@ class PostSeriesTemplate extends React.Component {
       )
     }
 }
-  
+
 export default PostSeriesTemplate
 
 export const pageQuery = graphql`
@@ -40,10 +40,6 @@ export const pageQuery = graphql`
           node {
             fields {
               slug
-              readingTime {
-                text
-                minutes
-              }
             }
             frontmatter {
               title

@@ -10,16 +10,18 @@ class PostListItem extends React.Component {
   render() {
     const { showYear } = this.props
     const { title, date, tags, } = this.props.data.node.frontmatter
-    const { slug, readingTime } = this.props.data.node.fields
+    const { slug } = this.props.data.node.fields
     const language = this.context.page.language.get()
-    
+
     const readingTimeText = (function(lang) {
       // eslint-disable-next-line
       switch(lang) {
           case Languages.English:
-              return readingTime.text
+              // TODO fix reading time
+              return 'reading time'
           case Languages.Hebrew:
-            const minutes = Math.round(readingTime.minutes)
+            // TODO fix reading time
+            const minutes = Math.round(1)
             if (minutes < 2) {
               return "דקת קריאה אחת"
             } else {
@@ -31,7 +33,7 @@ class PostListItem extends React.Component {
     const itemDate = moment(date).locale(language.locale)
 
     const time = (
-      <time 
+      <time
         className="post-item__time"
         dateTime={itemDate.format('MM DD, YYYY')}
         pubdate=""

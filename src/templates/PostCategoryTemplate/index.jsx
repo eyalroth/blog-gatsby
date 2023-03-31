@@ -14,7 +14,7 @@ class PostCategoryTemplate extends React.Component {
     )
   }
 }
-  
+
 export default PostCategoryTemplate
 
 export const pageQuery = graphql`
@@ -34,10 +34,6 @@ export const pageQuery = graphql`
         node {
           fields {
             slug
-            readingTime {
-              text
-              minutes
-            }
           }
           frontmatter {
             title
