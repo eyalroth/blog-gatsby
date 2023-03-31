@@ -1,6 +1,8 @@
 import React from "react"
 import NotFound from '../components/NotFound'
 
-export default () => (
-    <NotFound/>
-)
+function notFound() {
+  return <NotFound />
+}
+
+export default notFound;

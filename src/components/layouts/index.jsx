@@ -2,7 +2,7 @@ import React from 'react'
 import { ContextProvider } from '../Context'
 import Layout from './Layout'
 
-export default ({ children, pageContext }) => {
+function layouts({ children, pageContext }) {
     return (
         <ContextProvider>
             <Layout isStaticPage={pageContext.staticPage}>
@@ -11,3 +11,5 @@ export default ({ children, pageContext }) => {
         </ContextProvider>
     )
 }
+
+export default layouts;

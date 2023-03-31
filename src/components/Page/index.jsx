@@ -13,7 +13,7 @@ class Page extends React.Component {
         this.context.page.set(language, this.props.sidebarLinkId)
 
         const helmet = <PageHelmet key="helmet" language={language} {...this.props}/>
-        
+
         return ([
             helmet,
             this.props.children
@@ -91,6 +91,7 @@ class PageHelmet extends React.Component {
         const featuredImageUrl = new URL(getSrc(featuredImage.childImageSharp.gatsbyImageData), data.site.siteMetadata.deployUrl)
         const featuredImageType = featuredImageUrl.toString().endsWith("png") ? "png" : "jpeg"
 
+        // TODO convert helmet to Head API
         return (
             <Helmet
                 defer={false}
