@@ -186,7 +186,7 @@ exports.onCreateNode = ({ node, actions }) => {
   if (node.internal.type === 'MarkdownRemark') {
     let slug = node.frontmatter.path
 
-    if (node.frontmatter.layout == 'post') {
+    if (node.frontmatter.layout === 'post') {
       const postDate = moment(node.frontmatter.date)
       const postYear = postDate.format('YYYY')
       const postMonth = postDate.format('MM')
