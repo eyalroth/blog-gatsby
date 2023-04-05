@@ -1,10 +1,6 @@
 import React from 'react'
-import { StaticQuery, graphql } from 'gatsby'
-import Helmet from 'react-helmet'
 import Context from '../../components/Context'
 import { findById } from '../../consts/languages'
-import { Author } from '../../consts/author'
-import { getSrc } from "gatsby-plugin-image"
 
 class Page extends React.Component {
     render() {
@@ -12,10 +8,7 @@ class Page extends React.Component {
 
         this.context.page.set(language, this.props.sidebarLinkId)
 
-        const helmet = <PageHelmet key="helmet" language={language} {...this.props}/>
-
         return ([
-            helmet,
             this.props.children
         ])
     }
@@ -48,67 +41,3 @@ class Page extends React.Component {
 Page.contextType = Context
 
 export default Page
-
-class PageHelmet extends React.Component {
-    render() {
-        return (
-            <StaticQuery
-                query={graphql`
-                    query PageQuery {
-                        site {
-                            siteMetadata {
-                                deployUrl
-                            }
-                        }
-                        defaultImage: file(relativePath: { eq: "icon2.png" }) {
-                            childImageSharp {
-                                gatsbyImageData(layout: CONSTRAINED, width: 1315, height: 690, quality: 100,
-                                    transformOptions: { fit: CONTAIN }, backgroundColor: "rgba(0,0,0,0)")
-                            }
-                        }
-                    }
-                `}
-                render={data => this.renderWithQueryData(data)}
-            />
-        )
-    }
-
-    renderWithQueryData(data) {
-
-        const title = Author.name[this.props.languageId]
-
-        let { subtitle, description } = this.props
-        if (subtitle) {
-            subtitle = `${subtitle} | `
-        } else {
-            subtitle = ""
-        }
-
-        const finalTitle = `${subtitle}${title}`
-        const finalDescription = description || this.props.subtitle
-
-        const featuredImage = (this.props.featuredImage || data.defaultImage)
-        const featuredImageUrl = new URL(getSrc(featuredImage.childImageSharp.gatsbyImageData), data.site.siteMetadata.deployUrl)
-        const featuredImageType = featuredImageUrl.toString().endsWith("png") ? "png" : "jpeg"
-
-        // TODO convert helmet to Head API
-        return (
-            <Helmet
-                defer={false}
-                htmlAttributes={{
-                    lang: this.props.language.htmlLang
-                }}
-            >
-                <title>{finalTitle}</title>
-                <meta name="description" content={finalDescription}/>
-                <meta name="image" content={featuredImageUrl}/>
-                <meta property="og:title" content={finalTitle}/>
-                <meta property="og:image" content={featuredImageUrl}/>
-                <meta property="og:image:type" content={`image/${featuredImageType}`}/>
-                <meta name="twitter:card" content="summary_large_image"/>
-                <meta name="twitter:image" content={featuredImageUrl}/>
-                <meta name="twitter:title" content={finalTitle}/>
-            </Helmet>
-        )
-    }
-}

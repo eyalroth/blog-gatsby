@@ -12,6 +12,7 @@ import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
 import Context from '../../components/Context'
 import './style.scss'
+import head from '../../components/Head'
 
 class PostTemplate extends React.Component {
   render() {
@@ -21,49 +22,47 @@ class PostTemplate extends React.Component {
     const url = this.props.location.href
     const language = this.context.page.language.get()
 
-    let featuredImage = post.frontmatter.featuredImage
-
     const categoryMenu = (
-      <CategoryMenu categoryId={category}/>
+      <CategoryMenu categoryId={category} />
     )
 
     const titleBlock = (
-      <h1 className="post-single__title">{post.frontmatter.title}</h1>
+      <h1 className='post-single__title'>{post.frontmatter.title}</h1>
     )
 
     const dateBlock = (
-      <span className="post-single__date">
+      <span className='post-single__date'>
           {moment(post.frontmatter.date).locale(language.locale).format('MMMM D, YYYY')}
       </span>
     )
 
     const readTimeBlock = (
-      <span className="post-single__reading-time">
+      <span className='post-single__reading-time'>
         {(function(lang) {
           // eslint-disable-next-line
-          switch(lang) {
-              case Languages.English:
-                  // TODO fix reading time
-                  return 'reading time'
-              case Languages.Hebrew:
-                // TODO fix reading time
-                const minutes = Math.round(1)
-                if (minutes < 2) {
-                  return "דקת קריאה אחת"
-                } else {
-                  return `${minutes} דקות קריאה`
-                }
+          switch (lang) {
+            case Languages.English:
+              // TODO fix reading time
+              return 'reading time'
+            case Languages.Hebrew:
+              // TODO fix reading time
+              const minutes = Math.round(1)
+              if (minutes < 2) {
+                return 'דקת קריאה אחת'
+              } else {
+                return `${minutes} דקות קריאה`
+              }
           }
         })(language)}
       </span>
     )
 
     const tagsBlock = (
-      <div className="post-single__tags">
-        <ul className="post-single__tags-list">
+      <div className='post-single__tags'>
+        <ul className='post-single__tags-list'>
           {tags &&
             tags.map(tag => (
-              <li className="post-single__tags-list-item" key={tag}>
+              <li className='post-single__tags-list-item' key={tag}>
                 {tag}
               </li>
             ))}
@@ -72,19 +71,19 @@ class PostTemplate extends React.Component {
     )
 
     const sharePanel = (
-      <div className="post-single__share-panel">
-        <SharePanel url={url}/>
+      <div className='post-single__share-panel'>
+        <SharePanel url={url} />
       </div>
     )
 
     const header = (
-      <div className="post-single__header">
+      <div className='post-single__header'>
         {titleBlock}
-        <div className="post-single__subtitle">
+        <div className='post-single__subtitle'>
           {dateBlock}
-          <span id="subtitle-div">&#183;</span>
+          <span id='subtitle-div'>&#183;</span>
           {readTimeBlock}
-          <div className="post-single__header-bottom">
+          <div className='post-single__header-bottom'>
             {tagsBlock}
             {sharePanel}
           </div>
@@ -94,22 +93,22 @@ class PostTemplate extends React.Component {
 
     const body = (
       <div
-        className="post-single__body"
+        className='post-single__body'
         /* eslint-disable-next-line react/no-danger */
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
     )
 
-    const mobileShare = <MobileShareButton url={url}/>
+    const mobileShare = <MobileShareButton url={url} />
 
-    const seriesBox = <PostSeriesBox series={series}/>
+    const seriesBox = <PostSeriesBox series={series} />
 
     const commentsBlock = (
-        <Utterances repo={utterances} />
+      <Utterances repo={utterances} />
     )
 
     const footer = (
-      <div className="post-single__footer">
+      <div className='post-single__footer'>
         {commentsBlock}
       </div>
     )
@@ -117,11 +116,9 @@ class PostTemplate extends React.Component {
     return (
       <Page
         languageId={languageId}
-        subtitle={title}
         sidebarLinkId={SidebarLinks[languageId].Blog.id}
-        featuredImage={featuredImage}
       >
-        <div className="post-single">
+        <div className='post-single'>
           {categoryMenu}
           {header}
           {mobileShare}
@@ -138,6 +135,13 @@ class PostTemplate extends React.Component {
 PostTemplate.contextType = Context
 
 export default PostTemplate
+
+export const Head = head({
+  getLanguageId: ({ data }) => data.markdownRemark.frontmatter.language,
+  getSubtitle: ({ data }) => data.markdownRemark.frontmatter.title,
+  getDescription: ({ data }) => data.markdownRemark.frontmatter.description,
+  getFeaturedImage: ({ data }) => data.markdownRemark.frontmatter.featuredImage,
+})
 
 export const pageQuery = graphql`
   query PostBySlug($slug: String!) {

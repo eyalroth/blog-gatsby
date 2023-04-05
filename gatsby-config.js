@@ -144,7 +144,6 @@ module.exports = {
     },
     'gatsby-plugin-sitemap',
     'gatsby-plugin-catch-links',
-    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-sass',
       options: {

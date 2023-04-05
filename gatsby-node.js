@@ -141,6 +141,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 frontmatter {
                   language
                   series {
+                    name
                     path
                   }
                 }
@@ -158,6 +159,7 @@ exports.createPages = async ({ graphql, actions }) => {
       const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
         const { series, language: languageId } = group.edges[0].node.frontmatter
         return {
+          name: series.name,
           path: series.path,
           language: findById(languageId),
         }

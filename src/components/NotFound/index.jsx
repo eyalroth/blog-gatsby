@@ -6,9 +6,8 @@ import './style.scss'
 
 class NotFound extends React.Component {
     render() {
-
         return (
-            <Page subtitle="Page Not Found" languageId={Languages.English.id}>
+            <Page languageId={Languages.English.id}>
                 <div className="notfound">
                     <h1 className="notfound__title">
                         Page not found :(

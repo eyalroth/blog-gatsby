@@ -2,13 +2,14 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import PostList from '../../components/PostList'
 import CategoryMenu from '../../components/CategoryMenu'
+import head from '../../components/Head'
 
 class PostCategoryTemplate extends React.Component {
   render() {
-    const { languageId, categoryId, categoryLabel } = this.props.pageContext
+    const { languageId, categoryId } = this.props.pageContext
 
     return (
-      <PostList languageId={languageId} subtitle={categoryLabel} data={this.props.data}>
+      <PostList languageId={languageId} data={this.props.data}>
         <CategoryMenu categoryId={categoryId} />
       </PostList>
     )
@@ -16,6 +17,11 @@ class PostCategoryTemplate extends React.Component {
 }
 
 export default PostCategoryTemplate
+
+export const Head = head({
+  getLanguageId: ({ pageContext }) => pageContext.languageId,
+  getSubtitle: ({ pageContext }) => pageContext.categoryLabel,
+})
 
 export const pageQuery = graphql`
   query PostCategoryTemplateQuery($categoryId: String) {
