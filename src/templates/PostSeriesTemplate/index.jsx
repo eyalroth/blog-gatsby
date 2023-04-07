@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import PostList from '../../components/PostList'
 import CategoryMenu from '../../components/CategoryMenu'
 import './style.scss'
+import head from '../../components/Head'
 
 class PostSeriesTemplate extends React.Component {
     render() {
@@ -17,43 +18,42 @@ class PostSeriesTemplate extends React.Component {
       )
 
       return (
-        <PostList languageId={languageId} subtitle={seriesName} data={this.props.data}>
+        <PostList languageId={languageId} data={this.props.data}>
           <CategoryMenu categoryId={category}/>
           {title}
         </PostList>
       )
     }
 }
-  
+
 export default PostSeriesTemplate
+
+export const Head = head({
+  getLanguageId: ({ data }) => data.allMarkdownRemark.edges[0].node.frontmatter.language,
+  getSubtitle: ({ pageContext }) => pageContext.seriesName,
+})
 
 export const pageQuery = graphql`
   query PostSeriesTemplateQuery($seriesPath: String) {
-      allMarkdownRemark(
-          filter: { frontmatter: { 
-              demo: { ne: true }
-              series: { path: { eq: $seriesPath }}
-          }}
-          sort: { order: ASC, fields: [frontmatter___series___order] }
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-              readingTime {
-                text
-                minutes
-              }
-            }
-            frontmatter {
-              title
-              date
-              tags
-              language
-              category
-            }
+    allMarkdownRemark(
+      filter: {frontmatter: {demo: {ne: true}, series: {path: {eq: $seriesPath}}}}
+      sort: {frontmatter: {series: {order: ASC}}}
+    ) {
+      edges {
+        node {
+          rawMarkdownBody
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            date
+            tags
+            language
+            category
           }
         }
       }
+    }
   }
 `

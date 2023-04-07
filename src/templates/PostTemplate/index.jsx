@@ -4,7 +4,6 @@ import moment from 'moment'
 import 'moment/locale/he'
 import Utterances from '../../components/Utterances'
 import Page from '../../components/Page'
-import { Languages } from '../../consts/languages'
 import { SidebarLinks } from '../../consts/menuLinks'
 import CategoryMenu from '../../components/CategoryMenu'
 import SharePanel from '../../components/SharePanel'
@@ -12,57 +11,44 @@ import MobileShareButton from '../../components/MobileShareButton'
 import PostSeriesBox from '../../components/PostSeriesBox'
 import Context from '../../components/Context'
 import './style.scss'
+import head from '../../components/Head'
+import { parseReadingTimeText } from '../../utils/readtimeTime'
 
 class PostTemplate extends React.Component {
   render() {
     const { utterances } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
     const { category, title, tags, series, language: languageId } = post.frontmatter
-    const readingTime = post.fields.readingTime
     const url = this.props.location.href
     const language = this.context.page.language.get()
-
-    let featuredImage = post.frontmatter.featuredImage
+    const readingTimeText = parseReadingTimeText(this.props.data.markdownRemark.rawMarkdownBody, language)
 
     const categoryMenu = (
-      <CategoryMenu categoryId={category}/>
+      <CategoryMenu categoryId={category} />
     )
 
     const titleBlock = (
-      <h1 className="post-single__title">{post.frontmatter.title}</h1>
+      <h1 className='post-single__title'>{post.frontmatter.title}</h1>
     )
 
     const dateBlock = (
-      <span className="post-single__date">
+      <span className='post-single__date'>
           {moment(post.frontmatter.date).locale(language.locale).format('MMMM D, YYYY')}
       </span>
     )
-    
+
     const readTimeBlock = (
-      <span className="post-single__reading-time">
-        {(function(lang) {
-          // eslint-disable-next-line
-          switch(lang) {
-              case Languages.English:
-                  return readingTime.text
-              case Languages.Hebrew:
-                const minutes = Math.round(readingTime.minutes)
-                if (minutes < 2) {
-                  return "דקת קריאה אחת"
-                } else {
-                  return `${minutes} דקות קריאה`
-                }
-          }
-        })(language)}
+      <span className='post-single__reading-time'>
+        {readingTimeText}
       </span>
     )
-    
+
     const tagsBlock = (
-      <div className="post-single__tags">
-        <ul className="post-single__tags-list">
+      <div className='post-single__tags'>
+        <ul className='post-single__tags-list'>
           {tags &&
             tags.map(tag => (
-              <li className="post-single__tags-list-item" key={tag}>
+              <li className='post-single__tags-list-item' key={tag}>
                 {tag}
               </li>
             ))}
@@ -71,19 +57,19 @@ class PostTemplate extends React.Component {
     )
 
     const sharePanel = (
-      <div className="post-single__share-panel">
-        <SharePanel url={url}/>
+      <div className='post-single__share-panel'>
+        <SharePanel url={url} />
       </div>
     )
 
     const header = (
-      <div className="post-single__header">
+      <div className='post-single__header'>
         {titleBlock}
-        <div className="post-single__subtitle">
+        <div className='post-single__subtitle'>
           {dateBlock}
-          <span id="subtitle-div">&#183;</span>
+          <span id='subtitle-div'>&#183;</span>
           {readTimeBlock}
-          <div className="post-single__header-bottom">
+          <div className='post-single__header-bottom'>
             {tagsBlock}
             {sharePanel}
           </div>
@@ -93,22 +79,22 @@ class PostTemplate extends React.Component {
 
     const body = (
       <div
-        className="post-single__body"
+        className='post-single__body'
         /* eslint-disable-next-line react/no-danger */
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
     )
 
-    const mobileShare = <MobileShareButton url={url}/>
+    const mobileShare = <MobileShareButton url={url} />
 
-    const seriesBox = <PostSeriesBox series={series}/>
+    const seriesBox = <PostSeriesBox series={series} />
 
     const commentsBlock = (
-        <Utterances repo={utterances} />
+      <Utterances repo={utterances} />
     )
 
     const footer = (
-      <div className="post-single__footer">
+      <div className='post-single__footer'>
         {commentsBlock}
       </div>
     )
@@ -116,11 +102,9 @@ class PostTemplate extends React.Component {
     return (
       <Page
         languageId={languageId}
-        subtitle={title}
         sidebarLinkId={SidebarLinks[languageId].Blog.id}
-        featuredImage={featuredImage}
       >
-        <div className="post-single">
+        <div className='post-single'>
           {categoryMenu}
           {header}
           {mobileShare}
@@ -138,6 +122,13 @@ PostTemplate.contextType = Context
 
 export default PostTemplate
 
+export const Head = head({
+  getLanguageId: ({ data }) => data.markdownRemark.frontmatter.language,
+  getSubtitle: ({ data }) => data.markdownRemark.frontmatter.title,
+  getDescription: ({ data }) => data.markdownRemark.frontmatter.description,
+  getFeaturedImage: ({ data }) => data.markdownRemark.frontmatter.featuredImage,
+})
+
 export const pageQuery = graphql`
   query PostBySlug($slug: String!) {
     site {
@@ -148,12 +139,9 @@ export const pageQuery = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
+      rawMarkdownBody
       fields {
         slug
-        readingTime {
-          text
-          minutes
-        }
       }
       frontmatter {
         category
@@ -168,9 +156,7 @@ export const pageQuery = graphql`
         language
         featuredImage {
           childImageSharp {
-            fluid(quality: 100) {
-              src
-            }
+            gatsbyImageData(quality: 100)
           }
         }
       }

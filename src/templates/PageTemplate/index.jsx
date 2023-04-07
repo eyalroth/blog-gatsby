@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Page from '../../components/Page'
 import './style.scss'
+import head from '../../components/Head'
 
 class PageTemplate extends React.Component {
   render() {
@@ -23,6 +24,11 @@ class PageTemplate extends React.Component {
 }
 
 export default PageTemplate
+
+export const Head = head({
+  getLanguageId: ({ data }) => data.markdownRemark.frontmatter.language,
+  getSubtitle: ({ data }) => data.markdownRemark.frontmatter.title,
+})
 
 export const pageQuery = graphql`
   query PageBySlug($slug: String!) {

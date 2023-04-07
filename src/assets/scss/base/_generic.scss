@@ -1,4 +1,4 @@
-/** 
+/**
  * Generic
  */
 
@@ -148,18 +148,5 @@ figcaption {
     }
     .float-left {
         float: left;
-    }
-
-    &::-webkit-scrollbar {
-        width: 5px;
-        &-track {
-            background: #f1f1f1; 
-        }
-        &-thumb {
-            background: #888; 
-            &:hover {
-                background: #555; 
-            }
-        }
     }
 }

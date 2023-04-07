@@ -1,5 +1,5 @@
 import React from 'react'
-import scssBreakpoints from '../../assets/scss/_variables.scss'
+import * as scssBreakpoints from '../../assets/scss/_export.module.scss'
 
 const Breakpoints = Object.values(scssBreakpoints).map(bp => parseInt(bp)).reverse()
 

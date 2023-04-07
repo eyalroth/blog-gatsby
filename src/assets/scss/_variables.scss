@@ -1,4 +1,4 @@
-/** 
+/**
  * Variables
  */
 
@@ -108,12 +108,4 @@ $content-width-lg: min(round($max-layout-width * $content-width-pct), $max-conte
 $content-side-padding-lg: round($max-layout-width * 0.1);
 $content-outer-position-lg: $content-side-padding-lg + $content-width-lg;
 $content-gap-lg: $max-layout-width - $content-outer-position-lg;
-$sidebar-side-margin-lg: $content-outer-position-lg + round(($content-gap-lg - $sidebar-width-lg) / 2.5);
-
-:export {
-    xsm: 480px; // small handset (landscape)
-    sm: $layout-breakpoint-sm;
-    md: $layout-breakpoint-md;
-    xmd: $layout-breakpoint-xmd;
-    lg: $layout-breakpoint-lg;
-}
+$sidebar-side-margin-lg: $content-outer-position-lg + round(calc(($content-gap-lg - $sidebar-width-lg) / 2.5));

@@ -1,14 +1,14 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
 const path = require('path')
-const slash = require('slash')
 const moment = require('moment')
 
 const { Languages, findById } = require('./src/consts/languages.jsx')
 const { SidebarLinks, CategoryLinks, seriesLink } = require('./src/consts/menuLinks.jsx')
 const { Feeds } = require('./src/consts/rss.jsx')
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
+  const { default: slash } = await import('slash')
   const { createPage, createRedirect } = actions
 
   const redirects = new Promise((resolve, reject) => {
@@ -29,13 +29,13 @@ exports.createPages = ({ graphql, actions }) => {
       toPath: `/${Languages.English.urlPart}/about`,
       redirectInBrowser: true,
     })
-  
+
     createRedirect({
       fromPath: '/rss.xml',
       toPath: Feeds[Languages.English.id].outputPath,
       redirectInBrowser: true,
     })
-  
+
     resolve()
   })
 
@@ -50,7 +50,7 @@ exports.createPages = ({ graphql, actions }) => {
           context: {
             languageId,
             categoryId: categoryLink.id,
-            categoryLabel: categoryLink.label
+            categoryLabel: categoryLink.label,
           },
         })
       })
@@ -133,14 +133,15 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(`
       {
         allMarkdownRemark(
-          filter: { frontmatter: { layout: { eq: "post" }, demo: { ne: true } } }
+          filter: {frontmatter: {layout: {eq: "post"}, demo: {ne: true}}}
         ) {
-          group(field: frontmatter___series___path) {
+          group(field: {frontmatter: {series: {path: SELECT}}}) {
             edges {
               node {
                 frontmatter {
                   language
                   series {
+                    name
                     path
                   }
                 }
@@ -158,6 +159,7 @@ exports.createPages = ({ graphql, actions }) => {
       const seriesItems = _.map(result.data.allMarkdownRemark.group, group => {
         const { series, language: languageId } = group.edges[0].node.frontmatter
         return {
+          name: series.name,
           path: series.path,
           language: findById(languageId),
         }
@@ -167,7 +169,7 @@ exports.createPages = ({ graphql, actions }) => {
         createPage({
           path: seriesLink(series.path, series.language),
           component: template,
-          context: { 
+          context: {
             seriesName: series.name,
             seriesPath: series.path,
           },
@@ -186,8 +188,8 @@ exports.onCreateNode = ({ node, actions }) => {
   if (node.internal.type === 'MarkdownRemark') {
     let slug = node.frontmatter.path
 
-    if (node.frontmatter.layout == 'post') {
-      const postDate = moment(node.frontmatter.date) 
+    if (node.frontmatter.layout === 'post') {
+      const postDate = moment(node.frontmatter.date)
       const postYear = postDate.format('YYYY')
       const postMonth = postDate.format('MM')
       slug = `/blog/${postYear}/${postMonth}/${slug}/`
@@ -205,4 +207,15 @@ exports.onCreateNode = ({ node, actions }) => {
 
 exports.onCreatePage = ({ page }) => {
   page.context.staticPage = true
+}
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      fallback: {
+        stream: require.resolve('stream-browserify'),
+        util: require.resolve('util/'),
+      },
+    },
+  })
 }
