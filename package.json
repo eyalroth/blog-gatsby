@@ -6,6 +6,9 @@
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
+    "build:local": "URL=http://localhost:8001 GOOGLE_ANALYTICS=y UTTERANCES_REPO=z npm run build",
+    "serve": "gatsby serve",
+    "serve:local": "URL=http://localhost:8001 GOOGLE_ANALYTICS=y UTTERANCES_REPO=z npm run serve -- -H localhost -p 8001",
     "clean:public": "rm -rf public",
     "clean": "npm run clean:public",
     "lint": "eslint . --max-warnings=0",
