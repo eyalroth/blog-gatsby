@@ -23,7 +23,7 @@ function rssQuery(languageId) {
   return `
     {
       allMarkdownRemark(
-        filter: {frontmatter: {language: {eq: "english"}}}
+        filter: {frontmatter: {language: {eq: "${languageId}"}}}
         sort: {frontmatter: {date: DESC}}
       ) {
         edges {
@@ -95,7 +95,6 @@ module.exports = {
             }
           }
         `,
-        // TODO fix
         feeds: Object.values(Feeds).map(feed => (
           {
             output: feed.outputPath,
@@ -104,7 +103,16 @@ module.exports = {
             language: feed.languageShort,
             'site_url': `${process.env.URL}${feed.homePath}`,
             serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return []
+              return allMarkdownRemark.edges.map(edge => {
+                const node = edge.node
+                return Object.assign({}, node.frontmatter, {
+                  description: node.excerpt,
+                  date: node.frontmatter.date,
+                  url: site.siteMetadata.siteUrl + node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + node.fields.slug,
+                  custom_elements: [{ "content:encoded": node.html }],
+                })
+              })
             },
           }
         )),
