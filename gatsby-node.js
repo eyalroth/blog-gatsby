@@ -50,7 +50,7 @@ exports.createPages = async ({ graphql, actions }) => {
           context: {
             languageId,
             categoryId: categoryLink.id,
-            categoryLabel: categoryLink.label
+            categoryLabel: categoryLink.label,
           },
         })
       })
@@ -207,4 +207,15 @@ exports.onCreateNode = ({ node, actions }) => {
 
 exports.onCreatePage = ({ page }) => {
   page.context.staticPage = true
+}
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      fallback: {
+        stream: require.resolve('stream-browserify'),
+        util: require.resolve('util/'),
+      },
+    },
+  })
 }

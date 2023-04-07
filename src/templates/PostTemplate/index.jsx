@@ -4,7 +4,6 @@ import moment from 'moment'
 import 'moment/locale/he'
 import Utterances from '../../components/Utterances'
 import Page from '../../components/Page'
-import { Languages } from '../../consts/languages'
 import { SidebarLinks } from '../../consts/menuLinks'
 import CategoryMenu from '../../components/CategoryMenu'
 import SharePanel from '../../components/SharePanel'
@@ -13,6 +12,7 @@ import PostSeriesBox from '../../components/PostSeriesBox'
 import Context from '../../components/Context'
 import './style.scss'
 import head from '../../components/Head'
+import { parseReadingTimeText } from '../../utils/readtimeTime'
 
 class PostTemplate extends React.Component {
   render() {
@@ -21,6 +21,7 @@ class PostTemplate extends React.Component {
     const { category, title, tags, series, language: languageId } = post.frontmatter
     const url = this.props.location.href
     const language = this.context.page.language.get()
+    const readingTimeText = parseReadingTimeText(this.props.data.markdownRemark.rawMarkdownBody, language)
 
     const categoryMenu = (
       <CategoryMenu categoryId={category} />
@@ -38,22 +39,7 @@ class PostTemplate extends React.Component {
 
     const readTimeBlock = (
       <span className='post-single__reading-time'>
-        {(function(lang) {
-          // eslint-disable-next-line
-          switch (lang) {
-            case Languages.English:
-              // TODO fix reading time
-              return 'reading time'
-            case Languages.Hebrew:
-              // TODO fix reading time
-              const minutes = Math.round(1)
-              if (minutes < 2) {
-                return 'דקת קריאה אחת'
-              } else {
-                return `${minutes} דקות קריאה`
-              }
-          }
-        })(language)}
+        {readingTimeText}
       </span>
     )
 
@@ -153,6 +139,7 @@ export const pageQuery = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
+      rawMarkdownBody
       fields {
         slug
       }

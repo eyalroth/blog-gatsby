@@ -3,32 +3,17 @@ import { Link } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
 import Context from '../../components/Context'
-import { Languages } from '../../consts/languages'
 import './style.scss'
+import { parseReadingTimeText } from '../../utils/readtimeTime'
 
 class PostListItem extends React.Component {
   render() {
     const { showYear } = this.props
-    const { title, date, tags, } = this.props.data.node.frontmatter
+    const { title, date, tags } = this.props.data.node.frontmatter
     const { slug } = this.props.data.node.fields
     const language = this.context.page.language.get()
+    const readingTimeText = parseReadingTimeText(this.props.data.node.rawMarkdownBody, language)
 
-    const readingTimeText = (function(lang) {
-      // eslint-disable-next-line
-      switch(lang) {
-          case Languages.English:
-              // TODO fix reading time
-              return 'reading time'
-          case Languages.Hebrew:
-            // TODO fix reading time
-            const minutes = Math.round(1)
-            if (minutes < 2) {
-              return "דקת קריאה אחת"
-            } else {
-              return `${minutes} דקות קריאה`
-            }
-      }
-    })(language)
 
     const itemDate = moment(date).locale(language.locale)
 

@@ -32,6 +32,7 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
+          rawMarkdownBody
           fields {
             slug
           }
