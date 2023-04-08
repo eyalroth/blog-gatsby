@@ -1,42 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import pickBy from 'lodash/pickBy'
-import { StaticQuery, graphql } from 'gatsby'
-import Context from '../Context'
+import { graphql, useStaticQuery } from 'gatsby'
 import NavMenu from '../NavMenu'
 import { CategoryLinks } from '../../consts/menuLinks'
 import './style.scss'
+import Context from '../Context'
 
-class CategoryMenu extends React.Component {
-  render() {
-    return (
-      <StaticQuery
-          query={categoryMenuQuery}
-          render={data => this.renderWithQueryData(data)}
-      />
-    )
-  }
+export default function CategoryMenu(props) {
+  const context = useContext(Context)
+  const data = useStaticQuery(categoryMenuQuery)
 
-  renderWithQueryData(data) {
-    const { categoryId } = this.props
-    const languageId = this.context.layout.language.get().id
-    
-    const demoMode = data.site.siteMetadata.demo
+  const { categoryId } = props
+  const languageId = context.layout.language.get().id
 
-    const links = pickBy(CategoryLinks[languageId], (link, id) => link.demoType.matchDemoMode(demoMode))
+  const demoMode = data.site.siteMetadata.demo
 
-    return (
-      <NavMenu
-          linkDescriptions={links}
-          classNamePrefix="category-menu"
-          currentLinkId={categoryId}
-      />
-    )
-  }
+  const links = pickBy(CategoryLinks[languageId], (link, id) => link.demoType.matchDemoMode(demoMode))
+
+  return (
+    <NavMenu
+      linkDescriptions={links}
+      classNamePrefix='category-menu'
+      currentLinkId={categoryId}
+    />
+  )
 }
 
-CategoryMenu.contextType = Context
-  
-export default CategoryMenu
 
 const categoryMenuQuery = graphql`
   query CategoryMenuQuery {
