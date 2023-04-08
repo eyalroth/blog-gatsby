@@ -1,4 +1,5 @@
 import React from 'react'
+import littlefoot from 'littlefoot'
 import './style.scss'
 
 class Littlefoot extends React.Component {
@@ -13,7 +14,7 @@ class Littlefoot extends React.Component {
                 aria-controls="fncontent:<%= id %>"
                 aria-expanded="false"
                 aria-label="Footnote <%= number %>"
-                class="littlefoot-footnote__button"
+                class="littlefoot__button"
                 id="<%= reference %>"
                 rel="footnote"
                 title="See Footnote <%= number %>"
@@ -21,7 +22,6 @@ class Littlefoot extends React.Component {
                 <%= number %>
             </button>
         `
-        const littlefoot = require('littlefoot').default
         littlefoot({buttonTemplate: bt})
     }
 }
