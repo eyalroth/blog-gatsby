@@ -4,18 +4,21 @@ import moment from 'moment'
 import 'moment/locale/he'
 import Context from '../../components/Context'
 import './style.scss'
+import { parseReadingTimeText } from '../../utils/readtimeTime'
 
 class PostListItem extends React.Component {
   render() {
     const { showYear } = this.props
-    const { title, date, tags, } = this.props.data.node.frontmatter
-    const { slug, readingTime } = this.props.data.node.fields
+    const { title, date, tags } = this.props.data.node.frontmatter
+    const { slug } = this.props.data.node.fields
     const language = this.context.layout.language.get()
-    
+    const readingTimeText = parseReadingTimeText(this.props.data.node.rawMarkdownBody, language)
+
+
     const itemDate = moment(date).locale(language.locale)
 
     const time = (
-      <time 
+      <time
         className="post-item__time"
         dateTime={itemDate.format('MM DD, YYYY')}
         pubdate=""
@@ -41,13 +44,13 @@ class PostListItem extends React.Component {
 
     const readingTimeMobile =(
       <span className="post-item__details-meta-reading-time mobile">
-        {readingTime.text}
+        {readingTimeText}
       </span>
     )
 
     const readingTimeNonMobile = (
       <li className="post-item__details-meta-reading-time nonmobile" key="readingTime">
-        {readingTime.text}
+        {readingTimeText}
       </li>
     )
 

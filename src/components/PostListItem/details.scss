@@ -26,28 +26,28 @@
 
             &-reading-time {
                 @include text-medium;
-        
+
                 &.mobile {
                     position: absolute;
                     margin-top: 1.5rem;
                     @include font-size(0.8);
-        
+
                     @include ltr {
-                        right: (100vw - $content-width-base) / 2;
+                        right: calc((100vw - $content-width-base) / 2);
                     }
                     @include rtl {
-                        left: (100vw - $content-width-base) / 2;
+                        left: calc((100vw - $content-width-base) / 2);
                     }
                 }
                 &.nonmobile {
                     display: none;
                 }
             }
-            
+
             &-tags-divider {
                 display: none;
             }
-            
+
             &-tags-item:not(:last-child)::after {
                 content: " \00B7";
                 @include ltr {
@@ -68,7 +68,7 @@
         &__details {
             padding-top: 1rem;
             padding-bottom: 0.2rem;
-            
+
             &-title {
                 margin-bottom: 0.2rem;
                 @include font-size(1.3);

@@ -1,18 +1,15 @@
 const grayMatter = require(`gray-matter`)
 const _ = require(`lodash`)
 
-const { localLinksStore } = require('./store')
 const { formatSlug } = require('../../slug.js')
-
-const cacheKey = 'local-link-to-slug'
 
 // pretty much copied from gatsby-transformer-remark/src/on-node-create.js
 exports.onCreateNode = async function onCreateNode(
   {
     node,
     loadNodeContent,
-    cache,
     reporter,
+    actions,
   }
 ) {
 
@@ -37,12 +34,10 @@ exports.onCreateNode = async function onCreateNode(
 
     const { language, path } = frontmatter
     const slug = formatSlug(frontmatter)
-
     const localLink = `${language}/${path}`.replace('//', '/')
 
-    const cacheStore = await cache.get(cacheKey) || {}
-    cacheStore[localLink] = slug
-    await cache.set(cacheKey, cacheStore)
+    actions.createNodeField({ node, name: 'localLink', value: localLink })
+    actions.createNodeField({ node, name: 'slug', value: slug })
   } catch (err) {
     reporter.panicOnBuild(
       `Error processing Markdown ${
@@ -52,16 +47,5 @@ exports.onCreateNode = async function onCreateNode(
     )
 
     return {} // eslint
-  }
-}
-
-exports.onPostBootstrap = async function onCreateNode(
-  {
-    cache,
-  }
-) {
-  const cacheStore = await cache.get(cacheKey) || {}
-  for (let [localLink, slug] of Object.entries(cacheStore)) {
-    localLinksStore[localLink] = slug
   }
 }

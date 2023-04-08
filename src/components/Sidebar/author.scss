@@ -14,13 +14,13 @@
             justify-content: center;
 
             position: absolute;
-            top: ($topbar-height - $img-size-base) / 2 - 1;
+            top: calc(($topbar-height - $img-size-base) / 2) - 1;
             left: calc(46vw - #{$img-size-base} - 20px);
 
             @include enabled {
-                @include theme-transition("
-                    opacity #{$transition-timing} ease-in,
-                ");
+                @include theme-transition(' \
+                    opacity #{$transition-timing} ease-in, \
+                ');
                 opacity: 1;
             }
             @include disabled {
@@ -46,9 +46,9 @@
             @include text-normal;
 
             @include enabled {
-                @include theme-transition("
-                    opacity #{$transition-timing} ease-in
-                ");
+                @include theme-transition(' \
+                    opacity #{$transition-timing} ease-in \
+                ');
                 opacity: 1;
             }
             @include disabled {

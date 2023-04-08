@@ -2,6 +2,7 @@ const _ = require('lodash')
 const path = require('path')
 
 const { SidebarLinks, CategoryLinks } = require('../../consts/menuLinks')
+const headContext  = require('../../components/Head/headContext')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
@@ -29,8 +30,11 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
             context: {
               languageId,
               categoryId: categoryLink.id,
-              categoryLabel: categoryLink.label,
               sidebarLinkId: SidebarLinks[languageId].Blog.id,
+              ...headContext({
+                languageId,
+                subtitle: categoryLink.label,
+              })
             },
           })
         }

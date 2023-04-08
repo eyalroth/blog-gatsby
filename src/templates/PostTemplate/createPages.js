@@ -3,6 +3,7 @@ const path = require('path')
 
 const { SidebarLinks } = require('../../consts/menuLinks')
 const { parseDemoType } = require('../../consts/demo')
+const headContext  = require('../../components/Head/headContext')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
@@ -22,9 +23,16 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
               slug
             }
             frontmatter {
+              title
+              description
               demo
               language
               category
+              featuredImage {
+                childImageSharp {
+                  gatsbyImageData(quality: 100)
+                }
+              }
             }
           }
         }
@@ -40,18 +48,31 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
 
     _.each(result.data.allMarkdownRemark.edges, edge => {
       const { slug } = edge.node.fields
-      const { demo, language: languageId , category: categoryId } = edge.node.frontmatter
+      const {
+        demo,
+        language: languageId,
+        category: categoryId,
+        title,
+        description,
+        featuredImage,
+      } = edge.node.frontmatter
       const sidebarLinkId = SidebarLinks[languageId].Blog.id
 
       if (parseDemoType(demo).matchDemoMode(demoMode)) {
         createPage({
           path: slug,
           component: path.join(__dirname, 'index.jsx'),
-          context: { 
+          context: {
             slug,
             languageId,
             categoryId,
             sidebarLinkId,
+            ...headContext({
+              languageId,
+              subtitle: title,
+              description,
+              featuredImage,
+            }),
           },
         })
       }

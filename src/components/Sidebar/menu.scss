@@ -28,7 +28,7 @@
             transition:
                 width #{$transition-timing} ease-out,
                 opacity #{$transition-timing} cubic-bezier(0,0,1,0),
-            ; 
+            ;
             opacity: 1;
         }
         @include disabled {
@@ -89,10 +89,10 @@
                 background-color: $color-dark-text;
             }
 
-            @include theme-transition("
-                left #{$transition-timing} ease-out,
-                right #{$transition-timing} ease-out,
-            ");
+            @include theme-transition('\
+                left #{$transition-timing} ease-out, \
+                right #{$transition-timing} ease-out, \
+            ');
         }
 
         &-button {
@@ -141,7 +141,7 @@
                     width: unset;
                 }
             }
-    
+
             &.hidden {
                 display: none;
             }
@@ -159,7 +159,7 @@
                     padding-bottom: unset;
                     &-link {
                         @include font-size(0.9);
-                        text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
+                        text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
                         &:hover,
                         &:focus {
                             @include text-normal;

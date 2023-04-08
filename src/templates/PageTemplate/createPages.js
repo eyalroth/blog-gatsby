@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const path = require('path')
 const { parseDemoType } = require('../../consts/demo')
+const headContext  = require('../../components/Head/headContext')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
@@ -23,6 +24,7 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
               demo
               language
               sidebarLinkId
+              title
             }
           }
         }
@@ -38,15 +40,19 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
 
     _.each(result.data.allMarkdownRemark.edges, edge => {
       const { slug } = edge.node.fields
-      const { demo, language: languageId, sidebarLinkId } = edge.node.frontmatter
+      const { demo, language: languageId, sidebarLinkId, title } = edge.node.frontmatter
       if (parseDemoType(demo).matchDemoMode(demoMode)) {
         createPage({
           path: slug,
           component: path.join(__dirname, 'index.jsx'),
-          context: { 
+          context: {
             slug,
             languageId,
             sidebarLinkId,
+            ...headContext({
+              languageId,
+              subtitle: title
+            })
           },
         })
       }

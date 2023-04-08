@@ -1,6 +1,8 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
 const readingTime = require("reading-time")
+const path = require('path')
+const moment = require('moment')
 
 const { Languages, findById } = require('./src/consts/languages')
 const { SiteLinks } = require('./src/consts/menuLinks')
@@ -13,7 +15,8 @@ const createPageTemplate = require('./src/templates/PageTemplate/createPages')
 const createPostTemplate = require('./src/templates/PostTemplate/createPages')
 const createSeriesTemplate = require('./src/templates/PostSeriesTemplate/createPages')
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
+  const { default: slash } = await import('slash')
   const { createPage, createRedirect } = actions
 
   const redirects = new Promise((resolve, reject) => {
@@ -39,18 +42,20 @@ exports.createPages = ({ graphql, actions }) => {
       toPath: `/${Languages.English.urlPart}/about`,
       redirectInBrowser: true,
     })
+
+
     createRedirect({
       fromPath: '/about/',
       toPath: `/${Languages.English.urlPart}/about`,
       redirectInBrowser: true,
     })
-  
+
     createRedirect({
       fromPath: '/rss.xml',
       toPath: Feeds[Languages.English.id].outputPath,
       redirectInBrowser: true,
     })
-  
+
     resolve()
   })
 
@@ -95,4 +100,15 @@ exports.onCreateNode = ({ node, actions }) => {
 
 exports.onCreatePage = ({ page }) => {
   page.context.isStaticPage = true
+}
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      fallback: {
+        stream: require.resolve('stream-browserify'),
+        util: require.resolve('util/'),
+      },
+    },
+  })
 }

@@ -4,6 +4,7 @@ const path = require('path')
 const { findById } = require('../../consts/languages')
 const { SidebarLinks, seriesLink } = require('../../consts/menuLinks')
 const { parseDemoType } = require('../../consts/demo')
+const headContext  = require('../../components/Head/headContext')
 
 module.exports = (graphql, createPage) => (resolve, reject) => {
   graphql(`
@@ -13,10 +14,8 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
           demo
         }
       }
-      allMarkdownRemark(
-        filter: { frontmatter: { layout: { eq: "post" } } }
-      ) {
-        group(field: frontmatter___series___path) {
+      allMarkdownRemark(filter: {frontmatter: {layout: {eq: "post"}}}) {
+        group(field: {frontmatter: {series: {path: SELECT}}}) {
           edges {
             node {
               frontmatter {
@@ -56,12 +55,16 @@ module.exports = (graphql, createPage) => (resolve, reject) => {
         createPage({
           path: seriesLink(series.path, findById(series.languageId)),
           component: path.join(__dirname, 'index.jsx'),
-          context: { 
+          context: {
             seriesName: series.name,
             seriesPath: series.path,
             languageId: series.languageId,
             categoryId: series.categoryId,
             sidebarLinkId: SidebarLinks[series.languageId].Blog.id,
+            ...headContext({
+              languageId: series.languageId,
+              subtitle: series.name
+            })
           },
         })
       }
