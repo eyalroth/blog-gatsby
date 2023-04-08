@@ -1,8 +1,10 @@
-import React, { useContext, useState } from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import React, { useContext, useEffect, useRef } from 'react'
+import { graphql, navigate, useStaticQuery } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import Context from '../Context'
 import { Author } from '../../consts/author'
+import { SiteLinks } from '../../consts/menuLinks'
+import { useRefState } from '../../utils/useRefState'
 
 export const squareImage = graphql`
   fragment squareImage on File {
@@ -15,12 +17,13 @@ export const squareImage = graphql`
 function ProfileImg(props) {
   const { className } = props
 
-  const [backWidth, setBackWith] = useState(0)
-  const [isMouseUp, setMouseToggle] = useState(true)
+  const [getBackWidth, setBackWidth] = useRefState(0)
+  const [getMouseToggle, setMouseToggle] = useRefState(true)
 
   const context = useContext(Context)
   const { language } = context.layout
-  const authorName = Author.name[language.get().id]
+  const languageId = language.get().id
+  const authorName = Author.name[languageId]
 
   const data = useStaticQuery(graphql`
                 query ProfileImgQuery {
@@ -34,6 +37,63 @@ function ProfileImg(props) {
                 }
             `)
 
+  const moveElementRef = useRef()
+  const mouseUpElementRef = useRef()
+
+  useEffect(() => {
+    const element = moveElementRef?.current
+    if (!element) {
+      return
+    }
+
+    element.addEventListener('mousemove', mouseMove)
+    element.addEventListener('touchmove', touchMove, { passive: true })
+    element.addEventListener('mouseup', setMouseUp)
+    element.addEventListener('mousedown', setMouseDown)
+    element.addEventListener('click', mouseClick)
+
+    return () => {
+      element.removeEventListener('mousemove', mouseMove)
+      element.removeEventListener('touchmove', touchMove, { passive: true })
+      element.removeEventListener('mouseup', setMouseUp)
+      element.removeEventListener('mousedown', setMouseDown)
+      element.removeEventListener('click', mouseClick)
+    }
+  }, [])
+
+  useEffect(() => {
+    const element = mouseUpElementRef?.current
+    if (!element) {
+      return
+    }
+
+    element.addEventListener('mouseup', setMouseUp)
+
+    return () => {
+      element.removeEventListener('mouseup', setMouseUp)
+    }
+  }, [])
+
+  function mouseMove(event) {
+    if (!getMouseToggle()) {
+      updateBackWidth(event.clientX)
+    }
+  }
+
+  function touchMove(event) {
+    updateBackWidth(event.changedTouches[0].clientX)
+  }
+
+  function updateBackWidth(x) {
+    const container = mouseUpElementRef.current.parentElement
+    const { left, width } = container.getBoundingClientRect()
+    const newWidth = Math.min(Math.max(x - left, 0), width)
+
+    if (newWidth !== getBackWidth()) {
+      setBackWidth(newWidth)
+    }
+  }
+
   function setMouseUp(event) {
     toggleMouse(event, true)
   }
@@ -42,60 +102,15 @@ function ProfileImg(props) {
     toggleMouse(event, false)
   }
 
-  function toggleMouse(event, isMouseUp) {
+  function toggleMouse(event, mouseToggle) {
     const isLeftClick = event.which === 1
     if (isLeftClick) {
-      setMouseToggle(isMouseUp)
+      setMouseToggle(mouseToggle)
     }
   }
 
-  function setupMove(div, eventType, extractCoordinates, params = {}) {
-    if (div) {
-      const controller = new AbortController()
-      div.addEventListener(eventType, (event) => {
-        const container = div.parentElement
-        const { x } = extractCoordinates(event)
-        const { left, width } = container.getBoundingClientRect()
-        const newWidth = Math.min(Math.max(x - left, 0), width)
-        if (newWidth !== backWidth) {
-          controller.abort()
-          setBackWith(newWidth)
-        }
-      }, { signal: controller.signal, ...params })
-    }
-  }
-
-  function addToggleMouseListener(target, type, listener) {
-    target.removeEventListener(type, listener)
-    target.addEventListener(type, listener)
-  }
-
-  function setupMouseUp(div) {
-    if (div && !isMouseUp) {
-      addToggleMouseListener(div, 'mouseup', setMouseUp)
-    }
-  }
-
-  function setupMouseMove(div) {
-    if (div) {
-      const toggleEvent = isMouseUp ? 'mousedown' : 'mouseup'
-      const toggleAction = isMouseUp ? setMouseDown : setMouseUp
-      addToggleMouseListener(div, toggleEvent, toggleAction)
-    }
-
-    if (!isMouseUp) {
-      setupMove(div, 'mousemove', (event) => {
-        const { clientX: x, clientY: y } = event
-        return { x, y }
-      })
-    }
-  }
-
-  function setupTouchMove(div) {
-    setupMove(div, 'touchmove', (event) => {
-      const { clientX: x, clientY: y } = event.changedTouches[0]
-      return { x, y }
-    }, { passive: true })
+  async function mouseClick(event) {
+    await navigate(SiteLinks[languageId].Home.path)
   }
 
   return <>
@@ -108,19 +123,19 @@ function ProfileImg(props) {
         }}
       >
         <div
-          ref={setupMouseMove}
-          className='profile-img-mousemove'
+          ref={moveElementRef}
+          className='profile-img-pointermove'
           style={{
             width: '130%',
             height: '100%',
             left: '-15%',
             position: 'absolute',
             background: 'transparent',
-            zIndex: 2,
+            zIndex: 1,
           }}
         />
         <div
-          ref={setupMouseUp}
+          ref={mouseUpElementRef}
           className='profile-img-mouseup'
           style={{
             position: 'fixed',
@@ -131,19 +146,7 @@ function ProfileImg(props) {
             top: 0,
             left: 0,
             background: 'transparent',
-            display: isMouseUp ? 'none' : 'inherit',
-          }}
-        />
-        <div
-          ref={setupTouchMove}
-          className='profile-img-touchmove'
-          style={{
-            width: '130%',
-            height: '100%',
-            left: '-15%',
-            position: 'absolute',
-            background: 'transparent',
-            zIndex: 1,
+            display: getMouseToggle() ? 'none' : 'inherit',
           }}
         />
         <GatsbyImage
@@ -151,6 +154,7 @@ function ProfileImg(props) {
           image={data.front.childImageSharp.gatsbyImageData}
           title={authorName}
           alt={authorName}
+          draggable={false}
         />
         <GatsbyImage
           className='profile-img-back'
@@ -159,7 +163,7 @@ function ProfileImg(props) {
           alt={authorName}
           style={{
             position: 'absolute',
-            width: `${backWidth}px`,
+            width: `${getBackWidth()}px`,
             height: '100%',
             top: 0,
             left: 0,
