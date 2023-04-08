@@ -2,7 +2,6 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import moment from 'moment'
 import 'moment/locale/he'
-import LittleFoot from '../../components/Littlefoot'
 import Utterances from '../../components/Utterances'
 import SharePanel from '../../components/SharePanel'
 import MobileShareButton from '../../components/MobileShareButton'
@@ -75,12 +74,10 @@ class PostTemplate extends React.Component {
     )
 
     const body = (
-      <LittleFoot>
-        <div
-          className="post-single__body"
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
-      </LittleFoot>
+      <div
+        className="post-single__body"
+        dangerouslySetInnerHTML={{ __html: post.html }}
+      />
     )
 
     const mobileShare = <MobileShareButton url={url} />
