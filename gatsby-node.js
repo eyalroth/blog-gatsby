@@ -1,8 +1,5 @@
-const _ = require('lodash')
 const Promise = require('bluebird')
 const readingTime = require("reading-time")
-const path = require('path')
-const moment = require('moment')
 
 const { Languages, findById } = require('./src/consts/languages')
 const { SiteLinks } = require('./src/consts/menuLinks')
@@ -16,7 +13,6 @@ const createPostTemplate = require('./src/templates/PostTemplate/createPages')
 const createSeriesTemplate = require('./src/templates/PostSeriesTemplate/createPages')
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { default: slash } = await import('slash')
   const { createPage, createRedirect } = actions
 
   const redirects = new Promise((resolve, reject) => {
