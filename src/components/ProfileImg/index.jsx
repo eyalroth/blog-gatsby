@@ -18,6 +18,7 @@ function ProfileImg(props) {
   const { className } = props
 
   const [getBackWidth, setBackWidth] = useRefState(0)
+  const [getBackWidthUpdated, setBackWidthUpdated] = useRefState(false)
   const [getMouseToggle, setMouseToggle] = useRefState(true)
 
   const context = useContext(Context)
@@ -91,6 +92,7 @@ function ProfileImg(props) {
 
     if (newWidth !== getBackWidth()) {
       setBackWidth(newWidth)
+      setBackWidthUpdated(true)
     }
   }
 
@@ -110,7 +112,10 @@ function ProfileImg(props) {
   }
 
   async function mouseClick(event) {
-    await navigate(SiteLinks[languageId].Home.path)
+    if (!getBackWidthUpdated()) {
+      await navigate(SiteLinks[languageId].Home.path)
+    }
+    setBackWidthUpdated(false)
   }
 
   return <>
