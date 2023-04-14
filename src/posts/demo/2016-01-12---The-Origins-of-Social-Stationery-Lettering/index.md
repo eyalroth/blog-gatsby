@@ -26,14 +26,12 @@ Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aen
 
 Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. 
 
-<figure>
-	<blockquote>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p>
-		<footer>
-			<cite>— Aliquam tincidunt mauris eu risus.</cite>
-		</footer>
-	</blockquote>
-</figure>
+<blockquote>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p>
+    <footer>
+        <cite>— Aliquam tincidunt mauris eu risus.</cite>
+    </footer>
+</blockquote>
 
 ### Header Level 3
 

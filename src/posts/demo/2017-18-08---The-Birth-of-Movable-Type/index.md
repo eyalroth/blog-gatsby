@@ -43,14 +43,12 @@ Until at least 1444 he lived in Strasbourg, most likely in the St. Arbogast pari
 
 By 1450, the press was in operation, and a German poem had been printed, possibly the first item to be printed there. Gutenberg was able to convince the wealthy moneylender Johann Fust for a loan of 800 guilders. Peter Schöffer, who became Fust’s son-in-law, also joined the enterprise. Schöffer had worked as a scribe in Paris and is believed to have designed some of the first typefaces.
 
-<figure>
-	<blockquote>
-		<p>All that has been written to me about that marvelous man seen at Frankfurt is true. I have not seen complete Bibles but only a number of quires of various books of the Bible. The script was very neat and legible, not at all difficult to follow—your grace would be able to read it without effort, and indeed without glasses.</p>
-		<footer>
-			<cite>—Future pope Pius II in a letter to Cardinal Carvajal, March 1455</cite>
-		</footer>
-	</blockquote>
-</figure>
+<blockquote>
+    <p>All that has been written to me about that marvelous man seen at Frankfurt is true. I have not seen complete Bibles but only a number of quires of various books of the Bible. The script was very neat and legible, not at all difficult to follow—your grace would be able to read it without effort, and indeed without glasses.</p>
+    <footer>
+        <cite>—Future pope Pius II in a letter to Cardinal Carvajal, March 1455</cite>
+    </footer>
+</blockquote>
 
 Gutenberg's workshop was set up at Hof Humbrecht, a property belonging to a distant relative. It is not clear when Gutenberg conceived the Bible project, but for this he borrowed another 800 guilders from Fust, and work commenced in 1452. At the same time, the press was also printing other, more lucrative texts (possibly Latin grammars). There is also some speculation that there may have been two presses, one for the pedestrian texts, and one for the Bible. One of the profit-making enterprises of the new press was the printing of thousands of indulgences for the church, documented from 1454–55.
 
@@ -90,14 +88,12 @@ In the standard process of making type, a hard metal punch (made by punchcutting
 
 The invention of the making of types with punch, matrix and mold has been widely attributed to Gutenberg. However, recent evidence suggests that Gutenberg's process was somewhat different. If he used the punch and matrix approach, all his letters should have been nearly identical, with some variations due to miscasting and inking. However, the type used in Gutenberg's earliest work shows other variations.
 
-<figure>
-	<blockquote>
-		<p>It is a press, certainly, but a press from which shall flow in inexhaustible streams… Through it, god will spread his word.</p>
-		<footer>
-			<cite>—Johannes Gutenberg</cite>
-		</footer>
-	</blockquote>
-</figure>
+<blockquote>
+    <p>It is a press, certainly, but a press from which shall flow in inexhaustible streams… Through it, god will spread his word.</p>
+    <footer>
+        <cite>—Johannes Gutenberg</cite>
+    </footer>
+</blockquote>
 
 In 2001, the physicist Blaise Agüera y Arcas and Princeton librarian Paul Needham, used digital scans of a Papal bull in the Scheide Library, Princeton, to carefully compare the same letters (types) appearing in different parts of the printed text. The irregularities in Gutenberg's type, particularly in simple characters such as the hyphen, suggested that the variations could not have come from either ink smear or from wear and damage on the pieces of metal on the types themselves. While some identical types are clearly used on other pages, other variations, subjected to detailed image analysis, suggested that they could not have been produced from the same matrix. Transmitted light pictures of the page also appeared to reveal substructures in the type that could not arise from traditional punchcutting techniques. They hypothesized that the method may have involved impressing simple shapes to create alphabets in “cuneiform” style in a matrix made of some soft material, perhaps sand. Casting the type would destroy the mould, and the matrix would need to be recreated to make each additional sort. This could explain the variations in the type, as well as the substructures observed in the printed images.
 
