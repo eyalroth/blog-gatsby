@@ -1,18 +1,19 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import PostList from '../../components/PostList'
+import createHead from '../../components/Head'
 
 class PostCategoryTemplate extends React.Component {
   render() {
-    const { categoryLabel } = this.props.pageContext
-
     return (
-      <PostList subtitle={categoryLabel} data={this.props.data} />
+      <PostList data={this.props.data} />
     )
   }
 }
-  
+
 export default PostCategoryTemplate
+
+export const Head = createHead()
 
 export const pageQuery = graphql`
   query PostCategoryTemplateQuery($categoryId: String) {
@@ -23,22 +24,14 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       limit: 1000
-      filter: {
-        frontmatter: {
-          category: { eq: $categoryId }
-          layout: { eq: "post" }
-        }
-      }
-      sort: { order: DESC, fields: [frontmatter___date] }
+      filter: {frontmatter: {category: {eq: $categoryId}, layout: {eq: "post"}}}
+      sort: {frontmatter: {date: DESC}}
     ) {
       edges {
         node {
+          rawMarkdownBody
           fields {
             slug
-            readingTime {
-              text
-              minutes
-            }
           }
           frontmatter {
             demo

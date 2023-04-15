@@ -1,6 +1,5 @@
 import React from 'react'
 import moment from 'moment'
-import PageHelmet from '../PageHelmet'
 import PostListItem from '../../components/PostListItem'
 
 import { parseDemoType } from '../../consts/demo'
@@ -35,7 +34,6 @@ class PostList extends React.Component {
 
       return (
         <div className="posts">
-          <PageHelmet subtitle={subtitle}/>
           {children}
           {items}
         </div>

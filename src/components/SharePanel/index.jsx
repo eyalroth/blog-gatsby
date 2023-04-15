@@ -8,12 +8,13 @@ import {
     PocketShareButton,
 } from 'react-share'
 import './style.scss'
+import { hasShareFeature, isMobile } from '../../utils/deviceDetection'
 
 class SharePanel extends React.Component {
     render() {
         const { url } = this.props
 
-        if (typeof navigator !== 'undefined' && navigator.share) {
+        if (isMobile() && hasShareFeature()) {
             return null
         }
 

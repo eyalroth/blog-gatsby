@@ -1,8 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import PageHelmet from '../../components/PageHelmet'
-import LittleFoot from '../../components/Littlefoot'
 import './style.scss'
+import createHead from '../../components/Head'
 
 class PageTemplate extends React.Component {
   render() {
@@ -10,21 +9,20 @@ class PageTemplate extends React.Component {
     const { title } = page.frontmatter
 
     return (
-      <div className="page">
-        <PageHelmet subtitle={title} />
-        <h1 className="page__title">{title}</h1>
-        <LittleFoot>
-          <div 
-            className="page__body"
-            dangerouslySetInnerHTML={{ __html: page.html }}
-          />
-        </LittleFoot>
+      <div className='page'>
+        <h1 className='page__title'>{title}</h1>
+        <div
+          className='page__body'
+          dangerouslySetInnerHTML={{ __html: page.html }}
+        />
       </div>
     )
   }
 }
 
 export default PageTemplate
+
+export const Head = createHead()
 
 export const pageQuery = graphql`
   query PageBySlug($slug: String!) {

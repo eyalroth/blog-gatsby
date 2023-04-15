@@ -16,22 +16,22 @@
         z-index: $base-zindex;
 
         @include enabled {
-            @include theme-transition("
-                width #{$transition-timing} ease-out,
-                opacity #{$transition-timing} cubic-bezier(0,0,1,0),
-            ");
+            @include theme-transition('\
+                width #{$transition-timing} ease-out, \
+                opacity #{$transition-timing} cubic-bezier(0,0,1,0), \
+            ');
             opacity: 1;
             width: 80vw;
         }
         @include disabled {
-            @include theme-transition("
-                width #{$transition-timing} ease-out,
-                opacity #{$transition-timing} / 2 cubic-bezier(0,1,1,1),
-            ");
+            @include theme-transition('\
+                width #{$transition-timing} ease-out, \
+                opacity #{$transition-timing} / 2 cubic-bezier(0,1,1,1), \
+            ');
             opacity: 0;
             width: 0;
         }
-    
+
         &-button {
             @include button;
 

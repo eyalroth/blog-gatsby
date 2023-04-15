@@ -1,14 +1,11 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import PageHelmet from '../PageHelmet'
 import './style.scss'
 
 class NotFound extends React.Component {
     render() {
-
         return (
             <div className="notfound">
-                <PageHelmet subtitle="Page Not Found" />
                 <h1 className="notfound__title">
                     Page not found :(
                 </h1>

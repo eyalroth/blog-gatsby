@@ -26,11 +26,8 @@ class RssFeed {
     return `
           {
             allMarkdownRemark(
-              filter: {frontmatter: {
-                  language: {eq: "${this.languageId}"},
-                  layout: {eq: "post"}
-              }}
-              sort: { order: DESC, fields: [frontmatter___date] },
+              filter: {frontmatter: {language: {eq: "${this.languageId}"}, layout: {eq: "post"}}}
+              sort: {frontmatter: {date: DESC}}
             ) {
               edges {
                 node {

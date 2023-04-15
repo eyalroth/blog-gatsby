@@ -1,0 +1,9 @@
+@import "variables";
+
+:export {
+    xsm: $layout-breakpoint-xsm;
+    sm: $layout-breakpoint-sm;
+    md: $layout-breakpoint-md;
+    xmd: $layout-breakpoint-xmd;
+    lg: $layout-breakpoint-lg;
+}

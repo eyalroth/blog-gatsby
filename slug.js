@@ -6,7 +6,7 @@ module.exports.formatSlug = (frontmatter) => {
   const language = findById(languageId)
 
   let slug = path
-  if (layout == 'post') {
+  if (layout === 'post') {
     const postDate = moment(date)
     const postYear = postDate.format('YYYY')
     const postMonth = postDate.format('MM')

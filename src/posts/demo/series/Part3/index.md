@@ -51,14 +51,12 @@ Typography is not about typefaces. It’s not about what looks best, it’s abou
 
 Each transition took away a part of humanity from written language. Handwritten books being the most humane form and the digital typefaces being the least. Overuse of Helvetica is a good example. Messages are being told in a typeface just because it’s a safe option. It’s always there. Everyone knows it but yet, nobody knows it. Stop someone on the street and ask him what Helvetica is? Ask a designer the same question. Ask him where it came from, when, why and who designed it. Most of them will fail to answer these questions. Most of them used it in their precious projects but they still don’t spot it in the street.
 
-<figure>
-	<blockquote>
-		<p>Knowledge of the quality of a typeface is of the greatest importance for the functional, aesthetic and psychological effect.</p>
-		<footer>
-			<cite>— Josef Mueller-Brockmann</cite>
-		</footer>
-	</blockquote>
-</figure>
+<blockquote>
+    <p>Knowledge of the quality of a typeface is of the greatest importance for the functional, aesthetic and psychological effect.</p>
+    <footer>
+        <cite>— Josef Mueller-Brockmann</cite>
+    </footer>
+</blockquote>
 
 Typefaces don’t look handmade these days. And that’s all right. They don’t have to. Industrialism took that away from them and we’re fine with it. We’ve traded that part of humanity for a process that produces more books that are easier to read. That can’t be bad. And it isn’t.
 

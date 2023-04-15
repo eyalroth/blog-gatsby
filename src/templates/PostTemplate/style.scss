@@ -68,16 +68,27 @@
         }
         & figure {
             margin-bottom: 1rem;
-            & blockquote {
-                font-style: italic;
-                text-align: center;
+        }
+        & blockquote {
+            font-style: italic;
+            margin-top: 0;
+            padding-top: 1rem;
+            & p {
+                @include font-size(1.1);
                 margin-top: 0;
-                padding-top: 1rem;
-                & p {
-                    @include font-size(1.75);
-                    margin-top: 0;
-                    margin-bottom: 1rem;
-                    line-height: 2.5rem;
+                margin-bottom: 1rem;
+                line-height: 2rem;
+            }
+            @include ltr {
+                text-align: left;
+                & cite {
+                    text-align: left;
+                }
+            }
+            @include rtl {
+                text-align: right;
+                & cite {
+                  text-align: right;
                 }
             }
         }

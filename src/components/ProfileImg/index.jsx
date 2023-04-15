@@ -1,188 +1,186 @@
-import React from "react"
-import { navigate, StaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
-import { SiteLinks } from '../../consts/menuLinks'
+import React, { useContext, useEffect, useRef } from 'react'
+import { graphql, navigate, useStaticQuery } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import Context from '../Context'
 import { Author } from '../../consts/author'
+import { SiteLinks } from '../../consts/menuLinks'
+import { useRefState } from '../../utils/useRefState'
 
 export const squareImage = graphql`
   fragment squareImage on File {
     childImageSharp {
-        fluid(maxWidth: 145, maxHeight: 145, quality: 100) {
-            ...GatsbyImageSharpFluid_withWebp_noBase64
-        }
+        gatsbyImageData(layout: CONSTRAINED, width: 145, height: 145, quality: 100)
     }
   }
 `
 
-class ProfileImg extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            backWidth: 0,
-            isMouseUp: true
-        }
+function ProfileImg(props) {
+  const { className } = props
 
-        this.moveElementRef = React.createRef()
-        this.mouseUpElementRef = React.createRef()
-        
-        this.mouseMove = this.mouseMove.bind(this)
-        this.touchMove = this.touchMove.bind(this)
-        this.setMouseUp = this.setMouseUp.bind(this)
-        this.setMouseDown = this.setMouseDown.bind(this)
-        this.mouseClick = this.mouseClick.bind(this)
-    }
+  const [getBackWidth, setBackWidth] = useRefState(0)
+  const [getBackWidthUpdated, setBackWidthUpdated] = useRefState(false)
+  const [getMouseToggle, setMouseToggle] = useRefState(true)
 
-    render() {
-        return (
-            <StaticQuery
-                query={graphql`
-                    query ProfileImgQuery {
-                        front: file(relativePath: { eq: "icon2.png" }) {
-                            ...squareImage
-                        }
-                        
-                        back: file(relativePath: { eq: "icon.png" }) {
-                            ...squareImage
-                        }
+  const context = useContext(Context)
+  const { language } = context.layout
+  const languageId = language.get().id
+  const authorName = Author.name[languageId]
+
+  const data = useStaticQuery(graphql`
+                query ProfileImgQuery {
+                    front: file(relativePath: { eq: "icon2.png" }) {
+                        ...squareImage
                     }
-                `}
-                render={data => this.renderWithQueryData(data)}
-            />
-        )
+                    
+                    back: file(relativePath: { eq: "icon.png" }) {
+                        ...squareImage
+                    }
+                }
+            `)
+
+  const moveElementRef = useRef()
+  const mouseUpElementRef = useRef()
+
+  useEffect(() => {
+    const element = moveElementRef?.current
+    if (!element) {
+      return
     }
 
-    renderWithQueryData(data) {
-        const { className } = this.props
-        const { language } = this.context.layout
-        const languageId = language.get().id
+    element.addEventListener('mousemove', mouseMove)
+    element.addEventListener('touchmove', touchMove, { passive: true })
+    element.addEventListener('mouseup', setMouseUp)
+    element.addEventListener('mousedown', setMouseDown)
+    element.addEventListener('click', mouseClick)
 
-        const authorName = Author.name[languageId]
-        return (
-            <div className={className}>
-                <div 
-                    className="profile-img-container"
-                    style={{
-                        position: "relative",
-                        height: "inherit"
-                    }}
-                >
-                    <div 
-                        ref={this.moveElementRef}
-                        className="profile-img-pointermove"
-                        style={{
-                            width: "130%",
-                            height: "100%",
-                            left: "-15%",
-                            position: "absolute",
-                            background: "transparent",
-                            zIndex: 1
-                        }}
-                    />
-                    <div
-                        ref={this.mouseUpElementRef}
-                        className="profile-img-mouseup"
-                        style={{
-                            position: "fixed",
-                            height: "100vh",
-                            width: "100vw",
-                            padding: 0,
-                            margin: 0,
-                            top: 0,
-                            left: 0,
-                            background: "transparent",
-                            display: (this.state.isMouseUp) ? "none" : "inherit"
-                        }}
-                    />
-                    <Img
-                        className="profile-img-front"
-                        fluid={data.front.childImageSharp.fluid}
-                        title={authorName}
-                        alt={authorName}
-                        draggable={false}
-                    />
-                    <Img 
-                        className="profile-img-back"
-                        fluid={data.back.childImageSharp.fluid}
-                        title={authorName}
-                        alt={authorName}
-                        draggable={false}
-                        style={{
-                            position: "absolute",
-                            width: "100%",
-                            height: "100%",
-                            top: 0,
-                        }}
-                        imgStyle={{
-                            transition: "width 0.1s ease-out",
-                            width: `${this.state.backWidth}px`,
-                            objectPosition: "left",
-                        }}
-                    />
-                </div>
-            </div>
-        )
+    return () => {
+      element.removeEventListener('mousemove', mouseMove)
+      element.removeEventListener('touchmove', touchMove, { passive: true })
+      element.removeEventListener('mouseup', setMouseUp)
+      element.removeEventListener('mousedown', setMouseDown)
+      element.removeEventListener('click', mouseClick)
+    }
+  }, [])
+
+  useEffect(() => {
+    const element = mouseUpElementRef?.current
+    if (!element) {
+      return
     }
 
-    componentDidMount() {
-        this.moveElementRef.current.addEventListener('mousemove', this.mouseMove)
-        this.moveElementRef.current.addEventListener('touchmove', this.touchMove, {passive: true})
-        this.moveElementRef.current.addEventListener('mouseup', this.setMouseUp)
-        this.moveElementRef.current.addEventListener('mousedown', this.setMouseDown)
-        this.moveElementRef.current.addEventListener('click', this.mouseClick)
-        this.mouseUpElementRef.current.addEventListener('mouseup', this.setMouseUp)
-    }
-    
-    componentWillUnmount() {
-        this.moveElementRef.current.removeEventListener('mousemove', this.mouseMove)
-        this.moveElementRef.current.removeEventListener('touchmove', this.touchMove)
-        this.moveElementRef.current.removeEventListener('mouseup', this.setMouseUp)
-        this.moveElementRef.current.removeEventListener('mousedown', this.setMouseDown)
-        this.moveElementRef.current.removeEventListener('click', this.mouseClick)
-        this.mouseUpElementRef.current.removeEventListener('mouseup', this.setMouseUp)
-    }
+    element.addEventListener('mouseup', setMouseUp)
 
-    mouseMove(event) {
-        if (!this.state.isMouseUp) {
-            this.setBackWidth(event.clientX)
-        }
+    return () => {
+      element.removeEventListener('mouseup', setMouseUp)
     }
+  }, [])
 
-    touchMove(event) {
-        this.setBackWidth(event.changedTouches[0].clientX)
+  function mouseMove(event) {
+    if (!getMouseToggle()) {
+      updateBackWidth(event.clientX)
     }
+  }
 
-    setBackWidth(x) {
-        const container = this.mouseUpElementRef.current.parentElement
-        const { left } = container.getBoundingClientRect()
-        const newWidth = x - left
+  function touchMove(event) {
+    updateBackWidth(event.changedTouches[0].clientX)
+  }
 
-        this.setState({
-            backWidth: Math.max(newWidth, 0)
-        })
-    }
+  function updateBackWidth(x) {
+    const container = mouseUpElementRef.current.parentElement
+    const { left, width } = container.getBoundingClientRect()
+    const newWidth = Math.min(Math.max(x - left, 0), width)
 
-    setMouseUp(event) {
-        this.toggleMouse(event, true)
+    if (newWidth !== getBackWidth()) {
+      setBackWidth(newWidth)
+      setBackWidthUpdated(true)
     }
+  }
 
-    setMouseDown(event) {
-        this.toggleMouse(event, false)
-    }
-    
-    toggleMouse(event, isMouseUp) {
-        const isLeftClick = event.which === 1
-        if (isLeftClick) {
-            this.setState({isMouseUp})
-        }
-    }
+  function setMouseUp(event) {
+    toggleMouse(event, true)
+  }
 
-    mouseClick(event) {
-        const languageId = this.context.layout.language.get().id
-        navigate(SiteLinks[languageId].Home.path)
+  function setMouseDown(event) {
+    toggleMouse(event, false)
+  }
+
+  function toggleMouse(event, mouseToggle) {
+    const isLeftClick = event.which === 1
+    if (isLeftClick) {
+      setMouseToggle(mouseToggle)
     }
+  }
+
+  async function mouseClick(event) {
+    if (!getBackWidthUpdated()) {
+      await navigate(SiteLinks[languageId].Home.path)
+    }
+    setBackWidthUpdated(false)
+  }
+
+  return <>
+    <div className={className}>
+      <div
+        className='profile-img-container'
+        style={{
+          position: 'relative',
+          height: 'inherit',
+        }}
+      >
+        <div
+          ref={moveElementRef}
+          className='profile-img-pointermove'
+          style={{
+            width: '130%',
+            height: '100%',
+            left: '-15%',
+            position: 'absolute',
+            background: 'transparent',
+            zIndex: 1,
+          }}
+        />
+        <div
+          ref={mouseUpElementRef}
+          className='profile-img-mouseup'
+          style={{
+            position: 'fixed',
+            height: '100vh',
+            width: '100vw',
+            padding: 0,
+            margin: 0,
+            top: 0,
+            left: 0,
+            background: 'transparent',
+            display: getMouseToggle() ? 'none' : 'inherit',
+          }}
+        />
+        <GatsbyImage
+          className='profile-img-front'
+          image={data.front.childImageSharp.gatsbyImageData}
+          title={authorName}
+          alt={authorName}
+          draggable={false}
+        />
+        <GatsbyImage
+          className='profile-img-back'
+          image={data.back.childImageSharp.gatsbyImageData}
+          title={authorName}
+          alt={authorName}
+          style={{
+            position: 'absolute',
+            width: `${getBackWidth()}px`,
+            height: '100%',
+            top: 0,
+            left: 0,
+          }}
+          imgStyle={{
+            transition: 'width 0.1s ease-out',
+            objectPosition: 'left',
+          }}
+        />
+      </div>
+    </div>
+  </>
 }
-
-ProfileImg.contextType = Context
 
 export default ProfileImg

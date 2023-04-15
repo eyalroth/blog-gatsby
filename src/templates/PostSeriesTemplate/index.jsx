@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import PostList from '../../components/PostList'
 import './style.scss'
+import createHead from '../../components/Head'
 
 class PostSeriesTemplate extends React.Component {
     render() {
@@ -14,45 +15,42 @@ class PostSeriesTemplate extends React.Component {
       )
 
       return (
-        <PostList subtitle={seriesName} data={this.props.data}>
+        <PostList data={this.props.data}>
           {title}
         </PostList>
       )
     }
 }
-  
+
 export default PostSeriesTemplate
+
+export const Head = createHead()
 
 export const pageQuery = graphql`
   query PostSeriesTemplateQuery($seriesPath: String) {
-      site {
-        siteMetadata {
-          demo
-        }
+    site {
+      siteMetadata {
+        demo
       }
-      allMarkdownRemark(
-          filter: { frontmatter: { 
-              series: { path: { eq: $seriesPath }}
-          }}
-          sort: { order: ASC, fields: [frontmatter___series___order] }
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-              readingTime {
-                text
-                minutes
-              }
-            }
-            frontmatter {
-              demo
-              title
-              date
-              tags
-            }
+    }
+    allMarkdownRemark(
+      filter: {frontmatter: {series: {path: {eq: $seriesPath}}}}
+      sort: {frontmatter: {series: {order: ASC}}}
+    ) {
+      edges {
+        node {
+          rawMarkdownBody
+          fields {
+            slug
+          }
+          frontmatter {
+            demo
+            title
+            date
+            tags
           }
         }
       }
+    }
   }
 `
