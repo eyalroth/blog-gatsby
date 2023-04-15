@@ -1,9 +1,27 @@
 import './src/assets/fonts/fontello/css/fontello.css'
-import '@fontsource/arimo'
-import '@fontsource/lora'
-import '@fontsource/roboto'
 import littlefoot from 'littlefoot'
 import './src/assets/scss/littlefoot.scss'
+
+import '@fontsource/arimo/hebrew-400.css'
+import '@fontsource/arimo/hebrew-500.css'
+import '@fontsource/arimo/hebrew-700.css'
+import '@fontsource/arimo/hebrew-400-italic.css'
+import '@fontsource/arimo/hebrew-500-italic.css'
+import '@fontsource/arimo/hebrew-700-italic.css'
+
+import '@fontsource/lora/latin-400.css'
+import '@fontsource/lora/latin-500.css'
+import '@fontsource/lora/latin-700.css'
+import '@fontsource/lora/latin-400-italic.css'
+import '@fontsource/lora/latin-500-italic.css'
+import '@fontsource/lora/latin-700-italic.css'
+
+import '@fontsource/roboto/latin-400.css'
+import '@fontsource/roboto/latin-500.css'
+import '@fontsource/roboto/latin-700.css'
+import '@fontsource/roboto/latin-400-italic.css'
+import '@fontsource/roboto/latin-500-italic.css'
+import '@fontsource/roboto/latin-700-italic.css'
 
 require('prismjs/themes/prism-okaidia.css')
 require('prismjs/plugins/line-numbers/prism-line-numbers.css')
